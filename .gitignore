@@ -1,0 +1,104 @@
+# Dependencies
+node_modules/
+.pnp/
+.pnp.*
+.bun/
+
+# Next.js
+.next/
+out/
+build/
+dist/
+.turbo/
+
+# Production builds and generated output
+coverage/
+*.tsbuildinfo
+next-env.d.ts
+
+# Environment files and secrets
+.env
+.env.*
+!.env.example
+!.env.template
+*.pem
+*.key
+*.crt
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+bun-debug.log*
+
+# Local databases and database sidecars
+*.db
+*.sqlite
+*.sqlite3
+*.db-journal
+*.sqlite-journal
+prisma/*.db
+prisma/*.sqlite
+
+# Local AI models and model caches
+models/*
+!models/.gitkeep
+.cache/
+.cache/huggingface/
+.huggingface/
+.transformers-cache/
+onnx/
+*.onnx
+*.onnx_data
+*.safetensors
+*.gguf
+*.pt
+*.pth
+*.bin
+
+# Datasets, uploaded documents, and generated research artifacts
+datasets/raw/*
+!datasets/raw/.gitkeep
+datasets/processed/*
+!datasets/processed/.gitkeep
+reference-corpus/
+corpus/
+uploads/
+storage/
+tmp/
+temp/
+*.pdf
+*.doc
+*.docx
+
+# Generated experiment output (commit selected, reviewed summaries explicitly)
+experiments/evaluation-results/*
+!experiments/evaluation-results/.gitkeep
+reports/generated/
+artifacts/
+
+# Testing and tooling
+.playwright/
+playwright-report/
+test-results/
+.vitest/
+.eslintcache
+
+# OS and editor files
+.DS_Store
+Thumbs.db
+Desktop.ini
+*.swp
+*.swo
+*~
+.idea/
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+
+# Package manager lockfiles for package managers not used by this project
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
