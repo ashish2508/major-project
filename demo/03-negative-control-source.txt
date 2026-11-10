@@ -1,0 +1,16 @@
+Capability Rotation for Guest Network Gateways
+
+Threat model
+A municipal wireless gateway offers short guest sessions to devices that have no persistent identity. An attacker who captures a bearer capability might replay it from a different radio segment. The proposed protocol assumes encrypted management traffic and untrusted client networks. It does not try to identify a person or link visits across locations. Its main objective is to confine the effect of a stolen capability to a small region and time interval.
+
+Capability format
+Each grant carries an audience describing the access zone, an expiry measured against the gateway clock, and an unpredictable nonce. The issuing service signs the fields as a single authenticated message. A gateway must reject a grant when the audience does not describe its own zone, even when the signature is valid. Admission packets also include a challenge response bound to the association that originally requested the grant.
+
+Rotation policy
+Verification keys change on a fixed schedule, with a short overlap to handle clocks that differ slightly. A revoked signing key bypasses the normal overlap window. Radios receive the revocation status through an authenticated management channel. When a device moves into a neighboring zone it requests a new grant. Handing its existing grant to the next gateway would extend the usefulness of a stolen message.
+
+Replay accounting
+Gateways retain recently consumed nonces for the validity period of the grants. A bounded table records the zone and the expiry associated with each entry. The table drops expired nonces during a periodic maintenance pass. If available space runs low, the admission path temporarily slows new associations to preserve the validity of replay checks for already issued grants.
+
+Assessment plan
+The proposed exercise places one radio on a congested channel and another on a quiet channel. A traffic generator submits stale messages, duplicate challenges, and grants intended for a different zone. The observer records which messages reach the admission stage and which are refused earlier. This synthetic plan reports no attack success rate and makes no claim about deployed networks.

@@ -1,7 +1,7 @@
 import { readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { z } from 'zod';
-import { digest } from '../dataset/inventory';
+import { digest } from '../digest';
 import { segment } from '../detection/segmentation';
 import { Tfidf } from '../detection/tfidf';
 import {

@@ -10,7 +10,8 @@ import {
   type PartitionName,
 } from '../src/lib/dataset/split';
 import { digest } from '../src/lib/dataset/inventory';
-const inv: Inventory = JSON.parse(await readFile('.cache/research/inventory.json', 'utf8'));
+import { cacheDirectory, reportDirectory } from './research-paths';
+const inv: Inventory = JSON.parse(await readFile(`${cacheDirectory}/inventory.json`, 'utf8'));
 const families = documentFamilies(inv.documents),
   byDoc = annotationIndex(inv.annotations),
   docs = new Map(inv.documents.map((d) => [d.reference, d]));
@@ -163,10 +164,7 @@ for (const d of inv.documents)
           : 'unused-source-outside-bounded-candidate-collection'),
     });
 validateSplit(split, inv);
-await writeFile(
-  'reports/implementation/split-manifest.json',
-  JSON.stringify(split, null, 2) + '\n',
-);
+await writeFile(`${reportDirectory}/split-manifest.json`, JSON.stringify(split, null, 2) + '\n');
 const summary: Record<string, unknown> = { seed: SPLIT_SEED, reserved, config };
 for (const p of ['train', 'validation', 'test'] as const) {
   const anns = split[p].annotationIds.map((id) => inv.annotations.find((a) => a.id === id)!);
@@ -192,8 +190,5 @@ for (const p of ['train', 'validation', 'test'] as const) {
 const reasons: Record<string, number> = {};
 for (const d of split.excluded) reasons[d.reason] = (reasons[d.reason] ?? 0) + 1;
 summary.exclusions = reasons;
-await writeFile(
-  'reports/implementation/split-summary.json',
-  JSON.stringify(summary, null, 2) + '\n',
-);
+await writeFile(`${reportDirectory}/split-summary.json`, JSON.stringify(summary, null, 2) + '\n');
 console.log(JSON.stringify(summary, null, 2));

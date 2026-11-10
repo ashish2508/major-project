@@ -44,4 +44,6 @@ Report missed cases (no jointly overlapping detection), false-positive detection
 
 Store commands, code revision/working-tree state, fingerprints, split/config hashes, model hashes, versions, provider, seeds, validation selections, predictions, metrics and failure logs under `reports/implementation/`. Keep weights/raw data/large derived caches outside Git. See [status](status.md) for live progress. No commit or push is authorized.
 
+The [recorded comparison](../reports/implementation/benchmark-summary.md) selected a lexical weight of 1.0 on validation. The hybrid tied TF-IDF at 0.6033 held-out PlagDet, with MiniLM at 0.3047. Interior weights remain validation results. To preserve the recorded comparison when repeating the experiment, set `RESEARCH_RUN_DIRECTORY` to an ignored path before running `bun run reproduce`.
+
 Every major milestone closes with relevant documentation, actual checks/results, remaining issues and the next step. Historical functionality checks are not benchmark results. Optional fine-tuning is deferred; the first three methods and their actual comparisons take priority.

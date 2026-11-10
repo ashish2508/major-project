@@ -3,6 +3,12 @@ node_modules
 .cache
 data
 coverage
+.vercel
+out
+build
+test-results
+playwright-report
+reports/implementation/split-manifest.json
 reports/pan-pc-11/results.json
 reports/pan-pc-11/token-probe.json
 bun.lock

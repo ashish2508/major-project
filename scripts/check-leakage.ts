@@ -1,12 +1,12 @@
 import { readFile, writeFile } from 'node:fs/promises';
 import type { Inventory, DatasetSplit } from '../src/lib/dataset/types';
-import { loadDocument } from '../src/lib/dataset/inventory';
+import { digest, loadDocument } from '../src/lib/dataset/inventory';
 import { validateSplit } from '../src/lib/dataset/split';
 import { lexicalTokens } from '../src/lib/detection/tfidf';
-const inv: Inventory = JSON.parse(await readFile('.cache/research/inventory.json', 'utf8'));
-const split: DatasetSplit = JSON.parse(
-  await readFile('reports/implementation/split-manifest.json', 'utf8'),
-);
+import { cacheDirectory, reportDirectory } from './research-paths';
+const inv: Inventory = JSON.parse(await readFile(`${cacheDirectory}/inventory.json`, 'utf8'));
+const manifestBytes = await readFile(`${reportDirectory}/split-manifest.json`);
+const split: DatasetSplit = JSON.parse(manifestBytes.toString('utf8'));
 validateSplit(split, inv);
 const docs = new Map(inv.documents.map((d) => [d.reference, d]));
 const selected = (['train', 'validation', 'test'] as const).flatMap((p) =>
@@ -52,6 +52,7 @@ const largest = [...intersections]
   .sort((a, b) => b.containment - a.containment);
 const violations = largest.filter((p) => p.intersection >= 20 && p.containment >= 0.2);
 const result = {
+  splitManifestSha256: digest(manifestBytes),
   algorithm: 'all-selected-document normalized 5-word shingle cross-partition containment',
   minimumSharedShingles: 20,
   maximumAllowedContainment: 0.2,
@@ -64,10 +65,7 @@ const result = {
   limitation:
     'This detects substantial textual sharing, not all shared ancestry, author aliases, quotations or semantic dependence. Conservative author/title grouping is checked separately.',
 };
-await writeFile(
-  'reports/implementation/leakage-check.json',
-  JSON.stringify(result, null, 2) + '\n',
-);
+await writeFile(`${reportDirectory}/leakage-check.json`, JSON.stringify(result, null, 2) + '\n');
 console.log({
   documents: selected.length,
   violations: violations.length,

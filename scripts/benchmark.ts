@@ -25,17 +25,17 @@ import {
   type DetectionConfig,
 } from '../src/lib/detection/detector';
 import { evaluatePan, overlaps } from '../src/lib/evaluation/pan';
+import { cacheDirectory as cache, reportDirectory as dir } from './research-paths';
 
-const dir = 'reports/implementation',
-  cache = '.cache/research',
-  runStart = performance.now();
+const runStart = performance.now();
 await mkdir(cache, { recursive: true });
 const inv: Inventory = JSON.parse(await readFile(`${cache}/inventory.json`, 'utf8'));
 const manifestBytes = await readFile(`${dir}/split-manifest.json`),
   split: DatasetSplit = JSON.parse(manifestBytes.toString());
 validateSplit(split, inv);
 const leakage = JSON.parse(await readFile(`${dir}/leakage-check.json`, 'utf8'));
-if (!leakage.passed) throw new Error('Leakage preflight failed');
+if (!leakage.passed || leakage.splitManifestSha256 !== digest(manifestBytes))
+  throw new Error('Run bun run prepare:splits to check leakage for this split before scoring.');
 const docs = new Map(inv.documents.map((d) => [d.reference, d])),
   annMap = new Map(inv.annotations.map((a) => [a.id, a]));
 const countTokens = await tokenCounter();
@@ -63,6 +63,7 @@ const codeFiles = [
   'scripts/benchmark.ts',
   'scripts/prepare-split.ts',
   'scripts/check-leakage.ts',
+  'scripts/research-paths.ts',
 ];
 const codeHash = digest(
   (await Promise.all(codeFiles.map(async (p) => p + '\0' + digest(await readFile(p))))).join('\n'),

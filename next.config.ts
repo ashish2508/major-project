@@ -1,17 +1,10 @@
 import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
-  /* config options here */
   cacheComponents: true,
   partialPrefetching: true,
-  turbopack: {
-    rules: {
-      '*.css': {
-        loaders: ['@tailwindcss/turbopack'],
-        as: '*.css',
-      },
-    },
-  },
+  // PDF.js resolves its worker relative to the installed module.
+  serverExternalPackages: ['pdfjs-dist'],
 };
 
 export default nextConfig;

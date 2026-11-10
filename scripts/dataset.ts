@@ -1,12 +1,13 @@
 import { mkdir, writeFile } from 'node:fs/promises';
 import { buildInventory } from '../src/lib/dataset/inventory';
+import { cacheDirectory, reportDirectory } from './research-paths';
 const start = performance.now();
 const inventory = await buildInventory(process.argv[2]);
-await mkdir('.cache/research', { recursive: true });
-await mkdir('reports/implementation', { recursive: true });
-await writeFile('.cache/research/inventory.json', JSON.stringify(inventory));
+await mkdir(cacheDirectory, { recursive: true });
+await mkdir(reportDirectory, { recursive: true });
+await writeFile(`${cacheDirectory}/inventory.json`, JSON.stringify(inventory));
 await writeFile(
-  'reports/implementation/dataset-validation.json',
+  `${reportDirectory}/dataset-validation.json`,
   JSON.stringify(
     {
       fingerprint: inventory.fingerprint,

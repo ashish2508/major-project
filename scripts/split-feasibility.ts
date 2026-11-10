@@ -6,7 +6,8 @@ import {
   eligiblePartition,
   SPLIT_SEED,
 } from '../src/lib/dataset/split';
-const inv: Inventory = JSON.parse(await readFile('.cache/research/inventory.json', 'utf8'));
+import { cacheDirectory, reportDirectory } from './research-paths';
+const inv: Inventory = JSON.parse(await readFile(`${cacheDirectory}/inventory.json`, 'utf8'));
 const families = documentFamilies(inv.documents),
   byDoc = annotationIndex(inv.annotations),
   docs = new Map(inv.documents.map((d) => [d.reference, d]));
@@ -32,9 +33,9 @@ for (const d of inv.documents.filter((d) => d.role === 'suspicious')) {
       s[key] = (s[key] ?? 0) + 1;
     }
 }
-await writeFile('.cache/research/eligible.json', JSON.stringify({ families, eligible }));
+await writeFile(`${cacheDirectory}/eligible.json`, JSON.stringify({ families, eligible }));
 await writeFile(
-  'reports/implementation/split-feasibility.json',
+  `${reportDirectory}/split-feasibility.json`,
   JSON.stringify(
     { seed: SPLIT_SEED, families: new Set(Object.values(families)).size, summary },
     null,

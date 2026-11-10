@@ -1,11 +1,11 @@
 import { createHash } from 'node:crypto';
 import { readFile, readdir } from 'node:fs/promises';
-import { resolve, relative } from 'node:path';
+import { resolve, relative, sep } from 'node:path';
+import { digest } from '../digest';
 import { decodeCorpusText, parseAnnotationXml, validateSpan } from './parser';
 import type { Inventory, DocumentRecord, PlagiarismAnnotation } from './types';
 export const DEFAULT_CORPUS = 'data/raw/pan-pc-11/unrar-extracted/pan-plagiarism-corpus-2011';
-export const digest = (b: string | Uint8Array, algorithm = 'sha256') =>
-  createHash(algorithm).update(b).digest('hex');
+export { digest } from '../digest';
 export async function loadDocument(root: string, doc: DocumentRecord): Promise<string> {
   const bytes = await readFile(resolve(root, doc.textPath));
   if (digest(bytes) !== doc.sha256) throw new Error(`Document changed: ${doc.reference}`);
@@ -66,8 +66,8 @@ export async function buildInventory(root = DEFAULT_CORPUS): Promise<Inventory> 
           reference: ref,
           role,
           part,
-          textPath: relative(resolve(root), textPath),
-          xmlPath: relative(resolve(root), xmlPath),
+          textPath: relative(resolve(root), textPath).split(sep).join('/'),
+          xmlPath: relative(resolve(root), xmlPath).split(sep).join('/'),
           language: parsed.language,
           authors: parsed.authors,
           title: parsed.title,

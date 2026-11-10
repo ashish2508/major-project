@@ -1,11 +1,14 @@
 import { ZodError } from 'zod';
 import { analyzeDocuments } from '@/lib/application/analysis';
 import { boundedFormData, parseAnalysisRequest, RequestError } from '@/lib/application/request';
-export const runtime = 'nodejs';
+// Cache Components uses the default Node.js runtime for native ONNX inference.
 let busy = false;
 export async function POST(request: Request) {
   const origin = request.headers.get('origin');
-  if (origin && origin !== new URL(request.url).origin)
+  const url = new URL(request.url);
+  // Next can normalize request.url to localhost even when the browser used 127.0.0.1.
+  const host = request.headers.get('host') ?? url.host;
+  if (origin && origin !== `${url.protocol}//${host}`)
     return Response.json(
       { error: 'Cross-origin analysis requests are not supported' },
       { status: 403 },

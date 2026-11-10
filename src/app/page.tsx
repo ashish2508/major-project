@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { useEffect, useRef, useState, type FormEvent } from 'react';
 import type { AnalysisResult } from '@/lib/application/analysis';
 import type { Method, DetectionConfig } from '@/lib/detection/detector';
@@ -125,12 +126,12 @@ export default function Home() {
   return (
     <div className="app-shell">
       <header className="topbar">
-        <a href="/" className="brand">
+        <Link href="/" className="brand">
           <span className="brand-mark" aria-hidden="true">
             ¶
           </span>{' '}
           Passage Review<span className="brand-tag">RESEARCH WORKSPACE</span>
-        </a>
+        </Link>
         <span className="local-badge">
           <span aria-hidden="true" />
           Local processing
@@ -360,7 +361,7 @@ export default function Home() {
             <h3>What the methods measure</h3>
             <dl>
               <dt>TF-IDF</dt>
-              <dd>Overlap in weighted words and phrases.</dd>
+              <dd>Overlap in weighted words.</dd>
               <dt>MiniLM</dt>
               <dd>Similarity in sentence and short-passage meaning.</dd>
               <dt>Hybrid</dt>

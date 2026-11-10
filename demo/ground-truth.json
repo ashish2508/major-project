@@ -1,0 +1,144 @@
+{
+  "version": 1,
+  "scope": "Original synthetic application demonstration. Separate from PAN-PC-11.",
+  "coordinates": {
+    "unit": "UTF-16 code units",
+    "offsets": "Zero-based half-open spans [offset, offset + length).",
+    "suspicious": "Text returned by the application PDF.js extractor, including its line and page separators.",
+    "source": "UTF-8 TXT decoded by the application, including original line endings.",
+    "page": "One-based PDF page number."
+  },
+  "cases": [
+    {
+      "id": "01-direct-copy",
+      "kind": "direct-copy",
+      "suspiciousFile": "01-direct-copy-suspicious.pdf",
+      "sourceFile": "01-direct-copy-source.txt",
+      "suspiciousTitle": "A Replica Catch-Up Protocol for Read-Heavy Services",
+      "sourceTitle": "Lag-Aware Snapshots for Replicated Key-Value Stores",
+      "suspiciousExtractedCharacters": 2895,
+      "sourceCharacters": 2829,
+      "matches": [
+        {
+          "id": "01-direct-copy-1",
+          "suspicious": {
+            "section": "Durable progress",
+            "offset": 499,
+            "length": 501,
+            "excerpt": "The follower reports a verified range only after its contents and range identifier are durable. The leader\ntreats this acknowledgment as progress information and never as a vote to commit an application write.\nWhen the final range arrives, the follower writes an installation marker before switching its active\ndirectory. Recovery checks the marker and the manifest together. This ordering makes a partial\nsnapshot distinguishable from a completed installation even if a restart interrupts the switch.",
+            "page": 1
+          },
+          "source": {
+            "section": "Acknowledgment rule",
+            "offset": 1395,
+            "length": 501,
+            "excerpt": "The follower reports a verified range only after its contents and range identifier are durable. The leader treats this acknowledgment as progress information and never as a vote to commit an application write. When the final range arrives, the follower writes an installation marker before switching its active directory. Recovery checks the marker and the manifest together. This ordering makes a partial snapshot distinguishable from a completed installation even if a restart interrupts the switch."
+          }
+        },
+        {
+          "id": "01-direct-copy-2",
+          "suspicious": {
+            "section": "Image consistency",
+            "offset": 1490,
+            "length": 437,
+            "excerpt": "The leader seals a snapshot at a committed log index and advertises that index before sending any data.\nA follower stages the incoming key ranges in a separate directory. It installs the directory only after\nchecking the manifest and the digest of every range. Log entries above the sealed index remain in a\nreplay queue. This boundary prevents a transfer from combining keys that were observed at different\npoints in the update history.",
+            "page": 2
+          },
+          "source": {
+            "section": "Snapshot boundary",
+            "offset": 497,
+            "length": 437,
+            "excerpt": "The leader seals a snapshot at a committed log index and advertises that index before sending any data. A follower stages the incoming key ranges in a separate directory. It installs the directory only after checking the manifest and the digest of every range. Log entries above the sealed index remain in a replay queue. This boundary prevents a transfer from combining keys that were observed at different points in the update history."
+          }
+        },
+        {
+          "id": "01-direct-copy-3",
+          "suspicious": {
+            "section": "Handling a growing backlog",
+            "offset": 2368,
+            "length": 478,
+            "excerpt": "A replay queue can grow while a slow follower is receiving a snapshot. The leader therefore assigns\neach transfer a fixed memory budget and spills excess entries into a sequential file. The follower\nconsumes the buffered records in index order after installation. If the sender cannot retain the interval\nbeginning immediately after the sealed index, it aborts the transfer and chooses a new boundary. This\nfailure mode trades additional copying for an unbroken replay sequence.",
+            "page": 2
+          },
+          "source": {
+            "section": "Buffer pressure",
+            "offset": 2350,
+            "length": 478,
+            "excerpt": "A replay queue can grow while a slow follower is receiving a snapshot. The leader therefore assigns each transfer a fixed memory budget and spills excess entries into a sequential file. The follower consumes the buffered records in index order after installation. If the sender cannot retain the interval beginning immediately after the sealed index, it aborts the transfer and chooses a new boundary. This failure mode trades additional copying for an unbroken replay sequence."
+          }
+        }
+      ]
+    },
+    {
+      "id": "02-paraphrase",
+      "kind": "paraphrase",
+      "suspiciousFile": "02-paraphrase-suspicious.pdf",
+      "sourceFile": "02-paraphrase-source.txt",
+      "suspiciousTitle": "Tracking Prediction Quality While Confirmation Arrives Late",
+      "sourceTitle": "Delayed Labels in a Streaming Fault Classifier",
+      "suspiciousExtractedCharacters": 2601,
+      "sourceCharacters": 2884,
+      "matches": [
+        {
+          "id": "02-paraphrase-1",
+          "suspicious": {
+            "section": "When to trust a score",
+            "offset": 517,
+            "length": 415,
+            "excerpt": "Straightforward faults tend to be settled ahead of ambiguous ones. As a result, the subset closed early\ncan make the system look more accurate than it will once the difficult files have been examined. For\neach class of machine, contrast promptly closed tickets with ones that stayed open longer. If they\nbehave differently, wait for the pending tickets before saying that one predictor performs better than\nanother.",
+            "page": 1
+          },
+          "source": {
+            "section": "Bias from fast decisions",
+            "offset": 2440,
+            "length": 443,
+            "excerpt": "Initial confirmations often overrepresent incidents with obvious symptoms because they are quicker for reviewers to resolve. The current precision estimate can therefore appear better than the final estimate. Compare prompt and delayed decisions within each equipment family before trusting the early curve. If the two subsets differ sharply, the dashboard should withhold a comparative claim until the outstanding investigations are resolved."
+          }
+        },
+        {
+          "id": "02-paraphrase-2",
+          "suspicious": {
+            "section": "Which period owns a record",
+            "offset": 1421,
+            "length": 393,
+            "excerpt": "Put an alarm in the calendar group for when the algorithm issued its decision. If a technician verifies it\na week later, revise the figures for the original period. Counting it on the day the ticket closes makes\nthe performance chart react to clerical bursts instead of changes in the predictor. Show how many\nalarms have been resolved so readers can tell an interim number from a settled one.",
+            "page": 2
+          },
+          "source": {
+            "section": "Evaluation cohorts",
+            "offset": 545,
+            "length": 449,
+            "excerpt": "Assign each observation to an evaluation cohort using the time of inference. The arrival of an adjudication is only a signal to update the older cohort. It never moves the observation into a more recent bucket. Otherwise a day with a backlog clearance may look unusually difficult even though its predictions were ordinary. A report includes the fraction of cases already adjudicated, and readers can distinguish provisional scores from mature ones."
+          }
+        },
+        {
+          "id": "02-paraphrase-3",
+          "suspicious": {
+            "section": "Amending a closed ticket",
+            "offset": 2181,
+            "length": 371,
+            "excerpt": "Keep the amount each ticket added to the running totals. If its verdict is changed, take away the old\namount and insert the amount implied by the new verdict into the same historical bucket. A change of\nmind must not count as an additional incident. With that rule and the history of amendments, an auditor\ncan recover the figures that were visible on any reporting date.",
+            "page": 2
+          },
+          "source": {
+            "section": "Correction records",
+            "offset": 1475,
+            "length": 462,
+            "excerpt": "Store per-event contributions to the evaluation counters until adjudications are stable. When a reviewer replaces an earlier label, remove the contribution computed from the superseded value and add one computed from the revised value. The correction must update the original aggregate rather than append a second case. This design keeps repeated amendments from inflating the sample size and lets investigators reconstruct the value published at any checkpoint."
+          }
+        }
+      ]
+    },
+    {
+      "id": "03-negative-control",
+      "kind": "negative-control",
+      "suspiciousFile": "03-negative-control-suspicious.pdf",
+      "sourceFile": "03-negative-control-source.txt",
+      "suspiciousTitle": "Dictionary Reuse in a Columnar Product Catalog",
+      "sourceTitle": "Capability Rotation for Guest Network Gateways",
+      "suspiciousExtractedCharacters": 2318,
+      "sourceCharacters": 2201,
+      "matches": []
+    }
+  ]
+}

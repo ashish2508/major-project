@@ -1,4 +1,4 @@
-@import 'tailwindcss';
+@import 'tailwindcss/preflight.css';
 :root {
   --ink: #182c35;
   --muted: #64747a;
@@ -6,10 +6,6 @@
   --paper: #f4f5f0;
   --teal: #146858;
   --pale: #e7f0e9;
-  --font-sans: Arial, Helvetica, sans-serif;
-  --font-mono: ui-monospace, SFMono-Regular, monospace;
-}
-@theme inline {
   --font-sans: Arial, Helvetica, sans-serif;
   --font-mono: ui-monospace, SFMono-Regular, monospace;
 }

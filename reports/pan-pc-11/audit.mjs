@@ -1,7 +1,7 @@
 // Read-only, corpus-specific exploration. Not an application XML parser.
 // Fails on XML outside the simple document/feature shape seen in this release.
 import { readFileSync, readdirSync, writeFileSync } from 'node:fs';
-import { resolve, relative, basename } from 'node:path';
+import { resolve, relative } from 'node:path';
 import { createHash } from 'node:crypto';
 const root = resolve(
   process.argv[2] ?? 'data/raw/pan-pc-11/unrar-extracted/pan-plagiarism-corpus-2011',

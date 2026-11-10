@@ -2,7 +2,6 @@ import { getArtifacts } from '@/lib/application/analysis';
 import { access } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { MODEL_DIRECTORY } from '@/lib/embeddings/model';
-export const runtime = 'nodejs';
 export async function GET(request: Request) {
   // Read request state so this reports local readiness at request time with Cache Components.
   void request.url;

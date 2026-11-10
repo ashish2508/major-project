@@ -1,0 +1,19 @@
+Delayed Labels in a Streaming Fault Classifier
+
+Problem setting
+A monitoring model categorizes telemetry bursts from industrial equipment. Human reviewers may confirm an incident days after the corresponding burst. Confirmation lag varies by maintenance shift and by the kind of event. The proposed study concerns the reliability of model evaluation during such gaps. Each prediction is archived with its probability vector, emission time, model version, and an identifier that can be joined to a later investigation record.
+
+Evaluation cohorts
+Assign each observation to an evaluation cohort using the time of inference. The arrival of an adjudication is only a signal to update the older cohort. It never moves the observation into a more recent bucket. Otherwise a day with a backlog clearance may look unusually difficult even though its predictions were ordinary. A report includes the fraction of cases already adjudicated, and readers can distinguish provisional scores from mature ones.
+
+Reference schedule
+We propose a weekly frozen comparator and a second model that updates on a fixed schedule. Both predictors receive the same feature snapshots and produce output before any adjudication is available. Review staff should not see which system supplied a particular estimate. The protocol records the ages of unresolved incidents and groups evaluation views by equipment category to expose delays that affect only one part of the installation.
+
+Correction records
+Store per-event contributions to the evaluation counters until adjudications are stable. When a reviewer replaces an earlier label, remove the contribution computed from the superseded value and add one computed from the revised value. The correction must update the original aggregate rather than append a second case. This design keeps repeated amendments from inflating the sample size and lets investigators reconstruct the value published at any checkpoint.
+
+Shift analysis
+A deployment may have quiet weekends and unusually concentrated weekday inspections. The proposed replay uses intact weekly blocks so that this pattern remains visible. Stratifying randomly by individual record would spread weekend bursts across the whole calendar and hide the periods in which feedback is sparse. We would inspect differences across shifts before combining the results. The design specifies an analysis plan and supplies no measured outcome.
+
+Bias from fast decisions
+Initial confirmations often overrepresent incidents with obvious symptoms because they are quicker for reviewers to resolve. The current precision estimate can therefore appear better than the final estimate. Compare prompt and delayed decisions within each equipment family before trusting the early curve. If the two subsets differ sharply, the dashboard should withhold a comparative claim until the outstanding investigations are resolved.

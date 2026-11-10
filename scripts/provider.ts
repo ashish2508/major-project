@@ -2,7 +2,9 @@ import * as ort from 'onnxruntime-node';
 import { mkdir, readdir, readFile, writeFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { getTokenizer, MODEL_DIRECTORY, MODEL_CONFIG } from '../src/lib/embeddings/model';
-await mkdir('.cache/research/profiling', { recursive: true });
+import { cacheDirectory, reportDirectory } from './research-paths';
+const profileDirectory = `${cacheDirectory}/profiling`;
+await mkdir(profileDirectory, { recursive: true });
 const tokenizer = await getTokenizer();
 const inputs = tokenizer('A local research document similarity check.', {
   padding: true,
@@ -12,7 +14,7 @@ const session = await ort.InferenceSession.create(resolve(MODEL_DIRECTORY, 'onnx
   executionProviders: ['cpu'],
   intraOpNumThreads: 4,
   enableProfiling: true,
-  profileFilePrefix: resolve('.cache/research/profiling/cpu'),
+  profileFilePrefix: resolve(profileDirectory, 'cpu'),
 });
 const feeds: Record<string, ort.Tensor> = {};
 for (const name of session.inputNames) {
@@ -25,12 +27,10 @@ const result = await session.run(feeds);
 const elapsedMs = performance.now() - start;
 session.endProfiling();
 await session.release();
-const profiles = (await readdir('.cache/research/profiling'))
-  .filter((f) => f.endsWith('.json'))
-  .sort();
-const events = JSON.parse(
-  await readFile(resolve('.cache/research/profiling', profiles.at(-1)!), 'utf8'),
-) as { args?: { provider?: string } }[];
+const profiles = (await readdir(profileDirectory)).filter((f) => f.endsWith('.json')).sort();
+const events = JSON.parse(await readFile(resolve(profileDirectory, profiles.at(-1)!), 'utf8')) as {
+  args?: { provider?: string };
+}[];
 const providers = [...new Set(events.map((e) => e.args?.provider).filter(Boolean))];
 if (providers.length !== 1 || providers[0] !== 'CPUExecutionProvider')
   throw new Error(`Unexpected actual providers: ${providers}`);
@@ -40,10 +40,10 @@ const output = {
   profileObservedProviders: providers,
   elapsedMs,
   outputs: Object.fromEntries(Object.entries(result).map(([k, t]) => [k, t.dims])),
-  note: 'GPU hardware exists; CUDA backend is not bundled. CPU explicitly selected and verified from native profiling.',
+  note: 'CPU was explicitly selected and verified from native profiling.',
 };
 await writeFile(
-  'reports/implementation/inference-provider.json',
+  `${reportDirectory}/inference-provider.json`,
   JSON.stringify(output, null, 2) + '\n',
 );
 console.log(JSON.stringify(output, null, 2));

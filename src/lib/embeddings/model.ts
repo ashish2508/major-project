@@ -9,6 +9,7 @@ import { resolve } from 'node:path';
 
 export const MODEL_ID = 'onnx-community/all-MiniLM-L6-v2-ONNX';
 export const MODEL_DIRECTORY = resolve(
+  /* turbopackIgnore: true */
   process.env.MINILM_DIRECTORY ?? '.cache/transformers/onnx-community/all-MiniLM-L6-v2-ONNX',
 );
 export const MODEL_CONFIG = {

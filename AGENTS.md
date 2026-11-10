@@ -196,6 +196,7 @@ Rules:
 10. Use the Node.js runtime for routes requiring native ONNX Runtime functionality; do not assume Edge Runtime compatibility.
 11. Do not assume NVIDIA GPU acceleration is enabled. Verify available execution providers before claiming GPU inference.
 12. Keep large datasets and downloaded model files out of Git.
+13. Use the repository's existing Prettier configuration for generated and edited source files. Run `bun run format:check` before closing a milestone.
 
 Do not rewrite existing project configuration without understanding its purpose.
 
@@ -256,7 +257,7 @@ PAN-PC-11 has been downloaded, verified and extracted at:
 
 The external detection corpus is the primary focus. A completed read-only audit found 11,093 source documents, 11,093 suspicious documents, 49,621 annotations and 5,546 suspicious documents without annotations. Detailed evidence and reproducible commands are in [reports/pan-pc-11/report.md](reports/pan-pc-11/report.md).
 
-End-to-end implementation is authorized as of 10 November 2026. The typed full-corpus validator and bounded family-disjoint English split are complete; all three detection methods and PAN metrics are implemented, and benchmark execution is in progress. Record completed phases, actual validation and scientific decisions in `research/status.md`, `research/methodology.md` and `reports/implementation/`. The audit remains historical evidence; subsequent adopted decisions are recorded separately.
+The typed full-corpus validator, bounded family-disjoint English split, three detectors, PAN metrics and held-out benchmark are complete. The local demo uses the benchmark's frozen parameters. The owner prioritized a working academic demonstration by 11 November morning, followed by final verification and submission work by 16 November. See [status](research/status.md), [methodology](research/methodology.md), and [benchmark summary](reports/implementation/benchmark-summary.md).
 
 ## 9. Development Workflow
 
