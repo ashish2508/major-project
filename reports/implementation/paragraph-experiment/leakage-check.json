@@ -1,0 +1,274 @@
+{
+  "splitManifestSha256": "203a88a979bdfda36d75612c902b699b0a8fd7b2ee82e688d494a036b01f3908",
+  "algorithm": "all-selected-document normalized 5-word shingle cross-partition containment",
+  "minimumSharedShingles": 20,
+  "maximumAllowedContainment": 0.2,
+  "documentsChecked": 304,
+  "uniqueShingles": 1145339,
+  "crossPartitionPairsWithOverlap": 3339,
+  "violations": [],
+  "largestOverlaps": [
+    {
+      "a": {
+        "ref": "source-document08942.txt",
+        "partition": "train"
+      },
+      "b": {
+        "ref": "source-document03189.txt",
+        "partition": "test"
+      },
+      "intersection": 5,
+      "containment": 0.0070126227208976155,
+      "jaccard": 0.00039019822069611364
+    },
+    {
+      "a": {
+        "ref": "suspicious-document06535.txt",
+        "partition": "train"
+      },
+      "b": {
+        "ref": "source-document10473.txt",
+        "partition": "test"
+      },
+      "intersection": 3,
+      "containment": 0.005042016806722689,
+      "jaccard": 0.0006132461161079313
+    },
+    {
+      "a": {
+        "ref": "suspicious-document06535.txt",
+        "partition": "train"
+      },
+      "b": {
+        "ref": "suspicious-document05397.txt",
+        "partition": "test"
+      },
+      "intersection": 3,
+      "containment": 0.005042016806722689,
+      "jaccard": 0.0004131093362709997
+    },
+    {
+      "a": {
+        "ref": "suspicious-document06535.txt",
+        "partition": "train"
+      },
+      "b": {
+        "ref": "suspicious-document07130.txt",
+        "partition": "test"
+      },
+      "intersection": 3,
+      "containment": 0.005042016806722689,
+      "jaccard": 0.0003672869735553379
+    },
+    {
+      "a": {
+        "ref": "suspicious-document07313.txt",
+        "partition": "train"
+      },
+      "b": {
+        "ref": "source-document08961.txt",
+        "partition": "test"
+      },
+      "intersection": 3,
+      "containment": 0.0043541364296081275,
+      "jaccard": 0.00004647344042879494
+    },
+    {
+      "a": {
+        "ref": "source-document07266.txt",
+        "partition": "train"
+      },
+      "b": {
+        "ref": "suspicious-document06137.txt",
+        "partition": "validation"
+      },
+      "intersection": 2,
+      "containment": 0.0039603960396039604,
+      "jaccard": 0.00010290183165260341
+    },
+    {
+      "a": {
+        "ref": "source-document04076.txt",
+        "partition": "validation"
+      },
+      "b": {
+        "ref": "source-document08961.txt",
+        "partition": "test"
+      },
+      "intersection": 11,
+      "containment": 0.00383008356545961,
+      "jaccard": 0.00016484833952763457
+    },
+    {
+      "a": {
+        "ref": "source-document07266.txt",
+        "partition": "train"
+      },
+      "b": {
+        "ref": "suspicious-document00854.txt",
+        "partition": "validation"
+      },
+      "intersection": 5,
+      "containment": 0.0035410764872521247,
+      "jaccard": 0.0002458210422812193
+    },
+    {
+      "a": {
+        "ref": "suspicious-document04224.txt",
+        "partition": "validation"
+      },
+      "b": {
+        "ref": "source-document08961.txt",
+        "partition": "test"
+      },
+      "intersection": 2,
+      "containment": 0.0034662045060658577,
+      "jaccard": 0.00003103565997330933
+    },
+    {
+      "a": {
+        "ref": "source-document02561.txt",
+        "partition": "train"
+      },
+      "b": {
+        "ref": "suspicious-document10325.txt",
+        "partition": "validation"
+      },
+      "intersection": 3,
+      "containment": 0.003393665158371041,
+      "jaccard": 0.0001728210150354283
+    },
+    {
+      "a": {
+        "ref": "suspicious-document06535.txt",
+        "partition": "train"
+      },
+      "b": {
+        "ref": "source-document08961.txt",
+        "partition": "test"
+      },
+      "intersection": 2,
+      "containment": 0.0033613445378151263,
+      "jaccard": 0.000031026993484331366
+    },
+    {
+      "a": {
+        "ref": "suspicious-document06535.txt",
+        "partition": "train"
+      },
+      "b": {
+        "ref": "suspicious-document01802.txt",
+        "partition": "validation"
+      },
+      "intersection": 2,
+      "containment": 0.0033613445378151263,
+      "jaccard": 0.00040016006402561027
+    },
+    {
+      "a": {
+        "ref": "suspicious-document06535.txt",
+        "partition": "train"
+      },
+      "b": {
+        "ref": "source-document01833.txt",
+        "partition": "test"
+      },
+      "intersection": 2,
+      "containment": 0.0033613445378151263,
+      "jaccard": 0.0003621220351258374
+    },
+    {
+      "a": {
+        "ref": "suspicious-document06535.txt",
+        "partition": "train"
+      },
+      "b": {
+        "ref": "source-document07763.txt",
+        "partition": "test"
+      },
+      "intersection": 2,
+      "containment": 0.0033613445378151263,
+      "jaccard": 0.00031436655139893113
+    },
+    {
+      "a": {
+        "ref": "suspicious-document06878.txt",
+        "partition": "validation"
+      },
+      "b": {
+        "ref": "source-document08961.txt",
+        "partition": "test"
+      },
+      "intersection": 4,
+      "containment": 0.003276003276003276,
+      "jaccard": 0.00006145903755147194
+    },
+    {
+      "a": {
+        "ref": "source-document01383.txt",
+        "partition": "train"
+      },
+      "b": {
+        "ref": "source-document05520.txt",
+        "partition": "validation"
+      },
+      "intersection": 3,
+      "containment": 0.0032751091703056767,
+      "jaccard": 0.00104675505931612
+    },
+    {
+      "a": {
+        "ref": "source-document05048.txt",
+        "partition": "train"
+      },
+      "b": {
+        "ref": "source-document07742.txt",
+        "partition": "validation"
+      },
+      "intersection": 2,
+      "containment": 0.0030349013657056147,
+      "jaccard": 0.00043122035360068997
+    },
+    {
+      "a": {
+        "ref": "source-document07742.txt",
+        "partition": "validation"
+      },
+      "b": {
+        "ref": "source-document08961.txt",
+        "partition": "test"
+      },
+      "intersection": 2,
+      "containment": 0.0030349013657056147,
+      "jaccard": 0.00003099621846134772
+    },
+    {
+      "a": {
+        "ref": "suspicious-document10137.txt",
+        "partition": "train"
+      },
+      "b": {
+        "ref": "suspicious-document08424.txt",
+        "partition": "validation"
+      },
+      "intersection": 2,
+      "containment": 0.0030211480362537764,
+      "jaccard": 0.0003299241174529858
+    },
+    {
+      "a": {
+        "ref": "suspicious-document10137.txt",
+        "partition": "train"
+      },
+      "b": {
+        "ref": "suspicious-document09268.txt",
+        "partition": "validation"
+      },
+      "intersection": 2,
+      "containment": 0.0030211480362537764,
+      "jaccard": 0.0002697599136768276
+    }
+  ],
+  "passed": true,
+  "limitation": "This detects substantial textual sharing, not all shared ancestry, author aliases, quotations or semantic dependence. Conservative author/title grouping is checked separately."
+}

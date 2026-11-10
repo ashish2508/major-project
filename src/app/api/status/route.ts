@@ -18,7 +18,6 @@ export async function GET(request: Request) {
         ready: true,
         modelAvailable,
         configs,
-        provider: 'CPUExecutionProvider',
         note: 'Weights are checked against calibration hashes when a semantic/hybrid analysis runs.',
       },
       { headers: { 'Cache-Control': 'no-store' } },

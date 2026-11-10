@@ -42,6 +42,8 @@ Report missed cases (no jointly overlapping detection), false-positive detection
 
 ## Reproducibility and current status
 
+The paragraph-window follow-up under D008 preserves the original PAN comparison. It uses the same split, representations, grid and selection order, and changes only window construction and merge distance. All three methods use paragraph-bounded windows of up to two sentences, subdivided by the existing word and model-token limits. Merge distance is zero, so windows must touch or overlap on both sides. Fit the TF-IDF vocabulary on the resulting training windows and freeze the validation choices before scoring the same held-out test set. The original experiment and this follow-up share the already inspected split. Treat their comparison as descriptive.
+
 Store commands, code revision/working-tree state, fingerprints, split/config hashes, model hashes, versions, provider, seeds, validation selections, predictions, metrics and failure logs under `reports/implementation/`. Keep weights/raw data/large derived caches outside Git. See [status](status.md) for live progress. No commit or push is authorized.
 
 The [recorded comparison](../reports/implementation/benchmark-summary.md) selected a lexical weight of 1.0 on validation. The hybrid tied TF-IDF at 0.6033 held-out PlagDet, with MiniLM at 0.3047. Interior weights remain validation results. To preserve the recorded comparison when repeating the experiment, set `RESEARCH_RUN_DIRECTORY` to an ignored path before running `bun run reproduce`.

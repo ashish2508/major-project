@@ -11,7 +11,7 @@ import {
   MODEL_CONFIG,
   MODEL_DIRECTORY,
 } from '../src/lib/embeddings/model';
-import { segment, type Passage } from '../src/lib/detection/segmentation';
+import { segment, segmentParagraphs, type Passage } from '../src/lib/detection/segmentation';
 import { Tfidf } from '../src/lib/detection/tfidf';
 import {
   retrieveCandidates,
@@ -28,6 +28,14 @@ import { evaluatePan, overlaps } from '../src/lib/evaluation/pan';
 import { cacheDirectory as cache, reportDirectory as dir } from './research-paths';
 
 const runStart = performance.now();
+const paragraphWindows = process.argv.includes('--paragraph-windows');
+if (
+  paragraphWindows &&
+  (!process.env.RESEARCH_RUN_DIRECTORY ||
+    resolve(dir).toLowerCase() === resolve('reports/implementation').toLowerCase())
+)
+  throw new Error('Set RESEARCH_RUN_DIRECTORY to a separate directory for paragraph experiments');
+const mergeGap = paragraphWindows ? 0 : MERGE_GAP;
 await mkdir(cache, { recursive: true });
 const inv: Inventory = JSON.parse(await readFile(`${cache}/inventory.json`, 'utf8'));
 const manifestBytes = await readFile(`${dir}/split-manifest.json`),
@@ -75,10 +83,10 @@ const preregistration = {
   codeHash,
   modelHashes,
   model: MODEL_CONFIG,
-  segmentation: { words: 80, overlap: 20, maxTokens: 256, sentenceAndParagraphAware: true },
+  segmentation: { words: 80, overlap: 20, maxTokens: 256, paragraphWindows },
   alphas: ALPHAS,
   thresholds: THRESHOLDS,
-  mergeGap: MERGE_GAP,
+  mergeGap,
   selection: 'validation PlagDet, precision, higher threshold, fixed alpha order',
   candidateRetrieval:
     'exhaustive supplied collection, independent best source window per query window',
@@ -101,7 +109,8 @@ async function passages(refs: string[]): Promise<Passage[]> {
     const doc = docs.get(r);
     if (!doc) throw new Error(`Unknown reference ${r}`);
     const text = await loadDocument(inv.root, doc);
-    result.push(...segment(text, r, { countTokens }));
+    const splitText = paragraphWindows ? segmentParagraphs : segment;
+    result.push(...splitText(text, r, { countTokens }));
   }
   return result;
 }
@@ -182,7 +191,7 @@ function selection(
   const search: unknown[] = [];
   for (const alpha of method === 'hybrid' ? ALPHAS : [method === 'lexical' ? 1 : 0])
     for (const threshold of THRESHOLDS) {
-      const config = { method, threshold, alpha, mergeGap: MERGE_GAP },
+      const config = { method, threshold, alpha, mergeGap },
         predictions = detect(rows[scoreKey(method, alpha)], threshold),
         metrics = evaluatePan(cases, predictions);
       search.push({ config, metrics });

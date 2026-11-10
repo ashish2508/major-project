@@ -1,0 +1,2567 @@
+{
+  "scope": "Synthetic demonstrations only",
+  "results": [
+    {
+      "case": "01-direct-copy",
+      "expected": [
+        {
+          "id": "01-direct-copy-1",
+          "suspicious": {
+            "section": "Durable progress",
+            "offset": 499,
+            "length": 501,
+            "excerpt": "The follower reports a verified range only after its contents and range identifier are durable. The leader\ntreats this acknowledgment as progress information and never as a vote to commit an application write.\nWhen the final range arrives, the follower writes an installation marker before switching its active\ndirectory. Recovery checks the marker and the manifest together. This ordering makes a partial\nsnapshot distinguishable from a completed installation even if a restart interrupts the switch.",
+            "page": 1
+          },
+          "source": {
+            "section": "Acknowledgment rule",
+            "offset": 1395,
+            "length": 501,
+            "excerpt": "The follower reports a verified range only after its contents and range identifier are durable. The leader treats this acknowledgment as progress information and never as a vote to commit an application write. When the final range arrives, the follower writes an installation marker before switching its active directory. Recovery checks the marker and the manifest together. This ordering makes a partial snapshot distinguishable from a completed installation even if a restart interrupts the switch."
+          }
+        },
+        {
+          "id": "01-direct-copy-2",
+          "suspicious": {
+            "section": "Image consistency",
+            "offset": 1490,
+            "length": 437,
+            "excerpt": "The leader seals a snapshot at a committed log index and advertises that index before sending any data.\nA follower stages the incoming key ranges in a separate directory. It installs the directory only after\nchecking the manifest and the digest of every range. Log entries above the sealed index remain in a\nreplay queue. This boundary prevents a transfer from combining keys that were observed at different\npoints in the update history.",
+            "page": 2
+          },
+          "source": {
+            "section": "Snapshot boundary",
+            "offset": 497,
+            "length": 437,
+            "excerpt": "The leader seals a snapshot at a committed log index and advertises that index before sending any data. A follower stages the incoming key ranges in a separate directory. It installs the directory only after checking the manifest and the digest of every range. Log entries above the sealed index remain in a replay queue. This boundary prevents a transfer from combining keys that were observed at different points in the update history."
+          }
+        },
+        {
+          "id": "01-direct-copy-3",
+          "suspicious": {
+            "section": "Handling a growing backlog",
+            "offset": 2368,
+            "length": 478,
+            "excerpt": "A replay queue can grow while a slow follower is receiving a snapshot. The leader therefore assigns\neach transfer a fixed memory budget and spills excess entries into a sequential file. The follower\nconsumes the buffered records in index order after installation. If the sender cannot retain the interval\nbeginning immediately after the sealed index, it aborts the transfer and chooses a new boundary. This\nfailure mode trades additional copying for an unbroken replay sequence.",
+            "page": 2
+          },
+          "source": {
+            "section": "Buffer pressure",
+            "offset": 2350,
+            "length": 478,
+            "excerpt": "A replay queue can grow while a slow follower is receiving a snapshot. The leader therefore assigns each transfer a fixed memory budget and spills excess entries into a sequential file. The follower consumes the buffered records in index order after installation. If the sender cannot retain the interval beginning immediately after the sealed index, it aborts the transfer and chooses a new boundary. This failure mode trades additional copying for an unbroken replay sequence."
+          }
+        }
+      ],
+      "queryPassages": [
+        {
+          "id": "query@0:479",
+          "documentReference": "query",
+          "offset": 0,
+          "length": 479,
+          "text": "SYNTHETIC CS RESEARCH NOTE \nA Replica Catch-Up Protocol for\nRead-Heavy Services \nOperational motivation \nDuring maintenance, one member of a storage cluster may be unavailable for several hours. Bringing\nthat member back into service puts extra traffic on the same machines that serve user requests. This\ndesign memo describes a recovery path for such cases. Its intended audience is a storage operator\nchoosing how to reintroduce a stale machine during an otherwise busy period.",
+          "tokens": 87,
+          "embeddingDimensions": 384,
+          "embeddingNorm": 0.9999999638943857
+        },
+        {
+          "id": "query@352:522",
+          "documentReference": "query",
+          "offset": 352,
+          "length": 522,
+          "text": "cases. Its intended audience is a storage operator\nchoosing how to reintroduce a stale machine during an otherwise busy period. \nDurable progress \nThe follower reports a verified range only after its contents and range identifier are durable. The leader\ntreats this acknowledgment as progress information and never as a vote to commit an application write.\nWhen the final range arrives, the follower writes an installation marker before switching its active\ndirectory. Recovery checks the marker and the manifest together.",
+          "tokens": 98,
+          "embeddingDimensions": 384,
+          "embeddingNorm": 0.999999947429828
+        },
+        {
+          "id": "query@730:514",
+          "documentReference": "query",
+          "offset": 730,
+          "length": 514,
+          "text": "arrives, the follower writes an installation marker before switching its active\ndirectory. Recovery checks the marker and the manifest together. This ordering makes a partial\nsnapshot distinguishable from a completed installation even if a restart interrupts the switch. \nOperator signals \nThe proposed dashboard gives separate indicators for network transfer, disk verification, and request\navailability. A completed transfer bar cannot by itself authorize the routing layer to send clients to the\nreturning node.",
+          "tokens": 86,
+          "embeddingDimensions": 384,
+          "embeddingNorm": 0.999999967202389
+        },
+        {
+          "id": "query@1114:479",
+          "documentReference": "query",
+          "offset": 1114,
+          "length": 479,
+          "text": "request\navailability. A completed transfer bar cannot by itself authorize the routing layer to send clients to the\nreturning node. The routing layer waits for the service health probe to confirm that a read against a\ndesignated probe key returns the current value. \nPassage Review / Controlled demonstration   01 \n\nSYNTHETIC CS RESEARCH NOTE \nContinuation \nImage consistency \nThe leader seals a snapshot at a committed log index and advertises that index before sending any data.",
+          "tokens": 84,
+          "embeddingDimensions": 384,
+          "embeddingNorm": 1.0000001775742018
+        },
+        {
+          "id": "query@1471:456",
+          "documentReference": "query",
+          "offset": 1471,
+          "length": 456,
+          "text": "Image consistency \nThe leader seals a snapshot at a committed log index and advertises that index before sending any data.\nA follower stages the incoming key ranges in a separate directory. It installs the directory only after\nchecking the manifest and the digest of every range. Log entries above the sealed index remain in a\nreplay queue. This boundary prevents a transfer from combining keys that were observed at different\npoints in the update history.",
+          "tokens": 86,
+          "embeddingDimensions": 384,
+          "embeddingNorm": 0.9999999468157651
+        },
+        {
+          "id": "query@1798:377",
+          "documentReference": "query",
+          "offset": 1798,
+          "length": 377,
+          "text": "replay queue. This boundary prevents a transfer from combining keys that were observed at different\npoints in the update history. \nCapacity planning \nBefore a maintenance window, the operator can estimate temporary disk requirements from the volume\nof data assigned to the returning machine. The estimate includes space for the incoming image, plus\nheadroom for repair retries.",
+          "tokens": 66,
+          "embeddingDimensions": 384,
+          "embeddingNorm": 1.0000003787051683
+        },
+        {
+          "id": "query@2047:506",
+          "documentReference": "query",
+          "offset": 2047,
+          "length": 506,
+          "text": "of data assigned to the returning machine. The estimate includes space for the incoming image, plus\nheadroom for repair retries. A capacity warning would be visible before the transfer starts, making it\npossible to postpone repair instead of discovering a full disk halfway through recovery. \nHandling a growing backlog \nA replay queue can grow while a slow follower is receiving a snapshot. The leader therefore assigns\neach transfer a fixed memory budget and spills excess entries into a sequential file.",
+          "tokens": 95,
+          "embeddingDimensions": 384,
+          "embeddingNorm": 1.0000000916619434
+        },
+        {
+          "id": "query@2427:467",
+          "documentReference": "query",
+          "offset": 2427,
+          "length": 467,
+          "text": "a snapshot. The leader therefore assigns\neach transfer a fixed memory budget and spills excess entries into a sequential file. The follower\nconsumes the buffered records in index order after installation. If the sender cannot retain the interval\nbeginning immediately after the sealed index, it aborts the transfer and chooses a new boundary. This\nfailure mode trades additional copying for an unbroken replay sequence. \nPassage Review / Controlled demonstration   02",
+          "tokens": 85,
+          "embeddingDimensions": 384,
+          "embeddingNorm": 0.9999998180327438
+        }
+      ],
+      "sourcePassages": [
+        {
+          "id": "source-1@0:477",
+          "documentReference": "source-1",
+          "offset": 0,
+          "length": 477,
+          "text": "Lag-Aware Snapshots for Replicated Key-Value Stores\n\nScope\nA replicated key-value store must sometimes move a large snapshot while foreground requests continue. We consider followers that have fallen far enough behind for log replay to compete with ordinary traffic. The proposal targets a leader with several followers and assumes monotonically numbered log entries. It separates the question of which version to copy from the question of how fast the transfer should proceed.",
+          "tokens": 92,
+          "embeddingDimensions": 384,
+          "embeddingNorm": 1.0000000966190632
+        },
+        {
+          "id": "source-1@359:459",
+          "documentReference": "source-1",
+          "offset": 359,
+          "length": 459,
+          "text": "entries. It separates the question of which version to copy from the question of how fast the transfer should proceed.\n\nSnapshot boundary\nThe leader seals a snapshot at a committed log index and advertises that index before sending any data. A follower stages the incoming key ranges in a separate directory. It installs the directory only after checking the manifest and the digest of every range. Log entries above the sealed index remain in a replay queue.",
+          "tokens": 90,
+          "embeddingDimensions": 384,
+          "embeddingNorm": 0.9999999631908466
+        },
+        {
+          "id": "source-1@705:421",
+          "documentReference": "source-1",
+          "offset": 705,
+          "length": 421,
+          "text": "checking the manifest and the digest of every range. Log entries above the sealed index remain in a replay queue. This boundary prevents a transfer from combining keys that were observed at different points in the update history.\n\nTransfer scheduling\nA token bucket at the sender caps the amount of snapshot data emitted during each scheduling interval. Foreground reads may borrow bandwidth from an idle snapshot stream.",
+          "tokens": 78,
+          "embeddingDimensions": 384,
+          "embeddingNorm": 0.9999998687740904
+        },
+        {
+          "id": "source-1@990:500",
+          "documentReference": "source-1",
+          "offset": 990,
+          "length": 500,
+          "text": "the amount of snapshot data emitted during each scheduling interval. Foreground reads may borrow bandwidth from an idle snapshot stream. The bucket is replenished from a rolling estimate of spare link capacity, using measurements taken before the next group of ranges is issued. A paused transfer keeps its verified ranges so that resumption begins with the earliest unchecked range.\n\nAcknowledgment rule\nThe follower reports a verified range only after its contents and range identifier are durable.",
+          "tokens": 100,
+          "embeddingDimensions": 384,
+          "embeddingNorm": 1.000000122632241
+        },
+        {
+          "id": "source-1@1348:548",
+          "documentReference": "source-1",
+          "offset": 1348,
+          "length": 548,
+          "text": "earliest unchecked range.\n\nAcknowledgment rule\nThe follower reports a verified range only after its contents and range identifier are durable. The leader treats this acknowledgment as progress information and never as a vote to commit an application write. When the final range arrives, the follower writes an installation marker before switching its active directory. Recovery checks the marker and the manifest together. This ordering makes a partial snapshot distinguishable from a completed installation even if a restart interrupts the switch.",
+          "tokens": 106,
+          "embeddingDimensions": 384,
+          "embeddingNorm": 0.9999999181446115
+        },
+        {
+          "id": "source-1@1752:360",
+          "documentReference": "source-1",
+          "offset": 1752,
+          "length": 360,
+          "text": "manifest together. This ordering makes a partial snapshot distinguishable from a completed installation even if a restart interrupts the switch.\n\nWorkload design\nAn evaluation would replay three request mixes with the same key distribution and different write fractions. Each mix would include a brief network outage followed by a controlled return to service.",
+          "tokens": 65,
+          "embeddingDimensions": 384,
+          "embeddingNorm": 1.000000116835232
+        },
+        {
+          "id": "source-1@1979:441",
+          "documentReference": "source-1",
+          "offset": 1979,
+          "length": 441,
+          "text": "distribution and different write fractions. Each mix would include a brief network outage followed by a controlled return to service. The design calls for separate plots of client latency and time to catch up, since a fast transfer that delays most foreground requests would fail the operational goal. No results are reported in this synthetic proposal.\n\nBuffer pressure\nA replay queue can grow while a slow follower is receiving a snapshot.",
+          "tokens": 84,
+          "embeddingDimensions": 384,
+          "embeddingNorm": 0.999999999235333
+        },
+        {
+          "id": "source-1@2296:455",
+          "documentReference": "source-1",
+          "offset": 2296,
+          "length": 455,
+          "text": "reported in this synthetic proposal.\n\nBuffer pressure\nA replay queue can grow while a slow follower is receiving a snapshot. The leader therefore assigns each transfer a fixed memory budget and spills excess entries into a sequential file. The follower consumes the buffered records in index order after installation. If the sender cannot retain the interval beginning immediately after the sealed index, it aborts the transfer and chooses a new boundary.",
+          "tokens": 86,
+          "embeddingDimensions": 384,
+          "embeddingNorm": 1.000000028025378
+        },
+        {
+          "id": "source-1@2621:207",
+          "documentReference": "source-1",
+          "offset": 2621,
+          "length": 207,
+          "text": "sender cannot retain the interval beginning immediately after the sealed index, it aborts the transfer and chooses a new boundary. This failure mode trades additional copying for an unbroken replay sequence.",
+          "tokens": 39,
+          "embeddingDimensions": 384,
+          "embeddingNorm": 0.9999999545231152
+        }
+      ],
+      "candidates": [
+        {
+          "queryIndex": 0,
+          "scores": [
+            {
+              "sourceIndex": 0,
+              "lexical": 0.09509692497846679,
+              "semantic": 0.5346096458226934,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 1,
+              "lexical": 0.01626775911040716,
+              "semantic": 0.41506780900785833,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 2,
+              "lexical": 0.039458362952950514,
+              "semantic": 0.4746953629599392,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 3,
+              "lexical": 0.04525845708476568,
+              "semantic": 0.4721856620217867,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 4,
+              "lexical": 0.05622860555303546,
+              "semantic": 0.27642220428853814,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 5,
+              "lexical": 0.06994441239848392,
+              "semantic": 0.38616638299522843,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 6,
+              "lexical": 0.12966407223501897,
+              "semantic": 0.5806689034680138,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 7,
+              "lexical": 0.016630435038412487,
+              "semantic": 0.5092864836545108,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 8,
+              "lexical": 0.0169121978524604,
+              "semantic": 0.29713398457386964,
+              "correspondences": []
+            }
+          ],
+          "topFiveSemantic": [
+            {
+              "sourceIndex": 6,
+              "lexical": 0.12966407223501897,
+              "semantic": 0.5806689034680138,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 0,
+              "lexical": 0.09509692497846679,
+              "semantic": 0.5346096458226934,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 7,
+              "lexical": 0.016630435038412487,
+              "semantic": 0.5092864836545108,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 2,
+              "lexical": 0.039458362952950514,
+              "semantic": 0.4746953629599392,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 3,
+              "lexical": 0.04525845708476568,
+              "semantic": 0.4721856620217867,
+              "correspondences": []
+            }
+          ]
+        },
+        {
+          "queryIndex": 1,
+          "scores": [
+            {
+              "sourceIndex": 0,
+              "lexical": 0.03676385504490252,
+              "semantic": 0.45121574297178557,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 1,
+              "lexical": 0.16266819990901718,
+              "semantic": 0.6274970374595582,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 2,
+              "lexical": 0.09158512302262835,
+              "semantic": 0.39339529220950215,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 3,
+              "lexical": 0.2503354731845127,
+              "semantic": 0.5619165198534585,
+              "correspondences": ["01-direct-copy-1"]
+            },
+            {
+              "sourceIndex": 4,
+              "lexical": 0.743666976384215,
+              "semantic": 0.6903985099350962,
+              "correspondences": ["01-direct-copy-1"]
+            },
+            {
+              "sourceIndex": 5,
+              "lexical": 0.08635034128979405,
+              "semantic": 0.3537484534548034,
+              "correspondences": ["01-direct-copy-1"]
+            },
+            {
+              "sourceIndex": 6,
+              "lexical": 0.03687977656237103,
+              "semantic": 0.37320216298032927,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 7,
+              "lexical": 0.04852623102588557,
+              "semantic": 0.4691088847707941,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 8,
+              "lexical": 0.027251353561617824,
+              "semantic": 0.2839723318542757,
+              "correspondences": []
+            }
+          ],
+          "topFiveSemantic": [
+            {
+              "sourceIndex": 4,
+              "lexical": 0.743666976384215,
+              "semantic": 0.6903985099350962,
+              "correspondences": ["01-direct-copy-1"]
+            },
+            {
+              "sourceIndex": 1,
+              "lexical": 0.16266819990901718,
+              "semantic": 0.6274970374595582,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 3,
+              "lexical": 0.2503354731845127,
+              "semantic": 0.5619165198534585,
+              "correspondences": ["01-direct-copy-1"]
+            },
+            {
+              "sourceIndex": 7,
+              "lexical": 0.04852623102588557,
+              "semantic": 0.4691088847707941,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 0,
+              "lexical": 0.03676385504490252,
+              "semantic": 0.45121574297178557,
+              "correspondences": []
+            }
+          ]
+        },
+        {
+          "queryIndex": 2,
+          "scores": [
+            {
+              "sourceIndex": 0,
+              "lexical": 0.06827182249718323,
+              "semantic": 0.4146698587145391,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 1,
+              "lexical": 0.16826615450780755,
+              "semantic": 0.5628565734115349,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 2,
+              "lexical": 0.1402750613471109,
+              "semantic": 0.38766504781579975,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 3,
+              "lexical": 0.08052107017544836,
+              "semantic": 0.4757268226040749,
+              "correspondences": ["01-direct-copy-1"]
+            },
+            {
+              "sourceIndex": 4,
+              "lexical": 0.510700752678358,
+              "semantic": 0.5925272764902294,
+              "correspondences": ["01-direct-copy-1"]
+            },
+            {
+              "sourceIndex": 5,
+              "lexical": 0.3416565747728334,
+              "semantic": 0.5689050516481854,
+              "correspondences": ["01-direct-copy-1"]
+            },
+            {
+              "sourceIndex": 6,
+              "lexical": 0.1053268312259256,
+              "semantic": 0.39791984846200085,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 7,
+              "lexical": 0.1277977563745472,
+              "semantic": 0.40674152479706527,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 8,
+              "lexical": 0.10910139158086885,
+              "semantic": 0.25894609167156724,
+              "correspondences": []
+            }
+          ],
+          "topFiveSemantic": [
+            {
+              "sourceIndex": 4,
+              "lexical": 0.510700752678358,
+              "semantic": 0.5925272764902294,
+              "correspondences": ["01-direct-copy-1"]
+            },
+            {
+              "sourceIndex": 5,
+              "lexical": 0.3416565747728334,
+              "semantic": 0.5689050516481854,
+              "correspondences": ["01-direct-copy-1"]
+            },
+            {
+              "sourceIndex": 1,
+              "lexical": 0.16826615450780755,
+              "semantic": 0.5628565734115349,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 3,
+              "lexical": 0.08052107017544836,
+              "semantic": 0.4757268226040749,
+              "correspondences": ["01-direct-copy-1"]
+            },
+            {
+              "sourceIndex": 0,
+              "lexical": 0.06827182249718323,
+              "semantic": 0.4146698587145391,
+              "correspondences": []
+            }
+          ]
+        },
+        {
+          "queryIndex": 3,
+          "scores": [
+            {
+              "sourceIndex": 0,
+              "lexical": 0.16036824983451786,
+              "semantic": 0.45990142216213165,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 1,
+              "lexical": 0.3156419487828346,
+              "semantic": 0.49959437820655184,
+              "correspondences": ["01-direct-copy-2"]
+            },
+            {
+              "sourceIndex": 2,
+              "lexical": 0.18101839890704458,
+              "semantic": 0.4926224959298719,
+              "correspondences": ["01-direct-copy-2"]
+            },
+            {
+              "sourceIndex": 3,
+              "lexical": 0.07063714581352191,
+              "semantic": 0.5222980587933812,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 4,
+              "lexical": 0.05397561964631473,
+              "semantic": 0.38642862309790654,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 5,
+              "lexical": 0.13504497350901556,
+              "semantic": 0.3746724787031463,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 6,
+              "lexical": 0.09194329789699923,
+              "semantic": 0.4771680835143759,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 7,
+              "lexical": 0.2021302808990773,
+              "semantic": 0.4485843505273306,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 8,
+              "lexical": 0.14620652927221178,
+              "semantic": 0.449085788624143,
+              "correspondences": []
+            }
+          ],
+          "topFiveSemantic": [
+            {
+              "sourceIndex": 3,
+              "lexical": 0.07063714581352191,
+              "semantic": 0.5222980587933812,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 1,
+              "lexical": 0.3156419487828346,
+              "semantic": 0.49959437820655184,
+              "correspondences": ["01-direct-copy-2"]
+            },
+            {
+              "sourceIndex": 2,
+              "lexical": 0.18101839890704458,
+              "semantic": 0.4926224959298719,
+              "correspondences": ["01-direct-copy-2"]
+            },
+            {
+              "sourceIndex": 6,
+              "lexical": 0.09194329789699923,
+              "semantic": 0.4771680835143759,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 0,
+              "lexical": 0.16036824983451786,
+              "semantic": 0.45990142216213165,
+              "correspondences": []
+            }
+          ]
+        },
+        {
+          "queryIndex": 4,
+          "scores": [
+            {
+              "sourceIndex": 0,
+              "lexical": 0.20559902187145493,
+              "semantic": 0.5973148153548734,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 1,
+              "lexical": 0.8307767416977114,
+              "semantic": 0.8215828970299565,
+              "correspondences": ["01-direct-copy-2"]
+            },
+            {
+              "sourceIndex": 2,
+              "lexical": 0.6344738584917701,
+              "semantic": 0.6465252505845387,
+              "correspondences": ["01-direct-copy-2"]
+            },
+            {
+              "sourceIndex": 3,
+              "lexical": 0.18268545144657716,
+              "semantic": 0.5881272535532778,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 4,
+              "lexical": 0.16951360918321154,
+              "semantic": 0.594116456266573,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 5,
+              "lexical": 0.09097144740613135,
+              "semantic": 0.428200760713657,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 6,
+              "lexical": 0.0927599567724893,
+              "semantic": 0.43722804410585875,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 7,
+              "lexical": 0.3535945662641312,
+              "semantic": 0.6049045197694921,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 8,
+              "lexical": 0.26821944882768955,
+              "semantic": 0.42956783135749266,
+              "correspondences": []
+            }
+          ],
+          "topFiveSemantic": [
+            {
+              "sourceIndex": 1,
+              "lexical": 0.8307767416977114,
+              "semantic": 0.8215828970299565,
+              "correspondences": ["01-direct-copy-2"]
+            },
+            {
+              "sourceIndex": 2,
+              "lexical": 0.6344738584917701,
+              "semantic": 0.6465252505845387,
+              "correspondences": ["01-direct-copy-2"]
+            },
+            {
+              "sourceIndex": 7,
+              "lexical": 0.3535945662641312,
+              "semantic": 0.6049045197694921,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 0,
+              "lexical": 0.20559902187145493,
+              "semantic": 0.5973148153548734,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 4,
+              "lexical": 0.16951360918321154,
+              "semantic": 0.594116456266573,
+              "correspondences": []
+            }
+          ]
+        },
+        {
+          "queryIndex": 5,
+          "scores": [
+            {
+              "sourceIndex": 0,
+              "lexical": 0.05663528646323288,
+              "semantic": 0.4878741021502211,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 1,
+              "lexical": 0.1338825846471686,
+              "semantic": 0.5004622232095309,
+              "correspondences": ["01-direct-copy-2"]
+            },
+            {
+              "sourceIndex": 2,
+              "lexical": 0.3421163050613317,
+              "semantic": 0.5947204987522607,
+              "correspondences": ["01-direct-copy-2"]
+            },
+            {
+              "sourceIndex": 3,
+              "lexical": 0.16376903397814002,
+              "semantic": 0.529078465425824,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 4,
+              "lexical": 0.02389884111512668,
+              "semantic": 0.3277327678339004,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 5,
+              "lexical": 0.03572288103033887,
+              "semantic": 0.42801675234385317,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 6,
+              "lexical": 0.08304282951784353,
+              "semantic": 0.5985977092170759,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 7,
+              "lexical": 0.1280492991737651,
+              "semantic": 0.6856536023954972,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 8,
+              "lexical": 0.11999537947137912,
+              "semantic": 0.4310009922295861,
+              "correspondences": []
+            }
+          ],
+          "topFiveSemantic": [
+            {
+              "sourceIndex": 7,
+              "lexical": 0.1280492991737651,
+              "semantic": 0.6856536023954972,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 6,
+              "lexical": 0.08304282951784353,
+              "semantic": 0.5985977092170759,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 2,
+              "lexical": 0.3421163050613317,
+              "semantic": 0.5947204987522607,
+              "correspondences": ["01-direct-copy-2"]
+            },
+            {
+              "sourceIndex": 3,
+              "lexical": 0.16376903397814002,
+              "semantic": 0.529078465425824,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 1,
+              "lexical": 0.1338825846471686,
+              "semantic": 0.5004622232095309,
+              "correspondences": ["01-direct-copy-2"]
+            }
+          ]
+        },
+        {
+          "queryIndex": 6,
+          "scores": [
+            {
+              "sourceIndex": 0,
+              "lexical": 0.12795044250621374,
+              "semantic": 0.48093283806857906,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 1,
+              "lexical": 0.17333466361261235,
+              "semantic": 0.5682908928101644,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 2,
+              "lexical": 0.1762506051594134,
+              "semantic": 0.5271033455636199,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 3,
+              "lexical": 0.14983934930752016,
+              "semantic": 0.6078337718452009,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 4,
+              "lexical": 0.06850089106696247,
+              "semantic": 0.34880547203444173,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 5,
+              "lexical": 0.030127085306314545,
+              "semantic": 0.37203540255751727,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 6,
+              "lexical": 0.17925804083747585,
+              "semantic": 0.544566179167223,
+              "correspondences": ["01-direct-copy-3"]
+            },
+            {
+              "sourceIndex": 7,
+              "lexical": 0.43200155562011344,
+              "semantic": 0.6619147051800405,
+              "correspondences": ["01-direct-copy-3"]
+            },
+            {
+              "sourceIndex": 8,
+              "lexical": 0.08941208080907194,
+              "semantic": 0.3999161772521759,
+              "correspondences": ["01-direct-copy-3"]
+            }
+          ],
+          "topFiveSemantic": [
+            {
+              "sourceIndex": 7,
+              "lexical": 0.43200155562011344,
+              "semantic": 0.6619147051800405,
+              "correspondences": ["01-direct-copy-3"]
+            },
+            {
+              "sourceIndex": 3,
+              "lexical": 0.14983934930752016,
+              "semantic": 0.6078337718452009,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 1,
+              "lexical": 0.17333466361261235,
+              "semantic": 0.5682908928101644,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 6,
+              "lexical": 0.17925804083747585,
+              "semantic": 0.544566179167223,
+              "correspondences": ["01-direct-copy-3"]
+            },
+            {
+              "sourceIndex": 2,
+              "lexical": 0.1762506051594134,
+              "semantic": 0.5271033455636199,
+              "correspondences": []
+            }
+          ]
+        },
+        {
+          "queryIndex": 7,
+          "scores": [
+            {
+              "sourceIndex": 0,
+              "lexical": 0.1159421259257846,
+              "semantic": 0.6241584078485748,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 1,
+              "lexical": 0.33359045560919853,
+              "semantic": 0.7487883013550342,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 2,
+              "lexical": 0.3473292224864211,
+              "semantic": 0.6152285566197687,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 3,
+              "lexical": 0.10218540189954048,
+              "semantic": 0.6266302956126304,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 4,
+              "lexical": 0.05232377513573616,
+              "semantic": 0.5022389705349583,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 5,
+              "lexical": 0.06344987481506478,
+              "semantic": 0.49044643749638456,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 6,
+              "lexical": 0.11362598048220793,
+              "semantic": 0.6212078957498004,
+              "correspondences": ["01-direct-copy-3"]
+            },
+            {
+              "sourceIndex": 7,
+              "lexical": 0.7659058085159793,
+              "semantic": 0.8469988524246025,
+              "correspondences": ["01-direct-copy-3"]
+            },
+            {
+              "sourceIndex": 8,
+              "lexical": 0.7725444642426349,
+              "semantic": 0.6527415991604544,
+              "correspondences": ["01-direct-copy-3"]
+            }
+          ],
+          "topFiveSemantic": [
+            {
+              "sourceIndex": 7,
+              "lexical": 0.7659058085159793,
+              "semantic": 0.8469988524246025,
+              "correspondences": ["01-direct-copy-3"]
+            },
+            {
+              "sourceIndex": 1,
+              "lexical": 0.33359045560919853,
+              "semantic": 0.7487883013550342,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 8,
+              "lexical": 0.7725444642426349,
+              "semantic": 0.6527415991604544,
+              "correspondences": ["01-direct-copy-3"]
+            },
+            {
+              "sourceIndex": 3,
+              "lexical": 0.10218540189954048,
+              "semantic": 0.6266302956126304,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 0,
+              "lexical": 0.1159421259257846,
+              "semantic": 0.6241584078485748,
+              "correspondences": []
+            }
+          ]
+        }
+      ],
+      "application": []
+    },
+    {
+      "case": "02-paraphrase",
+      "expected": [
+        {
+          "id": "02-paraphrase-1",
+          "suspicious": {
+            "section": "When to trust a score",
+            "offset": 517,
+            "length": 415,
+            "excerpt": "Straightforward faults tend to be settled ahead of ambiguous ones. As a result, the subset closed early\ncan make the system look more accurate than it will once the difficult files have been examined. For\neach class of machine, contrast promptly closed tickets with ones that stayed open longer. If they\nbehave differently, wait for the pending tickets before saying that one predictor performs better than\nanother.",
+            "page": 1
+          },
+          "source": {
+            "section": "Bias from fast decisions",
+            "offset": 2440,
+            "length": 443,
+            "excerpt": "Initial confirmations often overrepresent incidents with obvious symptoms because they are quicker for reviewers to resolve. The current precision estimate can therefore appear better than the final estimate. Compare prompt and delayed decisions within each equipment family before trusting the early curve. If the two subsets differ sharply, the dashboard should withhold a comparative claim until the outstanding investigations are resolved."
+          }
+        },
+        {
+          "id": "02-paraphrase-2",
+          "suspicious": {
+            "section": "Which period owns a record",
+            "offset": 1421,
+            "length": 393,
+            "excerpt": "Put an alarm in the calendar group for when the algorithm issued its decision. If a technician verifies it\na week later, revise the figures for the original period. Counting it on the day the ticket closes makes\nthe performance chart react to clerical bursts instead of changes in the predictor. Show how many\nalarms have been resolved so readers can tell an interim number from a settled one.",
+            "page": 2
+          },
+          "source": {
+            "section": "Evaluation cohorts",
+            "offset": 545,
+            "length": 449,
+            "excerpt": "Assign each observation to an evaluation cohort using the time of inference. The arrival of an adjudication is only a signal to update the older cohort. It never moves the observation into a more recent bucket. Otherwise a day with a backlog clearance may look unusually difficult even though its predictions were ordinary. A report includes the fraction of cases already adjudicated, and readers can distinguish provisional scores from mature ones."
+          }
+        },
+        {
+          "id": "02-paraphrase-3",
+          "suspicious": {
+            "section": "Amending a closed ticket",
+            "offset": 2181,
+            "length": 371,
+            "excerpt": "Keep the amount each ticket added to the running totals. If its verdict is changed, take away the old\namount and insert the amount implied by the new verdict into the same historical bucket. A change of\nmind must not count as an additional incident. With that rule and the history of amendments, an auditor\ncan recover the figures that were visible on any reporting date.",
+            "page": 2
+          },
+          "source": {
+            "section": "Correction records",
+            "offset": 1475,
+            "length": 462,
+            "excerpt": "Store per-event contributions to the evaluation counters until adjudications are stable. When a reviewer replaces an earlier label, remove the contribution computed from the superseded value and add one computed from the revised value. The correction must update the original aggregate rather than append a second case. This design keeps repeated amendments from inflating the sample size and lets investigators reconstruct the value published at any checkpoint."
+          }
+        }
+      ],
+      "queryPassages": [
+        {
+          "id": "query@0:492",
+          "documentReference": "query",
+          "offset": 0,
+          "length": 492,
+          "text": "SYNTHETIC CS RESEARCH NOTE \nTracking Prediction Quality While\nConfirmation Arrives Late \nDesign overview \nConsider a diagnostic service for factory sensors whose outputs are reviewed by a separate\nmaintenance desk. A defect can be verified well after the alarm appears. The question is how to give an\nengineer a credible picture of the predictor while the desk is still working through its open tickets. The\ndesign treats the reporting date and the actual time of the alarm as distinct facts.",
+          "tokens": 86,
+          "embeddingDimensions": 384,
+          "embeddingNorm": 0.9999997235867101
+        },
+        {
+          "id": "query@378:434",
+          "documentReference": "query",
+          "offset": 378,
+          "length": 434,
+          "text": "through its open tickets. The\ndesign treats the reporting date and the actual time of the alarm as distinct facts. \nWhen to trust a score \nStraightforward faults tend to be settled ahead of ambiguous ones. As a result, the subset closed early\ncan make the system look more accurate than it will once the difficult files have been examined. For\neach class of machine, contrast promptly closed tickets with ones that stayed open longer.",
+          "tokens": 83,
+          "embeddingDimensions": 384,
+          "embeddingNorm": 1.0000000429832014
+        },
+        {
+          "id": "query@682:493",
+          "documentReference": "query",
+          "offset": 682,
+          "length": 493,
+          "text": "difficult files have been examined. For\neach class of machine, contrast promptly closed tickets with ones that stayed open longer. If they\nbehave differently, wait for the pending tickets before saying that one predictor performs better than\nanother. \nPresentation notes \nThe diagnostic console would reserve a panel for incoming alarms and another for records requiring\nadditional context. The reporting page would display a small legend that explains which estimates are\nstill being updated.",
+          "tokens": 83,
+          "embeddingDimensions": 384,
+          "embeddingNorm": 1.0000001630771478
+        },
+        {
+          "id": "query@1035:464",
+          "documentReference": "query",
+          "offset": 1035,
+          "length": 464,
+          "text": "records requiring\nadditional context. The reporting page would display a small legend that explains which estimates are\nstill being updated. A printed version should expose the data cutoff so that two summaries exported\nduring different shifts are easy to identify. \nPassage Review / Controlled demonstration   01 \n\nSYNTHETIC CS RESEARCH NOTE \nContinuation \nWhich period owns a record \nPut an alarm in the calendar group for when the algorithm issued its decision.",
+          "tokens": 79,
+          "embeddingDimensions": 384,
+          "embeddingNorm": 1.0000005083928645
+        },
+        {
+          "id": "query@1379:435",
+          "documentReference": "query",
+          "offset": 1379,
+          "length": 435,
+          "text": "Continuation \nWhich period owns a record \nPut an alarm in the calendar group for when the algorithm issued its decision. If a technician verifies it\na week later, revise the figures for the original period. Counting it on the day the ticket closes makes\nthe performance chart react to clerical bursts instead of changes in the predictor. Show how many\nalarms have been resolved so readers can tell an interim number from a settled one.",
+          "tokens": 86,
+          "embeddingDimensions": 384,
+          "embeddingNorm": 0.9999999764642729
+        },
+        {
+          "id": "query@1702:451",
+          "documentReference": "query",
+          "offset": 1702,
+          "length": 451,
+          "text": "the predictor. Show how many\nalarms have been resolved so readers can tell an interim number from a settled one. \nReview interface \nA technician should be able to attach a short description of the observed fault without exposing the\nscoring dashboard. The same interface could display the instrument model and whether spare parts are\navailable. This screen serves maintenance coordination and would be reviewed separately from the\nevaluation protocol.",
+          "tokens": 77,
+          "embeddingDimensions": 384,
+          "embeddingNorm": 1.000000002489072
+        },
+        {
+          "id": "query@2008:422",
+          "documentReference": "query",
+          "offset": 2008,
+          "length": 422,
+          "text": "and whether spare parts are\navailable. This screen serves maintenance coordination and would be reviewed separately from the\nevaluation protocol. \nAmending a closed ticket \nKeep the amount each ticket added to the running totals. If its verdict is changed, take away the old\namount and insert the amount implied by the new verdict into the same historical bucket. A change of\nmind must not count as an additional incident.",
+          "tokens": 78,
+          "embeddingDimensions": 384,
+          "embeddingNorm": 1.0000000540418663
+        },
+        {
+          "id": "query@2320:280",
+          "documentReference": "query",
+          "offset": 2320,
+          "length": 280,
+          "text": "by the new verdict into the same historical bucket. A change of\nmind must not count as an additional incident. With that rule and the history of amendments, an auditor\ncan recover the figures that were visible on any reporting date. \nPassage Review / Controlled demonstration   02",
+          "tokens": 53,
+          "embeddingDimensions": 384,
+          "embeddingNorm": 1.0000001961468288
+        }
+      ],
+      "sourcePassages": [
+        {
+          "id": "source-1@0:524",
+          "documentReference": "source-1",
+          "offset": 0,
+          "length": 524,
+          "text": "Delayed Labels in a Streaming Fault Classifier\n\nProblem setting\nA monitoring model categorizes telemetry bursts from industrial equipment. Human reviewers may confirm an incident days after the corresponding burst. Confirmation lag varies by maintenance shift and by the kind of event. The proposed study concerns the reliability of model evaluation during such gaps. Each prediction is archived with its probability vector, emission time, model version, and an identifier that can be joined to a later investigation record.",
+          "tokens": 96,
+          "embeddingDimensions": 384,
+          "embeddingNorm": 1.0000002554575456
+        },
+        {
+          "id": "source-1@396:472",
+          "documentReference": "source-1",
+          "offset": 396,
+          "length": 472,
+          "text": "with its probability vector, emission time, model version, and an identifier that can be joined to a later investigation record.\n\nEvaluation cohorts\nAssign each observation to an evaluation cohort using the time of inference. The arrival of an adjudication is only a signal to update the older cohort. It never moves the observation into a more recent bucket. Otherwise a day with a backlog clearance may look unusually difficult even though its predictions were ordinary.",
+          "tokens": 94,
+          "embeddingDimensions": 384,
+          "embeddingNorm": 1.0000002243278012
+        },
+        {
+          "id": "source-1@736:477",
+          "documentReference": "source-1",
+          "offset": 736,
+          "length": 477,
+          "text": "more recent bucket. Otherwise a day with a backlog clearance may look unusually difficult even though its predictions were ordinary. A report includes the fraction of cases already adjudicated, and readers can distinguish provisional scores from mature ones.\n\nReference schedule\nWe propose a weekly frozen comparator and a second model that updates on a fixed schedule. Both predictors receive the same feature snapshots and produce output before any adjudication is available.",
+          "tokens": 89,
+          "embeddingDimensions": 384,
+          "embeddingNorm": 0.9999997941477904
+        },
+        {
+          "id": "source-1@1077:486",
+          "documentReference": "source-1",
+          "offset": 1077,
+          "length": 486,
+          "text": "updates on a fixed schedule. Both predictors receive the same feature snapshots and produce output before any adjudication is available. Review staff should not see which system supplied a particular estimate. The protocol records the ages of unresolved incidents and groups evaluation views by equipment category to expose delays that affect only one part of the installation.\n\nCorrection records\nStore per-event contributions to the evaluation counters until adjudications are stable.",
+          "tokens": 89,
+          "embeddingDimensions": 384,
+          "embeddingNorm": 0.9999999944322633
+        },
+        {
+          "id": "source-1@1413:524",
+          "documentReference": "source-1",
+          "offset": 1413,
+          "length": 524,
+          "text": "affect only one part of the installation.\n\nCorrection records\nStore per-event contributions to the evaluation counters until adjudications are stable. When a reviewer replaces an earlier label, remove the contribution computed from the superseded value and add one computed from the revised value. The correction must update the original aggregate rather than append a second case. This design keeps repeated amendments from inflating the sample size and lets investigators reconstruct the value published at any checkpoint.",
+          "tokens": 94,
+          "embeddingDimensions": 384,
+          "embeddingNorm": 0.9999999515779967
+        },
+        {
+          "id": "source-1@1795:546",
+          "documentReference": "source-1",
+          "offset": 1795,
+          "length": 546,
+          "text": "This design keeps repeated amendments from inflating the sample size and lets investigators reconstruct the value published at any checkpoint.\n\nShift analysis\nA deployment may have quiet weekends and unusually concentrated weekday inspections. The proposed replay uses intact weekly blocks so that this pattern remains visible. Stratifying randomly by individual record would spread weekend bursts across the whole calendar and hide the periods in which feedback is sparse. We would inspect differences across shifts before combining the results.",
+          "tokens": 91,
+          "embeddingDimensions": 384,
+          "embeddingNorm": 1.0000001776663658
+        },
+        {
+          "id": "source-1@2210:537",
+          "documentReference": "source-1",
+          "offset": 2210,
+          "length": 537,
+          "text": "calendar and hide the periods in which feedback is sparse. We would inspect differences across shifts before combining the results. The design specifies an analysis plan and supplies no measured outcome.\n\nBias from fast decisions\nInitial confirmations often overrepresent incidents with obvious symptoms because they are quicker for reviewers to resolve. The current precision estimate can therefore appear better than the final estimate. Compare prompt and delayed decisions within each equipment family before trusting the early curve.",
+          "tokens": 89,
+          "embeddingDimensions": 384,
+          "embeddingNorm": 0.9999999622955023
+        },
+        {
+          "id": "source-1@2610:273",
+          "documentReference": "source-1",
+          "offset": 2610,
+          "length": 273,
+          "text": "appear better than the final estimate. Compare prompt and delayed decisions within each equipment family before trusting the early curve. If the two subsets differ sharply, the dashboard should withhold a comparative claim until the outstanding investigations are resolved.",
+          "tokens": 47,
+          "embeddingDimensions": 384,
+          "embeddingNorm": 0.9999999726078072
+        }
+      ],
+      "candidates": [
+        {
+          "queryIndex": 0,
+          "scores": [
+            {
+              "sourceIndex": 0,
+              "lexical": 0.1382321329645551,
+              "semantic": 0.5489090239385604,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 1,
+              "lexical": 0.047909550160968616,
+              "semantic": 0.34060445311498283,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 2,
+              "lexical": 0.02414257718945219,
+              "semantic": 0.41335141894763633,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 3,
+              "lexical": 0.01964055097689703,
+              "semantic": 0.554790865813511,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 4,
+              "lexical": 0.05276322083499022,
+              "semantic": 0.30728968122448397,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 5,
+              "lexical": 0.04800001528210216,
+              "semantic": 0.3711979627981338,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 6,
+              "lexical": 0.055166778611750115,
+              "semantic": 0.5408140957781746,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 7,
+              "lexical": 0.012771164403990579,
+              "semantic": 0.4368953846962535,
+              "correspondences": []
+            }
+          ],
+          "topFiveSemantic": [
+            {
+              "sourceIndex": 3,
+              "lexical": 0.01964055097689703,
+              "semantic": 0.554790865813511,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 0,
+              "lexical": 0.1382321329645551,
+              "semantic": 0.5489090239385604,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 6,
+              "lexical": 0.055166778611750115,
+              "semantic": 0.5408140957781746,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 7,
+              "lexical": 0.012771164403990579,
+              "semantic": 0.4368953846962535,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 2,
+              "lexical": 0.02414257718945219,
+              "semantic": 0.41335141894763633,
+              "correspondences": []
+            }
+          ]
+        },
+        {
+          "queryIndex": 1,
+          "scores": [
+            {
+              "sourceIndex": 0,
+              "lexical": 0.03842755509587852,
+              "semantic": 0.4029133947262632,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 1,
+              "lexical": 0.08404637775239011,
+              "semantic": 0.4217317868278489,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 2,
+              "lexical": 0.08496980685630555,
+              "semantic": 0.4513235154817544,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 3,
+              "lexical": 0.03004735944648106,
+              "semantic": 0.5044488048563963,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 4,
+              "lexical": 0.04054486940866836,
+              "semantic": 0.3517075674414566,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 5,
+              "lexical": 0.03216608447831803,
+              "semantic": 0.4210039112669463,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 6,
+              "lexical": 0.05831570865983048,
+              "semantic": 0.5005764147458122,
+              "correspondences": ["02-paraphrase-1"]
+            },
+            {
+              "sourceIndex": 7,
+              "lexical": 0.041486327007705534,
+              "semantic": 0.42852101003202653,
+              "correspondences": ["02-paraphrase-1"]
+            }
+          ],
+          "topFiveSemantic": [
+            {
+              "sourceIndex": 3,
+              "lexical": 0.03004735944648106,
+              "semantic": 0.5044488048563963,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 6,
+              "lexical": 0.05831570865983048,
+              "semantic": 0.5005764147458122,
+              "correspondences": ["02-paraphrase-1"]
+            },
+            {
+              "sourceIndex": 2,
+              "lexical": 0.08496980685630555,
+              "semantic": 0.4513235154817544,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 7,
+              "lexical": 0.041486327007705534,
+              "semantic": 0.42852101003202653,
+              "correspondences": ["02-paraphrase-1"]
+            },
+            {
+              "sourceIndex": 1,
+              "lexical": 0.08404637775239011,
+              "semantic": 0.4217317868278489,
+              "correspondences": []
+            }
+          ]
+        },
+        {
+          "queryIndex": 2,
+          "scores": [
+            {
+              "sourceIndex": 0,
+              "lexical": 0.018394509314300325,
+              "semantic": 0.3720112573555168,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 1,
+              "lexical": 0.037326461251473056,
+              "semantic": 0.4013766661187379,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 2,
+              "lexical": 0.050738383358081375,
+              "semantic": 0.5112189006462536,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 3,
+              "lexical": 0.0627224766211664,
+              "semantic": 0.5766984404790494,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 4,
+              "lexical": 0.04053149563024415,
+              "semantic": 0.2884382532299493,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 5,
+              "lexical": 0.027763116744290064,
+              "semantic": 0.36696000373307,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 6,
+              "lexical": 0.0514965805551214,
+              "semantic": 0.525811119194228,
+              "correspondences": ["02-paraphrase-1"]
+            },
+            {
+              "sourceIndex": 7,
+              "lexical": 0.05320921570445813,
+              "semantic": 0.5204165397966611,
+              "correspondences": ["02-paraphrase-1"]
+            }
+          ],
+          "topFiveSemantic": [
+            {
+              "sourceIndex": 3,
+              "lexical": 0.0627224766211664,
+              "semantic": 0.5766984404790494,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 6,
+              "lexical": 0.0514965805551214,
+              "semantic": 0.525811119194228,
+              "correspondences": ["02-paraphrase-1"]
+            },
+            {
+              "sourceIndex": 7,
+              "lexical": 0.05320921570445813,
+              "semantic": 0.5204165397966611,
+              "correspondences": ["02-paraphrase-1"]
+            },
+            {
+              "sourceIndex": 2,
+              "lexical": 0.050738383358081375,
+              "semantic": 0.5112189006462536,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 1,
+              "lexical": 0.037326461251473056,
+              "semantic": 0.4013766661187379,
+              "correspondences": []
+            }
+          ]
+        },
+        {
+          "queryIndex": 3,
+          "scores": [
+            {
+              "sourceIndex": 0,
+              "lexical": 0.0749844718960278,
+              "semantic": 0.3061309113553566,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 1,
+              "lexical": 0.07601377278477178,
+              "semantic": 0.4031810282157065,
+              "correspondences": ["02-paraphrase-2"]
+            },
+            {
+              "sourceIndex": 2,
+              "lexical": 0.014488553753754737,
+              "semantic": 0.42827576097912934,
+              "correspondences": ["02-paraphrase-2"]
+            },
+            {
+              "sourceIndex": 3,
+              "lexical": 0.11663734620740282,
+              "semantic": 0.5026940772511144,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 4,
+              "lexical": 0.041541565447594624,
+              "semantic": 0.4382542685140985,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 5,
+              "lexical": 0.07826843122176085,
+              "semantic": 0.5908704901054571,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 6,
+              "lexical": 0.05749687594017135,
+              "semantic": 0.5451451393784135,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 7,
+              "lexical": 0.02906937474567969,
+              "semantic": 0.4065489393226326,
+              "correspondences": []
+            }
+          ],
+          "topFiveSemantic": [
+            {
+              "sourceIndex": 5,
+              "lexical": 0.07826843122176085,
+              "semantic": 0.5908704901054571,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 6,
+              "lexical": 0.05749687594017135,
+              "semantic": 0.5451451393784135,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 3,
+              "lexical": 0.11663734620740282,
+              "semantic": 0.5026940772511144,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 4,
+              "lexical": 0.041541565447594624,
+              "semantic": 0.4382542685140985,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 2,
+              "lexical": 0.014488553753754737,
+              "semantic": 0.42827576097912934,
+              "correspondences": ["02-paraphrase-2"]
+            }
+          ]
+        },
+        {
+          "queryIndex": 4,
+          "scores": [
+            {
+              "sourceIndex": 0,
+              "lexical": 0.11215205400432672,
+              "semantic": 0.4261903567744452,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 1,
+              "lexical": 0.0891511675600348,
+              "semantic": 0.47653298064787886,
+              "correspondences": ["02-paraphrase-2"]
+            },
+            {
+              "sourceIndex": 2,
+              "lexical": 0.05599439625257944,
+              "semantic": 0.4916717186180526,
+              "correspondences": ["02-paraphrase-2"]
+            },
+            {
+              "sourceIndex": 3,
+              "lexical": 0.01936525129813062,
+              "semantic": 0.5578626140982115,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 4,
+              "lexical": 0.047256064355922195,
+              "semantic": 0.46021423424956687,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 5,
+              "lexical": 0.08377427580362876,
+              "semantic": 0.5136264223900883,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 6,
+              "lexical": 0.025470020204638802,
+              "semantic": 0.5876882898870471,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 7,
+              "lexical": 0.043512828571207876,
+              "semantic": 0.4105892627518227,
+              "correspondences": []
+            }
+          ],
+          "topFiveSemantic": [
+            {
+              "sourceIndex": 6,
+              "lexical": 0.025470020204638802,
+              "semantic": 0.5876882898870471,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 3,
+              "lexical": 0.01936525129813062,
+              "semantic": 0.5578626140982115,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 5,
+              "lexical": 0.08377427580362876,
+              "semantic": 0.5136264223900883,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 2,
+              "lexical": 0.05599439625257944,
+              "semantic": 0.4916717186180526,
+              "correspondences": ["02-paraphrase-2"]
+            },
+            {
+              "sourceIndex": 1,
+              "lexical": 0.0891511675600348,
+              "semantic": 0.47653298064787886,
+              "correspondences": ["02-paraphrase-2"]
+            }
+          ]
+        },
+        {
+          "queryIndex": 5,
+          "scores": [
+            {
+              "sourceIndex": 0,
+              "lexical": 0.18625326356217328,
+              "semantic": 0.5636703137711491,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 1,
+              "lexical": 0.13770204448797466,
+              "semantic": 0.3451261734078794,
+              "correspondences": ["02-paraphrase-2"]
+            },
+            {
+              "sourceIndex": 2,
+              "lexical": 0.11783320593913664,
+              "semantic": 0.4178618625034107,
+              "correspondences": ["02-paraphrase-2"]
+            },
+            {
+              "sourceIndex": 3,
+              "lexical": 0.1671473694508986,
+              "semantic": 0.6429917737779218,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 4,
+              "lexical": 0.08015089330226023,
+              "semantic": 0.35684490624523313,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 5,
+              "lexical": 0.03209000792894635,
+              "semantic": 0.3077007221535133,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 6,
+              "lexical": 0.0291689988248431,
+              "semantic": 0.5040348136919284,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 7,
+              "lexical": 0.055518526350647836,
+              "semantic": 0.42858172142767903,
+              "correspondences": []
+            }
+          ],
+          "topFiveSemantic": [
+            {
+              "sourceIndex": 3,
+              "lexical": 0.1671473694508986,
+              "semantic": 0.6429917737779218,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 0,
+              "lexical": 0.18625326356217328,
+              "semantic": 0.5636703137711491,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 6,
+              "lexical": 0.0291689988248431,
+              "semantic": 0.5040348136919284,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 7,
+              "lexical": 0.055518526350647836,
+              "semantic": 0.42858172142767903,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 2,
+              "lexical": 0.11783320593913664,
+              "semantic": 0.4178618625034107,
+              "correspondences": ["02-paraphrase-2"]
+            }
+          ]
+        },
+        {
+          "queryIndex": 6,
+          "scores": [
+            {
+              "sourceIndex": 0,
+              "lexical": 0.13944933586951927,
+              "semantic": 0.22277999986500016,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 1,
+              "lexical": 0.1717935959598938,
+              "semantic": 0.3155827299928179,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 2,
+              "lexical": 0.1094069626176625,
+              "semantic": 0.3104699303089139,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 3,
+              "lexical": 0.13444209166551152,
+              "semantic": 0.4098005288620227,
+              "correspondences": ["02-paraphrase-3"]
+            },
+            {
+              "sourceIndex": 4,
+              "lexical": 0.0739739279423085,
+              "semantic": 0.48604688461993645,
+              "correspondences": ["02-paraphrase-3"]
+            },
+            {
+              "sourceIndex": 5,
+              "lexical": 0.027448821007644845,
+              "semantic": 0.30606396777541733,
+              "correspondences": ["02-paraphrase-3"]
+            },
+            {
+              "sourceIndex": 6,
+              "lexical": 0.03175335141016535,
+              "semantic": 0.29677134727999593,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 7,
+              "lexical": 0.03391949685026305,
+              "semantic": 0.2921691006753359,
+              "correspondences": []
+            }
+          ],
+          "topFiveSemantic": [
+            {
+              "sourceIndex": 4,
+              "lexical": 0.0739739279423085,
+              "semantic": 0.48604688461993645,
+              "correspondences": ["02-paraphrase-3"]
+            },
+            {
+              "sourceIndex": 3,
+              "lexical": 0.13444209166551152,
+              "semantic": 0.4098005288620227,
+              "correspondences": ["02-paraphrase-3"]
+            },
+            {
+              "sourceIndex": 1,
+              "lexical": 0.1717935959598938,
+              "semantic": 0.3155827299928179,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 2,
+              "lexical": 0.1094069626176625,
+              "semantic": 0.3104699303089139,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 5,
+              "lexical": 0.027448821007644845,
+              "semantic": 0.30606396777541733,
+              "correspondences": ["02-paraphrase-3"]
+            }
+          ]
+        },
+        {
+          "queryIndex": 7,
+          "scores": [
+            {
+              "sourceIndex": 0,
+              "lexical": 0.06601018000314597,
+              "semantic": 0.11820635019039213,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 1,
+              "lexical": 0.10432491436245347,
+              "semantic": 0.2930095573018907,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 2,
+              "lexical": 0.0980426830893503,
+              "semantic": 0.2525379152120563,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 3,
+              "lexical": 0.06286692288250406,
+              "semantic": 0.35490337076090533,
+              "correspondences": ["02-paraphrase-3"]
+            },
+            {
+              "sourceIndex": 4,
+              "lexical": 0.07765466199343343,
+              "semantic": 0.4678782653134344,
+              "correspondences": ["02-paraphrase-3"]
+            },
+            {
+              "sourceIndex": 5,
+              "lexical": 0.09421775261064097,
+              "semantic": 0.30051767055463885,
+              "correspondences": ["02-paraphrase-3"]
+            },
+            {
+              "sourceIndex": 6,
+              "lexical": 0.020552431713208558,
+              "semantic": 0.3206073887096326,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 7,
+              "lexical": 0.007759165201295528,
+              "semantic": 0.29125182299018976,
+              "correspondences": []
+            }
+          ],
+          "topFiveSemantic": [
+            {
+              "sourceIndex": 4,
+              "lexical": 0.07765466199343343,
+              "semantic": 0.4678782653134344,
+              "correspondences": ["02-paraphrase-3"]
+            },
+            {
+              "sourceIndex": 3,
+              "lexical": 0.06286692288250406,
+              "semantic": 0.35490337076090533,
+              "correspondences": ["02-paraphrase-3"]
+            },
+            {
+              "sourceIndex": 6,
+              "lexical": 0.020552431713208558,
+              "semantic": 0.3206073887096326,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 5,
+              "lexical": 0.09421775261064097,
+              "semantic": 0.30051767055463885,
+              "correspondences": ["02-paraphrase-3"]
+            },
+            {
+              "sourceIndex": 1,
+              "lexical": 0.10432491436245347,
+              "semantic": 0.2930095573018907,
+              "correspondences": []
+            }
+          ]
+        }
+      ],
+      "application": []
+    },
+    {
+      "case": "03-negative-control",
+      "expected": [],
+      "queryPassages": [
+        {
+          "id": "query@0:520",
+          "documentReference": "query",
+          "offset": 0,
+          "length": 520,
+          "text": "SYNTHETIC CS RESEARCH NOTE \nDictionary Reuse in a Columnar Product\nCatalog \nCatalog workload \nA retailer keeps one analytical column for each product attribute. Material names, package\ndescriptions, and manufacturing regions repeat across many rows, although the relative frequency of\nthose strings changes with the season. The storage proposal groups nearby rows into stripes and\nencodes recurring values with small integers. Its goal is to reduce the bytes examined by scans that\nfilter products by a common attribute.",
+          "tokens": 90,
+          "embeddingDimensions": 384,
+          "embeddingNorm": 1.0000000029341527
+        },
+        {
+          "id": "query@406:420",
+          "documentReference": "query",
+          "offset": 406,
+          "length": 420,
+          "text": "with small integers. Its goal is to reduce the bytes examined by scans that\nfilter products by a common attribute. \nShared string tables \nA stripe dictionary is small when many rows contain the same names. Two adjacent stripes may\nnevertheless carry almost identical dictionaries, wasting storage on duplicate strings. The writer can\nbuild a shared table for a run of stripes when the union of their values stays modest.",
+          "tokens": 79,
+          "embeddingDimensions": 384,
+          "embeddingNorm": 0.9999999986684537
+        },
+        {
+          "id": "query@725:422",
+          "documentReference": "query",
+          "offset": 725,
+          "length": 422,
+          "text": "The writer can\nbuild a shared table for a run of stripes when the union of their values stays modest. Each stripe stores\nits own compact sequence of indexes while reading spellings from the shared table. \nDeciding where to split \nThe compactor estimates the number of bits needed for an index before adding another stripe to a\ngroup. If the combined vocabulary crosses a power of two, every encoded index may become wider.",
+          "tokens": 83,
+          "embeddingDimensions": 384,
+          "embeddingNorm": 0.999999893556596
+        },
+        {
+          "id": "query@1032:348",
+          "documentReference": "query",
+          "offset": 1032,
+          "length": 348,
+          "text": "another stripe to a\ngroup. If the combined vocabulary crosses a power of two, every encoded index may become wider.\nThe storage gain from deleting duplicate names must cover this extra cost. The planner also limits\ngroup size to keep the working set small when a query touches only one range of rows. \nPassage Review / Controlled demonstration   01",
+          "tokens": 68,
+          "embeddingDimensions": 384,
+          "embeddingNorm": 0.9999999384129655
+        },
+        {
+          "id": "query@1261:481",
+          "documentReference": "query",
+          "offset": 1261,
+          "length": 481,
+          "text": "keep the working set small when a query touches only one range of rows. \nPassage Review / Controlled demonstration   01 \n\nSYNTHETIC CS RESEARCH NOTE \nContinuation \nFiltering without materialization \nA predicate against a literal value first looks up the corresponding integer in the dictionary. If the value\nis absent, the executor can skip all associated rows. When the value exists, the executor compares\npacked indexes and decodes full strings only for rows selected for output.",
+          "tokens": 92,
+          "embeddingDimensions": 384,
+          "embeddingNorm": 1.0000001401751664
+        },
+        {
+          "id": "query@1617:481",
+          "documentReference": "query",
+          "offset": 1617,
+          "length": 481,
+          "text": "rows. When the value exists, the executor compares\npacked indexes and decodes full strings only for rows selected for output. Queries that request a range\nin alphabetic order use an ordering map alongside the dictionary. \nValidation design \nThe evaluation would synthesize catalogs with frequent attributes, changing brand distributions, and\nsparse optional fields. It would measure encoded size, dictionary build time, and scan throughput under\nselective and nonselective filters.",
+          "tokens": 94,
+          "embeddingDimensions": 384,
+          "embeddingNorm": 1.0000000475192277
+        },
+        {
+          "id": "query@1955:362",
+          "documentReference": "query",
+          "offset": 1955,
+          "length": 362,
+          "text": "and\nsparse optional fields. It would measure encoded size, dictionary build time, and scan throughput under\nselective and nonselective filters. A separate scenario would insert a burst of new product names to test\nwhen combining dictionaries becomes costly. These are proposed experiments for the fictional design. \nPassage Review / Controlled demonstration   02",
+          "tokens": 66,
+          "embeddingDimensions": 384,
+          "embeddingNorm": 0.9999999722917678
+        }
+      ],
+      "sourcePassages": [
+        {
+          "id": "source-1@0:415",
+          "documentReference": "source-1",
+          "offset": 0,
+          "length": 415,
+          "text": "Capability Rotation for Guest Network Gateways\n\nThreat model\nA municipal wireless gateway offers short guest sessions to devices that have no persistent identity. An attacker who captures a bearer capability might replay it from a different radio segment. The proposed protocol assumes encrypted management traffic and untrusted client networks. It does not try to identify a person or link visits across locations.",
+          "tokens": 74,
+          "embeddingDimensions": 384,
+          "embeddingNorm": 1.000000258752615
+        },
+        {
+          "id": "source-1@286:457",
+          "documentReference": "source-1",
+          "offset": 286,
+          "length": 457,
+          "text": "encrypted management traffic and untrusted client networks. It does not try to identify a person or link visits across locations. Its main objective is to confine the effect of a stolen capability to a small region and time interval.\n\nCapability format\nEach grant carries an audience describing the access zone, an expiry measured against the gateway clock, and an unpredictable nonce. The issuing service signs the fields as a single authenticated message.",
+          "tokens": 91,
+          "embeddingDimensions": 384,
+          "embeddingNorm": 1.0000001003481187
+        },
+        {
+          "id": "source-1@608:486",
+          "documentReference": "source-1",
+          "offset": 608,
+          "length": 486,
+          "text": "measured against the gateway clock, and an unpredictable nonce. The issuing service signs the fields as a single authenticated message. A gateway must reject a grant when the audience does not describe its own zone, even when the signature is valid. Admission packets also include a challenge response bound to the association that originally requested the grant.\n\nRotation policy\nVerification keys change on a fixed schedule, with a short overlap to handle clocks that differ slightly.",
+          "tokens": 88,
+          "embeddingDimensions": 384,
+          "embeddingNorm": 0.9999998947958516
+        },
+        {
+          "id": "source-1@965:434",
+          "documentReference": "source-1",
+          "offset": 965,
+          "length": 434,
+          "text": "grant.\n\nRotation policy\nVerification keys change on a fixed schedule, with a short overlap to handle clocks that differ slightly. A revoked signing key bypasses the normal overlap window. Radios receive the revocation status through an authenticated management channel. When a device moves into a neighboring zone it requests a new grant. Handing its existing grant to the next gateway would extend the usefulness of a stolen message.",
+          "tokens": 81,
+          "embeddingDimensions": 384,
+          "embeddingNorm": 1.0000000349610363
+        },
+        {
+          "id": "source-1@1282:511",
+          "documentReference": "source-1",
+          "offset": 1282,
+          "length": 511,
+          "text": "requests a new grant. Handing its existing grant to the next gateway would extend the usefulness of a stolen message.\n\nReplay accounting\nGateways retain recently consumed nonces for the validity period of the grants. A bounded table records the zone and the expiry associated with each entry. The table drops expired nonces during a periodic maintenance pass. If available space runs low, the admission path temporarily slows new associations to preserve the validity of replay checks for already issued grants.",
+          "tokens": 96,
+          "embeddingDimensions": 384,
+          "embeddingNorm": 0.9999999329849907
+        },
+        {
+          "id": "source-1@1661:444",
+          "documentReference": "source-1",
+          "offset": 1661,
+          "length": 444,
+          "text": "runs low, the admission path temporarily slows new associations to preserve the validity of replay checks for already issued grants.\n\nAssessment plan\nThe proposed exercise places one radio on a congested channel and another on a quiet channel. A traffic generator submits stale messages, duplicate challenges, and grants intended for a different zone. The observer records which messages reach the admission stage and which are refused earlier.",
+          "tokens": 79,
+          "embeddingDimensions": 384,
+          "embeddingNorm": 0.9999999012257802
+        },
+        {
+          "id": "source-1@1975:225",
+          "documentReference": "source-1",
+          "offset": 1975,
+          "length": 225,
+          "text": "grants intended for a different zone. The observer records which messages reach the admission stage and which are refused earlier. This synthetic plan reports no attack success rate and makes no claim about deployed networks.",
+          "tokens": 40,
+          "embeddingDimensions": 384,
+          "embeddingNorm": 1.0000000183214852
+        }
+      ],
+      "candidates": [
+        {
+          "queryIndex": 0,
+          "scores": [
+            {
+              "sourceIndex": 0,
+              "lexical": 0.02272192241483296,
+              "semantic": -0.027447250693465368,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 1,
+              "lexical": 0.04652644339032264,
+              "semantic": 0.13151605141668388,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 2,
+              "lexical": 0.01900188294469612,
+              "semantic": -0.013734928399865039,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 3,
+              "lexical": 0.0210270230152017,
+              "semantic": -0.023216652780676417,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 4,
+              "lexical": 0.024254851533234544,
+              "semantic": 0.13778888994523664,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 5,
+              "lexical": 0.013597970819854971,
+              "semantic": 0.030716069749511406,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 6,
+              "lexical": 0.009288383156231199,
+              "semantic": -0.08493351202534437,
+              "correspondences": []
+            }
+          ],
+          "topFiveSemantic": [
+            {
+              "sourceIndex": 4,
+              "lexical": 0.024254851533234544,
+              "semantic": 0.13778888994523664,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 1,
+              "lexical": 0.04652644339032264,
+              "semantic": 0.13151605141668388,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 5,
+              "lexical": 0.013597970819854971,
+              "semantic": 0.030716069749511406,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 2,
+              "lexical": 0.01900188294469612,
+              "semantic": -0.013734928399865039,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 3,
+              "lexical": 0.0210270230152017,
+              "semantic": -0.023216652780676417,
+              "correspondences": []
+            }
+          ]
+        },
+        {
+          "queryIndex": 1,
+          "scores": [
+            {
+              "sourceIndex": 0,
+              "lexical": 0.01011114729727131,
+              "semantic": 0.05169297576446898,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 1,
+              "lexical": 0.03435080439682137,
+              "semantic": 0.19347660630511715,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 2,
+              "lexical": 0.031397372975948475,
+              "semantic": 0.03860302546217344,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 3,
+              "lexical": 0.025872224398406116,
+              "semantic": 0.035921021073754215,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 4,
+              "lexical": 0.038236052258998995,
+              "semantic": 0.1859334920382147,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 5,
+              "lexical": 0.05077240420951355,
+              "semantic": 0.10928713295005296,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 6,
+              "lexical": 0.007866001946047528,
+              "semantic": -0.03159640142752955,
+              "correspondences": []
+            }
+          ],
+          "topFiveSemantic": [
+            {
+              "sourceIndex": 1,
+              "lexical": 0.03435080439682137,
+              "semantic": 0.19347660630511715,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 4,
+              "lexical": 0.038236052258998995,
+              "semantic": 0.1859334920382147,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 5,
+              "lexical": 0.05077240420951355,
+              "semantic": 0.10928713295005296,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 0,
+              "lexical": 0.01011114729727131,
+              "semantic": 0.05169297576446898,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 2,
+              "lexical": 0.031397372975948475,
+              "semantic": 0.03860302546217344,
+              "correspondences": []
+            }
+          ]
+        },
+        {
+          "queryIndex": 2,
+          "scores": [
+            {
+              "sourceIndex": 0,
+              "lexical": 0.017794024502692025,
+              "semantic": 0.03499056128643889,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 1,
+              "lexical": 0.03392079517223628,
+              "semantic": 0.18589182035136098,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 2,
+              "lexical": 0.0302644412553424,
+              "semantic": 0.007005664860449008,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 3,
+              "lexical": 0.024121803171771376,
+              "semantic": 0.027077521861390244,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 4,
+              "lexical": 0.06734021083853195,
+              "semantic": 0.1690379097330136,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 5,
+              "lexical": 0.021239437594953024,
+              "semantic": 0.10763581465531778,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 6,
+              "lexical": 0.010315293116322526,
+              "semantic": -0.01998138398989612,
+              "correspondences": []
+            }
+          ],
+          "topFiveSemantic": [
+            {
+              "sourceIndex": 1,
+              "lexical": 0.03392079517223628,
+              "semantic": 0.18589182035136098,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 4,
+              "lexical": 0.06734021083853195,
+              "semantic": 0.1690379097330136,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 5,
+              "lexical": 0.021239437594953024,
+              "semantic": 0.10763581465531778,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 0,
+              "lexical": 0.017794024502692025,
+              "semantic": 0.03499056128643889,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 3,
+              "lexical": 0.024121803171771376,
+              "semantic": 0.027077521861390244,
+              "correspondences": []
+            }
+          ]
+        },
+        {
+          "queryIndex": 3,
+          "scores": [
+            {
+              "sourceIndex": 0,
+              "lexical": 0.011798141130588032,
+              "semantic": 0.06656553854030628,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 1,
+              "lexical": 0.023284458943833245,
+              "semantic": 0.16451405902015473,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 2,
+              "lexical": 0.032920996509242524,
+              "semantic": 0.017660607342481562,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 3,
+              "lexical": 0.015917864206183248,
+              "semantic": 0.08164831590666795,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 4,
+              "lexical": 0.015380739454697739,
+              "semantic": 0.20717523498261556,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 5,
+              "lexical": 0.06388802894255698,
+              "semantic": 0.13380182320695003,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 6,
+              "lexical": 0.010094773089764288,
+              "semantic": 0.029006132567896498,
+              "correspondences": []
+            }
+          ],
+          "topFiveSemantic": [
+            {
+              "sourceIndex": 4,
+              "lexical": 0.015380739454697739,
+              "semantic": 0.20717523498261556,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 1,
+              "lexical": 0.023284458943833245,
+              "semantic": 0.16451405902015473,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 5,
+              "lexical": 0.06388802894255698,
+              "semantic": 0.13380182320695003,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 3,
+              "lexical": 0.015917864206183248,
+              "semantic": 0.08164831590666795,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 0,
+              "lexical": 0.011798141130588032,
+              "semantic": 0.06656553854030628,
+              "correspondences": []
+            }
+          ]
+        },
+        {
+          "queryIndex": 4,
+          "scores": [
+            {
+              "sourceIndex": 0,
+              "lexical": 0.00964558251133161,
+              "semantic": -0.03750522809370843,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 1,
+              "lexical": 0.030577110964385916,
+              "semantic": -0.017875064224196397,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 2,
+              "lexical": 0.028577391279992703,
+              "semantic": -0.018035470232981424,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 3,
+              "lexical": 0.015044996375596663,
+              "semantic": -0.065590044405311,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 4,
+              "lexical": 0.04042937496781732,
+              "semantic": 0.12347736192298026,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 5,
+              "lexical": 0.016104707010468896,
+              "semantic": 0.04097812459920849,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 6,
+              "lexical": 0.011648160504418229,
+              "semantic": -0.04133269223101686,
+              "correspondences": []
+            }
+          ],
+          "topFiveSemantic": [
+            {
+              "sourceIndex": 4,
+              "lexical": 0.04042937496781732,
+              "semantic": 0.12347736192298026,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 5,
+              "lexical": 0.016104707010468896,
+              "semantic": 0.04097812459920849,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 1,
+              "lexical": 0.030577110964385916,
+              "semantic": -0.017875064224196397,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 2,
+              "lexical": 0.028577391279992703,
+              "semantic": -0.018035470232981424,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 0,
+              "lexical": 0.00964558251133161,
+              "semantic": -0.03750522809370843,
+              "correspondences": []
+            }
+          ]
+        },
+        {
+          "queryIndex": 5,
+          "scores": [
+            {
+              "sourceIndex": 0,
+              "lexical": 0.015977084816805674,
+              "semantic": 0.039226287565342494,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 1,
+              "lexical": 0.04261095260467913,
+              "semantic": 0.18769450153879103,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 2,
+              "lexical": 0.0376977825538323,
+              "semantic": 0.21343347077745142,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 3,
+              "lexical": 0.023459594805435868,
+              "semantic": 0.08124369889471747,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 4,
+              "lexical": 0.018094811272818572,
+              "semantic": 0.20176417378381328,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 5,
+              "lexical": 0.012080525984521775,
+              "semantic": 0.19269724046929868,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 6,
+              "lexical": 0.012141518501232941,
+              "semantic": 0.048150946236638494,
+              "correspondences": []
+            }
+          ],
+          "topFiveSemantic": [
+            {
+              "sourceIndex": 2,
+              "lexical": 0.0376977825538323,
+              "semantic": 0.21343347077745142,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 4,
+              "lexical": 0.018094811272818572,
+              "semantic": 0.20176417378381328,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 5,
+              "lexical": 0.012080525984521775,
+              "semantic": 0.19269724046929868,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 1,
+              "lexical": 0.04261095260467913,
+              "semantic": 0.18769450153879103,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 3,
+              "lexical": 0.023459594805435868,
+              "semantic": 0.08124369889471747,
+              "correspondences": []
+            }
+          ]
+        },
+        {
+          "queryIndex": 6,
+          "scores": [
+            {
+              "sourceIndex": 0,
+              "lexical": 0.04341232761233244,
+              "semantic": 0.11279196998025842,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 1,
+              "lexical": 0.04181601758417158,
+              "semantic": 0.2433383399655023,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 2,
+              "lexical": 0.03592446311855938,
+              "semantic": 0.14614948411084072,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 3,
+              "lexical": 0.030620765059934375,
+              "semantic": 0.06376492074133665,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 4,
+              "lexical": 0.031593627337583266,
+              "semantic": 0.13453241071772956,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 5,
+              "lexical": 0.04919136979088003,
+              "semantic": 0.17134262780715928,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 6,
+              "lexical": 0.015769826785023623,
+              "semantic": 0.017990313033818296,
+              "correspondences": []
+            }
+          ],
+          "topFiveSemantic": [
+            {
+              "sourceIndex": 1,
+              "lexical": 0.04181601758417158,
+              "semantic": 0.2433383399655023,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 5,
+              "lexical": 0.04919136979088003,
+              "semantic": 0.17134262780715928,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 2,
+              "lexical": 0.03592446311855938,
+              "semantic": 0.14614948411084072,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 4,
+              "lexical": 0.031593627337583266,
+              "semantic": 0.13453241071772956,
+              "correspondences": []
+            },
+            {
+              "sourceIndex": 0,
+              "lexical": 0.04341232761233244,
+              "semantic": 0.11279196998025842,
+              "correspondences": []
+            }
+          ]
+        }
+      ],
+      "application": []
+    }
+  ]
+}

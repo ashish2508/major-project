@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
-import { readFile } from 'node:fs/promises';
 import type { AnalysisResult } from '../src/lib/application/analysis';
+import { textPdf } from '../tests/pdf-fixture';
 
 const base = new URL(process.argv[2] ?? 'http://127.0.0.1:3000');
 const signal = () => AbortSignal.timeout(60_000);
@@ -14,18 +14,15 @@ const readiness = await status.json();
 assert.equal(readiness.ready, true);
 assert.equal(readiness.modelAvailable, true);
 
-const [pdf, source] = await Promise.all([
-  readFile('demo/submitted.pdf'),
-  readFile('demo/possible-source.txt', 'utf8'),
-]);
-const passage = source.trim();
+const passage = 'A researcher compares documents and reviews textual similarity.';
+const pdf = textPdf(passage);
 const endpoint = new URL('/api/analyze', base);
 for (const method of ['lexical', 'semantic', 'hybrid'] as const) {
   const form = new FormData();
   form.set('method', method);
   if (method === 'semantic') form.set('queryFile', new File([pdf], 'submitted.pdf'));
   else form.set('queryText', passage);
-  form.set('sourceFiles', new File([source], 'possible-source.txt'));
+  form.set('sourceFiles', new File([passage], 'possible-source.txt'));
   const response = await fetch(endpoint, {
     method: 'POST',
     headers: { Origin: base.origin },
@@ -45,7 +42,10 @@ for (const method of ['lexical', 'semantic', 'hybrid'] as const) {
   const { offset, length } = detection.suspiciousSpan;
   assert.equal(result.query.text.slice(offset, offset + length).trim(), passage);
   assert.equal(detection.sourceReference, result.sources[0].reference);
-  assert.equal(result.provider, method === 'lexical' ? 'TF-IDF on CPU' : 'CPUExecutionProvider');
+  if (method === 'lexical') assert.equal(result.provider, 'TF-IDF on CPU');
+  else if (process.env.MINILM_DEVICE === 'dml')
+    assert.match(result.provider, /DmlExecutionProvider/);
+  else assert.equal(result.provider, 'CPUExecutionProvider');
   console.log(`${method}: exact ${result.query.format} match, score ${detection.score.toFixed(3)}`);
 }
 

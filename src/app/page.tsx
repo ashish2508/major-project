@@ -9,6 +9,29 @@ const METHODS: { id: Method; name: string; description: string }[] = [
   { id: 'semantic', name: 'MiniLM', description: 'Semantic similarity' },
   { id: 'hybrid', name: 'Hybrid', description: 'Validation-selected blend' },
 ];
+function RevealedScore({ score }: { score: number }) {
+  const [display, setDisplay] = useState(0);
+  useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const start = performance.now();
+    let frame: number;
+    function tick(now: number) {
+      const progress = Math.min(1, (now - start) / 380);
+      setDisplay(score * (1 - (1 - progress) ** 3));
+      if (progress < 1) frame = requestAnimationFrame(tick);
+    }
+    frame = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(frame);
+  }, [score]);
+  return (
+    <>
+      <span className="animated-score" aria-hidden="true">
+        {display.toFixed(3)}
+      </span>
+      <span className="static-score">{score.toFixed(3)}</span>
+    </>
+  );
+}
 function HighlightedText({
   text,
   span,
@@ -47,6 +70,14 @@ export default function Home() {
   const resultsRef = useRef<HTMLElement>(null),
     queryPane = useRef<HTMLPreElement>(null),
     sourcePane = useRef<HTMLPreElement>(null);
+  useEffect(() => {
+    if (!result) return;
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    resultsRef.current?.scrollIntoView({
+      behavior: reducedMotion ? 'instant' : 'smooth',
+      block: 'start',
+    });
+  }, [result]);
   useEffect(() => {
     fetch('/api/status')
       .then((r) => r.json())
@@ -90,10 +121,6 @@ export default function Home() {
       if (!response.ok) throw new Error(body.error ?? 'Analysis failed');
       setResult(body);
       setActive(0);
-      setTimeout(
-        () => resultsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }),
-        0,
-      );
     } catch (e) {
       setError(e instanceof Error ? e.message : 'Unable to analyze these documents');
     } finally {
@@ -384,30 +411,62 @@ export default function Home() {
             aria-label="Analysis results"
             aria-live="polite"
           >
-            <div className="result-heading">
+            <div
+              className={`result-heading result-banner ${result.detections.length ? 'result-positive' : 'result-neutral'}`}
+            >
               <div>
                 <p className="eyebrow">REVIEW THE EVIDENCE</p>
                 <h2>
                   {result.detections.length
-                    ? `${result.detections.length} suspicious passage${result.detections.length === 1 ? '' : 's'} to examine`
-                    : 'No passages met the selected threshold'}
+                    ? 'Potential textual similarity detected'
+                    : 'No matching passages found above the selected threshold.'}
                 </h2>
                 <p>
-                  {result.sources.length} source{result.sources.length === 1 ? '' : 's'} searched ·{' '}
-                  {result.passages.query} query windows · {result.elapsedSeconds.toFixed(2)}s ·{' '}
-                  {result.provider}
+                  {result.detections.length
+                    ? 'Matching passages were identified. Review the highlighted evidence and possible source before drawing conclusions.'
+                    : 'This does not establish originality. Other sources or paraphrases may have been missed.'}
                 </p>
+                <dl className="result-metrics">
+                  <div>
+                    <dt>Candidate passages</dt>
+                    <dd>{result.detections.length}</dd>
+                  </div>
+                  {result.detections.length > 0 && (
+                    <div>
+                      <dt>Highest similarity</dt>
+                      <dd>
+                        <RevealedScore
+                          score={result.detections.reduce(
+                            (max, match) => Math.max(max, match.score),
+                            0,
+                          )}
+                        />
+                      </dd>
+                    </div>
+                  )}
+                  <div>
+                    <dt>Method</dt>
+                    <dd>{METHODS.find(({ id }) => id === result.method)?.name}</dd>
+                  </div>
+                  <div>
+                    <dt>Threshold</dt>
+                    <dd>{result.config.threshold.toFixed(2)}</dd>
+                  </div>
+                  <div>
+                    <dt>Execution provider</dt>
+                    <dd>{result.provider}</dd>
+                  </div>
+                  <div>
+                    <dt>Processing time</dt>
+                    <dd>{result.elapsedSeconds.toFixed(2)} s</dd>
+                  </div>
+                </dl>
               </div>
               <button type="button" className="secondary-button" onClick={download}>
                 Export evidence ↓
               </button>
             </div>
-            <p className="evidence-warning">
-              {result.detections.length
-                ? 'Inspect the full context, attribution, and possible source relationship before drawing conclusions.'
-                : 'This does not establish originality. Other sources, short passages, or paraphrases may have been missed.'}{' '}
-              Similarity is not proof of misconduct.
-            </p>
+            <p className="evidence-warning">Similarity is not proof of misconduct.</p>
             {result.detections.length > 0 && (
               <div className="match-list" role="list" aria-label="Matching passages">
                 {result.detections.map((d, i) => (
@@ -427,6 +486,10 @@ export default function Home() {
                         Query characters {d.suspiciousSpan.offset}–
                         {d.suspiciousSpan.offset + d.suspiciousSpan.length} · {d.evidenceWindows}{' '}
                         evidence window{d.evidenceWindows === 1 ? '' : 's'}
+                      </span>
+                      <span>
+                        Source characters {d.sourceSpan.offset}–
+                        {d.sourceSpan.offset + d.sourceSpan.length}
                       </span>
                     </span>
                     <span className="score">
@@ -467,7 +530,7 @@ export default function Home() {
                 </pre>
               </article>
               {selectedSource && (
-                <article className="text-panel">
+                <article className="text-panel source-panel">
                   <div className="text-panel-header">
                     <span>POSSIBLE SOURCE</span>
                     <h3>{selectedSource.title}</h3>

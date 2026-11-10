@@ -7,6 +7,7 @@ export interface ExtractedDocument {
   text: string;
   format: 'text' | 'pdf';
   pages?: { page: number; start: number; end: number }[];
+  paragraphBreaks?: number[];
 }
 export function validateText(text: string): string {
   if (!text.trim())
@@ -35,12 +36,21 @@ export async function extractFile(file: File, reference: string): Promise<Extrac
       if (pdf.numPages > 80) throw new Error('PDF exceeds the 80-page local processing limit');
       let text = '';
       const pages: { page: number; start: number; end: number }[] = [];
+      const paragraphBreaks: number[] = [];
       for (let number = 1; number <= pdf.numPages; number++) {
         const page = await pdf.getPage(number),
           content = await page.getTextContent();
-        const part = content.items
-          .map((item) => ('str' in item ? item.str + (item.hasEOL ? '\n' : ' ') : ''))
-          .join('');
+        let previous: { y: number; height: number } | undefined;
+        let part = '';
+        paragraphBreaks.push(text.length);
+        for (const item of content.items) {
+          if (!('str' in item)) continue;
+          const y = item.transform[5];
+          if (previous && Math.abs(y - previous.y) > Math.max(previous.height, item.height) * 1.6)
+            paragraphBreaks.push(text.length + part.length);
+          part += item.str + (item.hasEOL ? '\n' : ' ');
+          if (item.str.trim()) previous = { y, height: item.height };
+        }
         const start = text.length;
         text += part;
         pages.push({ page: number, start, end: text.length });
@@ -49,7 +59,7 @@ export async function extractFile(file: File, reference: string): Promise<Extrac
           throw new Error('PDF exceeds 50,000 extracted characters');
         page.cleanup();
       }
-      return { reference, title, text: validateText(text), format: 'pdf', pages };
+      return { reference, title, text: validateText(text), format: 'pdf', pages, paragraphBreaks };
     } catch (e) {
       throw new Error(`PDF extraction failed: ${e instanceof Error ? e.message : String(e)}`);
     } finally {

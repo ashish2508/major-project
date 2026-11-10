@@ -47,3 +47,5 @@ next-env.d.ts
 /data/derived/
 /test-results/
 /playwright-report/
+/reports/implementation/paragraph-experiment/cache/
+/reports/implementation/paragraph-experiment/split-manifest.json

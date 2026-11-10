@@ -84,3 +84,7 @@ Retrieve each query window's highest scoring source window over the whole bounde
 ## D007 — Academic demo priority
 
 Status: approved by the owner on 10 November 2026. Prioritize a local, end-to-end academic demonstration by the morning of 11 November. Reuse the bounded experiment and preserve its frozen comparison. Use supplied sources and synthetic demo fixtures. Final verification, evaluation write-up and submission work follow by 16 November. Deployment, authentication and production infrastructure are outside this scope.
+
+## D008 — Passage alignment follow-up
+
+The 11 November app update uses paragraph-bounded sentence windows and contiguous evidence merging. The follow-up PAN experiment uses the same frozen split and selects parameters from validation before scoring the test partition. The original comparison retains its original windowing, thresholds, and results. PDF layout cues apply only to uploaded PDFs, since PAN supplies TXT. Native Windows DirectML is an explicit app option verified with an ONNX profile. The original benchmark used CPU inference. [Milestone evidence](../reports/implementation/alignment-and-directml.md)

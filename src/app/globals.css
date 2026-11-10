@@ -473,6 +473,54 @@ textarea:disabled {
   font-size: 11px;
   color: var(--muted);
 }
+.result-banner {
+  border: 1px solid #b6c1cb;
+  border-left-width: 5px;
+  border-radius: 8px;
+  padding: 24px;
+  background: #f1f5f8;
+  animation: evidence-enter 250ms ease-out both;
+}
+.result-positive {
+  border-color: #ad3e29;
+  background: #fff3ed;
+}
+.result-positive h2 {
+  color: #8e2e20;
+  text-transform: uppercase;
+}
+.result-metrics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 22px;
+  margin: 18px 0 0;
+}
+.result-metrics dt {
+  color: var(--muted);
+  font-size: 11px;
+}
+.result-metrics dd {
+  margin: 3px 0 0;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+.static-score {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+}
+@keyframes evidence-enter {
+  from {
+    opacity: 0;
+    transform: translateY(7px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 .secondary-button {
   background: white;
   border: 1px solid var(--line);
@@ -492,6 +540,7 @@ textarea:disabled {
   margin: 18px 0 22px;
 }
 .match-list {
+  animation: evidence-enter 300ms 100ms ease-out both;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 10px;
@@ -511,9 +560,9 @@ textarea:disabled {
   min-width: 0;
 }
 .match-card.active {
-  border-color: var(--teal);
-  background: #f5faf6;
-  box-shadow: 0 0 0 1px var(--teal);
+  border-color: #ad3e29;
+  background: #fff5ee;
+  box-shadow: 0 0 0 1px #ad3e29;
 }
 .match-number {
   color: var(--teal);
@@ -576,6 +625,9 @@ textarea:disabled {
   padding: 18px 20px;
   border-bottom: 1px solid var(--line);
 }
+.source-panel .text-panel-header {
+  background: #edf4f5;
+}
 .text-panel-header > span {
   font-size: 8px;
   letter-spacing: 1.5px;
@@ -602,10 +654,20 @@ textarea:disabled {
   scroll-behavior: smooth;
 }
 .text-panel mark {
-  background: #dfeeb0;
-  color: #1e382b;
+  background: #ffcabd;
+  color: #5b2017;
+  border-bottom: 2px solid #af3925;
   padding: 2px 0;
   box-decoration-break: clone;
+  animation: evidence-emphasis 650ms ease-out both;
+}
+@keyframes evidence-emphasis {
+  from {
+    background: #f9a28e;
+  }
+  to {
+    background: #ffcabd;
+  }
 }
 footer {
   display: flex;
@@ -771,6 +833,13 @@ footer {
   }
 }
 @media (prefers-reduced-motion: reduce) {
+  .animated-score {
+    display: none;
+  }
+  .static-score {
+    position: static;
+    clip-path: none;
+  }
   *,
   *::before,
   *::after {

@@ -11,6 +11,44 @@ export interface SegmentOptions {
   maxTokens?: number;
   countTokens?: (s: string) => number;
 }
+/** Preserve paragraph boundaries and split long paragraphs with the existing token-budgeted windows. */
+export function segmentParagraphs(
+  text: string,
+  documentReference: string,
+  options: SegmentOptions = {},
+  paragraphBreaks: number[] = [],
+): Passage[] {
+  const breaks = new Set([0, text.length, ...paragraphBreaks]);
+  for (const match of text.matchAll(/\r?\n\s*\r?\n/g)) breaks.add(match.index + match[0].length);
+  const boundaries = [...breaks].sort((a, b) => a - b);
+  return boundaries.slice(0, -1).flatMap((start, i) => {
+    let content = text.slice(start, boundaries[i + 1]);
+    // A short first line followed by prose is a heading, kept outside the evidence span.
+    const heading = content.match(/^\s*([^\n]+)\r?\n(?=\S)/);
+    if (
+      heading &&
+      heading[1].trim().split(/\s+/).length <= 10 &&
+      !/[.!?]$/.test(heading[1].trim())
+    ) {
+      start += heading[0].length;
+      content = content.slice(heading[0].length);
+    }
+    if (boundaries.length > 2 && content.trim().split(/\s+/).length <= 10 && !/[.!?]/.test(content))
+      return [];
+    const sentences = [...content.matchAll(/[\s\S]+?(?:[.!?]+(?=\s|$)|$)/g)];
+    const windows = sentences.map((sentence, index) => {
+      const end = sentences[Math.min(index + 1, sentences.length - 1)];
+      const offset = sentence.index;
+      return { offset, text: content.slice(offset, end.index + end[0].length) };
+    });
+    return windows.flatMap((window) =>
+      segment(window.text, documentReference, options).map((passage) => {
+        const offset = passage.offset + start + window.offset;
+        return { ...passage, offset, id: `${documentReference}@${offset}:${passage.length}` };
+      }),
+    );
+  });
+}
 /** Sentence/paragraph-aware overlapping word windows. Offsets always refer to the untouched JS string. */
 export function segment(
   text: string,

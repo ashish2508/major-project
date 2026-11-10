@@ -11,7 +11,16 @@ bun run build
 bun run start --hostname 127.0.0.1
 ```
 
-Open [Passage Review](http://127.0.0.1:3000). Select **Try an example** to load a sample comparison, or upload `demo/submitted.pdf` as the submitted document and `demo/possible-source.txt` as its possible source. Run **TF-IDF**, **MiniLM**, and **Hybrid** in turn. Select a result to highlight the submitted and source passages. The bundled files are synthetic demonstration inputs.
+Open [Passage Review](http://127.0.0.1:3000). Select **Try an example** or upload one of the [controlled PDF and TXT pairs](demo/README.md). Run **TF-IDF**, **MiniLM**, and **Hybrid** in turn. Select a result to highlight the submitted and source passages.
+
+On native Windows, request GPU inference from PowerShell:
+
+```powershell
+$env:MINILM_DEVICE = 'dml'
+bun run start --hostname 127.0.0.1
+```
+
+DirectML defaults to adapter index 0. Set `MINILM_DML_ADAPTER` to select another index. The server verifies GPU operator execution before reporting DirectML. ONNX Runtime may place individual operations on the CPU, which the provider label reports. If DirectML initialization or verification fails, the request returns an error. The default `MINILM_DEVICE=cpu` also works under WSL.
 
 The app requires text-bearing PDFs and at least one possible source. It searches the supplied collection. Similarity scores are evidence for review and cannot establish misconduct.
 

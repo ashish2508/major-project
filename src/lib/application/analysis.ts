@@ -2,7 +2,7 @@ import { readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { z } from 'zod';
 import { digest } from '../digest';
-import { segment } from '../detection/segmentation';
+import { segment, segmentParagraphs } from '../detection/segmentation';
 import { Tfidf } from '../detection/tfidf';
 import {
   retrieveCandidates,
@@ -11,7 +11,14 @@ import {
   type DetectionConfig,
   type Method,
 } from '../detection/detector';
-import { embedTexts, tokenCounter, MODEL_CONFIG, MODEL_DIRECTORY } from '../embeddings/model';
+import {
+  applicationDevice,
+  embeddingProvider,
+  embedTexts,
+  tokenCounter,
+  MODEL_CONFIG,
+  MODEL_DIRECTORY,
+} from '../embeddings/model';
 import type { ExtractedDocument } from '../documents/extract';
 
 const configSchema = z.object({
@@ -78,15 +85,26 @@ export async function analyzeDocuments(
     { tfidf, configs } = await getArtifacts(),
     config = configs[method];
   const countTokens = await tokenCounter();
-  const queries = segment(query.text, query.reference, { countTokens }),
-    sourcePassages = sources.flatMap((d) => segment(d.text, d.reference, { countTokens }));
+  const alignSemantically = method === 'semantic' || (method === 'hybrid' && config.alpha < 1);
+  const split = alignSemantically ? segmentParagraphs : segment;
+  const queries = split(query.text, query.reference, { countTokens }, query.paragraphBreaks);
+  const sourcePassages = sources.flatMap((source) =>
+    split(source.text, source.reference, { countTokens }, source.paragraphBreaks),
+  );
+  const mergeGap = alignSemantically ? 0 : config.mergeGap;
   if (!queries.length || !sourcePassages.length)
     throw new Error('Documents need extractable words');
   let rows;
+  let provider = 'TF-IDF on CPU';
   if (method === 'lexical') rows = retrieveCandidates(queries, sourcePassages, tfidf);
   else {
     await verifyModel();
-    const vectors = await embedTexts([...queries, ...sourcePassages].map((p) => p.text));
+    const device = applicationDevice();
+    const vectors = await embedTexts(
+      [...queries, ...sourcePassages].map((p) => p.text),
+      device,
+    );
+    provider = await embeddingProvider(device);
     rows = retrieveCandidates(
       queries,
       sourcePassages,
@@ -96,23 +114,19 @@ export async function analyzeDocuments(
       [config.alpha],
     );
   }
-  const detections = detect(
-    rows[scoreKey(method, config.alpha)],
-    config.threshold,
-    config.mergeGap,
-  );
+  const detections = detect(rows[scoreKey(method, config.alpha)], config.threshold, mergeGap);
   return {
     query,
     sources,
     method,
-    config,
+    config: { ...config, mergeGap },
     detections: detections.map((d) => ({
       ...d,
       semantic: method === 'lexical' ? null : d.semantic,
     })),
     passages: { query: queries.length, sources: sourcePassages.length },
     elapsedSeconds: (performance.now() - start) / 1000,
-    provider: method === 'lexical' ? 'TF-IDF on CPU' : 'CPUExecutionProvider',
+    provider,
     model: method === 'lexical' ? null : MODEL_CONFIG.model,
     warning:
       'Similarity scores are uncalibrated evidence for human review, not probabilities or proof of plagiarism or misconduct. Only supplied sources were searched. PAN-PC-11 calibration is book-based and does not establish CS-paper performance.',
