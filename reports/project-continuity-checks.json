@@ -1,0 +1,91 @@
+{
+  "date": "2026-11-10",
+  "scope": "Documentation consistency; not application tests or dataset re-audit",
+  "files": [
+    "AGENTS.md",
+    "research/decisions.md",
+    "research/methodology.md",
+    "reports/project-continuity.md"
+  ],
+  "localLinksChecked": 13,
+  "passed": 19,
+  "failed": 0,
+  "results": [
+    {
+      "check": "Local link from AGENTS.md: reports/pan-pc-11/report.md",
+      "passed": true
+    },
+    {
+      "check": "Local link from AGENTS.md: research/decisions.md",
+      "passed": true
+    },
+    {
+      "check": "Local link from AGENTS.md: research/methodology.md",
+      "passed": true
+    },
+    {
+      "check": "Local link from research/decisions.md: ../AGENTS.md",
+      "passed": true
+    },
+    {
+      "check": "Local link from research/decisions.md: ../AGENTS.md",
+      "passed": true
+    },
+    {
+      "check": "Local link from research/decisions.md: methodology.md",
+      "passed": true
+    },
+    {
+      "check": "Local link from research/decisions.md: ../reports/pan-pc-11/report.md",
+      "passed": true
+    },
+    {
+      "check": "Local link from research/methodology.md: ../AGENTS.md",
+      "passed": true
+    },
+    {
+      "check": "Local link from research/methodology.md: decisions.md",
+      "passed": true
+    },
+    {
+      "check": "Local link from research/methodology.md: ../reports/pan-pc-11/report.md",
+      "passed": true
+    },
+    {
+      "check": "Local link from research/methodology.md: ../reports/pan-pc-11/results.json",
+      "passed": true
+    },
+    {
+      "check": "Local link from research/methodology.md: ../reports/pan-pc-11/token-probe.json",
+      "passed": true
+    },
+    {
+      "check": "Local link from research/methodology.md: ../reports/project-continuity.md",
+      "passed": true
+    },
+    {
+      "check": "Recorded source documents agree with audit (11,093)",
+      "passed": true
+    },
+    {
+      "check": "Recorded suspicious documents agree with audit (11,093)",
+      "passed": true
+    },
+    {
+      "check": "Recorded instances agree with audit (49,621)",
+      "passed": true
+    },
+    {
+      "check": "Recorded clean documents agree with audit (5,546)",
+      "passed": true
+    },
+    {
+      "check": "Methodology fingerprint agrees with audit",
+      "passed": true
+    },
+    {
+      "check": "Removed stale download status",
+      "passed": true
+    }
+  ]
+}

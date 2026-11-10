@@ -1,0 +1,53 @@
+{
+  "modelDirectory": "/home/ash/Projects/major-project/.cache/transformers/onnx-community/all-MiniLM-L6-v2-ONNX",
+  "transformersVersion": "4.3.2",
+  "modelConfigHashes": {
+    "tokenizer.json": "07805d116826679de90b4edeb2222269c4b8753bc0981be4399f732b2708e904",
+    "tokenizer_config.json": "e10bb633ba0d7f69ed342ae7de607f36b39ce53b455fbda69c71700bf57e6f66",
+    "config.json": "fe5da868b77bdb104140822a5af0837cb6450ad6de8ff3dfcc8dd44ddd3e3ae7"
+  },
+  "examples": [
+    {
+      "category": "artificial/low",
+      "reference": "suspicious-document00005.txt",
+      "offset": 19254,
+      "characters": 1557,
+      "tokensIncludingSpecial": 319
+    },
+    {
+      "category": "artificial/high",
+      "reference": "suspicious-document00010.txt",
+      "offset": 2464,
+      "characters": 15786,
+      "tokensIncludingSpecial": 3897
+    },
+    {
+      "category": "simulated/<missing>",
+      "reference": "suspicious-document00032.txt",
+      "offset": 12390,
+      "characters": 306,
+      "tokensIncludingSpecial": 78
+    },
+    {
+      "category": "translation/false",
+      "reference": "suspicious-document00047.txt",
+      "offset": 1,
+      "characters": 1346,
+      "tokensIncludingSpecial": 393
+    },
+    {
+      "category": "translation/true",
+      "reference": "suspicious-document00047.txt",
+      "offset": 2850,
+      "characters": 234,
+      "tokensIncludingSpecial": 54
+    },
+    {
+      "category": "artificial/none",
+      "reference": "suspicious-document00126.txt",
+      "offset": 1277,
+      "characters": 266,
+      "tokensIncludingSpecial": 65
+    }
+  ]
+}
