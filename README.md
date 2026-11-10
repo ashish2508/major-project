@@ -24,6 +24,10 @@ DirectML defaults to adapter index 0. Set `MINILM_DML_ADAPTER` to select another
 
 The app requires text-bearing PDFs and at least one possible source. It searches the supplied collection. Similarity scores are evidence for review and cannot establish misconduct.
 
+When MiniLM's highest-ranked candidate is below its calibrated threshold, the results page shows a neutral `REVIEW LEAD - NOT A CONFIRMED DETECTION` card with the score, source, character ranges and highlighted evidence. This does not add a confirmed detection or change the frozen benchmark configuration. A red result banner is reserved for candidates that cross the selected method threshold.
+
+For the complete controlled demonstration, use the three pairs in [demo/README.md](demo/README.md): direct copy should produce confirmed detections, the paraphrase pair should produce a semantic review lead below threshold, and the negative control should produce no confirmed alerts.
+
 ## Setup and verification
 
 Use Bun and a current Node.js release supported by the installed Next.js and PDF.js versions. The production server was verified with Bun 1.3.14 and Node.js 24.18 on Windows. The recorded benchmark ran on Linux with Bun 1.2.20.

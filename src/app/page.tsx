@@ -1,9 +1,9 @@
 'use client';
 
+import type { AnalysisResult } from '@/lib/application/analysis';
+import type { DetectionConfig, Method } from '@/lib/detection/detector';
 import Link from 'next/link';
 import { useEffect, useRef, useState, type FormEvent } from 'react';
-import type { AnalysisResult } from '@/lib/application/analysis';
-import type { Method, DetectionConfig } from '@/lib/detection/detector';
 const METHODS: { id: Method; name: string; description: string }[] = [
   { id: 'lexical', name: 'TF-IDF', description: 'Shared wording' },
   { id: 'semantic', name: 'MiniLM', description: 'Semantic similarity' },
@@ -419,12 +419,16 @@ export default function Home() {
                 <h2>
                   {result.detections.length
                     ? 'Potential textual similarity detected'
-                    : 'No matching passages found above the selected threshold.'}
+                    : result.semanticReviewLead
+                      ? 'Semantic review lead found'
+                      : 'No matching passages found above the selected threshold.'}
                 </h2>
                 <p>
                   {result.detections.length
                     ? 'Matching passages were identified. Review the highlighted evidence and possible source before drawing conclusions.'
-                    : 'This does not establish originality. Other sources or paraphrases may have been missed.'}
+                    : result.semanticReviewLead
+                      ? 'MiniLM found a potentially related passage below the calibrated detection threshold. Inspect the evidence without treating it as a confirmed detection.'
+                      : 'This does not establish originality. Other sources or paraphrases may have been missed.'}
                 </p>
                 <dl className="result-metrics">
                   <div>
@@ -467,6 +471,45 @@ export default function Home() {
               </button>
             </div>
             <p className="evidence-warning">Similarity is not proof of misconduct.</p>
+            {result.semanticReviewLead && (
+              <article className="review-lead" aria-labelledby="review-lead-title">
+                <div>
+                  <p className="review-lead-label">REVIEW LEAD — NOT A CONFIRMED DETECTION</p>
+                  <h3 id="review-lead-title">
+                    {result.sources.find(
+                      (s) => s.reference === result.semanticReviewLead?.sourceReference,
+                    )?.title ?? 'Possible source'}
+                  </h3>
+                  <p>
+                    The highest-ranked semantic candidate scored{' '}
+                    <strong>{result.semanticReviewLead.semantic.toFixed(3)}</strong>, below the{' '}
+                    <strong>{result.config.threshold.toFixed(2)}</strong> alert threshold. It is
+                    evidence for inspection, not a confirmed match.
+                  </p>
+                  <dl>
+                    <div>
+                      <dt>Document characters</dt>
+                      <dd>
+                        {result.semanticReviewLead.suspiciousSpan.offset}–
+                        {result.semanticReviewLead.suspiciousSpan.offset +
+                          result.semanticReviewLead.suspiciousSpan.length}
+                      </dd>
+                    </div>
+                    <div>
+                      <dt>Source characters</dt>
+                      <dd>
+                        {result.semanticReviewLead.sourceSpan.offset}–
+                        {result.semanticReviewLead.sourceSpan.offset +
+                          result.semanticReviewLead.sourceSpan.length}
+                      </dd>
+                    </div>
+                  </dl>
+                </div>
+                <a className="secondary-button" href="#evidence-comparison">
+                  Inspect evidence ↓
+                </a>
+              </article>
+            )}
             {result.detections.length > 0 && (
               <div className="match-list" role="list" aria-label="Matching passages">
                 {result.detections.map((d, i) => (
@@ -515,7 +558,7 @@ export default function Home() {
                 <span>Scores are not confidence probabilities.</span>
               </div>
             )}
-            <div className="comparison-grid">
+            <div className="comparison-grid" id="evidence-comparison">
               <article className="text-panel">
                 <div className="text-panel-header">
                   <span>DOCUMENT TO REVIEW</span>

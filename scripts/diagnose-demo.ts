@@ -113,6 +113,7 @@ for (const item of cases) {
         provider: analysis.provider,
         elapsedSeconds: analysis.elapsedSeconds,
         passages: analysis.passages,
+        semanticReviewLead: analysis.semanticReviewLead,
         matchedCases: found.size,
         unmatchedDetections: detections.filter((detection) => !detection.matchedIds.length).length,
         missedIds: item.matches.filter(({ id }) => !found.has(id)).map(({ id }) => id),

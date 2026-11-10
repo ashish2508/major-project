@@ -1,6 +1,6 @@
+import type { PassagePair } from '../evaluation/pan';
 import type { Passage } from './segmentation';
 import { Tfidf, sparseCosine } from './tfidf';
-import type { PassagePair } from '../evaluation/pan';
 export type Method = 'lexical' | 'semantic' | 'hybrid';
 export interface DetectionConfig {
   method: Method;
@@ -150,4 +150,14 @@ export function detect(
       a.suspiciousReference.localeCompare(b.suspiciousReference) ||
       a.suspiciousSpan.offset - b.suspiciousSpan.offset,
   );
+}
+
+export function selectSemanticReviewLead(
+  candidates: Candidate[],
+  threshold: number,
+): Candidate | null {
+  if (!Number.isFinite(threshold) || threshold < 0 || threshold > 1)
+    throw new Error('Invalid detection parameters');
+  const lead = [...candidates].sort((a, b) => b.semantic - a.semantic || b.score - a.score)[0];
+  return lead && lead.semantic < threshold ? lead : null;
 }

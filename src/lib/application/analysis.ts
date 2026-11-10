@@ -1,25 +1,26 @@
 import { readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { z } from 'zod';
-import { digest } from '../digest';
-import { segment, segmentParagraphs } from '../detection/segmentation';
-import { Tfidf } from '../detection/tfidf';
 import {
-  retrieveCandidates,
   detect,
+  retrieveCandidates,
   scoreKey,
+  selectSemanticReviewLead,
   type DetectionConfig,
   type Method,
 } from '../detection/detector';
+import { segment, segmentParagraphs } from '../detection/segmentation';
+import { Tfidf } from '../detection/tfidf';
+import { digest } from '../digest';
+import type { ExtractedDocument } from '../documents/extract';
 import {
   applicationDevice,
   embeddingProvider,
   embedTexts,
-  tokenCounter,
   MODEL_CONFIG,
   MODEL_DIRECTORY,
+  tokenCounter,
 } from '../embeddings/model';
-import type { ExtractedDocument } from '../documents/extract';
 
 const configSchema = z.object({
   method: z.enum(['lexical', 'semantic', 'hybrid']),
@@ -115,6 +116,10 @@ export async function analyzeDocuments(
     );
   }
   const detections = detect(rows[scoreKey(method, config.alpha)], config.threshold, mergeGap);
+  const semanticReviewLead =
+    method === 'lexical' || !rows.semantic
+      ? null
+      : selectSemanticReviewLead(rows.semantic, config.threshold);
   return {
     query,
     sources,
@@ -124,6 +129,7 @@ export async function analyzeDocuments(
       ...d,
       semantic: method === 'lexical' ? null : d.semantic,
     })),
+    semanticReviewLead,
     passages: { query: queries.length, sources: sourcePassages.length },
     elapsedSeconds: (performance.now() - start) / 1000,
     provider,

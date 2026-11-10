@@ -13,3 +13,5 @@ Each pair contains original synthetic Computer Science text. Upload the PDF unde
 These fixtures support demonstrations and regression checks. PAN-PC-11 supplies the benchmark data.
 
 Measured limitation: in the paragraph-bounded run on 11 November 2026, the annotated paraphrase candidates reached a maximum MiniLM cosine score of 0.5265 on both CPU and DirectML, below the frozen 0.60 semantic alert threshold. The example therefore demonstrates evidence retrieval without a semantic alert; this synthetic result is separate from PAN-PC-11 benchmark metrics.
+
+In the application, that below-threshold candidate is presented as `REVIEW LEAD - NOT A CONFIRMED DETECTION`, with its score, source range and side-by-side highlighted evidence. The negative control can show a neutral review lead for semantic ranking, but it must produce no confirmed detection.
