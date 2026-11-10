@@ -48,4 +48,6 @@ Store commands, code revision/working-tree state, fingerprints, split/config has
 
 The [recorded comparison](../reports/implementation/benchmark-summary.md) selected a lexical weight of 1.0 on validation. The hybrid tied TF-IDF at 0.6033 held-out PlagDet, with MiniLM at 0.3047. Interior weights remain validation results. To preserve the recorded comparison when repeating the experiment, set `RESEARCH_RUN_DIRECTORY` to an ignored path before running `bun run reproduce`.
 
+The retained paragraph-window follow-up completed at `2026-11-10T20:58:32.965Z` and changed only window construction and merge distance. Its held-out PlagDet values were 0.3179 for lexical, 0.3140 for MiniLM and 0.3370 for hybrid. Because this follow-up uses a different representation/postprocessing configuration and has 16 clean-query alerts for lexical, it is descriptive evidence only; it does not alter the frozen PAN parameters or the primary comparison.
+
 Every major milestone closes with relevant documentation, actual checks/results, remaining issues and the next step. Historical functionality checks are not benchmark results. Optional fine-tuning is deferred; the first three methods and their actual comparisons take priority.

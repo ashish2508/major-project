@@ -3,6 +3,8 @@
   "results": [
     {
       "case": "01-direct-copy",
+      "device": "cpu",
+      "provider": "CPUExecutionProvider",
       "expected": [
         {
           "id": "01-direct-copy-1",
@@ -1459,31 +1461,41 @@
               "sourceIndex": 13,
               "lexical": 1,
               "semantic": 1,
-              "correspondences": ["01-direct-copy-1"]
+              "correspondences": [
+                "01-direct-copy-1"
+              ]
             },
             {
               "sourceIndex": 14,
               "lexical": 0.658011787637291,
               "semantic": 0.7529921092426702,
-              "correspondences": ["01-direct-copy-1"]
+              "correspondences": [
+                "01-direct-copy-1"
+              ]
             },
             {
               "sourceIndex": 15,
               "lexical": 0.113585459236962,
               "semantic": 0.6076290851289448,
-              "correspondences": ["01-direct-copy-1"]
+              "correspondences": [
+                "01-direct-copy-1"
+              ]
             },
             {
               "sourceIndex": 16,
               "lexical": 0.022107844912108494,
               "semantic": 0.22914916989798215,
-              "correspondences": ["01-direct-copy-1"]
+              "correspondences": [
+                "01-direct-copy-1"
+              ]
             },
             {
               "sourceIndex": 17,
               "lexical": 0.022201837250019386,
               "semantic": 0.20516402834797168,
-              "correspondences": ["01-direct-copy-1"]
+              "correspondences": [
+                "01-direct-copy-1"
+              ]
             },
             {
               "sourceIndex": 18,
@@ -1545,13 +1557,17 @@
               "sourceIndex": 13,
               "lexical": 1,
               "semantic": 1,
-              "correspondences": ["01-direct-copy-1"]
+              "correspondences": [
+                "01-direct-copy-1"
+              ]
             },
             {
               "sourceIndex": 14,
               "lexical": 0.658011787637291,
               "semantic": 0.7529921092426702,
-              "correspondences": ["01-direct-copy-1"]
+              "correspondences": [
+                "01-direct-copy-1"
+              ]
             },
             {
               "sourceIndex": 5,
@@ -1569,7 +1585,9 @@
               "sourceIndex": 15,
               "lexical": 0.113585459236962,
               "semantic": 0.6076290851289448,
-              "correspondences": ["01-direct-copy-1"]
+              "correspondences": [
+                "01-direct-copy-1"
+              ]
             }
           ]
         },
@@ -1658,31 +1676,41 @@
               "sourceIndex": 13,
               "lexical": 0.658011787637291,
               "semantic": 0.7529921092426702,
-              "correspondences": ["01-direct-copy-1"]
+              "correspondences": [
+                "01-direct-copy-1"
+              ]
             },
             {
               "sourceIndex": 14,
               "lexical": 0.9999999999999999,
               "semantic": 1,
-              "correspondences": ["01-direct-copy-1"]
+              "correspondences": [
+                "01-direct-copy-1"
+              ]
             },
             {
               "sourceIndex": 15,
               "lexical": 0.5813710432839343,
               "semantic": 0.7335656571619821,
-              "correspondences": ["01-direct-copy-1"]
+              "correspondences": [
+                "01-direct-copy-1"
+              ]
             },
             {
               "sourceIndex": 16,
               "lexical": 0.1266817171354385,
               "semantic": 0.3479079902704156,
-              "correspondences": ["01-direct-copy-1"]
+              "correspondences": [
+                "01-direct-copy-1"
+              ]
             },
             {
               "sourceIndex": 17,
               "lexical": 0.017643321900718593,
               "semantic": 0.3055754180555564,
-              "correspondences": ["01-direct-copy-1"]
+              "correspondences": [
+                "01-direct-copy-1"
+              ]
             },
             {
               "sourceIndex": 18,
@@ -1744,19 +1772,25 @@
               "sourceIndex": 14,
               "lexical": 0.9999999999999999,
               "semantic": 1,
-              "correspondences": ["01-direct-copy-1"]
+              "correspondences": [
+                "01-direct-copy-1"
+              ]
             },
             {
               "sourceIndex": 13,
               "lexical": 0.658011787637291,
               "semantic": 0.7529921092426702,
-              "correspondences": ["01-direct-copy-1"]
+              "correspondences": [
+                "01-direct-copy-1"
+              ]
             },
             {
               "sourceIndex": 15,
               "lexical": 0.5813710432839343,
               "semantic": 0.7335656571619821,
-              "correspondences": ["01-direct-copy-1"]
+              "correspondences": [
+                "01-direct-copy-1"
+              ]
             },
             {
               "sourceIndex": 4,
@@ -1857,31 +1891,41 @@
               "sourceIndex": 13,
               "lexical": 0.113585459236962,
               "semantic": 0.6076290851289448,
-              "correspondences": ["01-direct-copy-1"]
+              "correspondences": [
+                "01-direct-copy-1"
+              ]
             },
             {
               "sourceIndex": 14,
               "lexical": 0.5813710432839343,
               "semantic": 0.7335656571619821,
-              "correspondences": ["01-direct-copy-1"]
+              "correspondences": [
+                "01-direct-copy-1"
+              ]
             },
             {
               "sourceIndex": 15,
               "lexical": 1,
               "semantic": 1,
-              "correspondences": ["01-direct-copy-1"]
+              "correspondences": [
+                "01-direct-copy-1"
+              ]
             },
             {
               "sourceIndex": 16,
               "lexical": 0.4797920615158733,
               "semantic": 0.5477966967195189,
-              "correspondences": ["01-direct-copy-1"]
+              "correspondences": [
+                "01-direct-copy-1"
+              ]
             },
             {
               "sourceIndex": 17,
               "lexical": 0.004357813826735717,
               "semantic": 0.344815075810607,
-              "correspondences": ["01-direct-copy-1"]
+              "correspondences": [
+                "01-direct-copy-1"
+              ]
             },
             {
               "sourceIndex": 18,
@@ -1943,13 +1987,17 @@
               "sourceIndex": 15,
               "lexical": 1,
               "semantic": 1,
-              "correspondences": ["01-direct-copy-1"]
+              "correspondences": [
+                "01-direct-copy-1"
+              ]
             },
             {
               "sourceIndex": 14,
               "lexical": 0.5813710432839343,
               "semantic": 0.7335656571619821,
-              "correspondences": ["01-direct-copy-1"]
+              "correspondences": [
+                "01-direct-copy-1"
+              ]
             },
             {
               "sourceIndex": 5,
@@ -1961,13 +2009,17 @@
               "sourceIndex": 13,
               "lexical": 0.113585459236962,
               "semantic": 0.6076290851289448,
-              "correspondences": ["01-direct-copy-1"]
+              "correspondences": [
+                "01-direct-copy-1"
+              ]
             },
             {
               "sourceIndex": 16,
               "lexical": 0.4797920615158733,
               "semantic": 0.5477966967195189,
-              "correspondences": ["01-direct-copy-1"]
+              "correspondences": [
+                "01-direct-copy-1"
+              ]
             }
           ]
         },
@@ -2056,31 +2108,41 @@
               "sourceIndex": 13,
               "lexical": 0.022107844912108494,
               "semantic": 0.22914916989798215,
-              "correspondences": ["01-direct-copy-1"]
+              "correspondences": [
+                "01-direct-copy-1"
+              ]
             },
             {
               "sourceIndex": 14,
               "lexical": 0.1266817171354385,
               "semantic": 0.3479079902704156,
-              "correspondences": ["01-direct-copy-1"]
+              "correspondences": [
+                "01-direct-copy-1"
+              ]
             },
             {
               "sourceIndex": 15,
               "lexical": 0.4797920615158733,
               "semantic": 0.5477966967195189,
-              "correspondences": ["01-direct-copy-1"]
+              "correspondences": [
+                "01-direct-copy-1"
+              ]
             },
             {
               "sourceIndex": 16,
               "lexical": 1,
               "semantic": 1,
-              "correspondences": ["01-direct-copy-1"]
+              "correspondences": [
+                "01-direct-copy-1"
+              ]
             },
             {
               "sourceIndex": 17,
               "lexical": 0.7615149026450223,
               "semantic": 0.7748926834438131,
-              "correspondences": ["01-direct-copy-1"]
+              "correspondences": [
+                "01-direct-copy-1"
+              ]
             },
             {
               "sourceIndex": 18,
@@ -2142,19 +2204,25 @@
               "sourceIndex": 16,
               "lexical": 1,
               "semantic": 1,
-              "correspondences": ["01-direct-copy-1"]
+              "correspondences": [
+                "01-direct-copy-1"
+              ]
             },
             {
               "sourceIndex": 17,
               "lexical": 0.7615149026450223,
               "semantic": 0.7748926834438131,
-              "correspondences": ["01-direct-copy-1"]
+              "correspondences": [
+                "01-direct-copy-1"
+              ]
             },
             {
               "sourceIndex": 15,
               "lexical": 0.4797920615158733,
               "semantic": 0.5477966967195189,
-              "correspondences": ["01-direct-copy-1"]
+              "correspondences": [
+                "01-direct-copy-1"
+              ]
             },
             {
               "sourceIndex": 26,
@@ -2255,31 +2323,41 @@
               "sourceIndex": 13,
               "lexical": 0.022201837250019386,
               "semantic": 0.20516402834797168,
-              "correspondences": ["01-direct-copy-1"]
+              "correspondences": [
+                "01-direct-copy-1"
+              ]
             },
             {
               "sourceIndex": 14,
               "lexical": 0.017643321900718593,
               "semantic": 0.3055754180555564,
-              "correspondences": ["01-direct-copy-1"]
+              "correspondences": [
+                "01-direct-copy-1"
+              ]
             },
             {
               "sourceIndex": 15,
               "lexical": 0.004357813826735717,
               "semantic": 0.344815075810607,
-              "correspondences": ["01-direct-copy-1"]
+              "correspondences": [
+                "01-direct-copy-1"
+              ]
             },
             {
               "sourceIndex": 16,
               "lexical": 0.7615149026450223,
               "semantic": 0.7748926834438131,
-              "correspondences": ["01-direct-copy-1"]
+              "correspondences": [
+                "01-direct-copy-1"
+              ]
             },
             {
               "sourceIndex": 17,
               "lexical": 1,
               "semantic": 1,
-              "correspondences": ["01-direct-copy-1"]
+              "correspondences": [
+                "01-direct-copy-1"
+              ]
             },
             {
               "sourceIndex": 18,
@@ -2341,13 +2419,17 @@
               "sourceIndex": 17,
               "lexical": 1,
               "semantic": 1,
-              "correspondences": ["01-direct-copy-1"]
+              "correspondences": [
+                "01-direct-copy-1"
+              ]
             },
             {
               "sourceIndex": 16,
               "lexical": 0.7615149026450223,
               "semantic": 0.7748926834438131,
-              "correspondences": ["01-direct-copy-1"]
+              "correspondences": [
+                "01-direct-copy-1"
+              ]
             },
             {
               "sourceIndex": 12,
@@ -2365,7 +2447,9 @@
               "sourceIndex": 15,
               "lexical": 0.004357813826735717,
               "semantic": 0.344815075810607,
-              "correspondences": ["01-direct-copy-1"]
+              "correspondences": [
+                "01-direct-copy-1"
+              ]
             }
           ]
         },
@@ -2997,31 +3081,41 @@
               "sourceIndex": 4,
               "lexical": 1,
               "semantic": 1,
-              "correspondences": ["01-direct-copy-2"]
+              "correspondences": [
+                "01-direct-copy-2"
+              ]
             },
             {
               "sourceIndex": 5,
               "lexical": 0.4645921575172253,
               "semantic": 0.6080029117168017,
-              "correspondences": ["01-direct-copy-2"]
+              "correspondences": [
+                "01-direct-copy-2"
+              ]
             },
             {
               "sourceIndex": 6,
               "lexical": 0.358356792849691,
               "semantic": 0.39289433683683883,
-              "correspondences": ["01-direct-copy-2"]
+              "correspondences": [
+                "01-direct-copy-2"
+              ]
             },
             {
               "sourceIndex": 7,
               "lexical": 0.2537569146866428,
               "semantic": 0.5037602456219095,
-              "correspondences": ["01-direct-copy-2"]
+              "correspondences": [
+                "01-direct-copy-2"
+              ]
             },
             {
               "sourceIndex": 8,
               "lexical": 0.02269437236049462,
               "semantic": 0.34734343388862216,
-              "correspondences": ["01-direct-copy-2"]
+              "correspondences": [
+                "01-direct-copy-2"
+              ]
             },
             {
               "sourceIndex": 9,
@@ -3137,7 +3231,9 @@
               "sourceIndex": 4,
               "lexical": 1,
               "semantic": 1,
-              "correspondences": ["01-direct-copy-2"]
+              "correspondences": [
+                "01-direct-copy-2"
+              ]
             },
             {
               "sourceIndex": 14,
@@ -3161,7 +3257,9 @@
               "sourceIndex": 5,
               "lexical": 0.4645921575172253,
               "semantic": 0.6080029117168017,
-              "correspondences": ["01-direct-copy-2"]
+              "correspondences": [
+                "01-direct-copy-2"
+              ]
             }
           ]
         },
@@ -3196,31 +3294,41 @@
               "sourceIndex": 4,
               "lexical": 0.4645921575172253,
               "semantic": 0.6080029117168017,
-              "correspondences": ["01-direct-copy-2"]
+              "correspondences": [
+                "01-direct-copy-2"
+              ]
             },
             {
               "sourceIndex": 5,
               "lexical": 1,
               "semantic": 1,
-              "correspondences": ["01-direct-copy-2"]
+              "correspondences": [
+                "01-direct-copy-2"
+              ]
             },
             {
               "sourceIndex": 6,
               "lexical": 0.5704186700719693,
               "semantic": 0.42512206309692335,
-              "correspondences": ["01-direct-copy-2"]
+              "correspondences": [
+                "01-direct-copy-2"
+              ]
             },
             {
               "sourceIndex": 7,
               "lexical": 0.015558327398302792,
               "semantic": 0.1694060442507608,
-              "correspondences": ["01-direct-copy-2"]
+              "correspondences": [
+                "01-direct-copy-2"
+              ]
             },
             {
               "sourceIndex": 8,
               "lexical": 0.012015858814208618,
               "semantic": 0.28643247391064997,
-              "correspondences": ["01-direct-copy-2"]
+              "correspondences": [
+                "01-direct-copy-2"
+              ]
             },
             {
               "sourceIndex": 9,
@@ -3336,7 +3444,9 @@
               "sourceIndex": 5,
               "lexical": 1,
               "semantic": 1,
-              "correspondences": ["01-direct-copy-2"]
+              "correspondences": [
+                "01-direct-copy-2"
+              ]
             },
             {
               "sourceIndex": 15,
@@ -3360,7 +3470,9 @@
               "sourceIndex": 4,
               "lexical": 0.4645921575172253,
               "semantic": 0.6080029117168017,
-              "correspondences": ["01-direct-copy-2"]
+              "correspondences": [
+                "01-direct-copy-2"
+              ]
             }
           ]
         },
@@ -3395,31 +3507,41 @@
               "sourceIndex": 4,
               "lexical": 0.358356792849691,
               "semantic": 0.39289433683683883,
-              "correspondences": ["01-direct-copy-2"]
+              "correspondences": [
+                "01-direct-copy-2"
+              ]
             },
             {
               "sourceIndex": 5,
               "lexical": 0.5704186700719693,
               "semantic": 0.42512206309692335,
-              "correspondences": ["01-direct-copy-2"]
+              "correspondences": [
+                "01-direct-copy-2"
+              ]
             },
             {
               "sourceIndex": 6,
               "lexical": 1,
               "semantic": 1,
-              "correspondences": ["01-direct-copy-2"]
+              "correspondences": [
+                "01-direct-copy-2"
+              ]
             },
             {
               "sourceIndex": 7,
               "lexical": 0.45928763754164387,
               "semantic": 0.46768298206094855,
-              "correspondences": ["01-direct-copy-2"]
+              "correspondences": [
+                "01-direct-copy-2"
+              ]
             },
             {
               "sourceIndex": 8,
               "lexical": 0.010237568671195435,
               "semantic": 0.16551715450038723,
-              "correspondences": ["01-direct-copy-2"]
+              "correspondences": [
+                "01-direct-copy-2"
+              ]
             },
             {
               "sourceIndex": 9,
@@ -3535,13 +3657,17 @@
               "sourceIndex": 6,
               "lexical": 1,
               "semantic": 1,
-              "correspondences": ["01-direct-copy-2"]
+              "correspondences": [
+                "01-direct-copy-2"
+              ]
             },
             {
               "sourceIndex": 7,
               "lexical": 0.45928763754164387,
               "semantic": 0.46768298206094855,
-              "correspondences": ["01-direct-copy-2"]
+              "correspondences": [
+                "01-direct-copy-2"
+              ]
             },
             {
               "sourceIndex": 15,
@@ -3553,13 +3679,17 @@
               "sourceIndex": 5,
               "lexical": 0.5704186700719693,
               "semantic": 0.42512206309692335,
-              "correspondences": ["01-direct-copy-2"]
+              "correspondences": [
+                "01-direct-copy-2"
+              ]
             },
             {
               "sourceIndex": 4,
               "lexical": 0.358356792849691,
               "semantic": 0.39289433683683883,
-              "correspondences": ["01-direct-copy-2"]
+              "correspondences": [
+                "01-direct-copy-2"
+              ]
             }
           ]
         },
@@ -3594,31 +3724,41 @@
               "sourceIndex": 4,
               "lexical": 0.2537569146866428,
               "semantic": 0.5037602456219095,
-              "correspondences": ["01-direct-copy-2"]
+              "correspondences": [
+                "01-direct-copy-2"
+              ]
             },
             {
               "sourceIndex": 5,
               "lexical": 0.015558327398302792,
               "semantic": 0.1694060442507608,
-              "correspondences": ["01-direct-copy-2"]
+              "correspondences": [
+                "01-direct-copy-2"
+              ]
             },
             {
               "sourceIndex": 6,
               "lexical": 0.45928763754164387,
               "semantic": 0.46768298206094855,
-              "correspondences": ["01-direct-copy-2"]
+              "correspondences": [
+                "01-direct-copy-2"
+              ]
             },
             {
               "sourceIndex": 7,
               "lexical": 0.9999999999999999,
               "semantic": 1,
-              "correspondences": ["01-direct-copy-2"]
+              "correspondences": [
+                "01-direct-copy-2"
+              ]
             },
             {
               "sourceIndex": 8,
               "lexical": 0.7696027302677099,
               "semantic": 0.6892444399107753,
-              "correspondences": ["01-direct-copy-2"]
+              "correspondences": [
+                "01-direct-copy-2"
+              ]
             },
             {
               "sourceIndex": 9,
@@ -3734,13 +3874,17 @@
               "sourceIndex": 7,
               "lexical": 0.9999999999999999,
               "semantic": 1,
-              "correspondences": ["01-direct-copy-2"]
+              "correspondences": [
+                "01-direct-copy-2"
+              ]
             },
             {
               "sourceIndex": 8,
               "lexical": 0.7696027302677099,
               "semantic": 0.6892444399107753,
-              "correspondences": ["01-direct-copy-2"]
+              "correspondences": [
+                "01-direct-copy-2"
+              ]
             },
             {
               "sourceIndex": 25,
@@ -3793,31 +3937,41 @@
               "sourceIndex": 4,
               "lexical": 0.02269437236049462,
               "semantic": 0.34734343388862216,
-              "correspondences": ["01-direct-copy-2"]
+              "correspondences": [
+                "01-direct-copy-2"
+              ]
             },
             {
               "sourceIndex": 5,
               "lexical": 0.012015858814208618,
               "semantic": 0.28643247391064997,
-              "correspondences": ["01-direct-copy-2"]
+              "correspondences": [
+                "01-direct-copy-2"
+              ]
             },
             {
               "sourceIndex": 6,
               "lexical": 0.010237568671195435,
               "semantic": 0.16551715450038723,
-              "correspondences": ["01-direct-copy-2"]
+              "correspondences": [
+                "01-direct-copy-2"
+              ]
             },
             {
               "sourceIndex": 7,
               "lexical": 0.7696027302677099,
               "semantic": 0.6892444399107753,
-              "correspondences": ["01-direct-copy-2"]
+              "correspondences": [
+                "01-direct-copy-2"
+              ]
             },
             {
               "sourceIndex": 8,
               "lexical": 1,
               "semantic": 1,
-              "correspondences": ["01-direct-copy-2"]
+              "correspondences": [
+                "01-direct-copy-2"
+              ]
             },
             {
               "sourceIndex": 9,
@@ -3933,13 +4087,17 @@
               "sourceIndex": 8,
               "lexical": 1,
               "semantic": 1,
-              "correspondences": ["01-direct-copy-2"]
+              "correspondences": [
+                "01-direct-copy-2"
+              ]
             },
             {
               "sourceIndex": 7,
               "lexical": 0.7696027302677099,
               "semantic": 0.6892444399107753,
-              "correspondences": ["01-direct-copy-2"]
+              "correspondences": [
+                "01-direct-copy-2"
+              ]
             },
             {
               "sourceIndex": 12,
@@ -4697,31 +4855,41 @@
               "sourceIndex": 22,
               "lexical": 1,
               "semantic": 1,
-              "correspondences": ["01-direct-copy-3"]
+              "correspondences": [
+                "01-direct-copy-3"
+              ]
             },
             {
               "sourceIndex": 23,
               "lexical": 0.7770241423925848,
               "semantic": 0.7265571321624833,
-              "correspondences": ["01-direct-copy-3"]
+              "correspondences": [
+                "01-direct-copy-3"
+              ]
             },
             {
               "sourceIndex": 24,
               "lexical": 0.09474082560610593,
               "semantic": 0.5300856980372622,
-              "correspondences": ["01-direct-copy-3"]
+              "correspondences": [
+                "01-direct-copy-3"
+              ]
             },
             {
               "sourceIndex": 25,
               "lexical": 0.08665049647232803,
               "semantic": 0.44971767287232634,
-              "correspondences": ["01-direct-copy-3"]
+              "correspondences": [
+                "01-direct-copy-3"
+              ]
             },
             {
               "sourceIndex": 26,
               "lexical": 0,
               "semantic": 0.5193405559069253,
-              "correspondences": ["01-direct-copy-3"]
+              "correspondences": [
+                "01-direct-copy-3"
+              ]
             }
           ],
           "topFiveSemantic": [
@@ -4729,13 +4897,17 @@
               "sourceIndex": 22,
               "lexical": 1,
               "semantic": 1,
-              "correspondences": ["01-direct-copy-3"]
+              "correspondences": [
+                "01-direct-copy-3"
+              ]
             },
             {
               "sourceIndex": 23,
               "lexical": 0.7770241423925848,
               "semantic": 0.7265571321624833,
-              "correspondences": ["01-direct-copy-3"]
+              "correspondences": [
+                "01-direct-copy-3"
+              ]
             },
             {
               "sourceIndex": 0,
@@ -4753,7 +4925,9 @@
               "sourceIndex": 24,
               "lexical": 0.09474082560610593,
               "semantic": 0.5300856980372622,
-              "correspondences": ["01-direct-copy-3"]
+              "correspondences": [
+                "01-direct-copy-3"
+              ]
             }
           ]
         },
@@ -4896,31 +5070,41 @@
               "sourceIndex": 22,
               "lexical": 0.7770241423925848,
               "semantic": 0.7265571321624833,
-              "correspondences": ["01-direct-copy-3"]
+              "correspondences": [
+                "01-direct-copy-3"
+              ]
             },
             {
               "sourceIndex": 23,
               "lexical": 1,
               "semantic": 1,
-              "correspondences": ["01-direct-copy-3"]
+              "correspondences": [
+                "01-direct-copy-3"
+              ]
             },
             {
               "sourceIndex": 24,
               "lexical": 0.368348902808616,
               "semantic": 0.7411501748693026,
-              "correspondences": ["01-direct-copy-3"]
+              "correspondences": [
+                "01-direct-copy-3"
+              ]
             },
             {
               "sourceIndex": 25,
               "lexical": 0.18936569147224416,
               "semantic": 0.34720390731855894,
-              "correspondences": ["01-direct-copy-3"]
+              "correspondences": [
+                "01-direct-copy-3"
+              ]
             },
             {
               "sourceIndex": 26,
               "lexical": 0,
               "semantic": 0.27295008213762023,
-              "correspondences": ["01-direct-copy-3"]
+              "correspondences": [
+                "01-direct-copy-3"
+              ]
             }
           ],
           "topFiveSemantic": [
@@ -4928,19 +5112,25 @@
               "sourceIndex": 23,
               "lexical": 1,
               "semantic": 1,
-              "correspondences": ["01-direct-copy-3"]
+              "correspondences": [
+                "01-direct-copy-3"
+              ]
             },
             {
               "sourceIndex": 24,
               "lexical": 0.368348902808616,
               "semantic": 0.7411501748693026,
-              "correspondences": ["01-direct-copy-3"]
+              "correspondences": [
+                "01-direct-copy-3"
+              ]
             },
             {
               "sourceIndex": 22,
               "lexical": 0.7770241423925848,
               "semantic": 0.7265571321624833,
-              "correspondences": ["01-direct-copy-3"]
+              "correspondences": [
+                "01-direct-copy-3"
+              ]
             },
             {
               "sourceIndex": 4,
@@ -5095,31 +5285,41 @@
               "sourceIndex": 22,
               "lexical": 0.09474082560610593,
               "semantic": 0.5300856980372622,
-              "correspondences": ["01-direct-copy-3"]
+              "correspondences": [
+                "01-direct-copy-3"
+              ]
             },
             {
               "sourceIndex": 23,
               "lexical": 0.368348902808616,
               "semantic": 0.7411501748693026,
-              "correspondences": ["01-direct-copy-3"]
+              "correspondences": [
+                "01-direct-copy-3"
+              ]
             },
             {
               "sourceIndex": 24,
               "lexical": 1,
               "semantic": 1,
-              "correspondences": ["01-direct-copy-3"]
+              "correspondences": [
+                "01-direct-copy-3"
+              ]
             },
             {
               "sourceIndex": 25,
               "lexical": 0.7429290476994528,
               "semantic": 0.6524272406128669,
-              "correspondences": ["01-direct-copy-3"]
+              "correspondences": [
+                "01-direct-copy-3"
+              ]
             },
             {
               "sourceIndex": 26,
               "lexical": 0,
               "semantic": 0.327731080047712,
-              "correspondences": ["01-direct-copy-3"]
+              "correspondences": [
+                "01-direct-copy-3"
+              ]
             }
           ],
           "topFiveSemantic": [
@@ -5127,19 +5327,25 @@
               "sourceIndex": 24,
               "lexical": 1,
               "semantic": 1,
-              "correspondences": ["01-direct-copy-3"]
+              "correspondences": [
+                "01-direct-copy-3"
+              ]
             },
             {
               "sourceIndex": 23,
               "lexical": 0.368348902808616,
               "semantic": 0.7411501748693026,
-              "correspondences": ["01-direct-copy-3"]
+              "correspondences": [
+                "01-direct-copy-3"
+              ]
             },
             {
               "sourceIndex": 25,
               "lexical": 0.7429290476994528,
               "semantic": 0.6524272406128669,
-              "correspondences": ["01-direct-copy-3"]
+              "correspondences": [
+                "01-direct-copy-3"
+              ]
             },
             {
               "sourceIndex": 4,
@@ -5294,31 +5500,41 @@
               "sourceIndex": 22,
               "lexical": 0.08665049647232803,
               "semantic": 0.44971767287232634,
-              "correspondences": ["01-direct-copy-3"]
+              "correspondences": [
+                "01-direct-copy-3"
+              ]
             },
             {
               "sourceIndex": 23,
               "lexical": 0.18936569147224416,
               "semantic": 0.34720390731855894,
-              "correspondences": ["01-direct-copy-3"]
+              "correspondences": [
+                "01-direct-copy-3"
+              ]
             },
             {
               "sourceIndex": 24,
               "lexical": 0.7429290476994528,
               "semantic": 0.6524272406128669,
-              "correspondences": ["01-direct-copy-3"]
+              "correspondences": [
+                "01-direct-copy-3"
+              ]
             },
             {
               "sourceIndex": 25,
               "lexical": 1,
               "semantic": 1,
-              "correspondences": ["01-direct-copy-3"]
+              "correspondences": [
+                "01-direct-copy-3"
+              ]
             },
             {
               "sourceIndex": 26,
               "lexical": 0.6124485817481242,
               "semantic": 0.6595128287934214,
-              "correspondences": ["01-direct-copy-3"]
+              "correspondences": [
+                "01-direct-copy-3"
+              ]
             }
           ],
           "topFiveSemantic": [
@@ -5326,7 +5542,9 @@
               "sourceIndex": 25,
               "lexical": 1,
               "semantic": 1,
-              "correspondences": ["01-direct-copy-3"]
+              "correspondences": [
+                "01-direct-copy-3"
+              ]
             },
             {
               "sourceIndex": 7,
@@ -5338,13 +5556,17 @@
               "sourceIndex": 26,
               "lexical": 0.6124485817481242,
               "semantic": 0.6595128287934214,
-              "correspondences": ["01-direct-copy-3"]
+              "correspondences": [
+                "01-direct-copy-3"
+              ]
             },
             {
               "sourceIndex": 24,
               "lexical": 0.7429290476994528,
               "semantic": 0.6524272406128669,
-              "correspondences": ["01-direct-copy-3"]
+              "correspondences": [
+                "01-direct-copy-3"
+              ]
             },
             {
               "sourceIndex": 12,
@@ -5493,31 +5715,41 @@
               "sourceIndex": 22,
               "lexical": 0,
               "semantic": 0.5193405559069253,
-              "correspondences": ["01-direct-copy-3"]
+              "correspondences": [
+                "01-direct-copy-3"
+              ]
             },
             {
               "sourceIndex": 23,
               "lexical": 0,
               "semantic": 0.27295008213762023,
-              "correspondences": ["01-direct-copy-3"]
+              "correspondences": [
+                "01-direct-copy-3"
+              ]
             },
             {
               "sourceIndex": 24,
               "lexical": 0,
               "semantic": 0.327731080047712,
-              "correspondences": ["01-direct-copy-3"]
+              "correspondences": [
+                "01-direct-copy-3"
+              ]
             },
             {
               "sourceIndex": 25,
               "lexical": 0.6124485817481242,
               "semantic": 0.6595128287934214,
-              "correspondences": ["01-direct-copy-3"]
+              "correspondences": [
+                "01-direct-copy-3"
+              ]
             },
             {
               "sourceIndex": 26,
               "lexical": 1,
               "semantic": 1,
-              "correspondences": ["01-direct-copy-3"]
+              "correspondences": [
+                "01-direct-copy-3"
+              ]
             }
           ],
           "topFiveSemantic": [
@@ -5525,19 +5757,25 @@
               "sourceIndex": 26,
               "lexical": 1,
               "semantic": 1,
-              "correspondences": ["01-direct-copy-3"]
+              "correspondences": [
+                "01-direct-copy-3"
+              ]
             },
             {
               "sourceIndex": 25,
               "lexical": 0.6124485817481242,
               "semantic": 0.6595128287934214,
-              "correspondences": ["01-direct-copy-3"]
+              "correspondences": [
+                "01-direct-copy-3"
+              ]
             },
             {
               "sourceIndex": 22,
               "lexical": 0,
               "semantic": 0.5193405559069253,
-              "correspondences": ["01-direct-copy-3"]
+              "correspondences": [
+                "01-direct-copy-3"
+              ]
             },
             {
               "sourceIndex": 18,
@@ -5554,221 +5792,12 @@
           ]
         }
       ],
-      "application": [
-        {
-          "config": {
-            "method": "lexical",
-            "threshold": 0.3,
-            "alpha": 1,
-            "mergeGap": 0
-          },
-          "provider": "TF-IDF on CPU",
-          "elapsedSeconds": 0.035498999999999795,
-          "passages": {
-            "query": 25,
-            "sources": 27
-          },
-          "matchedCases": 3,
-          "unmatchedDetections": 0,
-          "missedIds": [],
-          "detections": [
-            {
-              "suspiciousReference": "query",
-              "sourceReference": "source-1",
-              "suspiciousSpan": {
-                "offset": 499,
-                "length": 501
-              },
-              "sourceSpan": {
-                "offset": 1395,
-                "length": 501
-              },
-              "lexical": 1,
-              "semantic": null,
-              "score": 1,
-              "evidenceWindows": 5,
-              "matchedIds": ["01-direct-copy-1"]
-            },
-            {
-              "suspiciousReference": "query",
-              "sourceReference": "source-1",
-              "suspiciousSpan": {
-                "offset": 1490,
-                "length": 437
-              },
-              "sourceSpan": {
-                "offset": 497,
-                "length": 437
-              },
-              "lexical": 1,
-              "semantic": null,
-              "score": 1,
-              "evidenceWindows": 5,
-              "matchedIds": ["01-direct-copy-2"]
-            },
-            {
-              "suspiciousReference": "query",
-              "sourceReference": "source-1",
-              "suspiciousSpan": {
-                "offset": 2368,
-                "length": 478
-              },
-              "sourceSpan": {
-                "offset": 2350,
-                "length": 478
-              },
-              "lexical": 1,
-              "semantic": null,
-              "score": 1,
-              "evidenceWindows": 5,
-              "matchedIds": ["01-direct-copy-3"]
-            }
-          ]
-        },
-        {
-          "config": {
-            "method": "semantic",
-            "threshold": 0.6,
-            "alpha": 0,
-            "mergeGap": 0
-          },
-          "provider": "DmlExecutionProvider + CPUExecutionProvider",
-          "elapsedSeconds": 0.9024052999999994,
-          "passages": {
-            "query": 25,
-            "sources": 27
-          },
-          "matchedCases": 3,
-          "unmatchedDetections": 0,
-          "missedIds": [],
-          "detections": [
-            {
-              "suspiciousReference": "query",
-              "sourceReference": "source-1",
-              "suspiciousSpan": {
-                "offset": 499,
-                "length": 501
-              },
-              "sourceSpan": {
-                "offset": 1395,
-                "length": 501
-              },
-              "lexical": 1,
-              "semantic": 1,
-              "score": 1,
-              "evidenceWindows": 5,
-              "matchedIds": ["01-direct-copy-1"]
-            },
-            {
-              "suspiciousReference": "query",
-              "sourceReference": "source-1",
-              "suspiciousSpan": {
-                "offset": 1490,
-                "length": 437
-              },
-              "sourceSpan": {
-                "offset": 497,
-                "length": 437
-              },
-              "lexical": 1,
-              "semantic": 1,
-              "score": 1,
-              "evidenceWindows": 5,
-              "matchedIds": ["01-direct-copy-2"]
-            },
-            {
-              "suspiciousReference": "query",
-              "sourceReference": "source-1",
-              "suspiciousSpan": {
-                "offset": 2368,
-                "length": 478
-              },
-              "sourceSpan": {
-                "offset": 2350,
-                "length": 478
-              },
-              "lexical": 1,
-              "semantic": 1,
-              "score": 1,
-              "evidenceWindows": 5,
-              "matchedIds": ["01-direct-copy-3"]
-            }
-          ]
-        },
-        {
-          "config": {
-            "method": "hybrid",
-            "threshold": 0.3,
-            "alpha": 1,
-            "mergeGap": 0
-          },
-          "provider": "DmlExecutionProvider + CPUExecutionProvider",
-          "elapsedSeconds": 0.7615865000000013,
-          "passages": {
-            "query": 25,
-            "sources": 27
-          },
-          "matchedCases": 3,
-          "unmatchedDetections": 0,
-          "missedIds": [],
-          "detections": [
-            {
-              "suspiciousReference": "query",
-              "sourceReference": "source-1",
-              "suspiciousSpan": {
-                "offset": 499,
-                "length": 501
-              },
-              "sourceSpan": {
-                "offset": 1395,
-                "length": 501
-              },
-              "lexical": 1,
-              "semantic": 1,
-              "score": 1,
-              "evidenceWindows": 5,
-              "matchedIds": ["01-direct-copy-1"]
-            },
-            {
-              "suspiciousReference": "query",
-              "sourceReference": "source-1",
-              "suspiciousSpan": {
-                "offset": 1490,
-                "length": 437
-              },
-              "sourceSpan": {
-                "offset": 497,
-                "length": 437
-              },
-              "lexical": 1,
-              "semantic": 0.9999996363646029,
-              "score": 1,
-              "evidenceWindows": 5,
-              "matchedIds": ["01-direct-copy-2"]
-            },
-            {
-              "suspiciousReference": "query",
-              "sourceReference": "source-1",
-              "suspiciousSpan": {
-                "offset": 2368,
-                "length": 478
-              },
-              "sourceSpan": {
-                "offset": 2350,
-                "length": 478
-              },
-              "lexical": 1,
-              "semantic": 0.9999999681842074,
-              "score": 1,
-              "evidenceWindows": 5,
-              "matchedIds": ["01-direct-copy-3"]
-            }
-          ]
-        }
-      ]
+      "application": []
     },
     {
       "case": "02-paraphrase",
+      "device": "cpu",
+      "provider": "CPUExecutionProvider",
       "expected": [
         {
           "id": "02-paraphrase-1",
@@ -7255,25 +7284,33 @@
               "sourceIndex": 23,
               "lexical": 0.031965794951637,
               "semantic": 0.34614035762476486,
-              "correspondences": ["02-paraphrase-1"]
+              "correspondences": [
+                "02-paraphrase-1"
+              ]
             },
             {
               "sourceIndex": 24,
               "lexical": 0.058219373909188424,
               "semantic": 0.33983528242307787,
-              "correspondences": ["02-paraphrase-1"]
+              "correspondences": [
+                "02-paraphrase-1"
+              ]
             },
             {
               "sourceIndex": 25,
               "lexical": 0.03463529134837267,
               "semantic": 0.4185518544202085,
-              "correspondences": ["02-paraphrase-1"]
+              "correspondences": [
+                "02-paraphrase-1"
+              ]
             },
             {
               "sourceIndex": 26,
               "lexical": 0.010492081559323222,
               "semantic": 0.41012276059785846,
-              "correspondences": ["02-paraphrase-1"]
+              "correspondences": [
+                "02-paraphrase-1"
+              ]
             }
           ],
           "topFiveSemantic": [
@@ -7281,25 +7318,33 @@
               "sourceIndex": 25,
               "lexical": 0.03463529134837267,
               "semantic": 0.4185518544202085,
-              "correspondences": ["02-paraphrase-1"]
+              "correspondences": [
+                "02-paraphrase-1"
+              ]
             },
             {
               "sourceIndex": 26,
               "lexical": 0.010492081559323222,
               "semantic": 0.41012276059785846,
-              "correspondences": ["02-paraphrase-1"]
+              "correspondences": [
+                "02-paraphrase-1"
+              ]
             },
             {
               "sourceIndex": 23,
               "lexical": 0.031965794951637,
               "semantic": 0.34614035762476486,
-              "correspondences": ["02-paraphrase-1"]
+              "correspondences": [
+                "02-paraphrase-1"
+              ]
             },
             {
               "sourceIndex": 24,
               "lexical": 0.058219373909188424,
               "semantic": 0.33983528242307787,
-              "correspondences": ["02-paraphrase-1"]
+              "correspondences": [
+                "02-paraphrase-1"
+              ]
             },
             {
               "sourceIndex": 3,
@@ -7454,25 +7499,33 @@
               "sourceIndex": 23,
               "lexical": 0.036980919693443484,
               "semantic": 0.2157911907894874,
-              "correspondences": ["02-paraphrase-1"]
+              "correspondences": [
+                "02-paraphrase-1"
+              ]
             },
             {
               "sourceIndex": 24,
               "lexical": 0.07560499826363683,
               "semantic": 0.3222429421500828,
-              "correspondences": ["02-paraphrase-1"]
+              "correspondences": [
+                "02-paraphrase-1"
+              ]
             },
             {
               "sourceIndex": 25,
               "lexical": 0.052711051266065956,
               "semantic": 0.408204197192645,
-              "correspondences": ["02-paraphrase-1"]
+              "correspondences": [
+                "02-paraphrase-1"
+              ]
             },
             {
               "sourceIndex": 26,
               "lexical": 0.010017150058296636,
               "semantic": 0.40030175698212517,
-              "correspondences": ["02-paraphrase-1"]
+              "correspondences": [
+                "02-paraphrase-1"
+              ]
             }
           ],
           "topFiveSemantic": [
@@ -7480,13 +7533,17 @@
               "sourceIndex": 25,
               "lexical": 0.052711051266065956,
               "semantic": 0.408204197192645,
-              "correspondences": ["02-paraphrase-1"]
+              "correspondences": [
+                "02-paraphrase-1"
+              ]
             },
             {
               "sourceIndex": 26,
               "lexical": 0.010017150058296636,
               "semantic": 0.40030175698212517,
-              "correspondences": ["02-paraphrase-1"]
+              "correspondences": [
+                "02-paraphrase-1"
+              ]
             },
             {
               "sourceIndex": 8,
@@ -7504,7 +7561,9 @@
               "sourceIndex": 24,
               "lexical": 0.07560499826363683,
               "semantic": 0.3222429421500828,
-              "correspondences": ["02-paraphrase-1"]
+              "correspondences": [
+                "02-paraphrase-1"
+              ]
             }
           ]
         },
@@ -7653,25 +7712,33 @@
               "sourceIndex": 23,
               "lexical": 0.04870362380469517,
               "semantic": 0.24952400628177068,
-              "correspondences": ["02-paraphrase-1"]
+              "correspondences": [
+                "02-paraphrase-1"
+              ]
             },
             {
               "sourceIndex": 24,
               "lexical": 0.06355222137510988,
               "semantic": 0.34328607142269607,
-              "correspondences": ["02-paraphrase-1"]
+              "correspondences": [
+                "02-paraphrase-1"
+              ]
             },
             {
               "sourceIndex": 25,
               "lexical": 0.041212052761250645,
               "semantic": 0.43937227189675027,
-              "correspondences": ["02-paraphrase-1"]
+              "correspondences": [
+                "02-paraphrase-1"
+              ]
             },
             {
               "sourceIndex": 26,
               "lexical": 0.015234652409705176,
               "semantic": 0.3573338829106998,
-              "correspondences": ["02-paraphrase-1"]
+              "correspondences": [
+                "02-paraphrase-1"
+              ]
             }
           ],
           "topFiveSemantic": [
@@ -7679,13 +7746,17 @@
               "sourceIndex": 25,
               "lexical": 0.041212052761250645,
               "semantic": 0.43937227189675027,
-              "correspondences": ["02-paraphrase-1"]
+              "correspondences": [
+                "02-paraphrase-1"
+              ]
             },
             {
               "sourceIndex": 26,
               "lexical": 0.015234652409705176,
               "semantic": 0.3573338829106998,
-              "correspondences": ["02-paraphrase-1"]
+              "correspondences": [
+                "02-paraphrase-1"
+              ]
             },
             {
               "sourceIndex": 10,
@@ -7703,7 +7774,9 @@
               "sourceIndex": 24,
               "lexical": 0.06355222137510988,
               "semantic": 0.34328607142269607,
-              "correspondences": ["02-paraphrase-1"]
+              "correspondences": [
+                "02-paraphrase-1"
+              ]
             }
           ]
         },
@@ -7852,25 +7925,33 @@
               "sourceIndex": 23,
               "lexical": 0.05966516855736335,
               "semantic": 0.36488839070004847,
-              "correspondences": ["02-paraphrase-1"]
+              "correspondences": [
+                "02-paraphrase-1"
+              ]
             },
             {
               "sourceIndex": 24,
               "lexical": 0.06351867037790786,
               "semantic": 0.39307182933968304,
-              "correspondences": ["02-paraphrase-1"]
+              "correspondences": [
+                "02-paraphrase-1"
+              ]
             },
             {
               "sourceIndex": 25,
               "lexical": 0.032675282070901715,
               "semantic": 0.42354278791437516,
-              "correspondences": ["02-paraphrase-1"]
+              "correspondences": [
+                "02-paraphrase-1"
+              ]
             },
             {
               "sourceIndex": 26,
               "lexical": 0.021362375787496328,
               "semantic": 0.3425877836696658,
-              "correspondences": ["02-paraphrase-1"]
+              "correspondences": [
+                "02-paraphrase-1"
+              ]
             }
           ],
           "topFiveSemantic": [
@@ -7878,7 +7959,9 @@
               "sourceIndex": 25,
               "lexical": 0.032675282070901715,
               "semantic": 0.42354278791437516,
-              "correspondences": ["02-paraphrase-1"]
+              "correspondences": [
+                "02-paraphrase-1"
+              ]
             },
             {
               "sourceIndex": 11,
@@ -7890,7 +7973,9 @@
               "sourceIndex": 24,
               "lexical": 0.06351867037790786,
               "semantic": 0.39307182933968304,
-              "correspondences": ["02-paraphrase-1"]
+              "correspondences": [
+                "02-paraphrase-1"
+              ]
             },
             {
               "sourceIndex": 10,
@@ -7902,7 +7987,9 @@
               "sourceIndex": 23,
               "lexical": 0.05966516855736335,
               "semantic": 0.36488839070004847,
-              "correspondences": ["02-paraphrase-1"]
+              "correspondences": [
+                "02-paraphrase-1"
+              ]
             }
           ]
         },
@@ -8540,31 +8627,41 @@
               "sourceIndex": 5,
               "lexical": 0.031521727939231026,
               "semantic": 0.29794931350316733,
-              "correspondences": ["02-paraphrase-2"]
+              "correspondences": [
+                "02-paraphrase-2"
+              ]
             },
             {
               "sourceIndex": 6,
               "lexical": 0.03858811886169627,
               "semantic": 0.20127189570297918,
-              "correspondences": ["02-paraphrase-2"]
+              "correspondences": [
+                "02-paraphrase-2"
+              ]
             },
             {
               "sourceIndex": 7,
               "lexical": 0.03969437073694349,
               "semantic": 0.3763559259446367,
-              "correspondences": ["02-paraphrase-2"]
+              "correspondences": [
+                "02-paraphrase-2"
+              ]
             },
             {
               "sourceIndex": 8,
               "lexical": 0.027780184885190764,
               "semantic": 0.28691301547791215,
-              "correspondences": ["02-paraphrase-2"]
+              "correspondences": [
+                "02-paraphrase-2"
+              ]
             },
             {
               "sourceIndex": 9,
               "lexical": 0.009505068589964576,
               "semantic": 0.14811536028350808,
-              "correspondences": ["02-paraphrase-2"]
+              "correspondences": [
+                "02-paraphrase-2"
+              ]
             },
             {
               "sourceIndex": 10,
@@ -8686,7 +8783,9 @@
               "sourceIndex": 7,
               "lexical": 0.03969437073694349,
               "semantic": 0.3763559259446367,
-              "correspondences": ["02-paraphrase-2"]
+              "correspondences": [
+                "02-paraphrase-2"
+              ]
             },
             {
               "sourceIndex": 24,
@@ -8739,31 +8838,41 @@
               "sourceIndex": 5,
               "lexical": 0.01582632231341036,
               "semantic": 0.3282213428782174,
-              "correspondences": ["02-paraphrase-2"]
+              "correspondences": [
+                "02-paraphrase-2"
+              ]
             },
             {
               "sourceIndex": 6,
               "lexical": 0.026581088570474934,
               "semantic": 0.27713268169020533,
-              "correspondences": ["02-paraphrase-2"]
+              "correspondences": [
+                "02-paraphrase-2"
+              ]
             },
             {
               "sourceIndex": 7,
               "lexical": 0.03561837104366702,
               "semantic": 0.3776477142480047,
-              "correspondences": ["02-paraphrase-2"]
+              "correspondences": [
+                "02-paraphrase-2"
+              ]
             },
             {
               "sourceIndex": 8,
               "lexical": 0.024760380826153495,
               "semantic": 0.4197849310269334,
-              "correspondences": ["02-paraphrase-2"]
+              "correspondences": [
+                "02-paraphrase-2"
+              ]
             },
             {
               "sourceIndex": 9,
               "lexical": 0.00918838312792288,
               "semantic": 0.27763010428584567,
-              "correspondences": ["02-paraphrase-2"]
+              "correspondences": [
+                "02-paraphrase-2"
+              ]
             },
             {
               "sourceIndex": 10,
@@ -8891,7 +9000,9 @@
               "sourceIndex": 8,
               "lexical": 0.024760380826153495,
               "semantic": 0.4197849310269334,
-              "correspondences": ["02-paraphrase-2"]
+              "correspondences": [
+                "02-paraphrase-2"
+              ]
             },
             {
               "sourceIndex": 21,
@@ -8938,31 +9049,41 @@
               "sourceIndex": 5,
               "lexical": 0.026094543125860223,
               "semantic": 0.3406084983786033,
-              "correspondences": ["02-paraphrase-2"]
+              "correspondences": [
+                "02-paraphrase-2"
+              ]
             },
             {
               "sourceIndex": 6,
               "lexical": 0.02831659677661283,
               "semantic": 0.3130397937653605,
-              "correspondences": ["02-paraphrase-2"]
+              "correspondences": [
+                "02-paraphrase-2"
+              ]
             },
             {
               "sourceIndex": 7,
               "lexical": 0.028248749101588103,
               "semantic": 0.3396780088169888,
-              "correspondences": ["02-paraphrase-2"]
+              "correspondences": [
+                "02-paraphrase-2"
+              ]
             },
             {
               "sourceIndex": 8,
               "lexical": 0.08098520523013551,
               "semantic": 0.4049700942814941,
-              "correspondences": ["02-paraphrase-2"]
+              "correspondences": [
+                "02-paraphrase-2"
+              ]
             },
             {
               "sourceIndex": 9,
               "lexical": 0.08203496705337451,
               "semantic": 0.28110814972840703,
-              "correspondences": ["02-paraphrase-2"]
+              "correspondences": [
+                "02-paraphrase-2"
+              ]
             },
             {
               "sourceIndex": 10,
@@ -9072,7 +9193,9 @@
               "sourceIndex": 8,
               "lexical": 0.08098520523013551,
               "semantic": 0.4049700942814941,
-              "correspondences": ["02-paraphrase-2"]
+              "correspondences": [
+                "02-paraphrase-2"
+              ]
             },
             {
               "sourceIndex": 12,
@@ -9137,31 +9260,41 @@
               "sourceIndex": 5,
               "lexical": 0.025960459049527058,
               "semantic": 0.354931319299625,
-              "correspondences": ["02-paraphrase-2"]
+              "correspondences": [
+                "02-paraphrase-2"
+              ]
             },
             {
               "sourceIndex": 6,
               "lexical": 0.02298598055296913,
               "semantic": 0.2784496900839134,
-              "correspondences": ["02-paraphrase-2"]
+              "correspondences": [
+                "02-paraphrase-2"
+              ]
             },
             {
               "sourceIndex": 7,
               "lexical": 0.007551003317019607,
               "semantic": 0.23292081763513536,
-              "correspondences": ["02-paraphrase-2"]
+              "correspondences": [
+                "02-paraphrase-2"
+              ]
             },
             {
               "sourceIndex": 8,
               "lexical": 0.10944320861851652,
               "semantic": 0.3735345087290534,
-              "correspondences": ["02-paraphrase-2"]
+              "correspondences": [
+                "02-paraphrase-2"
+              ]
             },
             {
               "sourceIndex": 9,
               "lexical": 0.13320694548497786,
               "semantic": 0.36293183353429465,
-              "correspondences": ["02-paraphrase-2"]
+              "correspondences": [
+                "02-paraphrase-2"
+              ]
             },
             {
               "sourceIndex": 10,
@@ -9271,19 +9404,25 @@
               "sourceIndex": 8,
               "lexical": 0.10944320861851652,
               "semantic": 0.3735345087290534,
-              "correspondences": ["02-paraphrase-2"]
+              "correspondences": [
+                "02-paraphrase-2"
+              ]
             },
             {
               "sourceIndex": 9,
               "lexical": 0.13320694548497786,
               "semantic": 0.36293183353429465,
-              "correspondences": ["02-paraphrase-2"]
+              "correspondences": [
+                "02-paraphrase-2"
+              ]
             },
             {
               "sourceIndex": 5,
               "lexical": 0.025960459049527058,
               "semantic": 0.354931319299625,
-              "correspondences": ["02-paraphrase-2"]
+              "correspondences": [
+                "02-paraphrase-2"
+              ]
             },
             {
               "sourceIndex": 13,
@@ -9987,25 +10126,33 @@
               "sourceIndex": 14,
               "lexical": 0.01029420497639991,
               "semantic": 0.44744176222557375,
-              "correspondences": ["02-paraphrase-3"]
+              "correspondences": [
+                "02-paraphrase-3"
+              ]
             },
             {
               "sourceIndex": 15,
               "lexical": 0.009969125517910661,
               "semantic": 0.45395868858640054,
-              "correspondences": ["02-paraphrase-3"]
+              "correspondences": [
+                "02-paraphrase-3"
+              ]
             },
             {
               "sourceIndex": 16,
               "lexical": 0.010126318926730628,
               "semantic": 0.42704709134949975,
-              "correspondences": ["02-paraphrase-3"]
+              "correspondences": [
+                "02-paraphrase-3"
+              ]
             },
             {
               "sourceIndex": 17,
               "lexical": 0.009227363534268587,
               "semantic": 0.24865356277493553,
-              "correspondences": ["02-paraphrase-3"]
+              "correspondences": [
+                "02-paraphrase-3"
+              ]
             },
             {
               "sourceIndex": 18,
@@ -10067,19 +10214,25 @@
               "sourceIndex": 15,
               "lexical": 0.009969125517910661,
               "semantic": 0.45395868858640054,
-              "correspondences": ["02-paraphrase-3"]
+              "correspondences": [
+                "02-paraphrase-3"
+              ]
             },
             {
               "sourceIndex": 14,
               "lexical": 0.01029420497639991,
               "semantic": 0.44744176222557375,
-              "correspondences": ["02-paraphrase-3"]
+              "correspondences": [
+                "02-paraphrase-3"
+              ]
             },
             {
               "sourceIndex": 16,
               "lexical": 0.010126318926730628,
               "semantic": 0.42704709134949975,
-              "correspondences": ["02-paraphrase-3"]
+              "correspondences": [
+                "02-paraphrase-3"
+              ]
             },
             {
               "sourceIndex": 6,
@@ -10186,25 +10339,33 @@
               "sourceIndex": 14,
               "lexical": 0.016238327647330297,
               "semantic": 0.4619822985701092,
-              "correspondences": ["02-paraphrase-3"]
+              "correspondences": [
+                "02-paraphrase-3"
+              ]
             },
             {
               "sourceIndex": 15,
               "lexical": 0.0329266584287767,
               "semantic": 0.5265146730877991,
-              "correspondences": ["02-paraphrase-3"]
+              "correspondences": [
+                "02-paraphrase-3"
+              ]
             },
             {
               "sourceIndex": 16,
               "lexical": 0.026021541788480106,
               "semantic": 0.5090331386075733,
-              "correspondences": ["02-paraphrase-3"]
+              "correspondences": [
+                "02-paraphrase-3"
+              ]
             },
             {
               "sourceIndex": 17,
               "lexical": 0.00785336136323922,
               "semantic": 0.28778252727671333,
-              "correspondences": ["02-paraphrase-3"]
+              "correspondences": [
+                "02-paraphrase-3"
+              ]
             },
             {
               "sourceIndex": 18,
@@ -10266,19 +10427,25 @@
               "sourceIndex": 15,
               "lexical": 0.0329266584287767,
               "semantic": 0.5265146730877991,
-              "correspondences": ["02-paraphrase-3"]
+              "correspondences": [
+                "02-paraphrase-3"
+              ]
             },
             {
               "sourceIndex": 16,
               "lexical": 0.026021541788480106,
               "semantic": 0.5090331386075733,
-              "correspondences": ["02-paraphrase-3"]
+              "correspondences": [
+                "02-paraphrase-3"
+              ]
             },
             {
               "sourceIndex": 14,
               "lexical": 0.016238327647330297,
               "semantic": 0.4619822985701092,
-              "correspondences": ["02-paraphrase-3"]
+              "correspondences": [
+                "02-paraphrase-3"
+              ]
             },
             {
               "sourceIndex": 6,
@@ -10385,25 +10552,33 @@
               "sourceIndex": 14,
               "lexical": 0.019964820176768573,
               "semantic": 0.39635890184730144,
-              "correspondences": ["02-paraphrase-3"]
+              "correspondences": [
+                "02-paraphrase-3"
+              ]
             },
             {
               "sourceIndex": 15,
               "lexical": 0.03717099669647354,
               "semantic": 0.43559026366678105,
-              "correspondences": ["02-paraphrase-3"]
+              "correspondences": [
+                "02-paraphrase-3"
+              ]
             },
             {
               "sourceIndex": 16,
               "lexical": 0.1370465229439306,
               "semantic": 0.4539836736188326,
-              "correspondences": ["02-paraphrase-3"]
+              "correspondences": [
+                "02-paraphrase-3"
+              ]
             },
             {
               "sourceIndex": 17,
               "lexical": 0.14234738279316478,
               "semantic": 0.3376615990619026,
-              "correspondences": ["02-paraphrase-3"]
+              "correspondences": [
+                "02-paraphrase-3"
+              ]
             },
             {
               "sourceIndex": 18,
@@ -10465,19 +10640,25 @@
               "sourceIndex": 16,
               "lexical": 0.1370465229439306,
               "semantic": 0.4539836736188326,
-              "correspondences": ["02-paraphrase-3"]
+              "correspondences": [
+                "02-paraphrase-3"
+              ]
             },
             {
               "sourceIndex": 15,
               "lexical": 0.03717099669647354,
               "semantic": 0.43559026366678105,
-              "correspondences": ["02-paraphrase-3"]
+              "correspondences": [
+                "02-paraphrase-3"
+              ]
             },
             {
               "sourceIndex": 14,
               "lexical": 0.019964820176768573,
               "semantic": 0.39635890184730144,
-              "correspondences": ["02-paraphrase-3"]
+              "correspondences": [
+                "02-paraphrase-3"
+              ]
             },
             {
               "sourceIndex": 21,
@@ -10584,25 +10765,33 @@
               "sourceIndex": 14,
               "lexical": 0.015619913401461488,
               "semantic": 0.3978312308505021,
-              "correspondences": ["02-paraphrase-3"]
+              "correspondences": [
+                "02-paraphrase-3"
+              ]
             },
             {
               "sourceIndex": 15,
               "lexical": 0.01682648267889813,
               "semantic": 0.39231110426085203,
-              "correspondences": ["02-paraphrase-3"]
+              "correspondences": [
+                "02-paraphrase-3"
+              ]
             },
             {
               "sourceIndex": 16,
               "lexical": 0.14147342359931195,
               "semantic": 0.4098429495987566,
-              "correspondences": ["02-paraphrase-3"]
+              "correspondences": [
+                "02-paraphrase-3"
+              ]
             },
             {
               "sourceIndex": 17,
               "lexical": 0.16924948669187345,
               "semantic": 0.3871749415782676,
-              "correspondences": ["02-paraphrase-3"]
+              "correspondences": [
+                "02-paraphrase-3"
+              ]
             },
             {
               "sourceIndex": 18,
@@ -10664,25 +10853,33 @@
               "sourceIndex": 16,
               "lexical": 0.14147342359931195,
               "semantic": 0.4098429495987566,
-              "correspondences": ["02-paraphrase-3"]
+              "correspondences": [
+                "02-paraphrase-3"
+              ]
             },
             {
               "sourceIndex": 14,
               "lexical": 0.015619913401461488,
               "semantic": 0.3978312308505021,
-              "correspondences": ["02-paraphrase-3"]
+              "correspondences": [
+                "02-paraphrase-3"
+              ]
             },
             {
               "sourceIndex": 15,
               "lexical": 0.01682648267889813,
               "semantic": 0.39231110426085203,
-              "correspondences": ["02-paraphrase-3"]
+              "correspondences": [
+                "02-paraphrase-3"
+              ]
             },
             {
               "sourceIndex": 17,
               "lexical": 0.16924948669187345,
               "semantic": 0.3871749415782676,
-              "correspondences": ["02-paraphrase-3"]
+              "correspondences": [
+                "02-paraphrase-3"
+              ]
             },
             {
               "sourceIndex": 8,
@@ -10693,65 +10890,12 @@
           ]
         }
       ],
-      "application": [
-        {
-          "config": {
-            "method": "lexical",
-            "threshold": 0.3,
-            "alpha": 1,
-            "mergeGap": 0
-          },
-          "provider": "TF-IDF on CPU",
-          "elapsedSeconds": 0.01892790000000059,
-          "passages": {
-            "query": 22,
-            "sources": 27
-          },
-          "matchedCases": 0,
-          "unmatchedDetections": 0,
-          "missedIds": ["02-paraphrase-1", "02-paraphrase-2", "02-paraphrase-3"],
-          "detections": []
-        },
-        {
-          "config": {
-            "method": "semantic",
-            "threshold": 0.6,
-            "alpha": 0,
-            "mergeGap": 0
-          },
-          "provider": "DmlExecutionProvider + CPUExecutionProvider",
-          "elapsedSeconds": 0.9183351000000003,
-          "passages": {
-            "query": 22,
-            "sources": 27
-          },
-          "matchedCases": 0,
-          "unmatchedDetections": 0,
-          "missedIds": ["02-paraphrase-1", "02-paraphrase-2", "02-paraphrase-3"],
-          "detections": []
-        },
-        {
-          "config": {
-            "method": "hybrid",
-            "threshold": 0.3,
-            "alpha": 1,
-            "mergeGap": 0
-          },
-          "provider": "DmlExecutionProvider + CPUExecutionProvider",
-          "elapsedSeconds": 0.6650967000000001,
-          "passages": {
-            "query": 22,
-            "sources": 27
-          },
-          "matchedCases": 0,
-          "unmatchedDetections": 0,
-          "missedIds": ["02-paraphrase-1", "02-paraphrase-2", "02-paraphrase-3"],
-          "detections": []
-        }
-      ]
+      "application": []
     },
     {
       "case": "03-negative-control",
+      "device": "cpu",
+      "provider": "CPUExecutionProvider",
       "expected": [],
       "queryPassages": [
         {
@@ -14559,62 +14703,7 @@
           ]
         }
       ],
-      "application": [
-        {
-          "config": {
-            "method": "lexical",
-            "threshold": 0.3,
-            "alpha": 1,
-            "mergeGap": 0
-          },
-          "provider": "TF-IDF on CPU",
-          "elapsedSeconds": 0.016947100000001228,
-          "passages": {
-            "query": 20,
-            "sources": 22
-          },
-          "matchedCases": 0,
-          "unmatchedDetections": 0,
-          "missedIds": [],
-          "detections": []
-        },
-        {
-          "config": {
-            "method": "semantic",
-            "threshold": 0.6,
-            "alpha": 0,
-            "mergeGap": 0
-          },
-          "provider": "DmlExecutionProvider + CPUExecutionProvider",
-          "elapsedSeconds": 0.7351232,
-          "passages": {
-            "query": 20,
-            "sources": 22
-          },
-          "matchedCases": 0,
-          "unmatchedDetections": 0,
-          "missedIds": [],
-          "detections": []
-        },
-        {
-          "config": {
-            "method": "hybrid",
-            "threshold": 0.3,
-            "alpha": 1,
-            "mergeGap": 0
-          },
-          "provider": "DmlExecutionProvider + CPUExecutionProvider",
-          "elapsedSeconds": 0.5510442000000003,
-          "passages": {
-            "query": 20,
-            "sources": 22
-          },
-          "matchedCases": 0,
-          "unmatchedDetections": 0,
-          "missedIds": [],
-          "detections": []
-        }
-      ]
+      "application": []
     }
   ]
 }

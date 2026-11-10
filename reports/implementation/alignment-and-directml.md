@@ -6,9 +6,9 @@
 
 The original exhaustive search used 80-word windows that could cross section boundaries and kept the highest-scoring source window per query window. In the paraphrase example, the source paragraph **Evaluation cohorts** begins at UTF-16 offset 545. For query offset 1702, the source window at 1077 scored 0.643 and mixed **Reference schedule** with **Correction records**. A window overlapping the intended paragraph at source offset 736 ranked fifth at 0.418 and was discarded before thresholding. There was no lexical prefilter. Both models used the same windows, and the tokenizer budget, masked mean pooling, and vector normalization were already in place.
 
-The application now uses PDF layout gaps and TXT paragraph separators to bound one- and two-sentence windows. Long sentences are subdivided within the existing token budget. The PDF extractor adds boundary metadata while preserving its original text and offsets. Results merge only touching or overlapping spans on both sides. For the query window beginning at 1586, the top source now begins at 756, inside **Evaluation cohorts**. Its semantic score is 0.405. The earlier two query windows still rank another section first. Even isolated full paragraphs score about 0.415, consistent with a limitation of the fixed embedding model on this rewrite.
+The application now uses PDF layout gaps and TXT paragraph separators to bound one- and two-sentence windows. Long sentences are subdivided within the existing token budget. The PDF extractor adds boundary metadata while preserving its original text and offsets. Results merge only touching or overlapping spans on both sides. The fresh paragraph-bounded diagnostic retrieved annotated paraphrase candidates with semantic scores from 0.322 to 0.527; the maximum annotated candidate was 0.5265146731 on CPU and 0.5265148047 on DirectML. The earlier two query windows still rank another section first. These scores remain below the frozen 0.60 MiniLM threshold, consistent with a limitation of the fixed embedding model on this rewrite rather than a CPU/DirectML discrepancy.
 
-[Before](demo-diagnostics-before.json) and [after](demo-diagnostics-after.json) record windows, token counts, embedding dimensions and norms, both pairwise scores, top-five semantic ranks and matched annotation IDs. The after file also records the production API output, thresholds, scores, spans and timings.
+[Before](demo-diagnostics-before.json) and [after](demo-diagnostics-after.json) record windows, token counts, embedding dimensions and norms, both pairwise scores, top-five semantic ranks and matched annotation IDs. The after file also records the production API output, thresholds, scores, spans and timings. The corrected diagnostic records the selected device and verified provider; the native CPU and DirectML snapshots are retained separately for comparison.
 
 ## Controlled application results
 
@@ -20,7 +20,7 @@ The production checks below used the archived thresholds of 0.30 for TF-IDF and 
 | Paraphrase       | 0/3, 0 false positives | 0/3, 0 false positives | 0/3, 0 false positives |
 | Negative control | 0 alerts               | 0 alerts               | 0 alerts               |
 
-The wrong semantic alert disappeared. The correct semantic candidate remains below the archived threshold. Direct-copy highlights scored 1.000 and recovered all three source paragraphs. These results apply to the supplied pairs.
+The wrong semantic alert disappeared. The correct semantic candidates remain below the archived threshold. Direct-copy highlights scored 1.000 and recovered all three source paragraphs. These results apply to the supplied pairs and do not justify lowering the PAN-calibrated threshold.
 
 ## GPU execution
 
@@ -30,4 +30,4 @@ A Node.js 24.18 FP32 probe used identical batches of 16 inputs. The maximum abso
 
 ## Verification
 
-TypeScript, ESLint, the Next.js production build, and all 39 tests passed, including PDF and TXT extraction, short and over-budget text, source alignment, and local MiniLM inference. The built DirectML server passed the exact-copy and invalid-upload smoke checks and processed all nine method/pair combinations.
+TypeScript, ESLint, the Next.js production build, and all 39 tests passed, including PDF and TXT extraction, short and over-budget text, source alignment, and local MiniLM inference. The production build uses the documented Webpack path because the default Turbopack server bundle emitted an unresolved Transformers.js external alias at runtime. The fixed DirectML server passed the exact-copy, readiness, invalid-upload and cross-origin smoke checks and processed all nine method/pair combinations. The corrected CPU and DirectML diagnostics produced identical method decisions for all three controlled pairs; the maximum annotated paraphrase score differed by approximately 1.3e-7.

@@ -1,11 +1,16 @@
 import { readFile, writeFile } from 'node:fs/promises';
+import type { AnalysisResult } from '../src/lib/application/analysis';
 import { getArtifacts } from '../src/lib/application/analysis';
-import { extractFile } from '../src/lib/documents/extract';
+import type { CharacterSpan } from '../src/lib/dataset/types';
 import { segment, segmentParagraphs } from '../src/lib/detection/segmentation';
 import { denseCosine, sparseCosine } from '../src/lib/detection/tfidf';
-import { embedTexts, tokenCounter } from '../src/lib/embeddings/model';
-import type { CharacterSpan } from '../src/lib/dataset/types';
-import type { AnalysisResult } from '../src/lib/application/analysis';
+import { extractFile } from '../src/lib/documents/extract';
+import {
+  applicationDevice,
+  embeddingProvider,
+  embedTexts,
+  tokenCounter,
+} from '../src/lib/embeddings/model';
 import { overlaps } from '../src/lib/evaluation/pan';
 
 type DemoCase = {
@@ -20,6 +25,8 @@ const { cases } = JSON.parse(await readFile('demo/ground-truth.json', 'utf8')) a
 };
 const { tfidf } = await getArtifacts();
 const countTokens = await tokenCounter();
+const device = applicationDevice();
+const provider = await embeddingProvider(device);
 const [mode, server] = process.argv.slice(2);
 const results = [];
 for (const item of cases) {
@@ -32,7 +39,10 @@ for (const item of cases) {
   const split = mode === 'before' ? segment : segmentParagraphs;
   const queries = split(query.text, query.reference, { countTokens }, query.paragraphBreaks);
   const sources = split(source.text, source.reference, { countTokens }, source.paragraphBreaks);
-  const vectors = await embedTexts([...queries, ...sources].map(({ text }) => text));
+  const vectors = await embedTexts(
+    [...queries, ...sources].map(({ text }) => text),
+    device,
+  );
   const describe = (passage: (typeof queries)[number], index: number) => ({
     ...passage,
     tokens: countTokens(passage.text),
@@ -112,6 +122,8 @@ for (const item of cases) {
   }
   results.push({
     case: item.id,
+    device,
+    provider,
     expected: item.matches,
     queryPassages: queries.map(describe),
     sourcePassages: sources.map((passage, i) => describe(passage, queries.length + i)),

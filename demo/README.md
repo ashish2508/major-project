@@ -11,3 +11,5 @@ Each pair contains original synthetic Computer Science text. Upload the PDF unde
 [Ground truth](ground-truth.json) stores each authored correspondence using zero-based UTF-16 offsets and lengths in the text returned by the application. An end offset is exclusive. The one-based PDF page number identifies the submitted passage. Line breaks from PDF extraction can differ from the TXT source, even where the wording was copied.
 
 These fixtures support demonstrations and regression checks. PAN-PC-11 supplies the benchmark data.
+
+Measured limitation: in the paragraph-bounded run on 11 November 2026, the annotated paraphrase candidates reached a maximum MiniLM cosine score of 0.5265 on both CPU and DirectML, below the frozen 0.60 semantic alert threshold. The example therefore demonstrates evidence retrieval without a semantic alert; this synthetic result is separate from PAN-PC-11 benchmark metrics.

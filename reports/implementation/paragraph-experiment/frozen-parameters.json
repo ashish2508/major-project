@@ -1,0 +1,27 @@
+{
+  "experimentConfigSha256": "bbaf89808266c78bd457f0ab7dad016f05131dcbbbbcf4cb556664c27e367416",
+  "splitManifestSha256": "203a88a979bdfda36d75612c902b699b0a8fd7b2ee82e688d494a036b01f3908",
+  "tfidfSha256": "05985a76accf5bf6912c6150203dc7de37368c38167068240fd07297b1c6bc03",
+  "selectedAt": "2026-11-10T20:40:15.736Z",
+  "selectionPartition": "validation",
+  "methods": {
+    "lexical": {
+      "method": "lexical",
+      "threshold": 0.6,
+      "alpha": 1,
+      "mergeGap": 0
+    },
+    "semantic": {
+      "method": "semantic",
+      "threshold": 0.7,
+      "alpha": 0,
+      "mergeGap": 0
+    },
+    "hybrid": {
+      "method": "hybrid",
+      "threshold": 0.6,
+      "alpha": 0.25,
+      "mergeGap": 0
+    }
+  }
+}

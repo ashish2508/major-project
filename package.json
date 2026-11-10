@@ -6,7 +6,7 @@
     "dev": "next dev",
     "format": "bun node_modules/prettier/bin/prettier.cjs --write .",
     "format:check": "bun node_modules/prettier/bin/prettier.cjs --check .",
-    "build": "next build",
+    "build": "next build --webpack",
     "start": "next start",
     "lint": "eslint",
     "test": "vitest run",
