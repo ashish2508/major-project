@@ -1,0 +1,10 @@
+$ vitest run
+
+ RUN  v5.1.0 /home/ash/Projects/major-project
+
+
+ Test Files  5 passed (5)
+      Tests  33 passed (33)
+   Start at  20:39:18
+   Duration  313ms (import 55%, tests 25%, transform 15%, worker 5%)
+

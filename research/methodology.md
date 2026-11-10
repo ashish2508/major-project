@@ -1,69 +1,47 @@
 # Experimental methodology
 
-Last updated: 10 November 2026. This is the authoritative experimental protocol record. It is incomplete where decisions remain pending; those gaps must not be filled by assumption. Root [AGENTS.md](../AGENTS.md) supplies project constraints, and [decisions.md](decisions.md) records approvals and rationale.
+Updated: 10 November 2026. Authoritative protocol; approvals and delegated decisions are in [decisions.md](decisions.md), D001–D006. The owner's end-to-end authorization supersedes earlier routine milestone approval gates in historical audit reports.
 
-## Approved research design
+## Objective and scope
 
-Investigate whether combining lexical and semantic similarity improves textual plagiarism detection compared with either technique independently. Improvement is a research question, not an established finding.
+Compare TF-IDF/cosine, frozen all-MiniLM-L6-v2/cosine and weighted hybrid passage detection. Determine observed differences empirically; do not assume hybrid superiority. PAN-PC-11 is the single benchmark. Primary scope is English-to-English external detection. Translation is inventoried but excluded from primary evaluation; no cross-language claim is made. Book-domain results do not establish CS-publication performance.
 
-Use PAN-PC-11 as the single primary benchmark, with the external detection corpus as the primary focus. Preserve annotation relationships and character offsets. The intended application domain is CS research publications; the book-based benchmark does not establish performance in that domain.
+## Dataset and coordinates
 
-Evaluate three methods independently:
+Root: `data/raw/pan-pc-11/unrar-extracted/pan-plagiarism-corpus-2011/`. Full inventory: 11,093 sources, 11,093 suspicious documents, 49,621 annotations, 5,547 positive and 5,546 unannotated suspicious documents. Fingerprint: `5408fc446e1eded99c9e5e361f4e735e168c199b392f9c64066456e17bc5c0e7`.
 
-1. TF-IDF with cosine similarity, passage segmentation and thresholding.
-2. Pretrained all-MiniLM-L6-v2 with local Transformers.js/ONNX execution, 384-dimensional embeddings and cosine similarity, without updating model weights.
-3. Hybrid scoring: `alpha * lexical + (1 - alpha) * semantic`. Select alpha and decision thresholds through validation experiments.
+Strictly decode UTF-8, remove only the initial BOM for the coordinate view, preserve all other characters/newlines and original span numbers. PAN texts have no non-BMP characters, so UTF-16 and code-point indices coincide; reject unverified non-BMP corpus coordinates. Validate both span lengths independently and resolve sources through the inventory. Preserve the seven endpoint anomalies. Retain all raw records but exclude the entire document containing the single zero-length annotation from experimental eligibility. Shortened MD5 values are checked with zero-padding; original strings are retained. Full evidence: [dataset audit](../reports/pan-pc-11/report.md), [production validation](../reports/implementation/dataset-validation.json).
 
-Use validation data for parameter selection; prevent leakage between training, validation and test data. Evaluate final methods on the same held-out test data. Record configurations and experimental parameters. Optional fine-tuning follows completion of all three methods and requires a separate suitability assessment and any necessary approval.
+## Splits and experimental population
 
-Use official PAN passage-level precision, recall, F1, granularity and PlagDet. Accuracy and false-positive rate may be reported where appropriate, with their definitions and denominators stated. Do not substitute document/pair classification metrics for the required passage-level evaluation. Protocol reference: [PAN external detection 2011](https://pan.webis.de/clef11/pan11-web/external-plagiarism-detection.html).
+Use conservative connected groups sharing normalized author OR title. Fix seed `pan-pc11-v1-20261110`. Reserve disjoint family bundles for rare simulated/verbatim examples deterministically by smallest total document size before seeded hashing of remaining families (60/20/20). Retain whole queries only if every annotated source family and their own family belong to the same partition. No random query-row or passage split is used.
 
-## Observed corpus facts — evidence, not new approvals
+Bounded experiment: 80 training queries, 48 validation queries, 48 test queries. Evaluation partitions each contain 24 positives and 24 clean queries. Query cap 50,000 characters; source cap 100,000, except simulated-source allowance 500,000. Add 12 unreferenced source distractors per partition. Score each query over ALL sources in its partition, not annotation-known query pairs. This is a reduced-candidate derived PAN experiment, not a full 11,093-source retrieval benchmark. Collection design includes all annotated sources; document exclusions and bias are explicitly recorded.
 
-Dataset location:
+Membership, original labels, exclusions and family assignments: [manifest](../reports/implementation/split-manifest.json). Counts and type coverage: [split summary](../reports/implementation/split-summary.json). Shared-family/reference checks and cross-partition normalized five-word shingle containment guard (20 shared shingles and containment >=0.2) are required before scoring. [Leakage results](../reports/implementation/leakage-check.json) cover every selected document; metadata/content checks cannot prove absence of all latent provenance/semantic dependence.
 
-```text
-data/raw/pan-pc-11/unrar-extracted/pan-plagiarism-corpus-2011/
-```
+## Representations, retrieval and selection
 
-The [audit report](../reports/pan-pc-11/report.md), [machine-readable results](../reports/pan-pc-11/results.json) and [offline tokenizer probe](../reports/pan-pc-11/token-probe.json) contain the detailed evidence and reproduction instructions.
+Generate sentence/paragraph-aware windows with up to 80 whitespace words, 20-word overlap and actual-tokenizer subdivision at 256 total tokens including specials. Never use annotation boundaries to create windows. Use the same windows and candidate collections for every method.
 
-- External corpus: 11,093 sources, 11,093 suspicious documents, 49,621 instances; 5,547 positive and 5,546 unannotated suspicious documents.
-- Instances: 39,870 artificial, 4,609 simulated and 5,142 translation. `obfuscation` and `manual_obfuscation` are distinct attributes.
-- All suspicious documents are labeled English. Sources include English, German and Spanish; languages here are metadata labels.
-- All external text files have UTF-8 BOMs. Passage-comparison evidence supports decoded-character offsets after excluding the initial BOM. UTF-16/code-point indices coincide throughout this extraction because no non-BMP characters were found. Seven unobfuscated pairs retain endpoint discrepancies.
-- One annotation has zero suspicious length. No source references are missing. Eighty shortened MD5 values match after zero-padding.
-- Source reuse produces a giant connected component. Balanced whole-component splits retaining all cases are infeasible under the audited relationships.
-- The model card's 256-word-piece default differs from the exported tokenizer/model configuration values. Explicit token budgeting must be settled for model evaluation; silently truncating whole documents is unsuitable.
+TF-IDF: Unicode alphanumeric tokens with NFKC/lowercase in feature views only; sublinear TF `1+log(count)`, smoothed IDF `log((1+N)/(1+df))+1`, L2 normalization. Fit only training query/source windows. OOV terms contribute zero. No stemming or stop-word removal.
 
-External text/XML fingerprint:
+Semantic: cached local all-MiniLM-L6-v2 ONNX export, frozen FP32 weights, 384 dimensions, mean pooling and L2 normalization, batch 16, CPU, four intra-op threads. Remote inference/downloads disabled during execution. Native profiling observed `CPUExecutionProvider`; [provider evidence](../reports/implementation/inference-provider.json). Record hashes of cached model/config/tokenizer files with experiment results. Reject over-budget embeddings instead of silently truncating documents.
 
-```text
-5408fc446e1eded99c9e5e361f4e735e168c199b392f9c64066456e17bc5c0e7
-```
+Retrieve each query window's best source window over the entire supplied collection independently for each method. Hybrid score is `alpha*lexical + (1-alpha)*semantic`, retaining cosine's possible negative semantic values. Threshold and merge accepted matches only for the same document pair with gaps <=120 characters on both sides; report the strongest window's similarity as evidence, not a calibrated probability.
 
-The audit defines fingerprint construction. Repeated full scans produced this fingerprint. These measurements are dataset/functionality findings, not detector performance results.
+Select thresholds from [0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9] and hybrid alpha from [0,0.25,0.5,0.75,1], using validation PlagDet, then precision, then higher threshold. Fixed alpha-grid order resolves any remaining tie. Freeze parameters before held-out test scoring. No test-based seed, threshold, weight or preprocessing selection.
 
-## Protocol decisions still pending
+## Evaluation
 
-| Area | Current state |
-|---|---|
-| Language scope | English-only primary evaluation and separate translation reporting are proposed, not approved. |
-| Parser architecture | Types and responsibilities are proposed in the audit; production parser not implemented. |
-| Coordinates and anomalies | Production BOM mapping, endpoint discrepancy policy and zero-length evaluation treatment require explicit documentation/approval. |
-| Leakage grouping | Source relationships are measured; book-family candidates need verification and a grouping policy. |
-| Split design | No split assignment, approved ratio, seed or quarantine policy exists. Feasibility analysis is recommended first. |
-| TF-IDF configuration | Tokenization, normalization, vocabulary/IDF fitting scope and parameters are not finalized. |
-| Semantic configuration | Exact model revision, inference dtype/provider, token budget, segmentation/windowing and pooling configuration must be frozen for experiments. Existing functionality checks do not finalize an experimental configuration. |
-| Hybrid and thresholds | Alpha and thresholds remain unset; choose through validation only. |
-| Evaluation implementation | PAN-compatible evaluator and edge-case checks are not implemented. |
+Use external PAN macro character precision/recall: each annotation/detection is the union of its suspicious and source character spans; matching requires correct document identities and positive overlap on both sides. Union overlapping coverage before dividing by the sum of the two independent span lengths. F1 is the harmonic mean. Granularity is detections per detected case; PlagDet is F1 / log2(1+granularity). Empty-set conventions follow the reference implementation. Zero-length spans are excluded by the documented dataset policy, not silently accepted by the evaluator.
 
-The audit proposes training-only fitting of data-dependent preprocessing, splitting before chunk/negative generation, identical candidate collections across methods and transparent quarantine reporting. These details remain recommendations until approved. Do not supply annotation-known source pairs to an end-to-end detector without explicitly redefining the experiment as given-pair alignment.
+Implementation is independently written in TypeScript against the official definitions and external-reference fixtures: [PAN reference implementation](https://github.com/pan-webis-de/pan-code/blob/master/sepln09/pan09-plagiarism-detection-performance-measures.py), [PAN task](https://pan.webis.de/clef11/pan11-web/external-plagiarism-detection.html). No Python execution is introduced.
 
-## Experiment and milestone records
+Report missed cases (no jointly overlapping detection), false-positive detections (no jointly overlapping case), clean-query alerts, per-type coverage where supported, and actual wall time/resource use. One simulated case per partition provides only illustrative coverage, not a reliable type-level estimate. Do not infer full-corpus performance or statistical significance from this bounded experiment. Shared feature generation and per-method scoring/filtering timings must be distinguished; cached inference time is not cold-start time.
 
-For each experiment, save the dataset fingerprint/scope, split manifest, code revision and working-tree state, commands, runtime/dependency versions, random seeds, preprocessing/model settings, validation choices, execution provider actually used, outputs and metric definitions/results under `reports/`. Record failures, exclusions and deviations. Keep datasets and downloaded model files out of Git.
+## Reproducibility and current status
 
-Before closing a major milestone, update this protocol where applicable, record approved decisions, and save a report covering accomplishments, actual verification, unresolved issues and the next recommended step. If checks were not run, say so. Do not present earlier functionality results as current tests or benchmark measurements.
+Store commands, code revision/working-tree state, fingerprints, split/config hashes, model hashes, versions, provider, seeds, validation selections, predictions, metrics and failure logs under `reports/implementation/`. Keep weights/raw data/large derived caches outside Git. See [status](status.md) for live progress. No commit or push is authorized.
 
-Current evidence: the dataset audit is complete. Earlier project instructions record successful build, ONNX loading and 384-dimensional embedding functionality checks; they were not rerun for this documentation update. No lexical, semantic or hybrid plagiarism benchmark has been run. The [continuity milestone record](../reports/project-continuity.md) records the documentation setup and its verification.
+Every major milestone closes with relevant documentation, actual checks/results, remaining issues and the next step. Historical functionality checks are not benchmark results. Optional fine-tuning is deferred; the first three methods and their actual comparisons take priority.

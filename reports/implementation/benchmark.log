@@ -1,0 +1,92 @@
+Fitting TF-IDF using training windows only
+Lexical validation selection {
+  method: "lexical",
+  threshold: 0.3,
+  alpha: 1,
+  mergeGap: 120,
+}
+Embedding validation-sources: 128/2715
+Embedding validation-sources: 640/2715
+Embedding validation-sources: 1152/2715
+Embedding validation-sources: 1664/2715
+Embedding validation-sources: 2176/2715
+Embedding validation-sources: 2688/2715
+Embedding validation-queries: 128/3153
+Embedding validation-queries: 640/3153
+Embedding validation-queries: 1152/3153
+Embedding validation-queries: 1664/3153
+Embedding validation-queries: 2176/3153
+Embedding validation-queries: 2688/3153
+Embedding validation-queries: 3153/3153
+Parameters frozen before test scoring {
+  lexical: {
+    method: "lexical",
+    threshold: 0.3,
+    alpha: 1,
+    mergeGap: 120,
+  },
+  semantic: {
+    method: "semantic",
+    threshold: 0.6,
+    alpha: 0,
+    mergeGap: 120,
+  },
+  hybrid: {
+    method: "hybrid",
+    threshold: 0.3,
+    alpha: 1,
+    mergeGap: 120,
+  },
+}
+Embedding test-sources: 128/4009
+Embedding test-sources: 640/4009
+Embedding test-sources: 1152/4009
+Embedding test-sources: 1664/4009
+Embedding test-sources: 2176/4009
+Embedding test-sources: 2688/4009
+Embedding test-sources: 3200/4009
+Embedding test-sources: 3712/4009
+Embedding test-queries: 128/2884
+Embedding test-queries: 640/2884
+Embedding test-queries: 1152/2884
+Embedding test-queries: 1664/2884
+Embedding test-queries: 2176/2884
+Embedding test-queries: 2688/2884
+{
+  "lexical": {
+    "precision": 0.7606831618159371,
+    "recall": 0.860139390998427,
+    "f1": 0.8073598808345993,
+    "granularity": 1.528301886792453,
+    "plagdet": 0.6033318961789037,
+    "cases": 57,
+    "detections": 87,
+    "detectedCases": 53,
+    "missedCases": 4,
+    "falsePositiveDetections": 6
+  },
+  "semantic": {
+    "precision": 0.35407373510026136,
+    "recall": 0.5272924613482521,
+    "f1": 0.42366138395617997,
+    "granularity": 1.6216216216216217,
+    "plagdet": 0.3046916440922639,
+    "cases": 57,
+    "detections": 151,
+    "detectedCases": 37,
+    "missedCases": 20,
+    "falsePositiveDetections": 91
+  },
+  "hybrid": {
+    "precision": 0.7606831618159371,
+    "recall": 0.860139390998427,
+    "f1": 0.8073598808345993,
+    "granularity": 1.528301886792453,
+    "plagdet": 0.6033318961789037,
+    "cases": 57,
+    "detections": 87,
+    "detectedCases": 53,
+    "missedCases": 4,
+    "falsePositiveDetections": 6
+  }
+}

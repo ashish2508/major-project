@@ -1,0 +1,61 @@
+{
+  "seed": "pan-pc11-v1-20261110",
+  "families": 6704,
+  "summary": {
+    "20000": {
+      "train:clean": 1217,
+      "validation:clean": 305,
+      "train:artificial": 98,
+      "test:clean": 284,
+      "validation:artificial": 11,
+      "test:artificial": 7
+    },
+    "50000": {
+      "validation:clean": 504,
+      "validation:artificial": 25,
+      "train:clean": 1944,
+      "train:artificial": 301,
+      "test:clean": 463,
+      "test:artificial": 21,
+      "train:simulated": 1
+    },
+    "100000": {
+      "validation:clean": 601,
+      "validation:artificial": 29,
+      "train:clean": 2180,
+      "train:artificial": 364,
+      "test:clean": 527,
+      "test:artificial": 24,
+      "train:simulated": 2
+    },
+    "250000": {
+      "validation:clean": 796,
+      "validation:artificial": 40,
+      "train:clean": 2703,
+      "train:artificial": 540,
+      "test:clean": 684,
+      "test:artificial": 33,
+      "train:simulated": 2
+    },
+    "1000000": {
+      "validation:clean": 1039,
+      "validation:artificial": 82,
+      "train:clean": 3547,
+      "train:artificial": 1086,
+      "test:clean": 923,
+      "test:artificial": 55,
+      "validation:simulated": 1,
+      "train:simulated": 4
+    },
+    "Infinity": {
+      "validation:clean": 1046,
+      "validation:artificial": 84,
+      "train:clean": 3568,
+      "train:artificial": 1147,
+      "test:clean": 932,
+      "test:artificial": 60,
+      "validation:simulated": 1,
+      "train:simulated": 4
+    }
+  }
+}

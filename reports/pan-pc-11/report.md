@@ -29,57 +29,57 @@ Actual directory names are singular. The bundled README uses plural names and a 
 
 Both roles have 500 text/XML pairs in each of parts 1–22 and 93 pairs in part23. These directories are storage partitions, not established training/validation/test assignments. The complete suspicious distribution is:
 
-| Part | Text files | XML files | With annotations | Without annotations | Instances |
-|---|---:|---:|---:|---:|---:|
-| 1 | 500 | 500 | 258 | 242 | 1,967 |
-| 2 | 500 | 500 | 252 | 248 | 2,452 |
-| 3 | 500 | 500 | 246 | 254 | 2,151 |
-| 4 | 500 | 500 | 243 | 257 | 2,553 |
-| 5 | 500 | 500 | 271 | 229 | 2,255 |
-| 6 | 500 | 500 | 251 | 249 | 2,458 |
-| 7 | 500 | 500 | 271 | 229 | 1,948 |
-| 8 | 500 | 500 | 238 | 262 | 2,261 |
-| 9 | 500 | 500 | 237 | 263 | 1,896 |
-| 10 | 500 | 500 | 259 | 241 | 2,509 |
-| 11 | 500 | 500 | 243 | 257 | 2,045 |
-| 12 | 500 | 500 | 237 | 263 | 1,987 |
-| 13 | 500 | 500 | 243 | 257 | 2,184 |
-| 14 | 500 | 500 | 247 | 253 | 2,009 |
-| 15 | 500 | 500 | 235 | 265 | 1,961 |
-| 16 | 500 | 500 | 254 | 246 | 2,479 |
-| 17 | 500 | 500 | 258 | 242 | 1,989 |
-| 18 | 500 | 500 | 248 | 252 | 2,512 |
-| 19 | 500 | 500 | 256 | 244 | 2,403 |
-| 20 | 500 | 500 | 257 | 243 | 2,338 |
-| 21 | 500 | 500 | 259 | 241 | 2,383 |
-| 22 | 500 | 500 | 240 | 260 | 2,480 |
-| 23 | 93 | 93 | 44 | 49 | 401 |
-| **Total** | **11,093** | **11,093** | **5,547** | **5,546** | **49,621** |
+| Part      | Text files |  XML files | With annotations | Without annotations |  Instances |
+| --------- | ---------: | ---------: | ---------------: | ------------------: | ---------: |
+| 1         |        500 |        500 |              258 |                 242 |      1,967 |
+| 2         |        500 |        500 |              252 |                 248 |      2,452 |
+| 3         |        500 |        500 |              246 |                 254 |      2,151 |
+| 4         |        500 |        500 |              243 |                 257 |      2,553 |
+| 5         |        500 |        500 |              271 |                 229 |      2,255 |
+| 6         |        500 |        500 |              251 |                 249 |      2,458 |
+| 7         |        500 |        500 |              271 |                 229 |      1,948 |
+| 8         |        500 |        500 |              238 |                 262 |      2,261 |
+| 9         |        500 |        500 |              237 |                 263 |      1,896 |
+| 10        |        500 |        500 |              259 |                 241 |      2,509 |
+| 11        |        500 |        500 |              243 |                 257 |      2,045 |
+| 12        |        500 |        500 |              237 |                 263 |      1,987 |
+| 13        |        500 |        500 |              243 |                 257 |      2,184 |
+| 14        |        500 |        500 |              247 |                 253 |      2,009 |
+| 15        |        500 |        500 |              235 |                 265 |      1,961 |
+| 16        |        500 |        500 |              254 |                 246 |      2,479 |
+| 17        |        500 |        500 |              258 |                 242 |      1,989 |
+| 18        |        500 |        500 |              248 |                 252 |      2,512 |
+| 19        |        500 |        500 |              256 |                 244 |      2,403 |
+| 20        |        500 |        500 |              257 |                 243 |      2,338 |
+| 21        |        500 |        500 |              259 |                 241 |      2,383 |
+| 22        |        500 |        500 |              240 |                 260 |      2,480 |
+| 23        |         93 |         93 |               44 |                  49 |        401 |
+| **Total** | **11,093** | **11,093** |        **5,547** |           **5,546** | **49,621** |
 
 “Without annotations” is the operational meaning of clean here, not a guarantee that every natural textual resemblance has been exhaustively annotated. `suspicious-document/part1/suspicious-document00001.xml`, for example, contains only `about` and `md5Hash` features. The complete 5,546-reference clean-document list is in `results.json`, under `cleanSuspicious`.
 
 ## 2. Verified statistics and comparison
 
-| Quantity | Verified external-corpus count |
-|---|---:|
-| Source documents / source metadata XML | 11,093 / 11,093 |
-| Suspicious documents / suspicious annotation XML | 11,093 / 11,093 |
-| Total text documents | 22,186 |
-| Total XML files, both roles | 22,186 |
-| Plagiarism instances | 49,621 |
-| Suspicious documents with / without annotations | 5,547 / 5,546 |
-| Source documents referenced by annotations | 7,990 |
-| Source documents not referenced by annotations | 3,103 |
-| Sources referenced by multiple suspicious documents | 4,523 |
-| Maximum distinct suspicious documents sharing one source | 15 |
+| Quantity                                                 | Verified external-corpus count |
+| -------------------------------------------------------- | -----------------------------: |
+| Source documents / source metadata XML                   |                11,093 / 11,093 |
+| Suspicious documents / suspicious annotation XML         |                11,093 / 11,093 |
+| Total text documents                                     |                         22,186 |
+| Total XML files, both roles                              |                         22,186 |
+| Plagiarism instances                                     |                         49,621 |
+| Suspicious documents with / without annotations          |                  5,547 / 5,546 |
+| Source documents referenced by annotations               |                          7,990 |
+| Source documents not referenced by annotations           |                          3,103 |
+| Sources referenced by multiple suspicious documents      |                          4,523 |
+| Maximum distinct suspicious documents sharing one source |                             15 |
 
 All supplied totals agree: artificial **39,870**, simulated **4,609**, translation **5,142**, total **49,621**, and positive documents **5,547**. Independent `rg` counts agree with the audit program.
 
 | Construction type | Instances | Suspicious documents containing that type |
-|---|---:|---:|
-| Artificial | 39,870 | 4,887 |
-| Simulated | 4,609 | 105 |
-| Translation | 5,142 | 555 |
+| ----------------- | --------: | ----------------------------------------: |
+| Artificial        |    39,870 |                                     4,887 |
+| Simulated         |     4,609 |                                       105 |
+| Translation       |     5,142 |                                       555 |
 
 No suspicious document mixes these three construction types in this extraction. Thus the document counts in that table sum to 5,547. In particular, the 4,609 simulated cases are concentrated in only 105 documents; they are not 4,609 independent document-level examples.
 
@@ -91,15 +91,15 @@ Published corpus-wide totals can differ legitimately from external-only totals. 
 
 Every external XML document has a `document` element with `reference`. Observed features are exclusively `about`, `md5Hash`, and `plagiarism`.
 
-| Element/feature | Attributes actually observed | Presence |
-|---|---|---|
-| `document` | `reference` | 22,186 |
-| `about` | `name`, `title`, `lang` | All 22,186 documents |
-| `about` | `authors` | 17,935 documents; missing from 4,251 sources |
-| `md5Hash` | `name`, `value` | All 22,186 documents |
-| `plagiarism` | `name`, `type`, `this_language`, `this_offset`, `this_length`, `source_reference`, `source_language`, `source_offset`, `source_length` | All 49,621 instances |
-| `plagiarism` | `obfuscation` | All 39,870 artificial instances only |
-| `plagiarism` | `manual_obfuscation` | All 5,142 translation instances only |
+| Element/feature | Attributes actually observed                                                                                                           | Presence                                     |
+| --------------- | -------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------- |
+| `document`      | `reference`                                                                                                                            | 22,186                                       |
+| `about`         | `name`, `title`, `lang`                                                                                                                | All 22,186 documents                         |
+| `about`         | `authors`                                                                                                                              | 17,935 documents; missing from 4,251 sources |
+| `md5Hash`       | `name`, `value`                                                                                                                        | All 22,186 documents                         |
+| `plagiarism`    | `name`, `type`, `this_language`, `this_offset`, `this_length`, `source_reference`, `source_language`, `source_offset`, `source_length` | All 49,621 instances                         |
+| `plagiarism`    | `obfuscation`                                                                                                                          | All 39,870 artificial instances only         |
+| `plagiarism`    | `manual_obfuscation`                                                                                                                   | All 5,142 translation instances only         |
 
 `this_*` describes the suspicious passage; `source_*` describes its source passage. `reference` identifies the text file described by the XML. `source_reference` is a filename, not a part-relative path. Build an inventory-wide filename lookup: for example, `source-document05924.txt` resolves to `source-document/part12/source-document05924.txt`, even when the suspicious document is in part1. All 49,621 source references resolve uniquely to actual source files. All document references agree with their paired text filenames, and annotation language fields agree with the corresponding document metadata.
 
@@ -127,12 +127,12 @@ The bundled XSD requires `document.reference` and `feature.name` but otherwise p
 
 ### Passage lengths are independent
 
-| Type | Equal source/suspicious lengths | Different lengths |
-|---|---:|---:|
-| Artificial | 472 | 39,398 |
-| Simulated | 19 | 4,590 |
-| Translation | 12 | 5,130 |
-| **Total** | **503** | **49,118** |
+| Type        | Equal source/suspicious lengths | Different lengths |
+| ----------- | ------------------------------: | ----------------: |
+| Artificial  |                             472 |            39,398 |
+| Simulated   |                              19 |             4,590 |
+| Translation |                              12 |             5,130 |
+| **Total**   |                         **503** |        **49,118** |
 
 Never reuse `this_length` as `source_length`. Even unobfuscated text can be rewrapped, changing whitespace and character counts.
 
@@ -142,11 +142,11 @@ All **22,186 text files are valid UTF-8 and begin with a three-byte UTF-8 BOM**,
 
 To distinguish bytes from decoded characters and test BOM handling, the audit compares all 976 `artificial/none` pairs. Whitespace removal is used only as an audit comparison; corpus text is never rewritten.
 
-| Extraction interpretation | Pairs equal after whitespace removal |
-|---|---:|
-| Character offsets applied directly to BOM-inclusive JS strings | 9 / 976 |
-| Character offsets applied after excluding the initial BOM | **969 / 976** |
-| UTF-8 byte offsets after excluding the three BOM bytes | 203 / 976 |
+| Extraction interpretation                                      | Pairs equal after whitespace removal |
+| -------------------------------------------------------------- | -----------------------------------: |
+| Character offsets applied directly to BOM-inclusive JS strings |                              9 / 976 |
+| Character offsets applied after excluding the initial BOM      |                        **969 / 976** |
+| UTF-8 byte offsets after excluding the three BOM bytes         |                            203 / 976 |
 
 The +1 shift in BOM-inclusive strings is equivalent to removing exactly one leading U+FEFF and then applying the original offsets. Shifts -1, 0, +1, +2 were tested; +1 was strongly supported. This is empirical evidence for **zero-based decoded-character offsets in BOM-excluded content**, compatible with JS `slice(offset, offset + length)` on that view. It does not establish a universal UTF-16 contract beyond this corpus. The PAN paper describes evaluation in terms of character passages, rather than byte passages. [PAN 2011 overview](https://ceur-ws.org/Vol-1177/CLEF2011wn-PAN-PotthastEt2011a.pdf)
 
@@ -160,14 +160,14 @@ The bundled `readme.txt` explains that artificial cases were generated by insert
 
 Translation cases involve German or Spanish source text translated into English. `manual_obfuscation="false"` represents automatic translation; `true` identifies the manually corrected translation category, rather than a separate degree of English paraphrasing. The automatic/manual-correction distinction is documented in Table 1 of the [PAN 2011 overview](https://ceur-ws.org/Vol-1177/CLEF2011wn-PAN-PotthastEt2011a.pdf).
 
-| Type | `obfuscation` | `manual_obfuscation` | Instances |
-|---|---|---|---:|
-| Artificial | `low` | Absent | 19,779 |
-| Artificial | `high` | Absent | 19,115 |
-| Artificial | `none` | Absent | 976 |
-| Simulated | Absent | Absent | 4,609 |
-| Translation | Absent | `false` | 4,709 |
-| Translation | Absent | `true` | 433 |
+| Type        | `obfuscation` | `manual_obfuscation` | Instances |
+| ----------- | ------------- | -------------------- | --------: |
+| Artificial  | `low`         | Absent               |    19,779 |
+| Artificial  | `high`        | Absent               |    19,115 |
+| Artificial  | `none`        | Absent               |       976 |
+| Simulated   | Absent        | Absent               |     4,609 |
+| Translation | Absent        | `false`              |     4,709 |
+| Translation | Absent        | `true`               |       433 |
 
 The proposed 4,609-to-4,609 relationship needs a precise correction:
 
@@ -180,16 +180,16 @@ The supplied numbers are correct as a combined categorization, but labeling all 
 ## 5. Languages and MiniLM compatibility
 
 | Document role | English (`en`) | German (`de`) | Spanish (`es`) |
-|---|---:|---:|---:|
-| Source | 10,420 | 471 | 202 |
-| Suspicious | 11,093 | 0 | 0 |
+| ------------- | -------------: | ------------: | -------------: |
+| Source        |         10,420 |           471 |            202 |
+| Suspicious    |         11,093 |             0 |              0 |
 
-| Annotation relationship | Cases |
-|---|---:|
-| Artificial, English → English | 39,870 |
-| Simulated, English → English | 4,609 |
-| Translation, German → English | 2,222 |
-| Translation, Spanish → English | 2,920 |
+| Annotation relationship        |  Cases |
+| ------------------------------ | -----: |
+| Artificial, English → English  | 39,870 |
+| Simulated, English → English   |  4,609 |
+| Translation, German → English  |  2,222 |
+| Translation, Spanish → English |  2,920 |
 
 These are metadata-language counts, not an independent language-identification assessment. Translated passages can contain poor translations and residual foreign words even when labeled English. The corpus is English-centered and multilingual on the source side; it should not be described as exclusively English. It remains a book-based benchmark, not a CS-paper corpus.
 
@@ -205,14 +205,14 @@ The model card documents default truncation beyond **256 word pieces**. This is 
 
 An offline probe of the already cached tokenizer, with truncation disabled and no model inference, measured:
 
-| Actual suspicious passage | Characters | Tokens including special tokens |
-|---|---:|---:|
-| `00005`, artificial/low, offset 19254 | 1,557 | 319 |
-| `00010`, artificial/high, offset 2464 | 15,786 | 3,897 |
-| `00032`, simulated, offset 12390 | 306 | 78 |
-| `00047`, translation/false, offset 1 | 1,346 | 393 |
-| `00047`, translation/true, offset 2850 | 234 | 54 |
-| `00126`, artificial/none, offset 1277 | 266 | 65 |
+| Actual suspicious passage              | Characters | Tokens including special tokens |
+| -------------------------------------- | ---------: | ------------------------------: |
+| `00005`, artificial/low, offset 19254  |      1,557 |                             319 |
+| `00010`, artificial/high, offset 2464  |     15,786 |                           3,897 |
+| `00032`, simulated, offset 12390       |        306 |                              78 |
+| `00047`, translation/false, offset 1   |      1,346 |                             393 |
+| `00047`, translation/true, offset 2850 |        234 |                              54 |
+| `00126`, artificial/none, offset 1277  |        266 |                              65 |
 
 These are inspection examples, not a representative token-length distribution or benchmark results. Across all annotations, suspicious character lengths have minimum 0, median 2,593, 95th percentile 21,384, and maximum 28,728. Character lengths cannot establish exact token overflow rates.
 
@@ -220,21 +220,21 @@ Later segmentation must use sentence/paragraph boundaries with tokenizer-aware s
 
 ## 6. Data quality and research risks
 
-| Check | Finding and implication |
-|---|---|
-| Required annotation attributes | None missing among the common required fields, including both language fields. Type-dependent absences are expected. |
-| Source references | None missing, ambiguous, or mapped to the wrong document role. |
-| Numeric attributes | One zero-length suspicious span; no negative, non-integer, or unsafe-integer values found. |
-| Zero-length case | `suspicious-document/part16/suspicious-document07880.xml`: simulated, `this_offset=1580`, `this_length=0`, source `source-document10522.txt`, `source_offset=330631`, `source_length=256`. Preserve it in raw records and flag it; decide evaluation handling explicitly before scoring. |
-| Hash metadata | 22,106 MD5 values match literally; 80 match after left-padding the XML value with zeroes to 32 hex characters; no other checksum mismatch. A literal mismatch alone is not evidence of corruption. |
-| Optional metadata | `authors` absent for 4,251 sources. Do not make author mandatory or invent it. |
-| Encoding | All texts decode as valid UTF-8; every text has a BOM; 69 contain CRLF; no non-BMP characters. Preserve newline sequences. |
-| Existing replacement characters | 12 documents already contain U+FFFD despite valid UTF-8. Preserve and flag them; original intended characters cannot be recovered from this audit. References are in `results.json`. |
-| Duplicate annotations / overlapping suspicious spans | None found. |
-| Duplicate documents | No identical SHA-256 text-file groups among the 22,186 files. This does not rule out near-duplicates or shared book content. |
-| Repeated book metadata | 2,508 groups share the exact `(authors, title)` tuple. Treat as conservative grouping candidates, not proof of identical editions or content. |
-| Annotation endpoints | Seven unobfuscated pairs have small residual boundary discrepancies after BOM handling and whitespace removal. Keep original annotations. |
-| Constructed benchmark | Automated wording artifacts, book-domain language, and concentrated simulated cases limit generalization to real CS research submissions. |
+| Check                                                | Finding and implication                                                                                                                                                                                                                                                                  |
+| ---------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Required annotation attributes                       | None missing among the common required fields, including both language fields. Type-dependent absences are expected.                                                                                                                                                                     |
+| Source references                                    | None missing, ambiguous, or mapped to the wrong document role.                                                                                                                                                                                                                           |
+| Numeric attributes                                   | One zero-length suspicious span; no negative, non-integer, or unsafe-integer values found.                                                                                                                                                                                               |
+| Zero-length case                                     | `suspicious-document/part16/suspicious-document07880.xml`: simulated, `this_offset=1580`, `this_length=0`, source `source-document10522.txt`, `source_offset=330631`, `source_length=256`. Preserve it in raw records and flag it; decide evaluation handling explicitly before scoring. |
+| Hash metadata                                        | 22,106 MD5 values match literally; 80 match after left-padding the XML value with zeroes to 32 hex characters; no other checksum mismatch. A literal mismatch alone is not evidence of corruption.                                                                                       |
+| Optional metadata                                    | `authors` absent for 4,251 sources. Do not make author mandatory or invent it.                                                                                                                                                                                                           |
+| Encoding                                             | All texts decode as valid UTF-8; every text has a BOM; 69 contain CRLF; no non-BMP characters. Preserve newline sequences.                                                                                                                                                               |
+| Existing replacement characters                      | 12 documents already contain U+FFFD despite valid UTF-8. Preserve and flag them; original intended characters cannot be recovered from this audit. References are in `results.json`.                                                                                                     |
+| Duplicate annotations / overlapping suspicious spans | None found.                                                                                                                                                                                                                                                                              |
+| Duplicate documents                                  | No identical SHA-256 text-file groups among the 22,186 files. This does not rule out near-duplicates or shared book content.                                                                                                                                                             |
+| Repeated book metadata                               | 2,508 groups share the exact `(authors, title)` tuple. Treat as conservative grouping candidates, not proof of identical editions or content.                                                                                                                                            |
+| Annotation endpoints                                 | Seven unobfuscated pairs have small residual boundary discrepancies after BOM handling and whitespace removal. Keep original annotations.                                                                                                                                                |
+| Constructed benchmark                                | Automated wording artifacts, book-domain language, and concentrated simulated cases limit generalization to real CS research submissions.                                                                                                                                                |
 
 The guarded scan accepted every XML file's document/feature structure. This is not a formal assertion of complete XML/XSD conformance. No lexical, semantic, hybrid, or performance evaluation was conducted.
 
@@ -246,11 +246,11 @@ Leakage occurs when evaluation examples share source content with examples used 
 
 Model documents as nodes and each annotated source–suspicious relationship as an edge. A connected component contains documents linked directly or transitively; to preserve all relationships while keeping documents disjoint, the entire component must stay together.
 
-| Graph | Largest component | Annotations in that component |
-|---|---|---:|
-| All external annotation links | 6,485 sources + 4,150 suspicious documents | 40,584 / 49,621 |
-| English-to-English annotation links | Same 6,485 sources + 4,150 suspicious documents | 40,584 / 44,479 |
-| All external links plus exact author/title grouping candidates | 9,781 sources + 8,457 suspicious documents | 49,073 / 49,621 |
+| Graph                                                          | Largest component                               | Annotations in that component |
+| -------------------------------------------------------------- | ----------------------------------------------- | ----------------------------: |
+| All external annotation links                                  | 6,485 sources + 4,150 suspicious documents      |               40,584 / 49,621 |
+| English-to-English annotation links                            | Same 6,485 sources + 4,150 suspicious documents |               40,584 / 44,479 |
+| All external links plus exact author/title grouping candidates | 9,781 sources + 8,457 suspicious documents      |               49,073 / 49,621 |
 
 The annotation-only external graph has 9,389 components, including 740 with multiple documents; many singleton components are clean or unused documents. Adding conservative metadata links produces 3,606 components. The enlarged graph is a sensitivity analysis, not a verified book-identity map. Near-duplicate analysis could add more links.
 
@@ -282,43 +282,43 @@ Use official passage-level macro precision/recall, harmonic F1, granularity and 
 These interfaces are a proposal contained in this report, not implemented application code. Keep corpus coordinates separate from byte offsets and derived token coordinates.
 
 ```ts
-type Language = "en" | "de" | "es";
+type Language = 'en' | 'de' | 'es';
 type DocumentReference = string;
 
 interface DocumentRecord {
   reference: DocumentReference;
-  textPath: string;                 // corpus-relative path
+  textPath: string; // corpus-relative path
   xmlPath: string;
   part: string;
   language: Language;
   title: string;
   authors?: string;
-  byteLength: number;               // includes the three BOM bytes
-  utf16Length: number;              // BOM-excluded text view
-  sha256: string;                   // hash of original bytes
-  declaredMd5: string;              // preserve original XML spelling
+  byteLength: number; // includes the three BOM bytes
+  utf16Length: number; // BOM-excluded text view
+  sha256: string; // hash of original bytes
+  declaredMd5: string; // preserve original XML spelling
   hasUtf8Bom: boolean;
-  coordinateSystem: "bom-excluded-unicode-characters";
+  coordinateSystem: 'bom-excluded-unicode-characters';
   issues: readonly string[];
 }
 
 interface SourceDocument extends DocumentRecord {
-  role: "source";
+  role: 'source';
 }
 
 interface SuspiciousDocument extends DocumentRecord {
-  role: "suspicious";
+  role: 'suspicious';
   annotationIds: readonly string[];
   hasAnnotations: boolean;
 }
 
 interface CharacterSpan {
-  offset: number;                   // original annotation offset
-  length: number;                   // independent on each side
+  offset: number; // original annotation offset
+  length: number; // independent on each side
 }
 
 interface PlagiarismAnnotation {
-  id: string;                       // reference + feature ordinal
+  id: string; // reference + feature ordinal
   suspiciousReference: DocumentReference;
   sourceReference: DocumentReference;
   suspiciousLanguage: Language;
@@ -326,11 +326,11 @@ interface PlagiarismAnnotation {
   suspiciousSpan: CharacterSpan;
   sourceSpan: CharacterSpan;
   construction:
-    | { type: "artificial"; obfuscation: "none" | "low" | "high" }
-    | { type: "simulated" }
-    | { type: "translation"; manualObfuscation: boolean };
+    | { type: 'artificial'; obfuscation: 'none' | 'low' | 'high' }
+    | { type: 'simulated' }
+    | { type: 'translation'; manualObfuscation: boolean };
   rawAttributes: Readonly<Record<string, string>>;
-  issues: readonly string[];        // e.g. zero-length span
+  issues: readonly string[]; // e.g. zero-length span
 }
 
 interface DatasetStatistics {
@@ -342,16 +342,16 @@ interface DatasetStatistics {
   plagiarismInstances: number;
   withAnnotations: number;
   withoutAnnotations: number;
-  byType: Record<"artificial" | "simulated" | "translation", number>;
-  byObfuscation: Record<"none" | "low" | "high" | "missing", number>;
-  byManualObfuscation: Record<"true" | "false" | "missing", number>;
+  byType: Record<'artificial' | 'simulated' | 'translation', number>;
+  byObfuscation: Record<'none' | 'low' | 'high' | 'missing', number>;
+  byManualObfuscation: Record<'true' | 'false' | 'missing', number>;
   documentLanguages: {
     source: Partial<Record<Language, number>>;
     suspicious: Partial<Record<Language, number>>;
   };
   annotationLanguagePairs: Readonly<Record<string, number>>;
   perPart: readonly {
-    role: "source" | "suspicious";
+    role: 'source' | 'suspicious';
     part: string;
     documents: number;
     withAnnotations: number;
@@ -372,8 +372,8 @@ interface DatasetSplit {
   schemaVersion: string;
   algorithmVersion: string;
   seed: string;
-  scope: "english-to-english" | "full-external";
-  policy: "whole-components" | "family-partition-with-quarantine";
+  scope: 'english-to-english' | 'full-external';
+  policy: 'whole-components' | 'family-partition-with-quarantine';
   groupingManifestSha256: string;
   train: SplitPartition;
   validation: SplitPartition;

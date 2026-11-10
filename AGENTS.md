@@ -7,6 +7,7 @@ This version has breaking changes — APIs, conventions, and file structure may 
 This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
 
 <!-- END:nextjs-agent-rules -->
+
 # AGENTS.md — Research Misconduct Detection Project
 
 ## 1. Project Overview
@@ -14,6 +15,7 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 We are developing an AI-based textual plagiarism detection system for academic research documents, with Computer Science publications as the intended application domain.
 
 The system will identify:
+
 - Direct textual copying.
 - Near-exact textual overlap.
 - Paraphrased passages with similar meanings.
@@ -26,21 +28,21 @@ The primary research objective is to investigate whether combining lexical and s
 
 Do not change these decisions without discussing them with the project owner.
 
-| Component | Selected approach |
-|---|---|
-| Research misconduct | Textual plagiarism |
-| Primary dataset | PAN-PC-11 |
-| Lexical method | TF-IDF + cosine similarity |
-| Semantic model | all-MiniLM-L6-v2 |
-| Hybrid method | Combined lexical and semantic scores |
-| Model execution | Local |
-| Frontend | Next.js + React |
-| Language | TypeScript |
-| Package manager | Bun |
-| Model integration | Transformers.js |
-| Inference runtime | ONNX Runtime |
-| PDF extraction | PDF.js |
-| Input validation | Zod |
+| Component           | Selected approach                    |
+| ------------------- | ------------------------------------ |
+| Research misconduct | Textual plagiarism                   |
+| Primary dataset     | PAN-PC-11                            |
+| Lexical method      | TF-IDF + cosine similarity           |
+| Semantic model      | all-MiniLM-L6-v2                     |
+| Hybrid method       | Combined lexical and semantic scores |
+| Model execution     | Local                                |
+| Frontend            | Next.js + React                      |
+| Language            | TypeScript                           |
+| Package manager     | Bun                                  |
+| Model integration   | Transformers.js                      |
+| Inference runtime   | ONNX Runtime                         |
+| PDF extraction      | PDF.js                               |
+| Input validation    | Zod                                  |
 
 ### Dataset limitation
 
@@ -74,6 +76,7 @@ https://huggingface.co/onnx-community/all-MiniLM-L6-v2-ONNX
 The model generates 384-dimensional sentence embeddings.
 
 Important:
+
 - This is a pretrained embedding model, not a plagiarism classifier.
 - Use embeddings to calculate semantic similarity.
 - Use cosine similarity for vector comparisons.
@@ -96,6 +99,7 @@ We must implement and evaluate three approaches independently.
 ### Experiment 1: Lexical baseline
 
 Implement:
+
 - TF-IDF vectorization.
 - Cosine similarity.
 - Appropriate passage segmentation.
@@ -106,6 +110,7 @@ Purpose: Establish the performance of traditional lexical similarity.
 ### Experiment 2: Pretrained semantic model
 
 Implement:
+
 - MiniLM model loading.
 - Embedding generation.
 - Cosine similarity.
@@ -138,6 +143,7 @@ Do not confuse pretrained model evaluation with fine-tuning.
 Use PAN-PC-11 annotations as ground truth.
 
 Primary evaluation metrics:
+
 - Precision
 - Recall
 - F1-score
@@ -149,6 +155,7 @@ Accuracy and false-positive rate may also be reported where appropriate.
 Follow the official PAN evaluation protocol for passage-level detection.
 
 Important experimental requirements:
+
 - Preserve source and suspicious passage relationships.
 - Preserve character offsets.
 - Avoid data leakage between training, validation and test sets.
@@ -166,6 +173,7 @@ Never present expected results as measured results.
 This project is TypeScript-first.
 
 Preferred tools:
+
 - Bun for dependency management and scripts.
 - Next.js App Router.
 - TypeScript.
@@ -211,6 +219,7 @@ Keep research experiments independently executable without requiring the web int
 The project has already been initialized.
 
 Environment:
+
 - Ubuntu 24.04 under WSL2.
 - 16 GB RAM.
 - NVIDIA RTX 3050 Laptop GPU with 6 GB VRAM.
@@ -219,6 +228,7 @@ Environment:
 - TypeScript.
 
 Installed dependencies include:
+
 - Next.js 16.
 - React 19.
 - @huggingface/transformers.
@@ -226,6 +236,7 @@ Installed dependencies include:
 - zod.
 
 Initial validation already completed:
+
 - ONNX Runtime successfully loads.
 - Next.js production build succeeds.
 - MiniLM embedding generation succeeds.
@@ -245,7 +256,7 @@ PAN-PC-11 has been downloaded, verified and extracted at:
 
 The external detection corpus is the primary focus. A completed read-only audit found 11,093 source documents, 11,093 suspicious documents, 49,621 annotations and 5,546 suspicious documents without annotations. Detailed evidence and reproducible commands are in [reports/pan-pc-11/report.md](reports/pan-pc-11/report.md).
 
-The production dataset parser, evaluation splits and detector benchmarks are not implemented. English-only evaluation, translation reporting, parser interfaces, anomaly handling and the precise split strategy remain proposals awaiting approval. Do not treat audit recommendations as finalized methodology.
+End-to-end implementation is authorized as of 10 November 2026. The typed full-corpus validator and bounded family-disjoint English split are complete; all three detection methods and PAN metrics are implemented, and benchmark execution is in progress. Record completed phases, actual validation and scientific decisions in `research/status.md`, `research/methodology.md` and `reports/implementation/`. The audit remains historical evidence; subsequent adopted decisions are recorded separately.
 
 ## 9. Development Workflow
 
@@ -285,7 +296,7 @@ Therefore:
 - Run appropriate checks after making changes.
 - Report exactly what was changed and what remains incomplete.
 
-When a task is large, first propose an implementation plan and wait for approval.
+The owner explicitly authorized autonomous execution of the complete roadmap on 10 November 2026, with submission due 16 November 2026. Proceed through routine milestones and make routine technical/methodological decisions without repeated approval. Ask before deleting original datasets or important files, destructive Git operations, committing/pushing, paid services, additional datasets or changing the research objective. Explain major scientific limitations and alternatives. This authorization supersedes earlier routine milestone approval gates in historical reports and research records.
 
 The objective is not merely to produce working software. The project owner must understand the research methodology, implementation and experimental results well enough to explain and defend the work academically.
 
@@ -296,6 +307,7 @@ This is an academic research project.
 All literature references must be genuine and verifiable.
 
 Never:
+
 - Invent academic references.
 - Fabricate experimental results.
 - Claim an untested method works.

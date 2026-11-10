@@ -157,20 +157,20 @@ The reference corpus is a required part of source-based detection. The first imp
 
 ## Technology stack
 
-| Area | Planned technology | Purpose |
-|---|---|---|
-| Language | TypeScript | Application and detection logic |
-| Framework | Next.js App Router | Frontend and server-side API |
-| Package manager | Bun | Dependencies and scripts |
-| UI | React and Tailwind CSS | User interface |
-| Model inference | Transformers.js | Local model execution |
-| Model format | ONNX-compatible model | Portable inference runtime |
-| Initial embedding model | all-MiniLM-L6-v2 | Semantic embeddings |
-| PDF extraction | PDF.js (`pdfjs-dist`) | Extract PDF text |
-| Lexical matching | TypeScript implementation | TF-IDF and n-grams |
-| Validation | Zod | Validate inputs and API data |
-| Database | SQLite and Prisma (planned) | Persist metadata and results |
-| Testing | Vitest | Unit and integration tests |
+| Area                    | Planned technology          | Purpose                         |
+| ----------------------- | --------------------------- | ------------------------------- |
+| Language                | TypeScript                  | Application and detection logic |
+| Framework               | Next.js App Router          | Frontend and server-side API    |
+| Package manager         | Bun                         | Dependencies and scripts        |
+| UI                      | React and Tailwind CSS      | User interface                  |
+| Model inference         | Transformers.js             | Local model execution           |
+| Model format            | ONNX-compatible model       | Portable inference runtime      |
+| Initial embedding model | all-MiniLM-L6-v2            | Semantic embeddings             |
+| PDF extraction          | PDF.js (`pdfjs-dist`)       | Extract PDF text                |
+| Lexical matching        | TypeScript implementation   | TF-IDF and n-grams              |
+| Validation              | Zod                         | Validate inputs and API data    |
+| Database                | SQLite and Prisma (planned) | Persist metadata and results    |
+| Testing                 | Vitest                      | Unit and integration tests      |
 
 The local model is the default. The application should not require a paid inference API to perform its core analysis.
 

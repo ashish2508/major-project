@@ -1,0 +1,59 @@
+{
+  "seed": "pan-pc11-v1-20261110",
+  "reserved": {
+    "validation": ["suspicious-document04065.txt", "suspicious-document06289.txt"],
+    "test": ["suspicious-document02098.txt", "suspicious-document01870.txt"]
+  },
+  "config": {
+    "maxQueryCharacters": 50000,
+    "maxSourceCharacters": 100000,
+    "rareSimulatedSourceMaxCharacters": 500000,
+    "positiveQueriesPerEvaluation": 24,
+    "cleanQueriesPerEvaluation": 24,
+    "trainingQueriesPerClass": 40,
+    "distractorSourcesPerPartition": 12
+  },
+  "train": {
+    "queries": 80,
+    "sources": 57,
+    "annotations": 126,
+    "byType": {
+      "artificial/low": 58,
+      "artificial/high": 68
+    },
+    "totalCharacters": 2934657
+  },
+  "validation": {
+    "queries": 48,
+    "sources": 35,
+    "annotations": 72,
+    "byType": {
+      "artificial/high": 42,
+      "artificial/low": 26,
+      "simulated": 1,
+      "artificial/none": 3
+    },
+    "totalCharacters": 1647215
+  },
+  "test": {
+    "queries": 48,
+    "sources": 36,
+    "annotations": 57,
+    "byType": {
+      "artificial/low": 31,
+      "artificial/high": 23,
+      "artificial/none": 2,
+      "simulated": 1
+    },
+    "totalCharacters": 1931824
+  },
+  "exclusions": {
+    "unused-source-outside-bounded-candidate-collection": 10292,
+    "non-english-source": 673,
+    "predeclared-query-count-budget": 3104,
+    "predeclared-document-size-budget": 6632,
+    "cross-partition-document-family-or-source": 625,
+    "translation-scope": 555,
+    "annotation-anomaly": 1
+  }
+}

@@ -1,10 +1,6 @@
-
-export function cosineSimilarity(
-  a: number[],
-  b: number[]
-): number {
+export function cosineSimilarity(a: number[], b: number[]): number {
   if (a.length !== b.length || a.length === 0) {
-    throw new Error("Vectors must have equal, non-zero dimensions.");
+    throw new Error('Vectors must have equal, non-zero dimensions.');
   }
 
   let dotProduct = 0;
@@ -18,7 +14,7 @@ export function cosineSimilarity(
   }
 
   if (magnitudeA === 0 || magnitudeB === 0) {
-    throw new Error("Cannot compare zero vectors.");
+    throw new Error('Cannot compare zero vectors.');
   }
 
   return dotProduct / (Math.sqrt(magnitudeA) * Math.sqrt(magnitudeB));

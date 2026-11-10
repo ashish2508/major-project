@@ -1,0 +1,46 @@
+{
+  "version": 1,
+  "corpusFingerprint": "5408fc446e1eded99c9e5e361f4e735e168c199b392f9c64066456e17bc5c0e7",
+  "splitManifestSha256": "203a88a979bdfda36d75612c902b699b0a8fd7b2ee82e688d494a036b01f3908",
+  "codeHash": "a6805e348ab27b1f4d0d68b51376d0171341931609d8eddefe9f3e572e340e34",
+  "modelHashes": {
+    "config.json": "fe5da868b77bdb104140822a5af0837cb6450ad6de8ff3dfcc8dd44ddd3e3ae7",
+    "tokenizer.json": "07805d116826679de90b4edeb2222269c4b8753bc0981be4399f732b2708e904",
+    "tokenizer_config.json": "e10bb633ba0d7f69ed342ae7de607f36b39ce53b455fbda69c71700bf57e6f66",
+    "onnx/model.onnx": "2f019cf6217537cc4bfc7f5192f21dea1e18445177edaab0bc6163a813e5c7a1",
+    "onnx/model.onnx_data": "60c758432aa596c30a122942dfe594c457d4d713f890926f1c5f920bd496c8de"
+  },
+  "model": {
+    "model": "onnx-community/all-MiniLM-L6-v2-ONNX",
+    "device": "cpu",
+    "dtype": "fp32",
+    "dimensions": 384,
+    "maxTokens": 256,
+    "pooling": "mean",
+    "normalize": true,
+    "batchSize": 16,
+    "intraOpNumThreads": 4
+  },
+  "segmentation": {
+    "words": 80,
+    "overlap": 20,
+    "maxTokens": 256,
+    "sentenceAndParagraphAware": true
+  },
+  "alphas": [0, 0.25, 0.5, 0.75, 1],
+  "thresholds": [0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9],
+  "mergeGap": 120,
+  "selection": "validation PlagDet, precision, higher threshold, fixed alpha order",
+  "candidateRetrieval": "exhaustive supplied collection, independent best source window per query window",
+  "gitHead": "d29c7633178bc58bbb25797ac40ba1cc004e49ce",
+  "gitStatus": "## main...origin/main\n M .gitignore\n M AGENTS.md\n M bun.lock\n M package.json\n M research/decisions.md\n M research/methodology.md\n M src/lib/embeddings/model.ts\n?? reports/implementation/benchmark.log\n?? reports/implementation/dataset-validation.json\n?? reports/implementation/dataset-validation.log\n?? reports/implementation/inference-provider.json\n?? reports/implementation/inference-provider.log\n?? reports/implementation/leakage-check.json\n?? reports/implementation/leakage-check.log\n?? reports/implementation/phases-1-2.md\n?? reports/implementation/split-feasibility.json\n?? reports/implementation/split-manifest.json\n?? reports/implementation/split-preparation.log\n?? reports/implementation/split-summary.json\n?? reports/implementation/tests-core.log\n?? reports/implementation/tests-phase1.log\n?? reports/implementation/typecheck.log\n?? research/status.md\n?? scripts/benchmark.ts\n?? scripts/check-leakage.ts\n?? scripts/dataset.ts\n?? scripts/prepare-split.ts\n?? scripts/provider.ts\n?? scripts/split-feasibility.ts\n?? src/lib/dataset/inventory.ts\n?? src/lib/dataset/parser.ts\n?? src/lib/dataset/split.ts\n?? src/lib/dataset/types.ts\n?? src/lib/detection/detector.ts\n?? src/lib/detection/segmentation.ts\n?? src/lib/detection/tfidf.ts\n?? src/lib/evaluation/pan.ts\n?? tests/dataset.test.ts\n?? tests/detection.test.ts\n?? tests/evaluation.test.ts\n?? tests/retrieval.test.ts\n?? tests/split.test.ts",
+  "runtime": {
+    "bun": "1.2.20",
+    "nodeCompatibility": "24.3.0",
+    "platform": "linux",
+    "arch": "x64",
+    "cpu": "12th Gen Intel(R) Core(TM) i5-12450HX",
+    "logicalCpus": 4,
+    "totalMemoryBytes": 4106866688
+  }
+}

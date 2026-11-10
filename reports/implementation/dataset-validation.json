@@ -1,0 +1,30 @@
+{
+  "fingerprint": "5408fc446e1eded99c9e5e361f4e735e168c199b392f9c64066456e17bc5c0e7",
+  "statistics": {
+    "sourceDocuments": 11093,
+    "suspiciousDocuments": 11093,
+    "xmlFiles": 22186,
+    "plagiarismInstances": 49621,
+    "withAnnotations": 5547,
+    "withoutAnnotations": 5546,
+    "types": {
+      "artificial": 39870,
+      "simulated": 4609,
+      "translation": 5142
+    },
+    "languages": {
+      "source:en": 10420,
+      "source:de": 471,
+      "source:es": 202,
+      "suspicious:en": 11093
+    },
+    "issues": {
+      "missing-authors": 4251,
+      "md5-zero-padding": 80,
+      "replacement-character": 12,
+      "zero-length": 1
+    }
+  },
+  "elapsedSeconds": 43.177065763,
+  "peakRssBytes": 602206208
+}

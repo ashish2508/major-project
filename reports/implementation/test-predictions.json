@@ -1,0 +1,5208 @@
+{
+  "lexical": [
+    {
+      "suspiciousReference": "suspicious-document00214.txt",
+      "sourceReference": "source-document10521.txt",
+      "suspiciousSpan": {
+        "offset": 1981,
+        "length": 438
+      },
+      "sourceSpan": {
+        "offset": 819,
+        "length": 365
+      },
+      "lexical": 0.35776591214222525,
+      "semantic": 0.4891797753291967,
+      "score": 0.35776591214222525,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document00214.txt",
+      "sourceReference": "source-document10521.txt",
+      "suspiciousSpan": {
+        "offset": 2552,
+        "length": 352
+      },
+      "sourceSpan": {
+        "offset": 1521,
+        "length": 352
+      },
+      "lexical": 0.30303963464949624,
+      "semantic": 0.577551794864687,
+      "score": 0.30303963464949624,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document00214.txt",
+      "sourceReference": "source-document10521.txt",
+      "suspiciousSpan": {
+        "offset": 6272,
+        "length": 670
+      },
+      "sourceSpan": {
+        "offset": 5232,
+        "length": 721
+      },
+      "lexical": 0.43310191296781575,
+      "semantic": 0.5658684555486027,
+      "score": 0.43310191296781575,
+      "evidenceWindows": 2
+    },
+    {
+      "suspiciousReference": "suspicious-document00214.txt",
+      "sourceReference": "source-document10521.txt",
+      "suspiciousSpan": {
+        "offset": 7088,
+        "length": 355
+      },
+      "sourceSpan": {
+        "offset": 6115,
+        "length": 392
+      },
+      "lexical": 0.37307889197825417,
+      "semantic": 0.46250037629014384,
+      "score": 0.37307889197825417,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document00214.txt",
+      "sourceReference": "source-document10521.txt",
+      "suspiciousSpan": {
+        "offset": 8559,
+        "length": 408
+      },
+      "sourceSpan": {
+        "offset": 7716,
+        "length": 397
+      },
+      "lexical": 0.3398939719853087,
+      "semantic": 0.5181343930200463,
+      "score": 0.3398939719853087,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document00214.txt",
+      "sourceReference": "source-document10521.txt",
+      "suspiciousSpan": {
+        "offset": 10201,
+        "length": 687
+      },
+      "sourceSpan": {
+        "offset": 9596,
+        "length": 696
+      },
+      "lexical": 0.37902545020674977,
+      "semantic": 0.5788392303952866,
+      "score": 0.37902545020674977,
+      "evidenceWindows": 2
+    },
+    {
+      "suspiciousReference": "suspicious-document00214.txt",
+      "sourceReference": "source-document10521.txt",
+      "suspiciousSpan": {
+        "offset": 12722,
+        "length": 455
+      },
+      "sourceSpan": {
+        "offset": 12255,
+        "length": 338
+      },
+      "lexical": 0.3681508867683415,
+      "semantic": 0.5578933360088145,
+      "score": 0.3681508867683415,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document00214.txt",
+      "sourceReference": "source-document10521.txt",
+      "suspiciousSpan": {
+        "offset": 14857,
+        "length": 449
+      },
+      "sourceSpan": {
+        "offset": 14400,
+        "length": 413
+      },
+      "lexical": 0.31644519035978547,
+      "semantic": 0.3402538439922433,
+      "score": 0.31644519035978547,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document00214.txt",
+      "sourceReference": "source-document10521.txt",
+      "suspiciousSpan": {
+        "offset": 15477,
+        "length": 438
+      },
+      "sourceSpan": {
+        "offset": 15022,
+        "length": 447
+      },
+      "lexical": 0.33415838788397134,
+      "semantic": 0.3545540131201353,
+      "score": 0.33415838788397134,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document00214.txt",
+      "sourceReference": "source-document10521.txt",
+      "suspiciousSpan": {
+        "offset": 20011,
+        "length": 1826
+      },
+      "sourceSpan": {
+        "offset": 22309,
+        "length": 1647
+      },
+      "lexical": 0.8835391871828497,
+      "semantic": 0.8694336491916242,
+      "score": 0.8835391871828497,
+      "evidenceWindows": 6
+    },
+    {
+      "suspiciousReference": "suspicious-document00214.txt",
+      "sourceReference": "source-document10521.txt",
+      "suspiciousSpan": {
+        "offset": 21732,
+        "length": 630
+      },
+      "sourceSpan": {
+        "offset": 35175,
+        "length": 506
+      },
+      "lexical": 0.7664575477068966,
+      "semantic": 0.7311033993896712,
+      "score": 0.7664575477068966,
+      "evidenceWindows": 2
+    },
+    {
+      "suspiciousReference": "suspicious-document01434.txt",
+      "sourceReference": "source-document08752.txt",
+      "suspiciousSpan": {
+        "offset": 2874,
+        "length": 356
+      },
+      "sourceSpan": {
+        "offset": 4390,
+        "length": 344
+      },
+      "lexical": 0.3140232923184589,
+      "semantic": 0.4185035776562738,
+      "score": 0.3140232923184589,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document01434.txt",
+      "sourceReference": "source-document05501.txt",
+      "suspiciousSpan": {
+        "offset": 6902,
+        "length": 812
+      },
+      "sourceSpan": {
+        "offset": 8886,
+        "length": 820
+      },
+      "lexical": 0.5364493980309728,
+      "semantic": 0.5852859670030125,
+      "score": 0.5364493980309728,
+      "evidenceWindows": 2
+    },
+    {
+      "suspiciousReference": "suspicious-document01434.txt",
+      "sourceReference": "source-document05501.txt",
+      "suspiciousSpan": {
+        "offset": 16712,
+        "length": 616
+      },
+      "sourceSpan": {
+        "offset": 25006,
+        "length": 439
+      },
+      "lexical": 0.6335886474606384,
+      "semantic": 0.6623729598315423,
+      "score": 0.6335886474606384,
+      "evidenceWindows": 2
+    },
+    {
+      "suspiciousReference": "suspicious-document01434.txt",
+      "sourceReference": "source-document05501.txt",
+      "suspiciousSpan": {
+        "offset": 18544,
+        "length": 405
+      },
+      "sourceSpan": {
+        "offset": 0,
+        "length": 440
+      },
+      "lexical": 0.34290637270194363,
+      "semantic": 0.4758188609533377,
+      "score": 0.34290637270194363,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document01510.txt",
+      "sourceReference": "source-document08961.txt",
+      "suspiciousSpan": {
+        "offset": 8665,
+        "length": 317
+      },
+      "sourceSpan": {
+        "offset": 140591,
+        "length": 376
+      },
+      "lexical": 0.303780531831208,
+      "semantic": 0.3153886787593748,
+      "score": 0.303780531831208,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document01510.txt",
+      "sourceReference": "source-document01564.txt",
+      "suspiciousSpan": {
+        "offset": 11930,
+        "length": 418
+      },
+      "sourceSpan": {
+        "offset": 11522,
+        "length": 481
+      },
+      "lexical": 0.30832820430727564,
+      "semantic": 0.4544471064451229,
+      "score": 0.30832820430727564,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document01510.txt",
+      "sourceReference": "source-document01564.txt",
+      "suspiciousSpan": {
+        "offset": 12223,
+        "length": 475
+      },
+      "sourceSpan": {
+        "offset": 13971,
+        "length": 465
+      },
+      "lexical": 0.4806263633129672,
+      "semantic": 0.4893265955244416,
+      "score": 0.4806263633129672,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document01510.txt",
+      "sourceReference": "source-document01564.txt",
+      "suspiciousSpan": {
+        "offset": 12808,
+        "length": 449
+      },
+      "sourceSpan": {
+        "offset": 12827,
+        "length": 393
+      },
+      "lexical": 0.3246281966820488,
+      "semantic": 0.520965646343489,
+      "score": 0.3246281966820488,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document01510.txt",
+      "sourceReference": "source-document01564.txt",
+      "suspiciousSpan": {
+        "offset": 13724,
+        "length": 302
+      },
+      "sourceSpan": {
+        "offset": 12827,
+        "length": 393
+      },
+      "lexical": 0.3188538992876807,
+      "semantic": 0.502278275209368,
+      "score": 0.3188538992876807,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document01510.txt",
+      "sourceReference": "source-document01564.txt",
+      "suspiciousSpan": {
+        "offset": 14701,
+        "length": 490
+      },
+      "sourceSpan": {
+        "offset": 14516,
+        "length": 433
+      },
+      "lexical": 0.3084228536647069,
+      "semantic": 0.4007628341135528,
+      "score": 0.3084228536647069,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document01510.txt",
+      "sourceReference": "source-document01564.txt",
+      "suspiciousSpan": {
+        "offset": 17090,
+        "length": 599
+      },
+      "sourceSpan": {
+        "offset": 17856,
+        "length": 419
+      },
+      "lexical": 0.6236420745332846,
+      "semantic": 0.6900539125036523,
+      "score": 0.6236420745332846,
+      "evidenceWindows": 2
+    },
+    {
+      "suspiciousReference": "suspicious-document01510.txt",
+      "sourceReference": "source-document01564.txt",
+      "suspiciousSpan": {
+        "offset": 29465,
+        "length": 1117
+      },
+      "sourceSpan": {
+        "offset": 1609,
+        "length": 1026
+      },
+      "lexical": 0.6371747050835564,
+      "semantic": 0.7659478182863991,
+      "score": 0.6371747050835564,
+      "evidenceWindows": 4
+    },
+    {
+      "suspiciousReference": "suspicious-document01713.txt",
+      "sourceReference": "source-document09833.txt",
+      "suspiciousSpan": {
+        "offset": 11219,
+        "length": 1118
+      },
+      "sourceSpan": {
+        "offset": 8060,
+        "length": 856
+      },
+      "lexical": 0.6709753738236255,
+      "semantic": 0.7327709789777676,
+      "score": 0.6709753738236255,
+      "evidenceWindows": 4
+    },
+    {
+      "suspiciousReference": "suspicious-document01713.txt",
+      "sourceReference": "source-document09833.txt",
+      "suspiciousSpan": {
+        "offset": 12243,
+        "length": 606
+      },
+      "sourceSpan": {
+        "offset": 9083,
+        "length": 713
+      },
+      "lexical": 0.6199021611411508,
+      "semantic": 0.6005642827897094,
+      "score": 0.6199021611411508,
+      "evidenceWindows": 2
+    },
+    {
+      "suspiciousReference": "suspicious-document01713.txt",
+      "sourceReference": "source-document09833.txt",
+      "suspiciousSpan": {
+        "offset": 19853,
+        "length": 891
+      },
+      "sourceSpan": {
+        "offset": 18063,
+        "length": 684
+      },
+      "lexical": 0.7188183515665998,
+      "semantic": 0.8262150124458345,
+      "score": 0.7188183515665998,
+      "evidenceWindows": 3
+    },
+    {
+      "suspiciousReference": "suspicious-document01713.txt",
+      "sourceReference": "source-document09833.txt",
+      "suspiciousSpan": {
+        "offset": 24256,
+        "length": 644
+      },
+      "sourceSpan": {
+        "offset": 15212,
+        "length": 386
+      },
+      "lexical": 0.45705682392338876,
+      "semantic": 0.5923454354772374,
+      "score": 0.45705682392338876,
+      "evidenceWindows": 2
+    },
+    {
+      "suspiciousReference": "suspicious-document01713.txt",
+      "sourceReference": "source-document09833.txt",
+      "suspiciousSpan": {
+        "offset": 27682,
+        "length": 728
+      },
+      "sourceSpan": {
+        "offset": 7112,
+        "length": 727
+      },
+      "lexical": 0.6747653170022299,
+      "semantic": 0.7630749511395947,
+      "score": 0.6747653170022299,
+      "evidenceWindows": 2
+    },
+    {
+      "suspiciousReference": "suspicious-document01713.txt",
+      "sourceReference": "source-document09833.txt",
+      "suspiciousSpan": {
+        "offset": 35406,
+        "length": 1034
+      },
+      "sourceSpan": {
+        "offset": 25521,
+        "length": 309
+      },
+      "lexical": 0.683266245704362,
+      "semantic": 0.873380213818007,
+      "score": 0.683266245704362,
+      "evidenceWindows": 3
+    },
+    {
+      "suspiciousReference": "suspicious-document01870.txt",
+      "sourceReference": "source-document05864.txt",
+      "suspiciousSpan": {
+        "offset": 1439,
+        "length": 1020
+      },
+      "sourceSpan": {
+        "offset": 2275,
+        "length": 670
+      },
+      "lexical": 0.7095884271078307,
+      "semantic": 0.7854656878034347,
+      "score": 0.7095884271078307,
+      "evidenceWindows": 3
+    },
+    {
+      "suspiciousReference": "suspicious-document01870.txt",
+      "sourceReference": "source-document05864.txt",
+      "suspiciousSpan": {
+        "offset": 7699,
+        "length": 973
+      },
+      "sourceSpan": {
+        "offset": 1787,
+        "length": 625
+      },
+      "lexical": 1,
+      "semantic": 1,
+      "score": 1,
+      "evidenceWindows": 3
+    },
+    {
+      "suspiciousReference": "suspicious-document02098.txt",
+      "sourceReference": "source-document08961.txt",
+      "suspiciousSpan": {
+        "offset": 2844,
+        "length": 379
+      },
+      "sourceSpan": {
+        "offset": 307319,
+        "length": 347
+      },
+      "lexical": 0.42537762451515976,
+      "semantic": 0.43906609282228926,
+      "score": 0.42537762451515976,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document02503.txt",
+      "sourceReference": "source-document07763.txt",
+      "suspiciousSpan": {
+        "offset": 12505,
+        "length": 751
+      },
+      "sourceSpan": {
+        "offset": 13827,
+        "length": 583
+      },
+      "lexical": 0.5299497817385537,
+      "semantic": 0.6868355263492925,
+      "score": 0.5299497817385537,
+      "evidenceWindows": 2
+    },
+    {
+      "suspiciousReference": "suspicious-document02503.txt",
+      "sourceReference": "source-document07763.txt",
+      "suspiciousSpan": {
+        "offset": 13148,
+        "length": 1250
+      },
+      "sourceSpan": {
+        "offset": 14600,
+        "length": 1408
+      },
+      "lexical": 0.5791057614505694,
+      "semantic": 0.7008709097395925,
+      "score": 0.5791057614505694,
+      "evidenceWindows": 4
+    },
+    {
+      "suspiciousReference": "suspicious-document02503.txt",
+      "sourceReference": "source-document07763.txt",
+      "suspiciousSpan": {
+        "offset": 29799,
+        "length": 845
+      },
+      "sourceSpan": {
+        "offset": 688,
+        "length": 749
+      },
+      "lexical": 0.5728932625025888,
+      "semantic": 0.7270343645795841,
+      "score": 0.5728932625025888,
+      "evidenceWindows": 3
+    },
+    {
+      "suspiciousReference": "suspicious-document02503.txt",
+      "sourceReference": "source-document07763.txt",
+      "suspiciousSpan": {
+        "offset": 33132,
+        "length": 726
+      },
+      "sourceSpan": {
+        "offset": 15911,
+        "length": 438
+      },
+      "lexical": 0.5394216233137763,
+      "semantic": 0.7525193478906752,
+      "score": 0.5394216233137763,
+      "evidenceWindows": 2
+    },
+    {
+      "suspiciousReference": "suspicious-document02596.txt",
+      "sourceReference": "source-document01820.txt",
+      "suspiciousSpan": {
+        "offset": 9316,
+        "length": 1118
+      },
+      "sourceSpan": {
+        "offset": 3831,
+        "length": 706
+      },
+      "lexical": 0.7559965749919961,
+      "semantic": 0.8380574555515091,
+      "score": 0.7559965749919961,
+      "evidenceWindows": 4
+    },
+    {
+      "suspiciousReference": "suspicious-document03645.txt",
+      "sourceReference": "source-document08961.txt",
+      "suspiciousSpan": {
+        "offset": 15309,
+        "length": 310
+      },
+      "sourceSpan": {
+        "offset": 274227,
+        "length": 408
+      },
+      "lexical": 0.3294642574715153,
+      "semantic": 0.39698443654230364,
+      "score": 0.3294642574715153,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document03828.txt",
+      "sourceReference": "source-document01833.txt",
+      "suspiciousSpan": {
+        "offset": 0,
+        "length": 397
+      },
+      "sourceSpan": {
+        "offset": 24087,
+        "length": 456
+      },
+      "lexical": 0.47783738352381183,
+      "semantic": 0.3712681498275863,
+      "score": 0.47783738352381183,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document03828.txt",
+      "sourceReference": "source-document01833.txt",
+      "suspiciousSpan": {
+        "offset": 5745,
+        "length": 730
+      },
+      "sourceSpan": {
+        "offset": 7016,
+        "length": 334
+      },
+      "lexical": 0.7658633496900757,
+      "semantic": 0.5166313986445026,
+      "score": 0.7658633496900757,
+      "evidenceWindows": 3
+    },
+    {
+      "suspiciousReference": "suspicious-document04137.txt",
+      "sourceReference": "source-document09779.txt",
+      "suspiciousSpan": {
+        "offset": 2068,
+        "length": 1570
+      },
+      "sourceSpan": {
+        "offset": 4098,
+        "length": 1347
+      },
+      "lexical": 0.8392170539893644,
+      "semantic": 0.9121136657650644,
+      "score": 0.8392170539893644,
+      "evidenceWindows": 5
+    },
+    {
+      "suspiciousReference": "suspicious-document04137.txt",
+      "sourceReference": "source-document09779.txt",
+      "suspiciousSpan": {
+        "offset": 3511,
+        "length": 409
+      },
+      "sourceSpan": {
+        "offset": 5678,
+        "length": 428
+      },
+      "lexical": 0.6157314219813015,
+      "semantic": 0.803958070901346,
+      "score": 0.6157314219813015,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document04137.txt",
+      "sourceReference": "source-document09779.txt",
+      "suspiciousSpan": {
+        "offset": 4639,
+        "length": 973
+      },
+      "sourceSpan": {
+        "offset": 45972,
+        "length": 962
+      },
+      "lexical": 0.8347094029554628,
+      "semantic": 0.8842409332488661,
+      "score": 0.8347094029554628,
+      "evidenceWindows": 3
+    },
+    {
+      "suspiciousReference": "suspicious-document04137.txt",
+      "sourceReference": "source-document09779.txt",
+      "suspiciousSpan": {
+        "offset": 5717,
+        "length": 573
+      },
+      "sourceSpan": {
+        "offset": 61298,
+        "length": 567
+      },
+      "lexical": 0.6762268057981093,
+      "semantic": 0.6090122456471897,
+      "score": 0.6762268057981093,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document04874.txt",
+      "sourceReference": "source-document09486.txt",
+      "suspiciousSpan": {
+        "offset": 10243,
+        "length": 392
+      },
+      "sourceSpan": {
+        "offset": 35186,
+        "length": 408
+      },
+      "lexical": 0.3558723342811214,
+      "semantic": 0.3484973703027308,
+      "score": 0.3558723342811214,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document04874.txt",
+      "sourceReference": "source-document09486.txt",
+      "suspiciousSpan": {
+        "offset": 10520,
+        "length": 1140
+      },
+      "sourceSpan": {
+        "offset": 34126,
+        "length": 1030
+      },
+      "lexical": 0.5820245833927192,
+      "semantic": 0.7270135889678382,
+      "score": 0.5820245833927192,
+      "evidenceWindows": 4
+    },
+    {
+      "suspiciousReference": "suspicious-document05169.txt",
+      "sourceReference": "source-document07845.txt",
+      "suspiciousSpan": {
+        "offset": 0,
+        "length": 482
+      },
+      "sourceSpan": {
+        "offset": 31949,
+        "length": 261
+      },
+      "lexical": 0.5061531749828763,
+      "semantic": 0.3499611057924994,
+      "score": 0.5061531749828763,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document05169.txt",
+      "sourceReference": "source-document07845.txt",
+      "suspiciousSpan": {
+        "offset": 5234,
+        "length": 389
+      },
+      "sourceSpan": {
+        "offset": 32884,
+        "length": 376
+      },
+      "lexical": 0.3274160967186701,
+      "semantic": 0.14235954624476632,
+      "score": 0.3274160967186701,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document05665.txt",
+      "sourceReference": "source-document03189.txt",
+      "suspiciousSpan": {
+        "offset": 1906,
+        "length": 717
+      },
+      "sourceSpan": {
+        "offset": 3636,
+        "length": 711
+      },
+      "lexical": 0.8376419501135991,
+      "semantic": 0.8563286370723757,
+      "score": 0.8376419501135991,
+      "evidenceWindows": 2
+    },
+    {
+      "suspiciousReference": "suspicious-document05665.txt",
+      "sourceReference": "source-document03189.txt",
+      "suspiciousSpan": {
+        "offset": 6142,
+        "length": 1191
+      },
+      "sourceSpan": {
+        "offset": 2056,
+        "length": 1210
+      },
+      "lexical": 0.7121581786592323,
+      "semantic": 0.7665443201687072,
+      "score": 0.7121581786592323,
+      "evidenceWindows": 4
+    },
+    {
+      "suspiciousReference": "suspicious-document05665.txt",
+      "sourceReference": "source-document03189.txt",
+      "suspiciousSpan": {
+        "offset": 8639,
+        "length": 500
+      },
+      "sourceSpan": {
+        "offset": 1729,
+        "length": 432
+      },
+      "lexical": 0.6611441861263547,
+      "semantic": 0.6543125782099204,
+      "score": 0.6611441861263547,
+      "evidenceWindows": 2
+    },
+    {
+      "suspiciousReference": "suspicious-document05766.txt",
+      "sourceReference": "source-document06114.txt",
+      "suspiciousSpan": {
+        "offset": 1232,
+        "length": 2150
+      },
+      "sourceSpan": {
+        "offset": 19113,
+        "length": 2109
+      },
+      "lexical": 0.6386627645984703,
+      "semantic": 0.7955862917651233,
+      "score": 0.6386627645984703,
+      "evidenceWindows": 7
+    },
+    {
+      "suspiciousReference": "suspicious-document06682.txt",
+      "sourceReference": "source-document08961.txt",
+      "suspiciousSpan": {
+        "offset": 2618,
+        "length": 510
+      },
+      "sourceSpan": {
+        "offset": 254436,
+        "length": 421
+      },
+      "lexical": 0.3035737914834986,
+      "semantic": 0.45996919329584995,
+      "score": 0.3035737914834986,
+      "evidenceWindows": 2
+    },
+    {
+      "suspiciousReference": "suspicious-document06798.txt",
+      "sourceReference": "source-document09311.txt",
+      "suspiciousSpan": {
+        "offset": 1,
+        "length": 502
+      },
+      "sourceSpan": {
+        "offset": 5810,
+        "length": 398
+      },
+      "lexical": 0.785906327402587,
+      "semantic": 0.81554086677516,
+      "score": 0.785906327402587,
+      "evidenceWindows": 2
+    },
+    {
+      "suspiciousReference": "suspicious-document07217.txt",
+      "sourceReference": "source-document00299.txt",
+      "suspiciousSpan": {
+        "offset": 24605,
+        "length": 390
+      },
+      "sourceSpan": {
+        "offset": 1391,
+        "length": 414
+      },
+      "lexical": 0.5199558226143597,
+      "semantic": 0.5889926800273066,
+      "score": 0.5199558226143597,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document07217.txt",
+      "sourceReference": "source-document00299.txt",
+      "suspiciousSpan": {
+        "offset": 26340,
+        "length": 730
+      },
+      "sourceSpan": {
+        "offset": 7026,
+        "length": 354
+      },
+      "lexical": 0.4015932636876695,
+      "semantic": 0.5069499062933478,
+      "score": 0.4015932636876695,
+      "evidenceWindows": 2
+    },
+    {
+      "suspiciousReference": "suspicious-document07498.txt",
+      "sourceReference": "source-document09867.txt",
+      "suspiciousSpan": {
+        "offset": 5706,
+        "length": 313
+      },
+      "sourceSpan": {
+        "offset": 6376,
+        "length": 310
+      },
+      "lexical": 0.4093536421647088,
+      "semantic": 0.47946289703204226,
+      "score": 0.4093536421647088,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document07498.txt",
+      "sourceReference": "source-document09867.txt",
+      "suspiciousSpan": {
+        "offset": 7921,
+        "length": 864
+      },
+      "sourceSpan": {
+        "offset": 8505,
+        "length": 869
+      },
+      "lexical": 0.3651231461818286,
+      "semantic": 0.6760601875697178,
+      "score": 0.3651231461818286,
+      "evidenceWindows": 2
+    },
+    {
+      "suspiciousReference": "suspicious-document07498.txt",
+      "sourceReference": "source-document09867.txt",
+      "suspiciousSpan": {
+        "offset": 9361,
+        "length": 437
+      },
+      "sourceSpan": {
+        "offset": 9817,
+        "length": 450
+      },
+      "lexical": 0.3265364307777843,
+      "semantic": 0.5560972141881788,
+      "score": 0.3265364307777843,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document07498.txt",
+      "sourceReference": "source-document09867.txt",
+      "suspiciousSpan": {
+        "offset": 10652,
+        "length": 381
+      },
+      "sourceSpan": {
+        "offset": 11068,
+        "length": 365
+      },
+      "lexical": 0.30092716962389854,
+      "semantic": 0.5663532714207353,
+      "score": 0.30092716962389854,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document07498.txt",
+      "sourceReference": "source-document09867.txt",
+      "suspiciousSpan": {
+        "offset": 11456,
+        "length": 594
+      },
+      "sourceSpan": {
+        "offset": 11793,
+        "length": 539
+      },
+      "lexical": 0.3508975377772444,
+      "semantic": 0.5618097427266534,
+      "score": 0.3508975377772444,
+      "evidenceWindows": 2
+    },
+    {
+      "suspiciousReference": "suspicious-document07498.txt",
+      "sourceReference": "source-document09867.txt",
+      "suspiciousSpan": {
+        "offset": 12845,
+        "length": 1244
+      },
+      "sourceSpan": {
+        "offset": 13065,
+        "length": 1132
+      },
+      "lexical": 0.37514165697213675,
+      "semantic": 0.5425369098634905,
+      "score": 0.37514165697213675,
+      "evidenceWindows": 4
+    },
+    {
+      "suspiciousReference": "suspicious-document07498.txt",
+      "sourceReference": "source-document09867.txt",
+      "suspiciousSpan": {
+        "offset": 15819,
+        "length": 803
+      },
+      "sourceSpan": {
+        "offset": 15636,
+        "length": 714
+      },
+      "lexical": 0.5903335691984528,
+      "semantic": 0.7689708666262055,
+      "score": 0.5903335691984528,
+      "evidenceWindows": 3
+    },
+    {
+      "suspiciousReference": "suspicious-document07498.txt",
+      "sourceReference": "source-document09867.txt",
+      "suspiciousSpan": {
+        "offset": 16826,
+        "length": 506
+      },
+      "sourceSpan": {
+        "offset": 16526,
+        "length": 457
+      },
+      "lexical": 0.3044770840385968,
+      "semantic": 0.5713042759180009,
+      "score": 0.3044770840385968,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document07498.txt",
+      "sourceReference": "source-document09867.txt",
+      "suspiciousSpan": {
+        "offset": 18312,
+        "length": 394
+      },
+      "sourceSpan": {
+        "offset": 17691,
+        "length": 404
+      },
+      "lexical": 0.3285441909351094,
+      "semantic": 0.5176425385353494,
+      "score": 0.3285441909351094,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document07498.txt",
+      "sourceReference": "source-document09867.txt",
+      "suspiciousSpan": {
+        "offset": 20598,
+        "length": 454
+      },
+      "sourceSpan": {
+        "offset": 19687,
+        "length": 371
+      },
+      "lexical": 0.36508873412744935,
+      "semantic": 0.6094106866766953,
+      "score": 0.36508873412744935,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document07498.txt",
+      "sourceReference": "source-document09867.txt",
+      "suspiciousSpan": {
+        "offset": 23595,
+        "length": 402
+      },
+      "sourceSpan": {
+        "offset": 22464,
+        "length": 369
+      },
+      "lexical": 0.3101701385023501,
+      "semantic": 0.6336979570181644,
+      "score": 0.3101701385023501,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document07498.txt",
+      "sourceReference": "source-document09867.txt",
+      "suspiciousSpan": {
+        "offset": 25510,
+        "length": 853
+      },
+      "sourceSpan": {
+        "offset": 1183,
+        "length": 886
+      },
+      "lexical": 0.777029658178295,
+      "semantic": 0.7623308303954052,
+      "score": 0.777029658178295,
+      "evidenceWindows": 2
+    },
+    {
+      "suspiciousReference": "suspicious-document07498.txt",
+      "sourceReference": "source-document09867.txt",
+      "suspiciousSpan": {
+        "offset": 26263,
+        "length": 418
+      },
+      "sourceSpan": {
+        "offset": 4959,
+        "length": 508
+      },
+      "lexical": 0.382725553299017,
+      "semantic": 0.3711080729658491,
+      "score": 0.382725553299017,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document07498.txt",
+      "sourceReference": "source-document09867.txt",
+      "suspiciousSpan": {
+        "offset": 26554,
+        "length": 448
+      },
+      "sourceSpan": {
+        "offset": 2641,
+        "length": 458
+      },
+      "lexical": 0.5651549821436049,
+      "semantic": 0.5352853245239654,
+      "score": 0.5651549821436049,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document07520.txt",
+      "sourceReference": "source-document07323.txt",
+      "suspiciousSpan": {
+        "offset": 0,
+        "length": 754
+      },
+      "sourceSpan": {
+        "offset": 6576,
+        "length": 404
+      },
+      "lexical": 0.5842862025295054,
+      "semantic": 0.6778324127673281,
+      "score": 0.5842862025295054,
+      "evidenceWindows": 2
+    },
+    {
+      "suspiciousReference": "suspicious-document07520.txt",
+      "sourceReference": "source-document07323.txt",
+      "suspiciousSpan": {
+        "offset": 4237,
+        "length": 701
+      },
+      "sourceSpan": {
+        "offset": 2596,
+        "length": 306
+      },
+      "lexical": 0.6220411377202631,
+      "semantic": 0.548004810844792,
+      "score": 0.6220411377202631,
+      "evidenceWindows": 2
+    },
+    {
+      "suspiciousReference": "suspicious-document07520.txt",
+      "sourceReference": "source-document07323.txt",
+      "suspiciousSpan": {
+        "offset": 5182,
+        "length": 685
+      },
+      "sourceSpan": {
+        "offset": 5767,
+        "length": 609
+      },
+      "lexical": 0.5473039512533322,
+      "semantic": 0.7305807742324711,
+      "score": 0.5473039512533322,
+      "evidenceWindows": 2
+    },
+    {
+      "suspiciousReference": "suspicious-document08071.txt",
+      "sourceReference": "source-document09635.txt",
+      "suspiciousSpan": {
+        "offset": 12334,
+        "length": 3557
+      },
+      "sourceSpan": {
+        "offset": 16508,
+        "length": 3578
+      },
+      "lexical": 0.6938675826035529,
+      "semantic": 0.7114041697609388,
+      "score": 0.6938675826035529,
+      "evidenceWindows": 11
+    },
+    {
+      "suspiciousReference": "suspicious-document08652.txt",
+      "sourceReference": "source-document02278.txt",
+      "suspiciousSpan": {
+        "offset": 439,
+        "length": 458
+      },
+      "sourceSpan": {
+        "offset": 7173,
+        "length": 361
+      },
+      "lexical": 0.4284850895691019,
+      "semantic": 0.25079989908517725,
+      "score": 0.4284850895691019,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document08652.txt",
+      "sourceReference": "source-document09595.txt",
+      "suspiciousSpan": {
+        "offset": 4161,
+        "length": 445
+      },
+      "sourceSpan": {
+        "offset": 0,
+        "length": 567
+      },
+      "lexical": 0.48594050578844017,
+      "semantic": 0.04369974582518598,
+      "score": 0.48594050578844017,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document08652.txt",
+      "sourceReference": "source-document02278.txt",
+      "suspiciousSpan": {
+        "offset": 6667,
+        "length": 926
+      },
+      "sourceSpan": {
+        "offset": 5770,
+        "length": 912
+      },
+      "lexical": 0.6592438708086523,
+      "semantic": 0.8132744674839043,
+      "score": 0.6592438708086523,
+      "evidenceWindows": 4
+    },
+    {
+      "suspiciousReference": "suspicious-document08652.txt",
+      "sourceReference": "source-document02278.txt",
+      "suspiciousSpan": {
+        "offset": 11877,
+        "length": 483
+      },
+      "sourceSpan": {
+        "offset": 13200,
+        "length": 330
+      },
+      "lexical": 0.3795573809876528,
+      "semantic": 0.4340565507671579,
+      "score": 0.3795573809876528,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document08739.txt",
+      "sourceReference": "source-document00418.txt",
+      "suspiciousSpan": {
+        "offset": 0,
+        "length": 428
+      },
+      "sourceSpan": {
+        "offset": 18468,
+        "length": 346
+      },
+      "lexical": 0.32279912069643113,
+      "semantic": 0.16441272691725514,
+      "score": 0.32279912069643113,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document10263.txt",
+      "sourceReference": "source-document03533.txt",
+      "suspiciousSpan": {
+        "offset": 2133,
+        "length": 642
+      },
+      "sourceSpan": {
+        "offset": 5798,
+        "length": 486
+      },
+      "lexical": 0.48858225600928085,
+      "semantic": 0.12412888606892655,
+      "score": 0.48858225600928085,
+      "evidenceWindows": 2
+    },
+    {
+      "suspiciousReference": "suspicious-document10263.txt",
+      "sourceReference": "source-document03533.txt",
+      "suspiciousSpan": {
+        "offset": 7057,
+        "length": 589
+      },
+      "sourceSpan": {
+        "offset": 14714,
+        "length": 358
+      },
+      "lexical": 0.6047980656961682,
+      "semantic": 0.5837849458786655,
+      "score": 0.6047980656961682,
+      "evidenceWindows": 2
+    },
+    {
+      "suspiciousReference": "suspicious-document10263.txt",
+      "sourceReference": "source-document03533.txt",
+      "suspiciousSpan": {
+        "offset": 8604,
+        "length": 411
+      },
+      "sourceSpan": {
+        "offset": 7383,
+        "length": 351
+      },
+      "lexical": 0.35395556665297395,
+      "semantic": 0.5786123747623302,
+      "score": 0.35395556665297395,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document10357.txt",
+      "sourceReference": "source-document08752.txt",
+      "suspiciousSpan": {
+        "offset": 19752,
+        "length": 584
+      },
+      "sourceSpan": {
+        "offset": 14594,
+        "length": 370
+      },
+      "lexical": 0.411856358155782,
+      "semantic": 0.6019427924426479,
+      "score": 0.411856358155782,
+      "evidenceWindows": 2
+    },
+    {
+      "suspiciousReference": "suspicious-document10357.txt",
+      "sourceReference": "source-document08752.txt",
+      "suspiciousSpan": {
+        "offset": 20221,
+        "length": 3264
+      },
+      "sourceSpan": {
+        "offset": 15127,
+        "length": 3125
+      },
+      "lexical": 0.5405657883750975,
+      "semantic": 0.8176010039308714,
+      "score": 0.5405657883750975,
+      "evidenceWindows": 12
+    },
+    {
+      "suspiciousReference": "suspicious-document10357.txt",
+      "sourceReference": "source-document08752.txt",
+      "suspiciousSpan": {
+        "offset": 31444,
+        "length": 983
+      },
+      "sourceSpan": {
+        "offset": 5989,
+        "length": 881
+      },
+      "lexical": 0.7704506433411855,
+      "semantic": 0.8403423414049301,
+      "score": 0.7704506433411855,
+      "evidenceWindows": 3
+    },
+    {
+      "suspiciousReference": "suspicious-document10553.txt",
+      "sourceReference": "source-document00418.txt",
+      "suspiciousSpan": {
+        "offset": 2968,
+        "length": 360
+      },
+      "sourceSpan": {
+        "offset": 13071,
+        "length": 503
+      },
+      "lexical": 0.4516303770188419,
+      "semantic": 0.5696119983486795,
+      "score": 0.4516303770188419,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document10553.txt",
+      "sourceReference": "source-document00418.txt",
+      "suspiciousSpan": {
+        "offset": 3206,
+        "length": 536
+      },
+      "sourceSpan": {
+        "offset": 13449,
+        "length": 609
+      },
+      "lexical": 0.6174996061362078,
+      "semantic": 0.742983486833443,
+      "score": 0.6174996061362078,
+      "evidenceWindows": 2
+    }
+  ],
+  "semantic": [
+    {
+      "suspiciousReference": "suspicious-document00214.txt",
+      "sourceReference": "source-document08961.txt",
+      "suspiciousSpan": {
+        "offset": 9061,
+        "length": 441
+      },
+      "sourceSpan": {
+        "offset": 188914,
+        "length": 478
+      },
+      "lexical": 0.11014512633352629,
+      "semantic": 0.6037197176724879,
+      "score": 0.6037197176724879,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document00214.txt",
+      "sourceReference": "source-document10521.txt",
+      "suspiciousSpan": {
+        "offset": 20011,
+        "length": 407
+      },
+      "sourceSpan": {
+        "offset": 23330,
+        "length": 458
+      },
+      "lexical": 0.15750911790952443,
+      "semantic": 0.6059494565744912,
+      "score": 0.6059494565744912,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document00214.txt",
+      "sourceReference": "source-document10521.txt",
+      "suspiciousSpan": {
+        "offset": 20304,
+        "length": 1533
+      },
+      "sourceSpan": {
+        "offset": 22692,
+        "length": 1264
+      },
+      "lexical": 0.8038229330646605,
+      "semantic": 0.905719579693255,
+      "score": 0.905719579693255,
+      "evidenceWindows": 5
+    },
+    {
+      "suspiciousReference": "suspicious-document00214.txt",
+      "sourceReference": "source-document10521.txt",
+      "suspiciousSpan": {
+        "offset": 21732,
+        "length": 630
+      },
+      "sourceSpan": {
+        "offset": 35175,
+        "length": 674
+      },
+      "lexical": 0.7533072337542256,
+      "semantic": 0.8570855507958587,
+      "score": 0.8570855507958587,
+      "evidenceWindows": 2
+    },
+    {
+      "suspiciousReference": "suspicious-document01434.txt",
+      "sourceReference": "source-document09833.txt",
+      "suspiciousSpan": {
+        "offset": 971,
+        "length": 446
+      },
+      "sourceSpan": {
+        "offset": 12732,
+        "length": 317
+      },
+      "lexical": 0.09059281230344898,
+      "semantic": 0.6180525445830476,
+      "score": 0.6180525445830476,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document01434.txt",
+      "sourceReference": "source-document08961.txt",
+      "suspiciousSpan": {
+        "offset": 1832,
+        "length": 412
+      },
+      "sourceSpan": {
+        "offset": 78509,
+        "length": 416
+      },
+      "lexical": 0.10816885626751115,
+      "semantic": 0.6210502755503591,
+      "score": 0.6210502755503591,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document01434.txt",
+      "sourceReference": "source-document02317.txt",
+      "suspiciousSpan": {
+        "offset": 5365,
+        "length": 356
+      },
+      "sourceSpan": {
+        "offset": 1958,
+        "length": 219
+      },
+      "lexical": 0.10965550618057662,
+      "semantic": 0.6307852482479871,
+      "score": 0.6307852482479871,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document01434.txt",
+      "sourceReference": "source-document08961.txt",
+      "suspiciousSpan": {
+        "offset": 5928,
+        "length": 393
+      },
+      "sourceSpan": {
+        "offset": 21126,
+        "length": 459
+      },
+      "lexical": 0.1005133064487868,
+      "semantic": 0.6296909620221377,
+      "score": 0.6296909620221377,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document01434.txt",
+      "sourceReference": "source-document05501.txt",
+      "suspiciousSpan": {
+        "offset": 7265,
+        "length": 449
+      },
+      "sourceSpan": {
+        "offset": 9220,
+        "length": 486
+      },
+      "lexical": 0.5165282263412998,
+      "semantic": 0.7777229414750463,
+      "score": 0.7777229414750463,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document01434.txt",
+      "sourceReference": "source-document05501.txt",
+      "suspiciousSpan": {
+        "offset": 16712,
+        "length": 351
+      },
+      "sourceSpan": {
+        "offset": 25006,
+        "length": 439
+      },
+      "lexical": 0.6335886474606384,
+      "semantic": 0.6623729598315423,
+      "score": 0.6623729598315423,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document01434.txt",
+      "sourceReference": "source-document08961.txt",
+      "suspiciousSpan": {
+        "offset": 17994,
+        "length": 442
+      },
+      "sourceSpan": {
+        "offset": 66060,
+        "length": 382
+      },
+      "lexical": 0.10676981402443617,
+      "semantic": 0.6040045382209106,
+      "score": 0.6040045382209106,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document01483.txt",
+      "sourceReference": "source-document08961.txt",
+      "suspiciousSpan": {
+        "offset": 11150,
+        "length": 279
+      },
+      "sourceSpan": {
+        "offset": 235174,
+        "length": 367
+      },
+      "lexical": 0.06933225087795525,
+      "semantic": 0.6075325279806798,
+      "score": 0.6075325279806798,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document01483.txt",
+      "sourceReference": "source-document08961.txt",
+      "suspiciousSpan": {
+        "offset": 13770,
+        "length": 351
+      },
+      "sourceSpan": {
+        "offset": 33574,
+        "length": 353
+      },
+      "lexical": 0.05951944833506468,
+      "semantic": 0.606415873342075,
+      "score": 0.606415873342075,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document01510.txt",
+      "sourceReference": "source-document01564.txt",
+      "suspiciousSpan": {
+        "offset": 17090,
+        "length": 599
+      },
+      "sourceSpan": {
+        "offset": 17856,
+        "length": 419
+      },
+      "lexical": 0.6236420745332846,
+      "semantic": 0.6900539125036523,
+      "score": 0.6900539125036523,
+      "evidenceWindows": 2
+    },
+    {
+      "suspiciousReference": "suspicious-document01510.txt",
+      "sourceReference": "source-document01564.txt",
+      "suspiciousSpan": {
+        "offset": 21214,
+        "length": 444
+      },
+      "sourceSpan": {
+        "offset": 8861,
+        "length": 436
+      },
+      "lexical": 0.0523924586214682,
+      "semantic": 0.6193341772202235,
+      "score": 0.6193341772202235,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document01510.txt",
+      "sourceReference": "source-document01564.txt",
+      "suspiciousSpan": {
+        "offset": 29714,
+        "length": 317
+      },
+      "sourceSpan": {
+        "offset": 2219,
+        "length": 416
+      },
+      "lexical": 0.6371747050835564,
+      "semantic": 0.7659478182863991,
+      "score": 0.7659478182863991,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document01510.txt",
+      "sourceReference": "source-document01564.txt",
+      "suspiciousSpan": {
+        "offset": 29925,
+        "length": 324
+      },
+      "sourceSpan": {
+        "offset": 1609,
+        "length": 440
+      },
+      "lexical": 0.41993505104645995,
+      "semantic": 0.6391437138883226,
+      "score": 0.6391437138883226,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document01713.txt",
+      "sourceReference": "source-document09833.txt",
+      "suspiciousSpan": {
+        "offset": 11784,
+        "length": 553
+      },
+      "sourceSpan": {
+        "offset": 8509,
+        "length": 407
+      },
+      "lexical": 0.6709753738236255,
+      "semantic": 0.7327709789777676,
+      "score": 0.7327709789777676,
+      "evidenceWindows": 2
+    },
+    {
+      "suspiciousReference": "suspicious-document01713.txt",
+      "sourceReference": "source-document09833.txt",
+      "suspiciousSpan": {
+        "offset": 12243,
+        "length": 606
+      },
+      "sourceSpan": {
+        "offset": 9358,
+        "length": 438
+      },
+      "lexical": 0.5428274865319069,
+      "semantic": 0.7566649080133979,
+      "score": 0.7566649080133979,
+      "evidenceWindows": 2
+    },
+    {
+      "suspiciousReference": "suspicious-document01713.txt",
+      "sourceReference": "source-document09836.txt",
+      "suspiciousSpan": {
+        "offset": 19436,
+        "length": 391
+      },
+      "sourceSpan": {
+        "offset": 19897,
+        "length": 360
+      },
+      "lexical": 0.06341808868350549,
+      "semantic": 0.6039616586123775,
+      "score": 0.6039616586123775,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document01713.txt",
+      "sourceReference": "source-document09833.txt",
+      "suspiciousSpan": {
+        "offset": 20411,
+        "length": 333
+      },
+      "sourceSpan": {
+        "offset": 18063,
+        "length": 320
+      },
+      "lexical": 0.7188183515665998,
+      "semantic": 0.8262150124458345,
+      "score": 0.8262150124458345,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document01713.txt",
+      "sourceReference": "source-document09833.txt",
+      "suspiciousSpan": {
+        "offset": 27682,
+        "length": 728
+      },
+      "sourceSpan": {
+        "offset": 7112,
+        "length": 727
+      },
+      "lexical": 0.6747653170022299,
+      "semantic": 0.7630749511395947,
+      "score": 0.7630749511395947,
+      "evidenceWindows": 2
+    },
+    {
+      "suspiciousReference": "suspicious-document01713.txt",
+      "sourceReference": "source-document08961.txt",
+      "suspiciousSpan": {
+        "offset": 28303,
+        "length": 420
+      },
+      "sourceSpan": {
+        "offset": 42626,
+        "length": 349
+      },
+      "lexical": 0.12216297399108574,
+      "semantic": 0.6101193821181722,
+      "score": 0.6101193821181722,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document01713.txt",
+      "sourceReference": "source-document09311.txt",
+      "suspiciousSpan": {
+        "offset": 34977,
+        "length": 244
+      },
+      "sourceSpan": {
+        "offset": 5810,
+        "length": 398
+      },
+      "lexical": 0.06318096305379217,
+      "semantic": 0.6227446786131805,
+      "score": 0.6227446786131805,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document01713.txt",
+      "sourceReference": "source-document09833.txt",
+      "suspiciousSpan": {
+        "offset": 35686,
+        "length": 413
+      },
+      "sourceSpan": {
+        "offset": 25521,
+        "length": 309
+      },
+      "lexical": 0.683266245704362,
+      "semantic": 0.873380213818007,
+      "score": 0.873380213818007,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document01870.txt",
+      "sourceReference": "source-document05864.txt",
+      "suspiciousSpan": {
+        "offset": 1439,
+        "length": 636
+      },
+      "sourceSpan": {
+        "offset": 2275,
+        "length": 478
+      },
+      "lexical": 0.6914547956537779,
+      "semantic": 0.9029367580227589,
+      "score": 0.9029367580227589,
+      "evidenceWindows": 2
+    },
+    {
+      "suspiciousReference": "suspicious-document01870.txt",
+      "sourceReference": "source-document05864.txt",
+      "suspiciousSpan": {
+        "offset": 7699,
+        "length": 613
+      },
+      "sourceSpan": {
+        "offset": 1787,
+        "length": 625
+      },
+      "lexical": 1,
+      "semantic": 1,
+      "score": 1,
+      "evidenceWindows": 2
+    },
+    {
+      "suspiciousReference": "suspicious-document02503.txt",
+      "sourceReference": "source-document08961.txt",
+      "suspiciousSpan": {
+        "offset": 11124,
+        "length": 369
+      },
+      "sourceSpan": {
+        "offset": 70005,
+        "length": 289
+      },
+      "lexical": 0.09692466332710548,
+      "semantic": 0.673886980370848,
+      "score": 0.673886980370848,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document02503.txt",
+      "sourceReference": "source-document07763.txt",
+      "suspiciousSpan": {
+        "offset": 12830,
+        "length": 740
+      },
+      "sourceSpan": {
+        "offset": 14308,
+        "length": 727
+      },
+      "lexical": 0.4550818843858898,
+      "semantic": 0.7300156721294095,
+      "score": 0.7300156721294095,
+      "evidenceWindows": 2
+    },
+    {
+      "suspiciousReference": "suspicious-document02503.txt",
+      "sourceReference": "source-document07763.txt",
+      "suspiciousSpan": {
+        "offset": 13793,
+        "length": 358
+      },
+      "sourceSpan": {
+        "offset": 15248,
+        "length": 468
+      },
+      "lexical": 0.4483094674671002,
+      "semantic": 0.6541827733294316,
+      "score": 0.6541827733294316,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document02503.txt",
+      "sourceReference": "source-document07763.txt",
+      "suspiciousSpan": {
+        "offset": 14032,
+        "length": 366
+      },
+      "sourceSpan": {
+        "offset": 14101,
+        "length": 309
+      },
+      "lexical": 0.22107209771302117,
+      "semantic": 0.6431851333427596,
+      "score": 0.6431851333427596,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document02503.txt",
+      "sourceReference": "source-document10521.txt",
+      "suspiciousSpan": {
+        "offset": 16373,
+        "length": 410
+      },
+      "sourceSpan": {
+        "offset": 5009,
+        "length": 341
+      },
+      "lexical": 0.06191296452504145,
+      "semantic": 0.6034352200044049,
+      "score": 0.6034352200044049,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document02503.txt",
+      "sourceReference": "source-document10521.txt",
+      "suspiciousSpan": {
+        "offset": 17933,
+        "length": 472
+      },
+      "sourceSpan": {
+        "offset": 19476,
+        "length": 493
+      },
+      "lexical": 0.08027329361410895,
+      "semantic": 0.6512920619462397,
+      "score": 0.6512920619462397,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document02503.txt",
+      "sourceReference": "source-document10521.txt",
+      "suspiciousSpan": {
+        "offset": 20304,
+        "length": 389
+      },
+      "sourceSpan": {
+        "offset": 15022,
+        "length": 447
+      },
+      "lexical": 0.11137033465904966,
+      "semantic": 0.6243836729913351,
+      "score": 0.6243836729913351,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document02503.txt",
+      "sourceReference": "source-document07763.txt",
+      "suspiciousSpan": {
+        "offset": 29799,
+        "length": 716
+      },
+      "sourceSpan": {
+        "offset": 688,
+        "length": 469
+      },
+      "lexical": 0.5728932625025888,
+      "semantic": 0.7270343645795841,
+      "score": 0.7270343645795841,
+      "evidenceWindows": 2
+    },
+    {
+      "suspiciousReference": "suspicious-document02503.txt",
+      "sourceReference": "source-document07763.txt",
+      "suspiciousSpan": {
+        "offset": 30420,
+        "length": 224
+      },
+      "sourceSpan": {
+        "offset": 1572,
+        "length": 462
+      },
+      "lexical": 0.09428270117349205,
+      "semantic": 0.6373573751154301,
+      "score": 0.6373573751154301,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document02503.txt",
+      "sourceReference": "source-document07763.txt",
+      "suspiciousSpan": {
+        "offset": 33132,
+        "length": 443
+      },
+      "sourceSpan": {
+        "offset": 15911,
+        "length": 438
+      },
+      "lexical": 0.5394216233137763,
+      "semantic": 0.7525193478906752,
+      "score": 0.7525193478906752,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document02596.txt",
+      "sourceReference": "source-document08961.txt",
+      "suspiciousSpan": {
+        "offset": 5303,
+        "length": 313
+      },
+      "sourceSpan": {
+        "offset": 84670,
+        "length": 482
+      },
+      "lexical": 0.06687784213321468,
+      "semantic": 0.6421662100454197,
+      "score": 0.6421662100454197,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document02596.txt",
+      "sourceReference": "source-document01820.txt",
+      "suspiciousSpan": {
+        "offset": 9316,
+        "length": 806
+      },
+      "sourceSpan": {
+        "offset": 3831,
+        "length": 706
+      },
+      "lexical": 0.7559965749919961,
+      "semantic": 0.8380574555515091,
+      "score": 0.8380574555515091,
+      "evidenceWindows": 3
+    },
+    {
+      "suspiciousReference": "suspicious-document03645.txt",
+      "sourceReference": "source-document08961.txt",
+      "suspiciousSpan": {
+        "offset": 18869,
+        "length": 288
+      },
+      "sourceSpan": {
+        "offset": 234968,
+        "length": 315
+      },
+      "lexical": 0.038056949815406846,
+      "semantic": 0.6221674004154512,
+      "score": 0.6221674004154512,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document03645.txt",
+      "sourceReference": "source-document08961.txt",
+      "suspiciousSpan": {
+        "offset": 19055,
+        "length": 436
+      },
+      "sourceSpan": {
+        "offset": 132391,
+        "length": 254
+      },
+      "lexical": 0.19578466585882862,
+      "semantic": 0.6194202884449832,
+      "score": 0.6194202884449832,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document03828.txt",
+      "sourceReference": "source-document08961.txt",
+      "suspiciousSpan": {
+        "offset": 301,
+        "length": 368
+      },
+      "sourceSpan": {
+        "offset": 218776,
+        "length": 409
+      },
+      "lexical": 0.1848648265287739,
+      "semantic": 0.6278914290611916,
+      "score": 0.6278914290611916,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document04137.txt",
+      "sourceReference": "source-document08961.txt",
+      "suspiciousSpan": {
+        "offset": 1874,
+        "length": 310
+      },
+      "sourceSpan": {
+        "offset": 10126,
+        "length": 315
+      },
+      "lexical": 0.1324104720416754,
+      "semantic": 0.6210740319916574,
+      "score": 0.6210740319916574,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document04137.txt",
+      "sourceReference": "source-document09779.txt",
+      "suspiciousSpan": {
+        "offset": 2068,
+        "length": 1204
+      },
+      "sourceSpan": {
+        "offset": 4098,
+        "length": 1095
+      },
+      "lexical": 0.8392170539893644,
+      "semantic": 0.9121136657650644,
+      "score": 0.9121136657650644,
+      "evidenceWindows": 4
+    },
+    {
+      "suspiciousReference": "suspicious-document04137.txt",
+      "sourceReference": "source-document09779.txt",
+      "suspiciousSpan": {
+        "offset": 3168,
+        "length": 752
+      },
+      "sourceSpan": {
+        "offset": 5327,
+        "length": 779
+      },
+      "lexical": 0.6053329989309453,
+      "semantic": 0.8537639327201689,
+      "score": 0.8537639327201689,
+      "evidenceWindows": 2
+    },
+    {
+      "suspiciousReference": "suspicious-document04137.txt",
+      "sourceReference": "source-document09779.txt",
+      "suspiciousSpan": {
+        "offset": 4639,
+        "length": 973
+      },
+      "sourceSpan": {
+        "offset": 46205,
+        "length": 729
+      },
+      "lexical": 0.8347094029554628,
+      "semantic": 0.8842409332488661,
+      "score": 0.8842409332488661,
+      "evidenceWindows": 3
+    },
+    {
+      "suspiciousReference": "suspicious-document04137.txt",
+      "sourceReference": "source-document09779.txt",
+      "suspiciousSpan": {
+        "offset": 5717,
+        "length": 573
+      },
+      "sourceSpan": {
+        "offset": 61298,
+        "length": 567
+      },
+      "lexical": 0.6762268057981093,
+      "semantic": 0.6090122456471897,
+      "score": 0.6090122456471897,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document04874.txt",
+      "sourceReference": "source-document10521.txt",
+      "suspiciousSpan": {
+        "offset": 1754,
+        "length": 482
+      },
+      "sourceSpan": {
+        "offset": 21171,
+        "length": 400
+      },
+      "lexical": 0.09088830935431444,
+      "semantic": 0.6424464083374423,
+      "score": 0.6424464083374423,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document04874.txt",
+      "sourceReference": "source-document09486.txt",
+      "suspiciousSpan": {
+        "offset": 10740,
+        "length": 450
+      },
+      "sourceSpan": {
+        "offset": 34341,
+        "length": 434
+      },
+      "lexical": 0.5820245833927192,
+      "semantic": 0.7270135889678382,
+      "score": 0.7270135889678382,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document05228.txt",
+      "sourceReference": "source-document10521.txt",
+      "suspiciousSpan": {
+        "offset": 15488,
+        "length": 283
+      },
+      "sourceSpan": {
+        "offset": 0,
+        "length": 396
+      },
+      "lexical": 0.0946576219178512,
+      "semantic": 0.6076399354541437,
+      "score": 0.6076399354541437,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document05397.txt",
+      "sourceReference": "source-document08961.txt",
+      "suspiciousSpan": {
+        "offset": 196,
+        "length": 429
+      },
+      "sourceSpan": {
+        "offset": 266272,
+        "length": 411
+      },
+      "lexical": 0.0635810439558112,
+      "semantic": 0.6047705299731615,
+      "score": 0.6047705299731615,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document05397.txt",
+      "sourceReference": "source-document08961.txt",
+      "suspiciousSpan": {
+        "offset": 2445,
+        "length": 361
+      },
+      "sourceSpan": {
+        "offset": 266272,
+        "length": 411
+      },
+      "lexical": 0.11588944361404092,
+      "semantic": 0.6605383782830502,
+      "score": 0.6605383782830502,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document05397.txt",
+      "sourceReference": "source-document07763.txt",
+      "suspiciousSpan": {
+        "offset": 6338,
+        "length": 434
+      },
+      "sourceSpan": {
+        "offset": 6085,
+        "length": 404
+      },
+      "lexical": 0.15641025867517735,
+      "semantic": 0.6124770939238019,
+      "score": 0.6124770939238019,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document05397.txt",
+      "sourceReference": "source-document08961.txt",
+      "suspiciousSpan": {
+        "offset": 7405,
+        "length": 200
+      },
+      "sourceSpan": {
+        "offset": 210249,
+        "length": 412
+      },
+      "lexical": 0.12461622136304087,
+      "semantic": 0.6188256265119484,
+      "score": 0.6188256265119484,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document05397.txt",
+      "sourceReference": "source-document08961.txt",
+      "suspiciousSpan": {
+        "offset": 10448,
+        "length": 415
+      },
+      "sourceSpan": {
+        "offset": 152189,
+        "length": 352
+      },
+      "lexical": 0.11253945668382857,
+      "semantic": 0.6694974406350993,
+      "score": 0.6694974406350993,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document05397.txt",
+      "sourceReference": "source-document08961.txt",
+      "suspiciousSpan": {
+        "offset": 10768,
+        "length": 690
+      },
+      "sourceSpan": {
+        "offset": 266272,
+        "length": 411
+      },
+      "lexical": 0.1128767003887528,
+      "semantic": 0.643088266800205,
+      "score": 0.643088266800205,
+      "evidenceWindows": 2
+    },
+    {
+      "suspiciousReference": "suspicious-document05397.txt",
+      "sourceReference": "source-document08961.txt",
+      "suspiciousSpan": {
+        "offset": 10960,
+        "length": 312
+      },
+      "sourceSpan": {
+        "offset": 199841,
+        "length": 417
+      },
+      "lexical": 0.0670149077528964,
+      "semantic": 0.6302984520665031,
+      "score": 0.6302984520665031,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document05397.txt",
+      "sourceReference": "source-document08961.txt",
+      "suspiciousSpan": {
+        "offset": 11600,
+        "length": 333
+      },
+      "sourceSpan": {
+        "offset": 75903,
+        "length": 351
+      },
+      "lexical": 0.14545864323568203,
+      "semantic": 0.656889000139588,
+      "score": 0.656889000139588,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document05397.txt",
+      "sourceReference": "source-document08961.txt",
+      "suspiciousSpan": {
+        "offset": 11829,
+        "length": 352
+      },
+      "sourceSpan": {
+        "offset": 283081,
+        "length": 394
+      },
+      "lexical": 0.08992906875992221,
+      "semantic": 0.6617481331765777,
+      "score": 0.6617481331765777,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document05397.txt",
+      "sourceReference": "source-document08961.txt",
+      "suspiciousSpan": {
+        "offset": 12084,
+        "length": 320
+      },
+      "sourceSpan": {
+        "offset": 239363,
+        "length": 327
+      },
+      "lexical": 0.04373943591698769,
+      "semantic": 0.6250954344536953,
+      "score": 0.6250954344536953,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document05397.txt",
+      "sourceReference": "source-document08961.txt",
+      "suspiciousSpan": {
+        "offset": 12832,
+        "length": 326
+      },
+      "sourceSpan": {
+        "offset": 210764,
+        "length": 445
+      },
+      "lexical": 0.07807616230899954,
+      "semantic": 0.629801859481657,
+      "score": 0.629801859481657,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document05397.txt",
+      "sourceReference": "source-document08961.txt",
+      "suspiciousSpan": {
+        "offset": 13059,
+        "length": 1044
+      },
+      "sourceSpan": {
+        "offset": 205975,
+        "length": 437
+      },
+      "lexical": 0.08832300034117184,
+      "semantic": 0.671255479508388,
+      "score": 0.671255479508388,
+      "evidenceWindows": 4
+    },
+    {
+      "suspiciousReference": "suspicious-document05397.txt",
+      "sourceReference": "source-document08961.txt",
+      "suspiciousSpan": {
+        "offset": 14296,
+        "length": 261
+      },
+      "sourceSpan": {
+        "offset": 206807,
+        "length": 414
+      },
+      "lexical": 0.1199756715339086,
+      "semantic": 0.6375962155659153,
+      "score": 0.6375962155659153,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document05397.txt",
+      "sourceReference": "source-document08961.txt",
+      "suspiciousSpan": {
+        "offset": 14443,
+        "length": 320
+      },
+      "sourceSpan": {
+        "offset": 204426,
+        "length": 353
+      },
+      "lexical": 0.06202045391034057,
+      "semantic": 0.6730213112096093,
+      "score": 0.6730213112096093,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document05397.txt",
+      "sourceReference": "source-document08961.txt",
+      "suspiciousSpan": {
+        "offset": 14661,
+        "length": 360
+      },
+      "sourceSpan": {
+        "offset": 156597,
+        "length": 339
+      },
+      "lexical": 0.09084254370059848,
+      "semantic": 0.6741037557370267,
+      "score": 0.6741037557370267,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document05397.txt",
+      "sourceReference": "source-document08961.txt",
+      "suspiciousSpan": {
+        "offset": 15298,
+        "length": 404
+      },
+      "sourceSpan": {
+        "offset": 252092,
+        "length": 363
+      },
+      "lexical": 0.09480467837522814,
+      "semantic": 0.6373927622595205,
+      "score": 0.6373927622595205,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document05397.txt",
+      "sourceReference": "source-document08961.txt",
+      "suspiciousSpan": {
+        "offset": 15608,
+        "length": 354
+      },
+      "sourceSpan": {
+        "offset": 207110,
+        "length": 370
+      },
+      "lexical": 0.06507271381361149,
+      "semantic": 0.606656372036299,
+      "score": 0.606656372036299,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document05397.txt",
+      "sourceReference": "source-document08961.txt",
+      "suspiciousSpan": {
+        "offset": 15839,
+        "length": 398
+      },
+      "sourceSpan": {
+        "offset": 76150,
+        "length": 356
+      },
+      "lexical": 0.07974172516059834,
+      "semantic": 0.6010695808461638,
+      "score": 0.6010695808461638,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document05397.txt",
+      "sourceReference": "source-document08961.txt",
+      "suspiciousSpan": {
+        "offset": 17099,
+        "length": 414
+      },
+      "sourceSpan": {
+        "offset": 80800,
+        "length": 449
+      },
+      "lexical": 0.048168571329614225,
+      "semantic": 0.6160456650792278,
+      "score": 0.6160456650792278,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document05397.txt",
+      "sourceReference": "source-document08961.txt",
+      "suspiciousSpan": {
+        "offset": 17853,
+        "length": 195
+      },
+      "sourceSpan": {
+        "offset": 266272,
+        "length": 411
+      },
+      "lexical": 0.0869613459430924,
+      "semantic": 0.6376053565471905,
+      "score": 0.6376053565471905,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document05397.txt",
+      "sourceReference": "source-document08961.txt",
+      "suspiciousSpan": {
+        "offset": 18469,
+        "length": 372
+      },
+      "sourceSpan": {
+        "offset": 210764,
+        "length": 445
+      },
+      "lexical": 0.10257054174242257,
+      "semantic": 0.648744104128964,
+      "score": 0.648744104128964,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document05397.txt",
+      "sourceReference": "source-document08961.txt",
+      "suspiciousSpan": {
+        "offset": 18913,
+        "length": 432
+      },
+      "sourceSpan": {
+        "offset": 152189,
+        "length": 352
+      },
+      "lexical": 0.06935610111392998,
+      "semantic": 0.6421248577150983,
+      "score": 0.6421248577150983,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document05397.txt",
+      "sourceReference": "source-document08961.txt",
+      "suspiciousSpan": {
+        "offset": 19241,
+        "length": 430
+      },
+      "sourceSpan": {
+        "offset": 210764,
+        "length": 445
+      },
+      "lexical": 0.06306124799421564,
+      "semantic": 0.6049517315478512,
+      "score": 0.6049517315478512,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document05397.txt",
+      "sourceReference": "source-document02317.txt",
+      "suspiciousSpan": {
+        "offset": 21716,
+        "length": 405
+      },
+      "sourceSpan": {
+        "offset": 821,
+        "length": 456
+      },
+      "lexical": 0.10035167227005691,
+      "semantic": 0.6313079224839302,
+      "score": 0.6313079224839302,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document05397.txt",
+      "sourceReference": "source-document08961.txt",
+      "suspiciousSpan": {
+        "offset": 22016,
+        "length": 568
+      },
+      "sourceSpan": {
+        "offset": 10351,
+        "length": 326
+      },
+      "lexical": 0.1084979525621788,
+      "semantic": 0.6223178786716379,
+      "score": 0.6223178786716379,
+      "evidenceWindows": 2
+    },
+    {
+      "suspiciousReference": "suspicious-document05397.txt",
+      "sourceReference": "source-document08961.txt",
+      "suspiciousSpan": {
+        "offset": 22694,
+        "length": 313
+      },
+      "sourceSpan": {
+        "offset": 20229,
+        "length": 416
+      },
+      "lexical": 0.07835635558491055,
+      "semantic": 0.664807802836646,
+      "score": 0.664807802836646,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document05397.txt",
+      "sourceReference": "source-document08961.txt",
+      "suspiciousSpan": {
+        "offset": 22904,
+        "length": 417
+      },
+      "sourceSpan": {
+        "offset": 206807,
+        "length": 414
+      },
+      "lexical": 0.10080126199847006,
+      "semantic": 0.6383933864319257,
+      "score": 0.6383933864319257,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document05397.txt",
+      "sourceReference": "source-document08961.txt",
+      "suspiciousSpan": {
+        "offset": 24848,
+        "length": 300
+      },
+      "sourceSpan": {
+        "offset": 233059,
+        "length": 476
+      },
+      "lexical": 0.0797532871350008,
+      "semantic": 0.6364252034573099,
+      "score": 0.6364252034573099,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document05397.txt",
+      "sourceReference": "source-document08961.txt",
+      "suspiciousSpan": {
+        "offset": 26508,
+        "length": 394
+      },
+      "sourceSpan": {
+        "offset": 293605,
+        "length": 337
+      },
+      "lexical": 0.15879061866502364,
+      "semantic": 0.6180130886966652,
+      "score": 0.6180130886966652,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document05397.txt",
+      "sourceReference": "source-document08961.txt",
+      "suspiciousSpan": {
+        "offset": 27982,
+        "length": 339
+      },
+      "sourceSpan": {
+        "offset": 76150,
+        "length": 356
+      },
+      "lexical": 0.14506883373185694,
+      "semantic": 0.6172438103690153,
+      "score": 0.6172438103690153,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document05397.txt",
+      "sourceReference": "source-document08961.txt",
+      "suspiciousSpan": {
+        "offset": 29547,
+        "length": 515
+      },
+      "sourceSpan": {
+        "offset": 240384,
+        "length": 692
+      },
+      "lexical": 0.07365923591657543,
+      "semantic": 0.6720324531520452,
+      "score": 0.6720324531520452,
+      "evidenceWindows": 2
+    },
+    {
+      "suspiciousReference": "suspicious-document05397.txt",
+      "sourceReference": "source-document08961.txt",
+      "suspiciousSpan": {
+        "offset": 29968,
+        "length": 399
+      },
+      "sourceSpan": {
+        "offset": 290402,
+        "length": 438
+      },
+      "lexical": 0.11766851681193141,
+      "semantic": 0.6179352057390052,
+      "score": 0.6179352057390052,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document05397.txt",
+      "sourceReference": "source-document08961.txt",
+      "suspiciousSpan": {
+        "offset": 30255,
+        "length": 453
+      },
+      "sourceSpan": {
+        "offset": 240384,
+        "length": 349
+      },
+      "lexical": 0.02088728331918782,
+      "semantic": 0.6388359725535322,
+      "score": 0.6388359725535322,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document05397.txt",
+      "sourceReference": "source-document08961.txt",
+      "suspiciousSpan": {
+        "offset": 30961,
+        "length": 870
+      },
+      "sourceSpan": {
+        "offset": 269340,
+        "length": 230
+      },
+      "lexical": 0.07623710468530251,
+      "semantic": 0.6235987576209725,
+      "score": 0.6235987576209725,
+      "evidenceWindows": 3
+    },
+    {
+      "suspiciousReference": "suspicious-document05397.txt",
+      "sourceReference": "source-document08961.txt",
+      "suspiciousSpan": {
+        "offset": 31730,
+        "length": 627
+      },
+      "sourceSpan": {
+        "offset": 241356,
+        "length": 405
+      },
+      "lexical": 0.083072541430966,
+      "semantic": 0.6358872014669935,
+      "score": 0.6358872014669935,
+      "evidenceWindows": 2
+    },
+    {
+      "suspiciousReference": "suspicious-document05397.txt",
+      "sourceReference": "source-document08961.txt",
+      "suspiciousSpan": {
+        "offset": 32543,
+        "length": 254
+      },
+      "sourceSpan": {
+        "offset": 233694,
+        "length": 304
+      },
+      "lexical": 0.10601997395490949,
+      "semantic": 0.6498607355435737,
+      "score": 0.6498607355435737,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document05397.txt",
+      "sourceReference": "source-document08961.txt",
+      "suspiciousSpan": {
+        "offset": 32703,
+        "length": 331
+      },
+      "sourceSpan": {
+        "offset": 294026,
+        "length": 417
+      },
+      "lexical": 0.13736580156473516,
+      "semantic": 0.676981634621316,
+      "score": 0.676981634621316,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document05397.txt",
+      "sourceReference": "source-document08961.txt",
+      "suspiciousSpan": {
+        "offset": 33208,
+        "length": 401
+      },
+      "sourceSpan": {
+        "offset": 205975,
+        "length": 437
+      },
+      "lexical": 0.10187825404971232,
+      "semantic": 0.617704854901106,
+      "score": 0.617704854901106,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document05397.txt",
+      "sourceReference": "source-document08961.txt",
+      "suspiciousSpan": {
+        "offset": 33511,
+        "length": 324
+      },
+      "sourceSpan": {
+        "offset": 237116,
+        "length": 428
+      },
+      "lexical": 0.1840228245365436,
+      "semantic": 0.6454631722987559,
+      "score": 0.6454631722987559,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document05599.txt",
+      "sourceReference": "source-document08961.txt",
+      "suspiciousSpan": {
+        "offset": 239,
+        "length": 669
+      },
+      "sourceSpan": {
+        "offset": 250887,
+        "length": 451
+      },
+      "lexical": 0.08682051165303738,
+      "semantic": 0.6910466629272929,
+      "score": 0.6910466629272929,
+      "evidenceWindows": 2
+    },
+    {
+      "suspiciousReference": "suspicious-document05599.txt",
+      "sourceReference": "source-document08961.txt",
+      "suspiciousSpan": {
+        "offset": 1307,
+        "length": 430
+      },
+      "sourceSpan": {
+        "offset": 210764,
+        "length": 445
+      },
+      "lexical": 0.1108693535041849,
+      "semantic": 0.6415762826308555,
+      "score": 0.6415762826308555,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document05599.txt",
+      "sourceReference": "source-document08961.txt",
+      "suspiciousSpan": {
+        "offset": 10024,
+        "length": 406
+      },
+      "sourceSpan": {
+        "offset": 152189,
+        "length": 352
+      },
+      "lexical": 0.08208446839581703,
+      "semantic": 0.6872792856600103,
+      "score": 0.6872792856600103,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document05665.txt",
+      "sourceReference": "source-document07323.txt",
+      "suspiciousSpan": {
+        "offset": 1254,
+        "length": 430
+      },
+      "sourceSpan": {
+        "offset": 3077,
+        "length": 317
+      },
+      "lexical": 0.1354116603151173,
+      "semantic": 0.6937722923991271,
+      "score": 0.6937722923991271,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document05665.txt",
+      "sourceReference": "source-document03189.txt",
+      "suspiciousSpan": {
+        "offset": 1906,
+        "length": 717
+      },
+      "sourceSpan": {
+        "offset": 3636,
+        "length": 711
+      },
+      "lexical": 0.8376419501135991,
+      "semantic": 0.8563286370723757,
+      "score": 0.8563286370723757,
+      "evidenceWindows": 2
+    },
+    {
+      "suspiciousReference": "suspicious-document05665.txt",
+      "sourceReference": "source-document08961.txt",
+      "suspiciousSpan": {
+        "offset": 2842,
+        "length": 444
+      },
+      "sourceSpan": {
+        "offset": 222064,
+        "length": 318
+      },
+      "lexical": 0.12133464207060082,
+      "semantic": 0.6044239704126231,
+      "score": 0.6044239704126231,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document05665.txt",
+      "sourceReference": "source-document08961.txt",
+      "suspiciousSpan": {
+        "offset": 5876,
+        "length": 368
+      },
+      "sourceSpan": {
+        "offset": 24695,
+        "length": 413
+      },
+      "lexical": 0.19483358654204666,
+      "semantic": 0.6532506267585055,
+      "score": 0.6532506267585055,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document05665.txt",
+      "sourceReference": "source-document03189.txt",
+      "suspiciousSpan": {
+        "offset": 6408,
+        "length": 691
+      },
+      "sourceSpan": {
+        "offset": 2056,
+        "length": 905
+      },
+      "lexical": 0.7121581786592323,
+      "semantic": 0.7665443201687072,
+      "score": 0.7665443201687072,
+      "evidenceWindows": 2
+    },
+    {
+      "suspiciousReference": "suspicious-document05665.txt",
+      "sourceReference": "source-document03189.txt",
+      "suspiciousSpan": {
+        "offset": 8639,
+        "length": 370
+      },
+      "sourceSpan": {
+        "offset": 1729,
+        "length": 432
+      },
+      "lexical": 0.6611441861263547,
+      "semantic": 0.6543125782099204,
+      "score": 0.6543125782099204,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document05766.txt",
+      "sourceReference": "source-document06114.txt",
+      "suspiciousSpan": {
+        "offset": 899,
+        "length": 721
+      },
+      "sourceSpan": {
+        "offset": 18807,
+        "length": 754
+      },
+      "lexical": 0.3144499339741876,
+      "semantic": 0.699418832678563,
+      "score": 0.699418832678563,
+      "evidenceWindows": 2
+    },
+    {
+      "suspiciousReference": "suspicious-document05766.txt",
+      "sourceReference": "source-document06114.txt",
+      "suspiciousSpan": {
+        "offset": 1724,
+        "length": 617
+      },
+      "sourceSpan": {
+        "offset": 19726,
+        "length": 561
+      },
+      "lexical": 0.6386627645984703,
+      "semantic": 0.7955862917651233,
+      "score": 0.7955862917651233,
+      "evidenceWindows": 2
+    },
+    {
+      "suspiciousReference": "suspicious-document05766.txt",
+      "sourceReference": "source-document06114.txt",
+      "suspiciousSpan": {
+        "offset": 2555,
+        "length": 827
+      },
+      "sourceSpan": {
+        "offset": 20506,
+        "length": 716
+      },
+      "lexical": 0.49512520544836547,
+      "semantic": 0.7334745570987066,
+      "score": 0.7334745570987066,
+      "evidenceWindows": 2
+    },
+    {
+      "suspiciousReference": "suspicious-document06798.txt",
+      "sourceReference": "source-document09311.txt",
+      "suspiciousSpan": {
+        "offset": 1,
+        "length": 290
+      },
+      "sourceSpan": {
+        "offset": 5810,
+        "length": 398
+      },
+      "lexical": 0.785906327402587,
+      "semantic": 0.81554086677516,
+      "score": 0.81554086677516,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document07130.txt",
+      "sourceReference": "source-document08961.txt",
+      "suspiciousSpan": {
+        "offset": 1555,
+        "length": 391
+      },
+      "sourceSpan": {
+        "offset": 235174,
+        "length": 367
+      },
+      "lexical": 0.06221548005726653,
+      "semantic": 0.6246885961274837,
+      "score": 0.6246885961274837,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document07130.txt",
+      "sourceReference": "source-document08961.txt",
+      "suspiciousSpan": {
+        "offset": 13252,
+        "length": 347
+      },
+      "sourceSpan": {
+        "offset": 212215,
+        "length": 363
+      },
+      "lexical": 0.10023218812232661,
+      "semantic": 0.6039839744082042,
+      "score": 0.6039839744082042,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document07130.txt",
+      "sourceReference": "source-document08961.txt",
+      "suspiciousSpan": {
+        "offset": 15430,
+        "length": 276
+      },
+      "sourceSpan": {
+        "offset": 210552,
+        "length": 312
+      },
+      "lexical": 0.117841253797492,
+      "semantic": 0.6268623464292036,
+      "score": 0.6268623464292036,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document07130.txt",
+      "sourceReference": "source-document08961.txt",
+      "suspiciousSpan": {
+        "offset": 29051,
+        "length": 457
+      },
+      "sourceSpan": {
+        "offset": 152189,
+        "length": 352
+      },
+      "lexical": 0.048089899592365946,
+      "semantic": 0.6337561785892072,
+      "score": 0.6337561785892072,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document07498.txt",
+      "sourceReference": "source-document08961.txt",
+      "suspiciousSpan": {
+        "offset": 4606,
+        "length": 336
+      },
+      "sourceSpan": {
+        "offset": 123872,
+        "length": 412
+      },
+      "lexical": 0.09401613457617054,
+      "semantic": 0.6008933863887866,
+      "score": 0.6008933863887866,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document07498.txt",
+      "sourceReference": "source-document09867.txt",
+      "suspiciousSpan": {
+        "offset": 5906,
+        "length": 1184
+      },
+      "sourceSpan": {
+        "offset": 6582,
+        "length": 1114
+      },
+      "lexical": 0.2803293172723304,
+      "semantic": 0.6945795635793026,
+      "score": 0.6945795635793026,
+      "evidenceWindows": 3
+    },
+    {
+      "suspiciousReference": "suspicious-document07498.txt",
+      "sourceReference": "source-document09867.txt",
+      "suspiciousSpan": {
+        "offset": 7288,
+        "length": 408
+      },
+      "sourceSpan": {
+        "offset": 7889,
+        "length": 386
+      },
+      "lexical": 0.2630243769157968,
+      "semantic": 0.6580991981897437,
+      "score": 0.6580991981897437,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document07498.txt",
+      "sourceReference": "source-document09867.txt",
+      "suspiciousSpan": {
+        "offset": 8348,
+        "length": 437
+      },
+      "sourceSpan": {
+        "offset": 8905,
+        "length": 469
+      },
+      "lexical": 0.3651231461818286,
+      "semantic": 0.6760601875697178,
+      "score": 0.6760601875697178,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document07498.txt",
+      "sourceReference": "source-document09867.txt",
+      "suspiciousSpan": {
+        "offset": 10015,
+        "length": 738
+      },
+      "sourceSpan": {
+        "offset": 10482,
+        "length": 689
+      },
+      "lexical": 0.2565606990940006,
+      "semantic": 0.7119995134190755,
+      "score": 0.7119995134190755,
+      "evidenceWindows": 2
+    },
+    {
+      "suspiciousReference": "suspicious-document07498.txt",
+      "sourceReference": "source-document09867.txt",
+      "suspiciousSpan": {
+        "offset": 11144,
+        "length": 429
+      },
+      "sourceSpan": {
+        "offset": 11524,
+        "length": 366
+      },
+      "lexical": 0.2817562400477068,
+      "semantic": 0.7396303040973524,
+      "score": 0.7396303040973524,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document07498.txt",
+      "sourceReference": "source-document09867.txt",
+      "suspiciousSpan": {
+        "offset": 12098,
+        "length": 402
+      },
+      "sourceSpan": {
+        "offset": 12365,
+        "length": 401
+      },
+      "lexical": 0.25460087132505527,
+      "semantic": 0.806324550992616,
+      "score": 0.806324550992616,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document07498.txt",
+      "sourceReference": "source-document09867.txt",
+      "suspiciousSpan": {
+        "offset": 15819,
+        "length": 1127
+      },
+      "sourceSpan": {
+        "offset": 15636,
+        "length": 1018
+      },
+      "lexical": 0.45927480452946634,
+      "semantic": 0.770274579628435,
+      "score": 0.770274579628435,
+      "evidenceWindows": 4
+    },
+    {
+      "suspiciousReference": "suspicious-document07498.txt",
+      "sourceReference": "source-document09867.txt",
+      "suspiciousSpan": {
+        "offset": 19257,
+        "length": 459
+      },
+      "sourceSpan": {
+        "offset": 18577,
+        "length": 357
+      },
+      "lexical": 0.2873322465391938,
+      "semantic": 0.6722595227376851,
+      "score": 0.6722595227376851,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document07498.txt",
+      "sourceReference": "source-document09867.txt",
+      "suspiciousSpan": {
+        "offset": 19923,
+        "length": 469
+      },
+      "sourceSpan": {
+        "offset": 19128,
+        "length": 390
+      },
+      "lexical": 0.2548561288454813,
+      "semantic": 0.6284512880882147,
+      "score": 0.6284512880882147,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document07498.txt",
+      "sourceReference": "source-document09867.txt",
+      "suspiciousSpan": {
+        "offset": 20598,
+        "length": 454
+      },
+      "sourceSpan": {
+        "offset": 19957,
+        "length": 441
+      },
+      "lexical": 0.31676313417361845,
+      "semantic": 0.6210131301088568,
+      "score": 0.6210131301088568,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document07498.txt",
+      "sourceReference": "source-document09867.txt",
+      "suspiciousSpan": {
+        "offset": 22592,
+        "length": 814
+      },
+      "sourceSpan": {
+        "offset": 21619,
+        "length": 730
+      },
+      "lexical": 0.216067612895544,
+      "semantic": 0.6409879016030198,
+      "score": 0.6409879016030198,
+      "evidenceWindows": 2
+    },
+    {
+      "suspiciousReference": "suspicious-document07498.txt",
+      "sourceReference": "source-document09867.txt",
+      "suspiciousSpan": {
+        "offset": 23595,
+        "length": 402
+      },
+      "sourceSpan": {
+        "offset": 22464,
+        "length": 369
+      },
+      "lexical": 0.3101701385023501,
+      "semantic": 0.6336979570181644,
+      "score": 0.6336979570181644,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document07498.txt",
+      "sourceReference": "source-document09867.txt",
+      "suspiciousSpan": {
+        "offset": 25510,
+        "length": 1171
+      },
+      "sourceSpan": {
+        "offset": 1183,
+        "length": 886
+      },
+      "lexical": 0.7663061573193015,
+      "semantic": 0.7708740768480582,
+      "score": 0.7708740768480582,
+      "evidenceWindows": 3
+    },
+    {
+      "suspiciousReference": "suspicious-document07498.txt",
+      "sourceReference": "source-document09867.txt",
+      "suspiciousSpan": {
+        "offset": 26554,
+        "length": 448
+      },
+      "sourceSpan": {
+        "offset": 4959,
+        "length": 508
+      },
+      "lexical": 0.4248760780476684,
+      "semantic": 0.6212539409991632,
+      "score": 0.6212539409991632,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document07520.txt",
+      "sourceReference": "source-document07323.txt",
+      "suspiciousSpan": {
+        "offset": 355,
+        "length": 399
+      },
+      "sourceSpan": {
+        "offset": 6576,
+        "length": 404
+      },
+      "lexical": 0.5842862025295054,
+      "semantic": 0.6778324127673281,
+      "score": 0.6778324127673281,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document07520.txt",
+      "sourceReference": "source-document07323.txt",
+      "suspiciousSpan": {
+        "offset": 4497,
+        "length": 441
+      },
+      "sourceSpan": {
+        "offset": 2596,
+        "length": 306
+      },
+      "lexical": 0.5751670835325978,
+      "semantic": 0.6739676071718292,
+      "score": 0.6739676071718292,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document07520.txt",
+      "sourceReference": "source-document07323.txt",
+      "suspiciousSpan": {
+        "offset": 5182,
+        "length": 384
+      },
+      "sourceSpan": {
+        "offset": 5767,
+        "length": 392
+      },
+      "lexical": 0.5473039512533322,
+      "semantic": 0.7305807742324711,
+      "score": 0.7305807742324711,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document08071.txt",
+      "sourceReference": "source-document01564.txt",
+      "suspiciousSpan": {
+        "offset": 5300,
+        "length": 475
+      },
+      "sourceSpan": {
+        "offset": 4866,
+        "length": 450
+      },
+      "lexical": 0.13259938990801404,
+      "semantic": 0.6042248413186662,
+      "score": 0.6042248413186662,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document08071.txt",
+      "sourceReference": "source-document09635.txt",
+      "suspiciousSpan": {
+        "offset": 12686,
+        "length": 760
+      },
+      "sourceSpan": {
+        "offset": 16883,
+        "length": 537
+      },
+      "lexical": 0.6938675826035529,
+      "semantic": 0.7114041697609388,
+      "score": 0.7114041697609388,
+      "evidenceWindows": 2
+    },
+    {
+      "suspiciousReference": "suspicious-document08071.txt",
+      "sourceReference": "source-document09635.txt",
+      "suspiciousSpan": {
+        "offset": 13319,
+        "length": 1616
+      },
+      "sourceSpan": {
+        "offset": 17574,
+        "length": 1586
+      },
+      "lexical": 0.5905649049631918,
+      "semantic": 0.7890749627828311,
+      "score": 0.7890749627828311,
+      "evidenceWindows": 5
+    },
+    {
+      "suspiciousReference": "suspicious-document08071.txt",
+      "sourceReference": "source-document09635.txt",
+      "suspiciousSpan": {
+        "offset": 14834,
+        "length": 739
+      },
+      "sourceSpan": {
+        "offset": 19327,
+        "length": 482
+      },
+      "lexical": 0.5820079028983345,
+      "semantic": 0.7609616186815272,
+      "score": 0.7609616186815272,
+      "evidenceWindows": 2
+    },
+    {
+      "suspiciousReference": "suspicious-document08322.txt",
+      "sourceReference": "source-document09311.txt",
+      "suspiciousSpan": {
+        "offset": 4197,
+        "length": 441
+      },
+      "sourceSpan": {
+        "offset": 5810,
+        "length": 398
+      },
+      "lexical": 0.06367769416329702,
+      "semantic": 0.6365901814423165,
+      "score": 0.6365901814423165,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document08322.txt",
+      "sourceReference": "source-document08752.txt",
+      "suspiciousSpan": {
+        "offset": 5219,
+        "length": 358
+      },
+      "sourceSpan": {
+        "offset": 2854,
+        "length": 284
+      },
+      "lexical": 0.11539110053287116,
+      "semantic": 0.6871205434881829,
+      "score": 0.6871205434881829,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document08322.txt",
+      "sourceReference": "source-document03533.txt",
+      "suspiciousSpan": {
+        "offset": 8022,
+        "length": 475
+      },
+      "sourceSpan": {
+        "offset": 21234,
+        "length": 432
+      },
+      "lexical": 0.11176664390721129,
+      "semantic": 0.6100507208454613,
+      "score": 0.6100507208454613,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document08652.txt",
+      "sourceReference": "source-document02278.txt",
+      "suspiciousSpan": {
+        "offset": 6841,
+        "length": 752
+      },
+      "sourceSpan": {
+        "offset": 6190,
+        "length": 670
+      },
+      "lexical": 0.6592438708086523,
+      "semantic": 0.8132744674839043,
+      "score": 0.8132744674839043,
+      "evidenceWindows": 3
+    },
+    {
+      "suspiciousReference": "suspicious-document09302.txt",
+      "sourceReference": "source-document08961.txt",
+      "suspiciousSpan": {
+        "offset": 1719,
+        "length": 343
+      },
+      "sourceSpan": {
+        "offset": 267868,
+        "length": 469
+      },
+      "lexical": 0.056838333266177724,
+      "semantic": 0.6302951264331041,
+      "score": 0.6302951264331041,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document09302.txt",
+      "sourceReference": "source-document08961.txt",
+      "suspiciousSpan": {
+        "offset": 2664,
+        "length": 343
+      },
+      "sourceSpan": {
+        "offset": 234968,
+        "length": 315
+      },
+      "lexical": 0.05331101703832472,
+      "semantic": 0.6284420966241382,
+      "score": 0.6284420966241382,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document09302.txt",
+      "sourceReference": "source-document08961.txt",
+      "suspiciousSpan": {
+        "offset": 5974,
+        "length": 410
+      },
+      "sourceSpan": {
+        "offset": 235174,
+        "length": 367
+      },
+      "lexical": 0.05532591103380151,
+      "semantic": 0.6244462931613631,
+      "score": 0.6244462931613631,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document09302.txt",
+      "sourceReference": "source-document08961.txt",
+      "suspiciousSpan": {
+        "offset": 6975,
+        "length": 434
+      },
+      "sourceSpan": {
+        "offset": 250887,
+        "length": 451
+      },
+      "lexical": 0.08126380374964011,
+      "semantic": 0.6473482645587013,
+      "score": 0.6473482645587013,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document09302.txt",
+      "sourceReference": "source-document05864.txt",
+      "suspiciousSpan": {
+        "offset": 35481,
+        "length": 426
+      },
+      "sourceSpan": {
+        "offset": 3077,
+        "length": 456
+      },
+      "lexical": 0.1411278160909554,
+      "semantic": 0.660422441059084,
+      "score": 0.660422441059084,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document10263.txt",
+      "sourceReference": "source-document03533.txt",
+      "suspiciousSpan": {
+        "offset": 2133,
+        "length": 423
+      },
+      "sourceSpan": {
+        "offset": 5798,
+        "length": 486
+      },
+      "lexical": 0.48850245585040203,
+      "semantic": 0.6259249587176723,
+      "score": 0.6259249587176723,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document10263.txt",
+      "sourceReference": "source-document08961.txt",
+      "suspiciousSpan": {
+        "offset": 6857,
+        "length": 283
+      },
+      "sourceSpan": {
+        "offset": 275317,
+        "length": 358
+      },
+      "lexical": 0.10268501551670295,
+      "semantic": 0.6307024635953018,
+      "score": 0.6307024635953018,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document10357.txt",
+      "sourceReference": "source-document08961.txt",
+      "suspiciousSpan": {
+        "offset": 6498,
+        "length": 369
+      },
+      "sourceSpan": {
+        "offset": 292918,
+        "length": 338
+      },
+      "lexical": 0.14429735810628505,
+      "semantic": 0.6166022203692438,
+      "score": 0.6166022203692438,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document10357.txt",
+      "sourceReference": "source-document08752.txt",
+      "suspiciousSpan": {
+        "offset": 19948,
+        "length": 658
+      },
+      "sourceSpan": {
+        "offset": 14594,
+        "length": 627
+      },
+      "lexical": 0.3022008173407042,
+      "semantic": 0.6990776194887645,
+      "score": 0.6990776194887645,
+      "evidenceWindows": 2
+    },
+    {
+      "suspiciousReference": "suspicious-document10357.txt",
+      "sourceReference": "source-document08752.txt",
+      "suspiciousSpan": {
+        "offset": 20727,
+        "length": 1653
+      },
+      "sourceSpan": {
+        "offset": 15507,
+        "length": 1669
+      },
+      "lexical": 0.5405657883750975,
+      "semantic": 0.8176010039308714,
+      "score": 0.8176010039308714,
+      "evidenceWindows": 6
+    },
+    {
+      "suspiciousReference": "suspicious-document10357.txt",
+      "sourceReference": "source-document08752.txt",
+      "suspiciousSpan": {
+        "offset": 22847,
+        "length": 359
+      },
+      "sourceSpan": {
+        "offset": 17633,
+        "length": 332
+      },
+      "lexical": 0.4872116080480837,
+      "semantic": 0.7357555007037168,
+      "score": 0.7357555007037168,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document10357.txt",
+      "sourceReference": "source-document08961.txt",
+      "suspiciousSpan": {
+        "offset": 28337,
+        "length": 396
+      },
+      "sourceSpan": {
+        "offset": 294026,
+        "length": 417
+      },
+      "lexical": 0.0875876194924773,
+      "semantic": 0.6225614512975383,
+      "score": 0.6225614512975383,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document10357.txt",
+      "sourceReference": "source-document08752.txt",
+      "suspiciousSpan": {
+        "offset": 31444,
+        "length": 983
+      },
+      "sourceSpan": {
+        "offset": 5989,
+        "length": 881
+      },
+      "lexical": 0.7704506433411855,
+      "semantic": 0.8403423414049301,
+      "score": 0.8403423414049301,
+      "evidenceWindows": 3
+    },
+    {
+      "suspiciousReference": "suspicious-document10471.txt",
+      "sourceReference": "source-document09867.txt",
+      "suspiciousSpan": {
+        "offset": 2735,
+        "length": 351
+      },
+      "sourceSpan": {
+        "offset": 14096,
+        "length": 338
+      },
+      "lexical": 0.09467517855333332,
+      "semantic": 0.6067488535719263,
+      "score": 0.6067488535719263,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document10471.txt",
+      "sourceReference": "source-document08961.txt",
+      "suspiciousSpan": {
+        "offset": 3119,
+        "length": 294
+      },
+      "sourceSpan": {
+        "offset": 67637,
+        "length": 287
+      },
+      "lexical": 0.0859676667219057,
+      "semantic": 0.6459926522866284,
+      "score": 0.6459926522866284,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document10471.txt",
+      "sourceReference": "source-document08961.txt",
+      "suspiciousSpan": {
+        "offset": 7023,
+        "length": 404
+      },
+      "sourceSpan": {
+        "offset": 283636,
+        "length": 390
+      },
+      "lexical": 0.12451577585349641,
+      "semantic": 0.6223579322825199,
+      "score": 0.6223579322825199,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document10471.txt",
+      "sourceReference": "source-document08961.txt",
+      "suspiciousSpan": {
+        "offset": 7320,
+        "length": 295
+      },
+      "sourceSpan": {
+        "offset": 292918,
+        "length": 338
+      },
+      "lexical": 0.17026935518041864,
+      "semantic": 0.6141087078934028,
+      "score": 0.6141087078934028,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document10553.txt",
+      "sourceReference": "source-document00418.txt",
+      "suspiciousSpan": {
+        "offset": 3206,
+        "length": 536
+      },
+      "sourceSpan": {
+        "offset": 13714,
+        "length": 692
+      },
+      "lexical": 0.6174996061362078,
+      "semantic": 0.742983486833443,
+      "score": 0.742983486833443,
+      "evidenceWindows": 2
+    },
+    {
+      "suspiciousReference": "suspicious-document11093.txt",
+      "sourceReference": "source-document08961.txt",
+      "suspiciousSpan": {
+        "offset": 2818,
+        "length": 280
+      },
+      "sourceSpan": {
+        "offset": 208481,
+        "length": 337
+      },
+      "lexical": 0.08308709272749258,
+      "semantic": 0.6318899603567396,
+      "score": 0.6318899603567396,
+      "evidenceWindows": 1
+    }
+  ],
+  "hybrid": [
+    {
+      "suspiciousReference": "suspicious-document00214.txt",
+      "sourceReference": "source-document10521.txt",
+      "suspiciousSpan": {
+        "offset": 1981,
+        "length": 438
+      },
+      "sourceSpan": {
+        "offset": 819,
+        "length": 365
+      },
+      "lexical": 0.35776591214222525,
+      "semantic": 0.4891797753291967,
+      "score": 0.35776591214222525,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document00214.txt",
+      "sourceReference": "source-document10521.txt",
+      "suspiciousSpan": {
+        "offset": 2552,
+        "length": 352
+      },
+      "sourceSpan": {
+        "offset": 1521,
+        "length": 352
+      },
+      "lexical": 0.30303963464949624,
+      "semantic": 0.577551794864687,
+      "score": 0.30303963464949624,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document00214.txt",
+      "sourceReference": "source-document10521.txt",
+      "suspiciousSpan": {
+        "offset": 6272,
+        "length": 670
+      },
+      "sourceSpan": {
+        "offset": 5232,
+        "length": 721
+      },
+      "lexical": 0.43310191296781575,
+      "semantic": 0.5658684555486027,
+      "score": 0.43310191296781575,
+      "evidenceWindows": 2
+    },
+    {
+      "suspiciousReference": "suspicious-document00214.txt",
+      "sourceReference": "source-document10521.txt",
+      "suspiciousSpan": {
+        "offset": 7088,
+        "length": 355
+      },
+      "sourceSpan": {
+        "offset": 6115,
+        "length": 392
+      },
+      "lexical": 0.37307889197825417,
+      "semantic": 0.46250037629014384,
+      "score": 0.37307889197825417,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document00214.txt",
+      "sourceReference": "source-document10521.txt",
+      "suspiciousSpan": {
+        "offset": 8559,
+        "length": 408
+      },
+      "sourceSpan": {
+        "offset": 7716,
+        "length": 397
+      },
+      "lexical": 0.3398939719853087,
+      "semantic": 0.5181343930200463,
+      "score": 0.3398939719853087,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document00214.txt",
+      "sourceReference": "source-document10521.txt",
+      "suspiciousSpan": {
+        "offset": 10201,
+        "length": 687
+      },
+      "sourceSpan": {
+        "offset": 9596,
+        "length": 696
+      },
+      "lexical": 0.37902545020674977,
+      "semantic": 0.5788392303952866,
+      "score": 0.37902545020674977,
+      "evidenceWindows": 2
+    },
+    {
+      "suspiciousReference": "suspicious-document00214.txt",
+      "sourceReference": "source-document10521.txt",
+      "suspiciousSpan": {
+        "offset": 12722,
+        "length": 455
+      },
+      "sourceSpan": {
+        "offset": 12255,
+        "length": 338
+      },
+      "lexical": 0.3681508867683415,
+      "semantic": 0.5578933360088145,
+      "score": 0.3681508867683415,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document00214.txt",
+      "sourceReference": "source-document10521.txt",
+      "suspiciousSpan": {
+        "offset": 14857,
+        "length": 449
+      },
+      "sourceSpan": {
+        "offset": 14400,
+        "length": 413
+      },
+      "lexical": 0.31644519035978547,
+      "semantic": 0.3402538439922433,
+      "score": 0.31644519035978547,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document00214.txt",
+      "sourceReference": "source-document10521.txt",
+      "suspiciousSpan": {
+        "offset": 15477,
+        "length": 438
+      },
+      "sourceSpan": {
+        "offset": 15022,
+        "length": 447
+      },
+      "lexical": 0.33415838788397134,
+      "semantic": 0.3545540131201353,
+      "score": 0.33415838788397134,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document00214.txt",
+      "sourceReference": "source-document10521.txt",
+      "suspiciousSpan": {
+        "offset": 20011,
+        "length": 1826
+      },
+      "sourceSpan": {
+        "offset": 22309,
+        "length": 1647
+      },
+      "lexical": 0.8835391871828497,
+      "semantic": 0.8694336491916242,
+      "score": 0.8835391871828497,
+      "evidenceWindows": 6
+    },
+    {
+      "suspiciousReference": "suspicious-document00214.txt",
+      "sourceReference": "source-document10521.txt",
+      "suspiciousSpan": {
+        "offset": 21732,
+        "length": 630
+      },
+      "sourceSpan": {
+        "offset": 35175,
+        "length": 506
+      },
+      "lexical": 0.7664575477068966,
+      "semantic": 0.7311033993896712,
+      "score": 0.7664575477068966,
+      "evidenceWindows": 2
+    },
+    {
+      "suspiciousReference": "suspicious-document01434.txt",
+      "sourceReference": "source-document08752.txt",
+      "suspiciousSpan": {
+        "offset": 2874,
+        "length": 356
+      },
+      "sourceSpan": {
+        "offset": 4390,
+        "length": 344
+      },
+      "lexical": 0.3140232923184589,
+      "semantic": 0.4185035776562738,
+      "score": 0.3140232923184589,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document01434.txt",
+      "sourceReference": "source-document05501.txt",
+      "suspiciousSpan": {
+        "offset": 6902,
+        "length": 812
+      },
+      "sourceSpan": {
+        "offset": 8886,
+        "length": 820
+      },
+      "lexical": 0.5364493980309728,
+      "semantic": 0.5852859670030125,
+      "score": 0.5364493980309728,
+      "evidenceWindows": 2
+    },
+    {
+      "suspiciousReference": "suspicious-document01434.txt",
+      "sourceReference": "source-document05501.txt",
+      "suspiciousSpan": {
+        "offset": 16712,
+        "length": 616
+      },
+      "sourceSpan": {
+        "offset": 25006,
+        "length": 439
+      },
+      "lexical": 0.6335886474606384,
+      "semantic": 0.6623729598315423,
+      "score": 0.6335886474606384,
+      "evidenceWindows": 2
+    },
+    {
+      "suspiciousReference": "suspicious-document01434.txt",
+      "sourceReference": "source-document05501.txt",
+      "suspiciousSpan": {
+        "offset": 18544,
+        "length": 405
+      },
+      "sourceSpan": {
+        "offset": 0,
+        "length": 440
+      },
+      "lexical": 0.34290637270194363,
+      "semantic": 0.4758188609533377,
+      "score": 0.34290637270194363,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document01510.txt",
+      "sourceReference": "source-document08961.txt",
+      "suspiciousSpan": {
+        "offset": 8665,
+        "length": 317
+      },
+      "sourceSpan": {
+        "offset": 140591,
+        "length": 376
+      },
+      "lexical": 0.303780531831208,
+      "semantic": 0.3153886787593748,
+      "score": 0.303780531831208,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document01510.txt",
+      "sourceReference": "source-document01564.txt",
+      "suspiciousSpan": {
+        "offset": 11930,
+        "length": 418
+      },
+      "sourceSpan": {
+        "offset": 11522,
+        "length": 481
+      },
+      "lexical": 0.30832820430727564,
+      "semantic": 0.4544471064451229,
+      "score": 0.30832820430727564,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document01510.txt",
+      "sourceReference": "source-document01564.txt",
+      "suspiciousSpan": {
+        "offset": 12223,
+        "length": 475
+      },
+      "sourceSpan": {
+        "offset": 13971,
+        "length": 465
+      },
+      "lexical": 0.4806263633129672,
+      "semantic": 0.4893265955244416,
+      "score": 0.4806263633129672,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document01510.txt",
+      "sourceReference": "source-document01564.txt",
+      "suspiciousSpan": {
+        "offset": 12808,
+        "length": 449
+      },
+      "sourceSpan": {
+        "offset": 12827,
+        "length": 393
+      },
+      "lexical": 0.3246281966820488,
+      "semantic": 0.520965646343489,
+      "score": 0.3246281966820488,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document01510.txt",
+      "sourceReference": "source-document01564.txt",
+      "suspiciousSpan": {
+        "offset": 13724,
+        "length": 302
+      },
+      "sourceSpan": {
+        "offset": 12827,
+        "length": 393
+      },
+      "lexical": 0.3188538992876807,
+      "semantic": 0.502278275209368,
+      "score": 0.3188538992876807,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document01510.txt",
+      "sourceReference": "source-document01564.txt",
+      "suspiciousSpan": {
+        "offset": 14701,
+        "length": 490
+      },
+      "sourceSpan": {
+        "offset": 14516,
+        "length": 433
+      },
+      "lexical": 0.3084228536647069,
+      "semantic": 0.4007628341135528,
+      "score": 0.3084228536647069,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document01510.txt",
+      "sourceReference": "source-document01564.txt",
+      "suspiciousSpan": {
+        "offset": 17090,
+        "length": 599
+      },
+      "sourceSpan": {
+        "offset": 17856,
+        "length": 419
+      },
+      "lexical": 0.6236420745332846,
+      "semantic": 0.6900539125036523,
+      "score": 0.6236420745332846,
+      "evidenceWindows": 2
+    },
+    {
+      "suspiciousReference": "suspicious-document01510.txt",
+      "sourceReference": "source-document01564.txt",
+      "suspiciousSpan": {
+        "offset": 29465,
+        "length": 1117
+      },
+      "sourceSpan": {
+        "offset": 1609,
+        "length": 1026
+      },
+      "lexical": 0.6371747050835564,
+      "semantic": 0.7659478182863991,
+      "score": 0.6371747050835564,
+      "evidenceWindows": 4
+    },
+    {
+      "suspiciousReference": "suspicious-document01713.txt",
+      "sourceReference": "source-document09833.txt",
+      "suspiciousSpan": {
+        "offset": 11219,
+        "length": 1118
+      },
+      "sourceSpan": {
+        "offset": 8060,
+        "length": 856
+      },
+      "lexical": 0.6709753738236255,
+      "semantic": 0.7327709789777676,
+      "score": 0.6709753738236255,
+      "evidenceWindows": 4
+    },
+    {
+      "suspiciousReference": "suspicious-document01713.txt",
+      "sourceReference": "source-document09833.txt",
+      "suspiciousSpan": {
+        "offset": 12243,
+        "length": 606
+      },
+      "sourceSpan": {
+        "offset": 9083,
+        "length": 713
+      },
+      "lexical": 0.6199021611411508,
+      "semantic": 0.6005642827897094,
+      "score": 0.6199021611411508,
+      "evidenceWindows": 2
+    },
+    {
+      "suspiciousReference": "suspicious-document01713.txt",
+      "sourceReference": "source-document09833.txt",
+      "suspiciousSpan": {
+        "offset": 19853,
+        "length": 891
+      },
+      "sourceSpan": {
+        "offset": 18063,
+        "length": 684
+      },
+      "lexical": 0.7188183515665998,
+      "semantic": 0.8262150124458345,
+      "score": 0.7188183515665998,
+      "evidenceWindows": 3
+    },
+    {
+      "suspiciousReference": "suspicious-document01713.txt",
+      "sourceReference": "source-document09833.txt",
+      "suspiciousSpan": {
+        "offset": 24256,
+        "length": 644
+      },
+      "sourceSpan": {
+        "offset": 15212,
+        "length": 386
+      },
+      "lexical": 0.45705682392338876,
+      "semantic": 0.5923454354772374,
+      "score": 0.45705682392338876,
+      "evidenceWindows": 2
+    },
+    {
+      "suspiciousReference": "suspicious-document01713.txt",
+      "sourceReference": "source-document09833.txt",
+      "suspiciousSpan": {
+        "offset": 27682,
+        "length": 728
+      },
+      "sourceSpan": {
+        "offset": 7112,
+        "length": 727
+      },
+      "lexical": 0.6747653170022299,
+      "semantic": 0.7630749511395947,
+      "score": 0.6747653170022299,
+      "evidenceWindows": 2
+    },
+    {
+      "suspiciousReference": "suspicious-document01713.txt",
+      "sourceReference": "source-document09833.txt",
+      "suspiciousSpan": {
+        "offset": 35406,
+        "length": 1034
+      },
+      "sourceSpan": {
+        "offset": 25521,
+        "length": 309
+      },
+      "lexical": 0.683266245704362,
+      "semantic": 0.873380213818007,
+      "score": 0.683266245704362,
+      "evidenceWindows": 3
+    },
+    {
+      "suspiciousReference": "suspicious-document01870.txt",
+      "sourceReference": "source-document05864.txt",
+      "suspiciousSpan": {
+        "offset": 1439,
+        "length": 1020
+      },
+      "sourceSpan": {
+        "offset": 2275,
+        "length": 670
+      },
+      "lexical": 0.7095884271078307,
+      "semantic": 0.7854656878034347,
+      "score": 0.7095884271078307,
+      "evidenceWindows": 3
+    },
+    {
+      "suspiciousReference": "suspicious-document01870.txt",
+      "sourceReference": "source-document05864.txt",
+      "suspiciousSpan": {
+        "offset": 7699,
+        "length": 973
+      },
+      "sourceSpan": {
+        "offset": 1787,
+        "length": 625
+      },
+      "lexical": 1,
+      "semantic": 1,
+      "score": 1,
+      "evidenceWindows": 3
+    },
+    {
+      "suspiciousReference": "suspicious-document02098.txt",
+      "sourceReference": "source-document08961.txt",
+      "suspiciousSpan": {
+        "offset": 2844,
+        "length": 379
+      },
+      "sourceSpan": {
+        "offset": 307319,
+        "length": 347
+      },
+      "lexical": 0.42537762451515976,
+      "semantic": 0.43906609282228926,
+      "score": 0.42537762451515976,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document02503.txt",
+      "sourceReference": "source-document07763.txt",
+      "suspiciousSpan": {
+        "offset": 12505,
+        "length": 751
+      },
+      "sourceSpan": {
+        "offset": 13827,
+        "length": 583
+      },
+      "lexical": 0.5299497817385537,
+      "semantic": 0.6868355263492925,
+      "score": 0.5299497817385537,
+      "evidenceWindows": 2
+    },
+    {
+      "suspiciousReference": "suspicious-document02503.txt",
+      "sourceReference": "source-document07763.txt",
+      "suspiciousSpan": {
+        "offset": 13148,
+        "length": 1250
+      },
+      "sourceSpan": {
+        "offset": 14600,
+        "length": 1408
+      },
+      "lexical": 0.5791057614505694,
+      "semantic": 0.7008709097395925,
+      "score": 0.5791057614505694,
+      "evidenceWindows": 4
+    },
+    {
+      "suspiciousReference": "suspicious-document02503.txt",
+      "sourceReference": "source-document07763.txt",
+      "suspiciousSpan": {
+        "offset": 29799,
+        "length": 845
+      },
+      "sourceSpan": {
+        "offset": 688,
+        "length": 749
+      },
+      "lexical": 0.5728932625025888,
+      "semantic": 0.7270343645795841,
+      "score": 0.5728932625025888,
+      "evidenceWindows": 3
+    },
+    {
+      "suspiciousReference": "suspicious-document02503.txt",
+      "sourceReference": "source-document07763.txt",
+      "suspiciousSpan": {
+        "offset": 33132,
+        "length": 726
+      },
+      "sourceSpan": {
+        "offset": 15911,
+        "length": 438
+      },
+      "lexical": 0.5394216233137763,
+      "semantic": 0.7525193478906752,
+      "score": 0.5394216233137763,
+      "evidenceWindows": 2
+    },
+    {
+      "suspiciousReference": "suspicious-document02596.txt",
+      "sourceReference": "source-document01820.txt",
+      "suspiciousSpan": {
+        "offset": 9316,
+        "length": 1118
+      },
+      "sourceSpan": {
+        "offset": 3831,
+        "length": 706
+      },
+      "lexical": 0.7559965749919961,
+      "semantic": 0.8380574555515091,
+      "score": 0.7559965749919961,
+      "evidenceWindows": 4
+    },
+    {
+      "suspiciousReference": "suspicious-document03645.txt",
+      "sourceReference": "source-document08961.txt",
+      "suspiciousSpan": {
+        "offset": 15309,
+        "length": 310
+      },
+      "sourceSpan": {
+        "offset": 274227,
+        "length": 408
+      },
+      "lexical": 0.3294642574715153,
+      "semantic": 0.39698443654230364,
+      "score": 0.3294642574715153,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document03828.txt",
+      "sourceReference": "source-document01833.txt",
+      "suspiciousSpan": {
+        "offset": 0,
+        "length": 397
+      },
+      "sourceSpan": {
+        "offset": 24087,
+        "length": 456
+      },
+      "lexical": 0.47783738352381183,
+      "semantic": 0.3712681498275863,
+      "score": 0.47783738352381183,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document03828.txt",
+      "sourceReference": "source-document01833.txt",
+      "suspiciousSpan": {
+        "offset": 5745,
+        "length": 730
+      },
+      "sourceSpan": {
+        "offset": 7016,
+        "length": 334
+      },
+      "lexical": 0.7658633496900757,
+      "semantic": 0.5166313986445026,
+      "score": 0.7658633496900757,
+      "evidenceWindows": 3
+    },
+    {
+      "suspiciousReference": "suspicious-document04137.txt",
+      "sourceReference": "source-document09779.txt",
+      "suspiciousSpan": {
+        "offset": 2068,
+        "length": 1570
+      },
+      "sourceSpan": {
+        "offset": 4098,
+        "length": 1347
+      },
+      "lexical": 0.8392170539893644,
+      "semantic": 0.9121136657650644,
+      "score": 0.8392170539893644,
+      "evidenceWindows": 5
+    },
+    {
+      "suspiciousReference": "suspicious-document04137.txt",
+      "sourceReference": "source-document09779.txt",
+      "suspiciousSpan": {
+        "offset": 3511,
+        "length": 409
+      },
+      "sourceSpan": {
+        "offset": 5678,
+        "length": 428
+      },
+      "lexical": 0.6157314219813015,
+      "semantic": 0.803958070901346,
+      "score": 0.6157314219813015,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document04137.txt",
+      "sourceReference": "source-document09779.txt",
+      "suspiciousSpan": {
+        "offset": 4639,
+        "length": 973
+      },
+      "sourceSpan": {
+        "offset": 45972,
+        "length": 962
+      },
+      "lexical": 0.8347094029554628,
+      "semantic": 0.8842409332488661,
+      "score": 0.8347094029554628,
+      "evidenceWindows": 3
+    },
+    {
+      "suspiciousReference": "suspicious-document04137.txt",
+      "sourceReference": "source-document09779.txt",
+      "suspiciousSpan": {
+        "offset": 5717,
+        "length": 573
+      },
+      "sourceSpan": {
+        "offset": 61298,
+        "length": 567
+      },
+      "lexical": 0.6762268057981093,
+      "semantic": 0.6090122456471897,
+      "score": 0.6762268057981093,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document04874.txt",
+      "sourceReference": "source-document09486.txt",
+      "suspiciousSpan": {
+        "offset": 10243,
+        "length": 392
+      },
+      "sourceSpan": {
+        "offset": 35186,
+        "length": 408
+      },
+      "lexical": 0.3558723342811214,
+      "semantic": 0.3484973703027308,
+      "score": 0.3558723342811214,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document04874.txt",
+      "sourceReference": "source-document09486.txt",
+      "suspiciousSpan": {
+        "offset": 10520,
+        "length": 1140
+      },
+      "sourceSpan": {
+        "offset": 34126,
+        "length": 1030
+      },
+      "lexical": 0.5820245833927192,
+      "semantic": 0.7270135889678382,
+      "score": 0.5820245833927192,
+      "evidenceWindows": 4
+    },
+    {
+      "suspiciousReference": "suspicious-document05169.txt",
+      "sourceReference": "source-document07845.txt",
+      "suspiciousSpan": {
+        "offset": 0,
+        "length": 482
+      },
+      "sourceSpan": {
+        "offset": 31949,
+        "length": 261
+      },
+      "lexical": 0.5061531749828763,
+      "semantic": 0.3499611057924994,
+      "score": 0.5061531749828763,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document05169.txt",
+      "sourceReference": "source-document07845.txt",
+      "suspiciousSpan": {
+        "offset": 5234,
+        "length": 389
+      },
+      "sourceSpan": {
+        "offset": 32884,
+        "length": 376
+      },
+      "lexical": 0.3274160967186701,
+      "semantic": 0.14235954624476632,
+      "score": 0.3274160967186701,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document05665.txt",
+      "sourceReference": "source-document03189.txt",
+      "suspiciousSpan": {
+        "offset": 1906,
+        "length": 717
+      },
+      "sourceSpan": {
+        "offset": 3636,
+        "length": 711
+      },
+      "lexical": 0.8376419501135991,
+      "semantic": 0.8563286370723757,
+      "score": 0.8376419501135991,
+      "evidenceWindows": 2
+    },
+    {
+      "suspiciousReference": "suspicious-document05665.txt",
+      "sourceReference": "source-document03189.txt",
+      "suspiciousSpan": {
+        "offset": 6142,
+        "length": 1191
+      },
+      "sourceSpan": {
+        "offset": 2056,
+        "length": 1210
+      },
+      "lexical": 0.7121581786592323,
+      "semantic": 0.7665443201687072,
+      "score": 0.7121581786592323,
+      "evidenceWindows": 4
+    },
+    {
+      "suspiciousReference": "suspicious-document05665.txt",
+      "sourceReference": "source-document03189.txt",
+      "suspiciousSpan": {
+        "offset": 8639,
+        "length": 500
+      },
+      "sourceSpan": {
+        "offset": 1729,
+        "length": 432
+      },
+      "lexical": 0.6611441861263547,
+      "semantic": 0.6543125782099204,
+      "score": 0.6611441861263547,
+      "evidenceWindows": 2
+    },
+    {
+      "suspiciousReference": "suspicious-document05766.txt",
+      "sourceReference": "source-document06114.txt",
+      "suspiciousSpan": {
+        "offset": 1232,
+        "length": 2150
+      },
+      "sourceSpan": {
+        "offset": 19113,
+        "length": 2109
+      },
+      "lexical": 0.6386627645984703,
+      "semantic": 0.7955862917651233,
+      "score": 0.6386627645984703,
+      "evidenceWindows": 7
+    },
+    {
+      "suspiciousReference": "suspicious-document06682.txt",
+      "sourceReference": "source-document08961.txt",
+      "suspiciousSpan": {
+        "offset": 2618,
+        "length": 510
+      },
+      "sourceSpan": {
+        "offset": 254436,
+        "length": 421
+      },
+      "lexical": 0.3035737914834986,
+      "semantic": 0.45996919329584995,
+      "score": 0.3035737914834986,
+      "evidenceWindows": 2
+    },
+    {
+      "suspiciousReference": "suspicious-document06798.txt",
+      "sourceReference": "source-document09311.txt",
+      "suspiciousSpan": {
+        "offset": 1,
+        "length": 502
+      },
+      "sourceSpan": {
+        "offset": 5810,
+        "length": 398
+      },
+      "lexical": 0.785906327402587,
+      "semantic": 0.81554086677516,
+      "score": 0.785906327402587,
+      "evidenceWindows": 2
+    },
+    {
+      "suspiciousReference": "suspicious-document07217.txt",
+      "sourceReference": "source-document00299.txt",
+      "suspiciousSpan": {
+        "offset": 24605,
+        "length": 390
+      },
+      "sourceSpan": {
+        "offset": 1391,
+        "length": 414
+      },
+      "lexical": 0.5199558226143597,
+      "semantic": 0.5889926800273066,
+      "score": 0.5199558226143597,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document07217.txt",
+      "sourceReference": "source-document00299.txt",
+      "suspiciousSpan": {
+        "offset": 26340,
+        "length": 730
+      },
+      "sourceSpan": {
+        "offset": 7026,
+        "length": 354
+      },
+      "lexical": 0.4015932636876695,
+      "semantic": 0.5069499062933478,
+      "score": 0.4015932636876695,
+      "evidenceWindows": 2
+    },
+    {
+      "suspiciousReference": "suspicious-document07498.txt",
+      "sourceReference": "source-document09867.txt",
+      "suspiciousSpan": {
+        "offset": 5706,
+        "length": 313
+      },
+      "sourceSpan": {
+        "offset": 6376,
+        "length": 310
+      },
+      "lexical": 0.4093536421647088,
+      "semantic": 0.47946289703204226,
+      "score": 0.4093536421647088,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document07498.txt",
+      "sourceReference": "source-document09867.txt",
+      "suspiciousSpan": {
+        "offset": 7921,
+        "length": 864
+      },
+      "sourceSpan": {
+        "offset": 8505,
+        "length": 869
+      },
+      "lexical": 0.3651231461818286,
+      "semantic": 0.6760601875697178,
+      "score": 0.3651231461818286,
+      "evidenceWindows": 2
+    },
+    {
+      "suspiciousReference": "suspicious-document07498.txt",
+      "sourceReference": "source-document09867.txt",
+      "suspiciousSpan": {
+        "offset": 9361,
+        "length": 437
+      },
+      "sourceSpan": {
+        "offset": 9817,
+        "length": 450
+      },
+      "lexical": 0.3265364307777843,
+      "semantic": 0.5560972141881788,
+      "score": 0.3265364307777843,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document07498.txt",
+      "sourceReference": "source-document09867.txt",
+      "suspiciousSpan": {
+        "offset": 10652,
+        "length": 381
+      },
+      "sourceSpan": {
+        "offset": 11068,
+        "length": 365
+      },
+      "lexical": 0.30092716962389854,
+      "semantic": 0.5663532714207353,
+      "score": 0.30092716962389854,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document07498.txt",
+      "sourceReference": "source-document09867.txt",
+      "suspiciousSpan": {
+        "offset": 11456,
+        "length": 594
+      },
+      "sourceSpan": {
+        "offset": 11793,
+        "length": 539
+      },
+      "lexical": 0.3508975377772444,
+      "semantic": 0.5618097427266534,
+      "score": 0.3508975377772444,
+      "evidenceWindows": 2
+    },
+    {
+      "suspiciousReference": "suspicious-document07498.txt",
+      "sourceReference": "source-document09867.txt",
+      "suspiciousSpan": {
+        "offset": 12845,
+        "length": 1244
+      },
+      "sourceSpan": {
+        "offset": 13065,
+        "length": 1132
+      },
+      "lexical": 0.37514165697213675,
+      "semantic": 0.5425369098634905,
+      "score": 0.37514165697213675,
+      "evidenceWindows": 4
+    },
+    {
+      "suspiciousReference": "suspicious-document07498.txt",
+      "sourceReference": "source-document09867.txt",
+      "suspiciousSpan": {
+        "offset": 15819,
+        "length": 803
+      },
+      "sourceSpan": {
+        "offset": 15636,
+        "length": 714
+      },
+      "lexical": 0.5903335691984528,
+      "semantic": 0.7689708666262055,
+      "score": 0.5903335691984528,
+      "evidenceWindows": 3
+    },
+    {
+      "suspiciousReference": "suspicious-document07498.txt",
+      "sourceReference": "source-document09867.txt",
+      "suspiciousSpan": {
+        "offset": 16826,
+        "length": 506
+      },
+      "sourceSpan": {
+        "offset": 16526,
+        "length": 457
+      },
+      "lexical": 0.3044770840385968,
+      "semantic": 0.5713042759180009,
+      "score": 0.3044770840385968,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document07498.txt",
+      "sourceReference": "source-document09867.txt",
+      "suspiciousSpan": {
+        "offset": 18312,
+        "length": 394
+      },
+      "sourceSpan": {
+        "offset": 17691,
+        "length": 404
+      },
+      "lexical": 0.3285441909351094,
+      "semantic": 0.5176425385353494,
+      "score": 0.3285441909351094,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document07498.txt",
+      "sourceReference": "source-document09867.txt",
+      "suspiciousSpan": {
+        "offset": 20598,
+        "length": 454
+      },
+      "sourceSpan": {
+        "offset": 19687,
+        "length": 371
+      },
+      "lexical": 0.36508873412744935,
+      "semantic": 0.6094106866766953,
+      "score": 0.36508873412744935,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document07498.txt",
+      "sourceReference": "source-document09867.txt",
+      "suspiciousSpan": {
+        "offset": 23595,
+        "length": 402
+      },
+      "sourceSpan": {
+        "offset": 22464,
+        "length": 369
+      },
+      "lexical": 0.3101701385023501,
+      "semantic": 0.6336979570181644,
+      "score": 0.3101701385023501,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document07498.txt",
+      "sourceReference": "source-document09867.txt",
+      "suspiciousSpan": {
+        "offset": 25510,
+        "length": 853
+      },
+      "sourceSpan": {
+        "offset": 1183,
+        "length": 886
+      },
+      "lexical": 0.777029658178295,
+      "semantic": 0.7623308303954052,
+      "score": 0.777029658178295,
+      "evidenceWindows": 2
+    },
+    {
+      "suspiciousReference": "suspicious-document07498.txt",
+      "sourceReference": "source-document09867.txt",
+      "suspiciousSpan": {
+        "offset": 26263,
+        "length": 418
+      },
+      "sourceSpan": {
+        "offset": 4959,
+        "length": 508
+      },
+      "lexical": 0.382725553299017,
+      "semantic": 0.3711080729658491,
+      "score": 0.382725553299017,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document07498.txt",
+      "sourceReference": "source-document09867.txt",
+      "suspiciousSpan": {
+        "offset": 26554,
+        "length": 448
+      },
+      "sourceSpan": {
+        "offset": 2641,
+        "length": 458
+      },
+      "lexical": 0.5651549821436049,
+      "semantic": 0.5352853245239654,
+      "score": 0.5651549821436049,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document07520.txt",
+      "sourceReference": "source-document07323.txt",
+      "suspiciousSpan": {
+        "offset": 0,
+        "length": 754
+      },
+      "sourceSpan": {
+        "offset": 6576,
+        "length": 404
+      },
+      "lexical": 0.5842862025295054,
+      "semantic": 0.6778324127673281,
+      "score": 0.5842862025295054,
+      "evidenceWindows": 2
+    },
+    {
+      "suspiciousReference": "suspicious-document07520.txt",
+      "sourceReference": "source-document07323.txt",
+      "suspiciousSpan": {
+        "offset": 4237,
+        "length": 701
+      },
+      "sourceSpan": {
+        "offset": 2596,
+        "length": 306
+      },
+      "lexical": 0.6220411377202631,
+      "semantic": 0.548004810844792,
+      "score": 0.6220411377202631,
+      "evidenceWindows": 2
+    },
+    {
+      "suspiciousReference": "suspicious-document07520.txt",
+      "sourceReference": "source-document07323.txt",
+      "suspiciousSpan": {
+        "offset": 5182,
+        "length": 685
+      },
+      "sourceSpan": {
+        "offset": 5767,
+        "length": 609
+      },
+      "lexical": 0.5473039512533322,
+      "semantic": 0.7305807742324711,
+      "score": 0.5473039512533322,
+      "evidenceWindows": 2
+    },
+    {
+      "suspiciousReference": "suspicious-document08071.txt",
+      "sourceReference": "source-document09635.txt",
+      "suspiciousSpan": {
+        "offset": 12334,
+        "length": 3557
+      },
+      "sourceSpan": {
+        "offset": 16508,
+        "length": 3578
+      },
+      "lexical": 0.6938675826035529,
+      "semantic": 0.7114041697609388,
+      "score": 0.6938675826035529,
+      "evidenceWindows": 11
+    },
+    {
+      "suspiciousReference": "suspicious-document08652.txt",
+      "sourceReference": "source-document02278.txt",
+      "suspiciousSpan": {
+        "offset": 439,
+        "length": 458
+      },
+      "sourceSpan": {
+        "offset": 7173,
+        "length": 361
+      },
+      "lexical": 0.4284850895691019,
+      "semantic": 0.25079989908517725,
+      "score": 0.4284850895691019,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document08652.txt",
+      "sourceReference": "source-document09595.txt",
+      "suspiciousSpan": {
+        "offset": 4161,
+        "length": 445
+      },
+      "sourceSpan": {
+        "offset": 0,
+        "length": 567
+      },
+      "lexical": 0.48594050578844017,
+      "semantic": 0.04369974582518598,
+      "score": 0.48594050578844017,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document08652.txt",
+      "sourceReference": "source-document02278.txt",
+      "suspiciousSpan": {
+        "offset": 6667,
+        "length": 926
+      },
+      "sourceSpan": {
+        "offset": 5770,
+        "length": 912
+      },
+      "lexical": 0.6592438708086523,
+      "semantic": 0.8132744674839043,
+      "score": 0.6592438708086523,
+      "evidenceWindows": 4
+    },
+    {
+      "suspiciousReference": "suspicious-document08652.txt",
+      "sourceReference": "source-document02278.txt",
+      "suspiciousSpan": {
+        "offset": 11877,
+        "length": 483
+      },
+      "sourceSpan": {
+        "offset": 13200,
+        "length": 330
+      },
+      "lexical": 0.3795573809876528,
+      "semantic": 0.4340565507671579,
+      "score": 0.3795573809876528,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document08739.txt",
+      "sourceReference": "source-document00418.txt",
+      "suspiciousSpan": {
+        "offset": 0,
+        "length": 428
+      },
+      "sourceSpan": {
+        "offset": 18468,
+        "length": 346
+      },
+      "lexical": 0.32279912069643113,
+      "semantic": 0.16441272691725514,
+      "score": 0.32279912069643113,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document10263.txt",
+      "sourceReference": "source-document03533.txt",
+      "suspiciousSpan": {
+        "offset": 2133,
+        "length": 642
+      },
+      "sourceSpan": {
+        "offset": 5798,
+        "length": 486
+      },
+      "lexical": 0.48858225600928085,
+      "semantic": 0.12412888606892655,
+      "score": 0.48858225600928085,
+      "evidenceWindows": 2
+    },
+    {
+      "suspiciousReference": "suspicious-document10263.txt",
+      "sourceReference": "source-document03533.txt",
+      "suspiciousSpan": {
+        "offset": 7057,
+        "length": 589
+      },
+      "sourceSpan": {
+        "offset": 14714,
+        "length": 358
+      },
+      "lexical": 0.6047980656961682,
+      "semantic": 0.5837849458786655,
+      "score": 0.6047980656961682,
+      "evidenceWindows": 2
+    },
+    {
+      "suspiciousReference": "suspicious-document10263.txt",
+      "sourceReference": "source-document03533.txt",
+      "suspiciousSpan": {
+        "offset": 8604,
+        "length": 411
+      },
+      "sourceSpan": {
+        "offset": 7383,
+        "length": 351
+      },
+      "lexical": 0.35395556665297395,
+      "semantic": 0.5786123747623302,
+      "score": 0.35395556665297395,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document10357.txt",
+      "sourceReference": "source-document08752.txt",
+      "suspiciousSpan": {
+        "offset": 19752,
+        "length": 584
+      },
+      "sourceSpan": {
+        "offset": 14594,
+        "length": 370
+      },
+      "lexical": 0.411856358155782,
+      "semantic": 0.6019427924426479,
+      "score": 0.411856358155782,
+      "evidenceWindows": 2
+    },
+    {
+      "suspiciousReference": "suspicious-document10357.txt",
+      "sourceReference": "source-document08752.txt",
+      "suspiciousSpan": {
+        "offset": 20221,
+        "length": 3264
+      },
+      "sourceSpan": {
+        "offset": 15127,
+        "length": 3125
+      },
+      "lexical": 0.5405657883750975,
+      "semantic": 0.8176010039308714,
+      "score": 0.5405657883750975,
+      "evidenceWindows": 12
+    },
+    {
+      "suspiciousReference": "suspicious-document10357.txt",
+      "sourceReference": "source-document08752.txt",
+      "suspiciousSpan": {
+        "offset": 31444,
+        "length": 983
+      },
+      "sourceSpan": {
+        "offset": 5989,
+        "length": 881
+      },
+      "lexical": 0.7704506433411855,
+      "semantic": 0.8403423414049301,
+      "score": 0.7704506433411855,
+      "evidenceWindows": 3
+    },
+    {
+      "suspiciousReference": "suspicious-document10553.txt",
+      "sourceReference": "source-document00418.txt",
+      "suspiciousSpan": {
+        "offset": 2968,
+        "length": 360
+      },
+      "sourceSpan": {
+        "offset": 13071,
+        "length": 503
+      },
+      "lexical": 0.4516303770188419,
+      "semantic": 0.5696119983486795,
+      "score": 0.4516303770188419,
+      "evidenceWindows": 1
+    },
+    {
+      "suspiciousReference": "suspicious-document10553.txt",
+      "sourceReference": "source-document00418.txt",
+      "suspiciousSpan": {
+        "offset": 3206,
+        "length": 536
+      },
+      "sourceSpan": {
+        "offset": 13449,
+        "length": 609
+      },
+      "lexical": 0.6174996061362078,
+      "semantic": 0.742983486833443,
+      "score": 0.6174996061362078,
+      "evidenceWindows": 2
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "requested": {
+    "model": "onnx-community/all-MiniLM-L6-v2-ONNX",
+    "device": "cpu",
+    "dtype": "fp32",
+    "dimensions": 384,
+    "maxTokens": 256,
+    "pooling": "mean",
+    "normalize": true,
+    "batchSize": 16,
+    "intraOpNumThreads": 4
+  },
+  "availableBackends": [
+    {
+      "name": "cpu",
+      "bundled": true
+    },
+    {
+      "name": "webgpu",
+      "bundled": true
+    },
+    {
+      "name": "cuda",
+      "bundled": false
+    },
+    {
+      "name": "tensorrt",
+      "bundled": false
+    }
+  ],
+  "profileObservedProviders": [
+    "CPUExecutionProvider"
+  ],
+  "elapsedMs": 27.530293999999998,
+  "outputs": {
+    "last_hidden_state": [
+      1,
+      9,
+      384
+    ]
+  },
+  "note": "GPU hardware exists; CUDA backend is not bundled. CPU explicitly selected and verified from native profiling."
+}

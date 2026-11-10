@@ -4,14 +4,25 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "validate:dataset": "bun scripts/dataset.ts",
+    "prepare:splits": "bun scripts/prepare-split.ts && bun scripts/check-leakage.ts",
+    "benchmark": "bun scripts/benchmark.ts",
+    "setup:model": "bun scripts/cache-model.ts",
+    "test:inference": "INFERENCE_TESTS=1 vitest run tests/model.integration.test.ts",
+    "typecheck": "tsc --noEmit",
+    "report:research": "bun scripts/research-report.ts",
+    "reproduce": "bun run validate:dataset && bun run prepare:splits && bun scripts/provider.ts && bun run benchmark && bun run report:research"
   },
   "dependencies": {
     "@huggingface/transformers": "^4.3.2",
+    "fast-xml-parser": "^5.12.0",
     "next": "16.4.5",
     "pdfjs-dist": "^6.5.438",
     "react": "19.3.0",
@@ -25,6 +36,7 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.4.5",
+    "prettier": "^3.9.10",
     "tailwindcss": "^4",
     "typescript": "^5",
     "vitest": "^5.1.0"
