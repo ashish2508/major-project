@@ -24,6 +24,20 @@ it('preserves short input and splits long sentences without dropping punctuation
   }
 });
 
+it('keeps single-sentence windows alongside two-sentence context windows', () => {
+  const spans = segmentParagraphs(
+    'First observation. Rewritten evidence follows. Final context remains.',
+    'source',
+  );
+  expect(spans.map(({ text }) => text)).toEqual([
+    'First observation.',
+    'First observation. Rewritten evidence follows.',
+    'Rewritten evidence follows.',
+    'Rewritten evidence follows. Final context remains.',
+    'Final context remains.',
+  ]);
+});
+
 it.skipIf(process.env.INFERENCE_TESTS !== '1')(
   'retrieves the annotated source without crossing the adjacent section',
   async () => {

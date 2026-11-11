@@ -2,7 +2,7 @@
   "version": 1,
   "corpusFingerprint": "5408fc446e1eded99c9e5e361f4e735e168c199b392f9c64066456e17bc5c0e7",
   "splitManifestSha256": "203a88a979bdfda36d75612c902b699b0a8fd7b2ee82e688d494a036b01f3908",
-  "codeHash": "ddfd91aa989585846da29b49008e6467ff43eda531fa669f49bd5645adf407a2",
+  "codeHash": "193e2f201caf53d3b4245fea1caa8d9b9b27278cb8f540d5b6134c0005032436",
   "modelHashes": {
     "config.json": "fe5da868b77bdb104140822a5af0837cb6450ad6de8ff3dfcc8dd44ddd3e3ae7",
     "tokenizer.json": "07805d116826679de90b4edeb2222269c4b8753bc0981be4399f732b2708e904",
@@ -27,15 +27,34 @@
     "maxTokens": 256,
     "paragraphWindows": true
   },
-  "alphas": [0, 0.25, 0.5, 0.75, 1],
-  "thresholds": [0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9],
+  "alphas": [
+    0,
+    0.25,
+    0.5,
+    0.75,
+    1
+  ],
+  "thresholds": [
+    0.2,
+    0.3,
+    0.4,
+    0.5,
+    0.6,
+    0.7,
+    0.8,
+    0.9
+  ],
   "mergeGap": 0,
-  "mergeGaps": [0, 40, 120],
+  "mergeGaps": [
+    0,
+    40,
+    120
+  ],
   "fusion": "union of original lexical and paragraph semantic alerts",
   "selection": "validation PlagDet, precision, higher threshold, fixed alpha order",
   "candidateRetrieval": "exhaustive supplied collection, independent best source window per query window",
-  "gitHead": "27ee67d67b0f2eea152cc79b5d7240be719022b1",
-  "gitStatus": "M research/methodology.md\n M scripts/benchmark.ts\n M scripts/diagnose-demo.ts\n M src/app/page.tsx\n M src/lib/application/analysis.ts\n M src/lib/detection/detector.ts\n M tests/retrieval.test.ts\n?? reports/implementation/paragraph-experiment/analysis.md",
+  "gitHead": "dd609fc68696dbd44f7f21bca3bdac5d606dadc9",
+  "gitStatus": "M .prettierignore\n M reports/implementation/alignment-fusion/experiment-config.json\n M reports/implementation/alignment-fusion/frozen-parameters.json\n M reports/implementation/demo-diagnostics-after.json\n M reports/implementation/final-handoff-report.md\n M src/lib/application/analysis.ts\n M src/lib/detection/segmentation.ts\n M tests/paragraph-review.test.ts\n?? .vscode/tasks.json\n?? reports/implementation/alignment-fusion/cache/\n?? reports/implementation/alignment-fusion/leakage-check.json\n?? reports/implementation/alignment-fusion/lexical-validation.json\n?? reports/implementation/alignment-fusion/split-manifest.json",
   "runtime": {
     "bun": "1.3.14",
     "nodeCompatibility": "24.3.0",

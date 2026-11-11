@@ -102,10 +102,11 @@ export async function analyzeDocuments(
   else {
     await verifyModel();
     const device = applicationDevice();
-    const vectors = await embedTexts(
-      [...queries, ...sourcePassages].map((p) => p.text),
-      device,
-    );
+    const passages = [...queries, ...sourcePassages],
+      uniqueTexts = [...new Set(passages.map((passage) => passage.text))],
+      uniqueVectors = await embedTexts(uniqueTexts, device),
+      vectorByText = new Map(uniqueTexts.map((text, index) => [text, uniqueVectors[index]])),
+      vectors = passages.map((passage) => vectorByText.get(passage.text)!);
     provider = await embeddingProvider(device);
     rows = retrieveCandidates(
       queries,

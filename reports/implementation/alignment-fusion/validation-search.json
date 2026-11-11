@@ -7,16 +7,16 @@
       "mergeGap": 120
     },
     "metrics": {
-      "precision": 0.48060103879704547,
-      "recall": 0.4227618011537924,
-      "f1": 0.4498297955432391,
-      "granularity": 1.446808510638298,
-      "plagdet": 0.34846183100515593,
+      "precision": 0.1945786400094157,
+      "recall": 0.5785777098332079,
+      "f1": 0.2912188820334294,
+      "granularity": 1.5901639344262295,
+      "plagdet": 0.21209735961891818,
       "cases": 72,
-      "detections": 138,
-      "detectedCases": 47,
-      "missedCases": 25,
-      "falsePositiveDetections": 70
+      "detections": 485,
+      "detectedCases": 61,
+      "missedCases": 11,
+      "falsePositiveDetections": 388
     },
     "search": [
       {
@@ -27,76 +27,76 @@
           "mergeGap": 0
         },
         "metrics": {
-          "precision": 0.06388895395765609,
-          "recall": 0.823470602362026,
-          "f1": 0.1185780330534631,
+          "precision": 0.041142314536688915,
+          "recall": 0.8352980071689685,
+          "f1": 0.07842198148970285,
+          "granularity": 4.569444444444445,
+          "plagdet": 0.0316532486294524,
+          "cases": 72,
+          "detections": 7564,
+          "detectedCases": 72,
+          "missedCases": 0,
+          "falsePositiveDetections": 7235
+        }
+      },
+      {
+        "config": {
+          "method": "lexical",
+          "threshold": 0.2,
+          "alpha": 1,
+          "mergeGap": 40
+        },
+        "metrics": {
+          "precision": 0.02340246036324509,
+          "recall": 0.8432208787020916,
+          "f1": 0.045540991805203726,
+          "granularity": 2.5416666666666665,
+          "plagdet": 0.02496178579611209,
+          "cases": 72,
+          "detections": 7327,
+          "detectedCases": 72,
+          "missedCases": 0,
+          "falsePositiveDetections": 7144
+        }
+      },
+      {
+        "config": {
+          "method": "lexical",
+          "threshold": 0.2,
+          "alpha": 1,
+          "mergeGap": 120
+        },
+        "metrics": {
+          "precision": 0.019242811659487644,
+          "recall": 0.8538194415568805,
+          "f1": 0.037637377276500364,
+          "granularity": 2.0694444444444446,
+          "plagdet": 0.02326198969298927,
+          "cases": 72,
+          "detections": 7208,
+          "detectedCases": 72,
+          "missedCases": 0,
+          "falsePositiveDetections": 7059
+        }
+      },
+      {
+        "config": {
+          "method": "lexical",
+          "threshold": 0.3,
+          "alpha": 1,
+          "mergeGap": 0
+        },
+        "metrics": {
+          "precision": 0.07815703447595912,
+          "recall": 0.7929443125787968,
+          "f1": 0.14228924380676256,
           "granularity": 4.027777777777778,
-          "plagdet": 0.05089358775409481,
+          "plagdet": 0.06107041860677726,
           "cases": 72,
-          "detections": 4204,
+          "detections": 3517,
           "detectedCases": 72,
           "missedCases": 0,
-          "falsePositiveDetections": 3914
-        }
-      },
-      {
-        "config": {
-          "method": "lexical",
-          "threshold": 0.2,
-          "alpha": 1,
-          "mergeGap": 40
-        },
-        "metrics": {
-          "precision": 0.04098956311076944,
-          "recall": 0.8285052049716719,
-          "f1": 0.07811448126751094,
-          "granularity": 2.513888888888889,
-          "plagdet": 0.04308412953592894,
-          "cases": 72,
-          "detections": 4034,
-          "detectedCases": 72,
-          "missedCases": 0,
-          "falsePositiveDetections": 3853
-        }
-      },
-      {
-        "config": {
-          "method": "lexical",
-          "threshold": 0.2,
-          "alpha": 1,
-          "mergeGap": 120
-        },
-        "metrics": {
-          "precision": 0.03273113622567909,
-          "recall": 0.8410273619235047,
-          "f1": 0.06301004502033856,
-          "granularity": 1.9861111111111112,
-          "plagdet": 0.03992354345576449,
-          "cases": 72,
-          "detections": 3955,
-          "detectedCases": 72,
-          "missedCases": 0,
-          "falsePositiveDetections": 3812
-        }
-      },
-      {
-        "config": {
-          "method": "lexical",
-          "threshold": 0.3,
-          "alpha": 1,
-          "mergeGap": 0
-        },
-        "metrics": {
-          "precision": 0.1530704622156312,
-          "recall": 0.7619036486143498,
-          "f1": 0.25492512252916727,
-          "granularity": 3.3529411764705883,
-          "plagdet": 0.12013490145240767,
-          "cases": 72,
-          "detections": 1374,
-          "detectedCases": 68,
-          "missedCases": 4,
-          "falsePositiveDetections": 1146
+          "falsePositiveDetections": 3227
         }
       },
       {
@@ -107,16 +107,16 @@
           "mergeGap": 40
         },
         "metrics": {
-          "precision": 0.10385145984777594,
-          "recall": 0.7662891074035146,
-          "f1": 0.18291353251278064,
-          "granularity": 2.1470588235294117,
-          "plagdet": 0.11058831566356389,
+          "precision": 0.04763064390763817,
+          "recall": 0.8006957573455357,
+          "f1": 0.08991269030444828,
+          "granularity": 2.361111111111111,
+          "plagdet": 0.051409871693759816,
           "cases": 72,
-          "detections": 1277,
-          "detectedCases": 68,
-          "missedCases": 4,
-          "falsePositiveDetections": 1131
+          "detections": 3357,
+          "detectedCases": 72,
+          "missedCases": 0,
+          "falsePositiveDetections": 3187
         }
       },
       {
@@ -127,16 +127,16 @@
           "mergeGap": 120
         },
         "metrics": {
-          "precision": 0.08418637748807112,
-          "recall": 0.7758035505114097,
-          "f1": 0.15189036158102265,
-          "granularity": 1.7058823529411764,
-          "plagdet": 0.1057659321804331,
+          "precision": 0.03898213466468198,
+          "recall": 0.8114404062500256,
+          "f1": 0.07439050040884376,
+          "granularity": 1.9027777777777777,
+          "plagdet": 0.04838613825877913,
           "cases": 72,
-          "detections": 1236,
-          "detectedCases": 68,
-          "missedCases": 4,
-          "falsePositiveDetections": 1120
+          "detections": 3285,
+          "detectedCases": 72,
+          "missedCases": 0,
+          "falsePositiveDetections": 3148
         }
       },
       {
@@ -147,16 +147,16 @@
           "mergeGap": 0
         },
         "metrics": {
-          "precision": 0.2880114020606527,
-          "recall": 0.7078758778151305,
-          "f1": 0.409436546031355,
-          "granularity": 2.7611940298507465,
-          "plagdet": 0.214231127721948,
+          "precision": 0.14108511615817895,
+          "recall": 0.745476775870867,
+          "f1": 0.23726640737118485,
+          "granularity": 3.536231884057971,
+          "plagdet": 0.10876324433471794,
           "cases": 72,
-          "detections": 596,
-          "detectedCases": 67,
-          "missedCases": 5,
-          "falsePositiveDetections": 411
+          "detections": 1651,
+          "detectedCases": 69,
+          "missedCases": 3,
+          "falsePositiveDetections": 1407
         }
       },
       {
@@ -167,16 +167,16 @@
           "mergeGap": 40
         },
         "metrics": {
-          "precision": 0.21065343674983172,
-          "recall": 0.7111514543430201,
-          "f1": 0.3250286462016797,
-          "granularity": 1.8059701492537314,
-          "plagdet": 0.21835990606495004,
+          "precision": 0.09019409462220446,
+          "recall": 0.7507907688349696,
+          "f1": 0.16104188455284194,
+          "granularity": 2.1159420289855073,
+          "plagdet": 0.09821613032177061,
           "cases": 72,
-          "detections": 527,
-          "detectedCases": 67,
-          "missedCases": 5,
-          "falsePositiveDetections": 406
+          "detections": 1537,
+          "detectedCases": 69,
+          "missedCases": 3,
+          "falsePositiveDetections": 1391
         }
       },
       {
@@ -187,16 +187,16 @@
           "mergeGap": 120
         },
         "metrics": {
-          "precision": 0.1794518165772903,
-          "recall": 0.7202510718309281,
-          "f1": 0.28731787992917107,
-          "granularity": 1.4776119402985075,
-          "plagdet": 0.21950252267343628,
+          "precision": 0.07587828621071985,
+          "recall": 0.7586948030647607,
+          "f1": 0.13795906470818667,
+          "granularity": 1.7391304347826086,
+          "plagdet": 0.09490084582971571,
           "cases": 72,
-          "detections": 502,
-          "detectedCases": 67,
-          "missedCases": 5,
-          "falsePositiveDetections": 403
+          "detections": 1492,
+          "detectedCases": 69,
+          "missedCases": 3,
+          "falsePositiveDetections": 1372
         }
       },
       {
@@ -207,16 +207,16 @@
           "mergeGap": 0
         },
         "metrics": {
-          "precision": 0.44913278669141554,
-          "recall": 0.5713386184432754,
-          "f1": 0.5029183660702035,
-          "granularity": 2.4482758620689653,
-          "plagdet": 0.2816089095014103,
+          "precision": 0.21733006240100172,
+          "recall": 0.6506210030706471,
+          "f1": 0.32582367560067205,
+          "granularity": 2.984848484848485,
+          "plagdet": 0.16335904380649735,
           "cases": 72,
-          "detections": 300,
-          "detectedCases": 58,
-          "missedCases": 14,
-          "falsePositiveDetections": 158
+          "detections": 874,
+          "detectedCases": 66,
+          "missedCases": 6,
+          "falsePositiveDetections": 677
         }
       },
       {
@@ -227,16 +227,16 @@
           "mergeGap": 40
         },
         "metrics": {
-          "precision": 0.36963578591655577,
-          "recall": 0.5737050426141485,
-          "f1": 0.44959765950397346,
-          "granularity": 1.7241379310344827,
-          "plagdet": 0.310968139644281,
+          "precision": 0.15615282922319126,
+          "recall": 0.654892652046748,
+          "f1": 0.25217658643373286,
+          "granularity": 1.9696969696969697,
+          "plagdet": 0.16058973520932904,
           "cases": 72,
-          "detections": 256,
-          "detectedCases": 58,
-          "missedCases": 14,
-          "falsePositiveDetections": 156
+          "detections": 803,
+          "detectedCases": 66,
+          "missedCases": 6,
+          "falsePositiveDetections": 673
         }
       },
       {
@@ -247,16 +247,16 @@
           "mergeGap": 120
         },
         "metrics": {
-          "precision": 0.3399582832216557,
-          "recall": 0.5813871931667575,
-          "f1": 0.42904078251035,
-          "granularity": 1.5172413793103448,
-          "plagdet": 0.3221405232469911,
+          "precision": 0.13770145294383312,
+          "recall": 0.6618649562544958,
+          "f1": 0.22797297405285016,
+          "granularity": 1.6818181818181819,
+          "plagdet": 0.16018208477765755,
           "cases": 72,
-          "detections": 244,
-          "detectedCases": 58,
-          "missedCases": 14,
-          "falsePositiveDetections": 156
+          "detections": 773,
+          "detectedCases": 66,
+          "missedCases": 6,
+          "falsePositiveDetections": 662
         }
       },
       {
@@ -267,16 +267,16 @@
           "mergeGap": 0
         },
         "metrics": {
-          "precision": 0.5500422072866715,
-          "recall": 0.4183456193927071,
-          "f1": 0.4752388279983207,
-          "granularity": 1.9574468085106382,
-          "plagdet": 0.30379272749751524,
+          "precision": 0.27704714127653846,
+          "recall": 0.5697204922377133,
+          "f1": 0.37280459822503176,
+          "granularity": 2.5737704918032787,
+          "plagdet": 0.20289270973215,
           "cases": 72,
-          "detections": 163,
-          "detectedCases": 47,
-          "missedCases": 25,
-          "falsePositiveDetections": 71
+          "detections": 554,
+          "detectedCases": 61,
+          "missedCases": 11,
+          "falsePositiveDetections": 397
         }
       },
       {
@@ -287,16 +287,16 @@
           "mergeGap": 40
         },
         "metrics": {
-          "precision": 0.4916520805247679,
-          "recall": 0.41998375513049163,
-          "f1": 0.4530008122115874,
-          "granularity": 1.5106382978723405,
-          "plagdet": 0.34110114858377627,
+          "precision": 0.21140237284639324,
+          "recall": 0.5724948259034705,
+          "f1": 0.3087822353014818,
+          "granularity": 1.7868852459016393,
+          "plagdet": 0.20882662146096845,
           "cases": 72,
-          "detections": 141,
-          "detectedCases": 47,
-          "missedCases": 25,
-          "falsePositiveDetections": 70
+          "detections": 503,
+          "detectedCases": 61,
+          "missedCases": 11,
+          "falsePositiveDetections": 394
         }
       },
       {
@@ -307,16 +307,16 @@
           "mergeGap": 120
         },
         "metrics": {
-          "precision": 0.48060103879704547,
-          "recall": 0.4227618011537924,
-          "f1": 0.4498297955432391,
-          "granularity": 1.446808510638298,
-          "plagdet": 0.34846183100515593,
+          "precision": 0.1945786400094157,
+          "recall": 0.5785777098332079,
+          "f1": 0.2912188820334294,
+          "granularity": 1.5901639344262295,
+          "plagdet": 0.21209735961891818,
           "cases": 72,
-          "detections": 138,
-          "detectedCases": 47,
-          "missedCases": 25,
-          "falsePositiveDetections": 70
+          "detections": 485,
+          "detectedCases": 61,
+          "missedCases": 11,
+          "falsePositiveDetections": 388
         }
       },
       {
@@ -327,16 +327,16 @@
           "mergeGap": 0
         },
         "metrics": {
-          "precision": 0.5487148940971136,
-          "recall": 0.28014373043337604,
-          "f1": 0.37091738645729855,
-          "granularity": 1.7878787878787878,
-          "plagdet": 0.25076085164559186,
+          "precision": 0.2666559587162524,
+          "recall": 0.3858919407844957,
+          "f1": 0.31538032843103814,
+          "granularity": 2.0384615384615383,
+          "plagdet": 0.19670196328971556,
           "cases": 72,
-          "detections": 105,
-          "detectedCases": 33,
-          "missedCases": 39,
-          "falsePositiveDetections": 46
+          "detections": 390,
+          "detectedCases": 52,
+          "missedCases": 20,
+          "falsePositiveDetections": 284
         }
       },
       {
@@ -347,16 +347,16 @@
           "mergeGap": 40
         },
         "metrics": {
-          "precision": 0.4938078000102816,
-          "recall": 0.28154794494188784,
-          "f1": 0.3586239534415164,
-          "granularity": 1.393939393939394,
-          "plagdet": 0.2847608075511479,
+          "precision": 0.2236979758144358,
+          "recall": 0.3878598299619909,
+          "f1": 0.2837457327589,
+          "granularity": 1.5961538461538463,
+          "plagdet": 0.20615424689341547,
           "cases": 72,
-          "detections": 91,
-          "detectedCases": 33,
-          "missedCases": 39,
-          "falsePositiveDetections": 45
+          "detections": 365,
+          "detectedCases": 52,
+          "missedCases": 20,
+          "falsePositiveDetections": 282
         }
       },
       {
@@ -367,16 +367,16 @@
           "mergeGap": 120
         },
         "metrics": {
-          "precision": 0.4824326943925351,
-          "recall": 0.28341524415280245,
-          "f1": 0.35706508560500727,
-          "granularity": 1.3333333333333333,
-          "plagdet": 0.2921034844232969,
+          "precision": 0.21539078207573875,
+          "recall": 0.3919985655887894,
+          "f1": 0.2780189607848404,
+          "granularity": 1.5,
+          "plagdet": 0.21031322494778323,
           "cases": 72,
-          "detections": 89,
-          "detectedCases": 33,
-          "missedCases": 39,
-          "falsePositiveDetections": 45
+          "detections": 356,
+          "detectedCases": 52,
+          "missedCases": 20,
+          "falsePositiveDetections": 278
         }
       },
       {
@@ -387,16 +387,16 @@
           "mergeGap": 0
         },
         "metrics": {
-          "precision": 0.482485333935018,
-          "recall": 0.15671105472359542,
-          "f1": 0.23658076582158405,
-          "granularity": 1.3478260869565217,
-          "plagdet": 0.19213502600483706,
+          "precision": 0.25368116481042996,
+          "recall": 0.27136841051387695,
+          "f1": 0.2622268742123798,
+          "granularity": 1.8333333333333333,
+          "plagdet": 0.17452699819024536,
           "cases": 72,
-          "detections": 64,
-          "detectedCases": 23,
-          "missedCases": 49,
-          "falsePositiveDetections": 33
+          "detections": 301,
+          "detectedCases": 42,
+          "missedCases": 30,
+          "falsePositiveDetections": 224
         }
       },
       {
@@ -407,16 +407,16 @@
           "mergeGap": 40
         },
         "metrics": {
-          "precision": 0.4555773113871382,
-          "recall": 0.1575309510655911,
-          "f1": 0.23411045501039585,
-          "granularity": 1.173913043478261,
-          "plagdet": 0.2089722931390061,
+          "precision": 0.2301627830799899,
+          "recall": 0.27375442817456175,
+          "f1": 0.25007314559573585,
+          "granularity": 1.5952380952380953,
+          "plagdet": 0.18175678565459755,
           "cases": 72,
-          "detections": 59,
-          "detectedCases": 23,
-          "missedCases": 49,
-          "falsePositiveDetections": 32
+          "detections": 289,
+          "detectedCases": 42,
+          "missedCases": 30,
+          "falsePositiveDetections": 222
         }
       },
       {
@@ -427,16 +427,16 @@
           "mergeGap": 120
         },
         "metrics": {
-          "precision": 0.44619071330760607,
-          "recall": 0.16038324832121859,
-          "f1": 0.23595314173682067,
-          "granularity": 1.1304347826086956,
-          "plagdet": 0.2162430448880055,
+          "precision": 0.22759623830070583,
+          "recall": 0.278802219893725,
+          "f1": 0.2506103067688837,
+          "granularity": 1.5476190476190477,
+          "plagdet": 0.18575428071592737,
           "cases": 72,
-          "detections": 58,
-          "detectedCases": 23,
-          "missedCases": 49,
-          "falsePositiveDetections": 32
+          "detections": 284,
+          "detectedCases": 42,
+          "missedCases": 30,
+          "falsePositiveDetections": 219
         }
       },
       {
@@ -447,16 +447,16 @@
           "mergeGap": 0
         },
         "metrics": {
-          "precision": 0.4782608695652174,
-          "recall": 0.0964641322204126,
-          "f1": 0.16054641650963639,
-          "granularity": 1.2222222222222223,
-          "plagdet": 0.13936283454719245,
+          "precision": 0.18295115114195118,
+          "recall": 0.13308952155368012,
+          "f1": 0.1540870101654728,
+          "granularity": 1.4827586206896552,
+          "plagdet": 0.11744938002217356,
           "cases": 72,
-          "detections": 46,
-          "detectedCases": 18,
-          "missedCases": 54,
-          "falsePositiveDetections": 24
+          "detections": 235,
+          "detectedCases": 29,
+          "missedCases": 43,
+          "falsePositiveDetections": 192
         }
       },
       {
@@ -467,16 +467,16 @@
           "mergeGap": 40
         },
         "metrics": {
-          "precision": 0.4888888888888889,
-          "recall": 0.0964641322204126,
-          "f1": 0.16113436069568784,
-          "granularity": 1.2222222222222223,
-          "plagdet": 0.13987320139377202,
+          "precision": 0.1695370457319936,
+          "recall": 0.13446538542515535,
+          "f1": 0.14997817031542257,
+          "granularity": 1.3448275862068966,
+          "plagdet": 0.12198485954744777,
           "cases": 72,
-          "detections": 45,
-          "detectedCases": 18,
-          "missedCases": 54,
-          "falsePositiveDetections": 23
+          "detections": 230,
+          "detectedCases": 29,
+          "missedCases": 43,
+          "falsePositiveDetections": 191
         }
       },
       {
@@ -487,16 +487,16 @@
           "mergeGap": 120
         },
         "metrics": {
-          "precision": 0.4772727272727273,
-          "recall": 0.0993164294760401,
-          "f1": 0.16441871167436056,
-          "granularity": 1.1666666666666667,
-          "plagdet": 0.14739764210931702,
+          "precision": 0.1681129226476041,
+          "recall": 0.13731768268078284,
+          "f1": 0.15116282758790817,
+          "granularity": 1.3103448275862069,
+          "plagdet": 0.12512358427184772,
           "cases": 72,
-          "detections": 44,
-          "detectedCases": 18,
-          "missedCases": 54,
-          "falsePositiveDetections": 23
+          "detections": 226,
+          "detectedCases": 29,
+          "missedCases": 43,
+          "falsePositiveDetections": 188
         }
       }
     ]
@@ -509,16 +509,16 @@
       "mergeGap": 120
     },
     "metrics": {
-      "precision": 0.5931732025509954,
-      "recall": 0.4661255249349529,
-      "f1": 0.5220305910734657,
-      "granularity": 1.54,
-      "plagdet": 0.38817633046815114,
+      "precision": 0.27798844890594926,
+      "recall": 0.5608314897606269,
+      "f1": 0.3717238199750047,
+      "granularity": 1.6451612903225807,
+      "plagdet": 0.2648821118573533,
       "cases": 72,
-      "detections": 122,
-      "detectedCases": 50,
-      "missedCases": 22,
-      "falsePositiveDetections": 45
+      "detections": 359,
+      "detectedCases": 62,
+      "missedCases": 10,
+      "falsePositiveDetections": 257
     },
     "search": [
       {
@@ -529,16 +529,16 @@
           "mergeGap": 0
         },
         "metrics": {
-          "precision": 0.0365169180991656,
-          "recall": 0.7459754677540935,
-          "f1": 0.06962553387726239,
-          "granularity": 3.8285714285714287,
-          "plagdet": 0.03065048583655409,
+          "precision": 0.03195048453270812,
+          "recall": 0.7974455877229221,
+          "f1": 0.06143933825711363,
+          "granularity": 4.76056338028169,
+          "plagdet": 0.024320757325158926,
           "cases": 72,
-          "detections": 6907,
-          "detectedCases": 70,
-          "missedCases": 2,
-          "falsePositiveDetections": 6639
+          "detections": 10169,
+          "detectedCases": 71,
+          "missedCases": 1,
+          "falsePositiveDetections": 9831
         }
       },
       {
@@ -549,16 +549,16 @@
           "mergeGap": 40
         },
         "metrics": {
-          "precision": 0.024544773899128042,
-          "recall": 0.75047644384586,
-          "f1": 0.04753489119798338,
-          "granularity": 2.5,
-          "plagdet": 0.02630080601095591,
+          "precision": 0.020245938157961246,
+          "recall": 0.8043425979519991,
+          "f1": 0.03949768832046549,
+          "granularity": 2.915492957746479,
+          "plagdet": 0.020057794843368757,
           "cases": 72,
-          "detections": 6672,
-          "detectedCases": 70,
-          "missedCases": 2,
-          "falsePositiveDetections": 6497
+          "detections": 9828,
+          "detectedCases": 71,
+          "missedCases": 1,
+          "falsePositiveDetections": 9621
         }
       },
       {
@@ -569,16 +569,16 @@
           "mergeGap": 120
         },
         "metrics": {
-          "precision": 0.019798717408258445,
-          "recall": 0.7644915351776783,
-          "f1": 0.03859783241238239,
-          "granularity": 2,
-          "plagdet": 0.024352520892336835,
+          "precision": 0.016063613070396783,
+          "recall": 0.8178590043621122,
+          "f1": 0.03150836856460771,
+          "granularity": 2.295774647887324,
+          "plagdet": 0.018312243559037246,
           "cases": 72,
-          "detections": 6557,
-          "detectedCases": 70,
-          "missedCases": 2,
-          "falsePositiveDetections": 6417
+          "detections": 9671,
+          "detectedCases": 71,
+          "missedCases": 1,
+          "falsePositiveDetections": 9508
         }
       },
       {
@@ -589,16 +589,16 @@
           "mergeGap": 0
         },
         "metrics": {
-          "precision": 0.036532785821398725,
-          "recall": 0.7459754677540935,
-          "f1": 0.06965437582786811,
-          "granularity": 3.8285714285714287,
-          "plagdet": 0.030663182612425104,
+          "precision": 0.03195362679121842,
+          "recall": 0.7974455877229221,
+          "f1": 0.061445147886543254,
+          "granularity": 4.76056338028169,
+          "plagdet": 0.024323057066521953,
           "cases": 72,
-          "detections": 6904,
-          "detectedCases": 70,
-          "missedCases": 2,
-          "falsePositiveDetections": 6636
+          "detections": 10168,
+          "detectedCases": 71,
+          "missedCases": 1,
+          "falsePositiveDetections": 9830
         }
       },
       {
@@ -609,16 +609,16 @@
           "mergeGap": 40
         },
         "metrics": {
-          "precision": 0.024552133651421632,
-          "recall": 0.75047644384586,
-          "f1": 0.047548693007031226,
-          "granularity": 2.5,
-          "plagdet": 0.02630844247952077,
+          "precision": 0.020247998393858057,
+          "recall": 0.8043425979519991,
+          "f1": 0.0395016089283966,
+          "granularity": 2.915492957746479,
+          "plagdet": 0.02005978581430623,
           "cases": 72,
-          "detections": 6670,
-          "detectedCases": 70,
-          "missedCases": 2,
-          "falsePositiveDetections": 6495
+          "detections": 9827,
+          "detectedCases": 71,
+          "missedCases": 1,
+          "falsePositiveDetections": 9620
         }
       },
       {
@@ -629,16 +629,16 @@
           "mergeGap": 120
         },
         "metrics": {
-          "precision": 0.019804758206857457,
-          "recall": 0.7644915351776783,
-          "f1": 0.038609311641767126,
-          "granularity": 2,
-          "plagdet": 0.024359763479703738,
+          "precision": 0.016065274250652253,
+          "recall": 0.8178590043621122,
+          "f1": 0.03151156415615986,
+          "granularity": 2.295774647887324,
+          "plagdet": 0.01831410079422536,
           "cases": 72,
-          "detections": 6555,
-          "detectedCases": 70,
-          "missedCases": 2,
-          "falsePositiveDetections": 6415
+          "detections": 9670,
+          "detectedCases": 71,
+          "missedCases": 1,
+          "falsePositiveDetections": 9507
         }
       },
       {
@@ -649,16 +649,16 @@
           "mergeGap": 0
         },
         "metrics": {
-          "precision": 0.038368271525543673,
-          "recall": 0.7422034906557256,
-          "f1": 0.07296463038095932,
-          "granularity": 3.7857142857142856,
-          "plagdet": 0.03230332642566193,
+          "precision": 0.03292214440805896,
+          "recall": 0.795161996321352,
+          "f1": 0.06322651716921651,
+          "granularity": 4.690140845070423,
+          "plagdet": 0.025205268249205725,
           "cases": 72,
-          "detections": 6502,
-          "detectedCases": 70,
-          "missedCases": 2,
-          "falsePositiveDetections": 6237
+          "detections": 9717,
+          "detectedCases": 71,
+          "missedCases": 1,
+          "falsePositiveDetections": 9384
         }
       },
       {
@@ -669,16 +669,16 @@
           "mergeGap": 40
         },
         "metrics": {
-          "precision": 0.02577973730694335,
-          "recall": 0.7466541446863002,
-          "f1": 0.04983869340242549,
-          "granularity": 2.4714285714285715,
-          "plagdet": 0.027757101051629957,
+          "precision": 0.020875274841973067,
+          "recall": 0.8018228461599594,
+          "f1": 0.04069116450096505,
+          "granularity": 2.8732394366197185,
+          "plagdet": 0.020829443037464732,
           "cases": 72,
-          "detections": 6279,
-          "detectedCases": 70,
-          "missedCases": 2,
-          "falsePositiveDetections": 6106
+          "detections": 9388,
+          "detectedCases": 71,
+          "missedCases": 1,
+          "falsePositiveDetections": 9184
         }
       },
       {
@@ -689,16 +689,16 @@
           "mergeGap": 120
         },
         "metrics": {
-          "precision": 0.02088586248846034,
-          "recall": 0.7601292489217064,
-          "f1": 0.04065466784060163,
-          "granularity": 1.9857142857142858,
-          "plagdet": 0.02576217170430979,
+          "precision": 0.016497152355582814,
+          "recall": 0.8153392525700724,
+          "f1": 0.032339954807189895,
+          "granularity": 2.2535211267605635,
+          "plagdet": 0.019001127079146658,
           "cases": 72,
-          "detections": 6173,
-          "detectedCases": 70,
-          "missedCases": 2,
-          "falsePositiveDetections": 6034
+          "detections": 9235,
+          "detectedCases": 71,
+          "missedCases": 1,
+          "falsePositiveDetections": 9075
         }
       },
       {
@@ -709,16 +709,16 @@
           "mergeGap": 0
         },
         "metrics": {
-          "precision": 0.06984446130726557,
-          "recall": 0.7091521533854184,
-          "f1": 0.12716448108733247,
-          "granularity": 3.463768115942029,
-          "plagdet": 0.05891985131692588,
+          "precision": 0.054484449611662635,
+          "recall": 0.764160234362758,
+          "f1": 0.10171653367915821,
+          "granularity": 4.197183098591549,
+          "plagdet": 0.042778843069723446,
           "cases": 72,
-          "detections": 3219,
-          "detectedCases": 69,
-          "missedCases": 3,
-          "falsePositiveDetections": 2980
+          "detections": 5256,
+          "detectedCases": 71,
+          "missedCases": 1,
+          "falsePositiveDetections": 4958
         }
       },
       {
@@ -729,16 +729,16 @@
           "mergeGap": 40
         },
         "metrics": {
-          "precision": 0.04823919638394374,
-          "recall": 0.7133390952833137,
-          "f1": 0.0903673465544395,
-          "granularity": 2.3043478260869565,
-          "plagdet": 0.05240614217057266,
+          "precision": 0.03483407835096957,
+          "recall": 0.7706508666191855,
+          "f1": 0.0666552809874056,
+          "granularity": 2.5774647887323945,
+          "plagdet": 0.03624662531988516,
           "cases": 72,
-          "detections": 3088,
-          "detectedCases": 69,
-          "missedCases": 3,
-          "falsePositiveDetections": 2929
+          "detections": 5046,
+          "detectedCases": 71,
+          "missedCases": 1,
+          "falsePositiveDetections": 4863
         }
       },
       {
@@ -749,16 +749,16 @@
           "mergeGap": 120
         },
         "metrics": {
-          "precision": 0.04133622221522614,
-          "recall": 0.7244090993178026,
-          "f1": 0.07820964663338378,
-          "granularity": 1.9565217391304348,
-          "plagdet": 0.050009337147805026,
+          "precision": 0.028622024085942825,
+          "recall": 0.7812363357141692,
+          "f1": 0.05522092831922773,
+          "granularity": 2.0985915492957745,
+          "plagdet": 0.03384438715514818,
           "cases": 72,
-          "detections": 3040,
-          "detectedCases": 69,
-          "missedCases": 3,
-          "falsePositiveDetections": 2905
+          "detections": 4961,
+          "detectedCases": 71,
+          "missedCases": 1,
+          "falsePositiveDetections": 4812
         }
       },
       {
@@ -769,16 +769,16 @@
           "mergeGap": 0
         },
         "metrics": {
-          "precision": 0.2823527288920541,
-          "recall": 0.5984877850986721,
-          "f1": 0.3836895706932718,
-          "granularity": 2.7936507936507935,
-          "plagdet": 0.1994656824647814,
+          "precision": 0.1794571526127152,
+          "recall": 0.6567588702313166,
+          "f1": 0.28188906594734947,
+          "granularity": 3.2941176470588234,
+          "plagdet": 0.13408209614146097,
           "cases": 72,
-          "detections": 589,
-          "detectedCases": 63,
-          "missedCases": 9,
-          "falsePositiveDetections": 413
+          "detections": 1211,
+          "detectedCases": 68,
+          "missedCases": 4,
+          "falsePositiveDetections": 987
         }
       },
       {
@@ -789,16 +789,16 @@
           "mergeGap": 40
         },
         "metrics": {
-          "precision": 0.2199926676703815,
-          "recall": 0.6011420158648118,
-          "f1": 0.32210753819213805,
-          "granularity": 1.9682539682539681,
-          "plagdet": 0.20521442094530415,
+          "precision": 0.12628147298786055,
+          "recall": 0.6605539061091059,
+          "f1": 0.2120283923864156,
+          "granularity": 2.1470588235294117,
+          "plagdet": 0.12819096796585322,
           "cases": 72,
-          "detections": 531,
-          "detectedCases": 63,
-          "missedCases": 9,
-          "falsePositiveDetections": 407
+          "detections": 1117,
+          "detectedCases": 68,
+          "missedCases": 4,
+          "falsePositiveDetections": 971
         }
       },
       {
@@ -809,16 +809,16 @@
           "mergeGap": 120
         },
         "metrics": {
-          "precision": 0.19898502132844015,
-          "recall": 0.6088864589160335,
-          "f1": 0.29994692962138175,
-          "granularity": 1.7301587301587302,
-          "plagdet": 0.20700487897621694,
+          "precision": 0.10779417937502536,
+          "recall": 0.6738100939434586,
+          "f1": 0.18585570373832347,
+          "granularity": 1.7794117647058822,
+          "plagdet": 0.1260226991778281,
           "cases": 72,
-          "detections": 515,
-          "detectedCases": 63,
-          "missedCases": 9,
-          "falsePositiveDetections": 406
+          "detections": 1081,
+          "detectedCases": 68,
+          "missedCases": 4,
+          "falsePositiveDetections": 960
         }
       },
       {
@@ -829,16 +829,16 @@
           "mergeGap": 0
         },
         "metrics": {
-          "precision": 0.6768408343172208,
-          "recall": 0.4624301283030776,
-          "f1": 0.5494594422633237,
-          "granularity": 2.3,
-          "plagdet": 0.3189958086006622,
+          "precision": 0.3810010493586357,
+          "recall": 0.5490313797712436,
+          "f1": 0.4498370707769184,
+          "granularity": 2.6774193548387095,
+          "plagdet": 0.23944141073786576,
           "cases": 72,
-          "detections": 161,
-          "detectedCases": 50,
-          "missedCases": 22,
-          "falsePositiveDetections": 46
+          "detections": 426,
+          "detectedCases": 62,
+          "missedCases": 10,
+          "falsePositiveDetections": 260
         }
       },
       {
@@ -849,16 +849,16 @@
           "mergeGap": 40
         },
         "metrics": {
-          "precision": 0.6069730326529887,
-          "recall": 0.46458813980041136,
-          "f1": 0.5263208100450834,
-          "granularity": 1.64,
-          "plagdet": 0.3757990404454935,
+          "precision": 0.2969200392792119,
+          "recall": 0.5524432660251793,
+          "f1": 0.38624573306459825,
+          "granularity": 1.8225806451612903,
+          "plagdet": 0.2580106306842497,
           "cases": 72,
-          "detections": 127,
-          "detectedCases": 50,
-          "missedCases": 22,
-          "falsePositiveDetections": 45
+          "detections": 372,
+          "detectedCases": 62,
+          "missedCases": 10,
+          "falsePositiveDetections": 259
         }
       },
       {
@@ -869,16 +869,16 @@
           "mergeGap": 120
         },
         "metrics": {
-          "precision": 0.5931732025509954,
-          "recall": 0.4661255249349529,
-          "f1": 0.5220305910734657,
-          "granularity": 1.54,
-          "plagdet": 0.38817633046815114,
+          "precision": 0.27798844890594926,
+          "recall": 0.5608314897606269,
+          "f1": 0.3717238199750047,
+          "granularity": 1.6451612903225807,
+          "plagdet": 0.2648821118573533,
           "cases": 72,
-          "detections": 122,
-          "detectedCases": 50,
-          "missedCases": 22,
-          "falsePositiveDetections": 45
+          "detections": 359,
+          "detectedCases": 62,
+          "missedCases": 10,
+          "falsePositiveDetections": 257
         }
       },
       {
@@ -889,16 +889,16 @@
           "mergeGap": 0
         },
         "metrics": {
-          "precision": 0.7101438732008409,
-          "recall": 0.30093490088971836,
-          "f1": 0.4227308130197077,
-          "granularity": 1.7567567567567568,
-          "plagdet": 0.2889534590242403,
+          "precision": 0.3787647642334874,
+          "recall": 0.4017334997270492,
+          "f1": 0.3899111665839738,
+          "granularity": 2.1923076923076925,
+          "plagdet": 0.23283842909391925,
           "cases": 72,
-          "detections": 89,
-          "detectedCases": 37,
-          "missedCases": 35,
-          "falsePositiveDetections": 24
+          "detections": 299,
+          "detectedCases": 52,
+          "missedCases": 20,
+          "falsePositiveDetections": 185
         }
       },
       {
@@ -909,16 +909,16 @@
           "mergeGap": 40
         },
         "metrics": {
-          "precision": 0.6637416592089365,
-          "recall": 0.3020914117297146,
-          "f1": 0.4152076810941733,
-          "granularity": 1.3513513513513513,
-          "plagdet": 0.3366120821900644,
+          "precision": 0.3315383352265432,
+          "recall": 0.4041220777429049,
+          "f1": 0.3642494784852277,
+          "granularity": 1.7692307692307692,
+          "plagdet": 0.24787555385851562,
           "cases": 72,
-          "detections": 73,
-          "detectedCases": 37,
-          "missedCases": 35,
-          "falsePositiveDetections": 23
+          "detections": 276,
+          "detectedCases": 52,
+          "missedCases": 20,
+          "falsePositiveDetections": 184
         }
       },
       {
@@ -929,16 +929,16 @@
           "mergeGap": 120
         },
         "metrics": {
-          "precision": 0.649330587460748,
-          "recall": 0.3060445678896595,
-          "f1": 0.41601270023413245,
-          "granularity": 1.2702702702702702,
-          "plagdet": 0.3516995023388763,
+          "precision": 0.31133803970764495,
+          "recall": 0.4120274738467893,
+          "f1": 0.3546749841109175,
+          "granularity": 1.5961538461538463,
+          "plagdet": 0.25768759068334174,
           "cases": 72,
-          "detections": 70,
-          "detectedCases": 37,
-          "missedCases": 35,
-          "falsePositiveDetections": 23
+          "detections": 265,
+          "detectedCases": 52,
+          "missedCases": 20,
+          "falsePositiveDetections": 182
         }
       },
       {
@@ -949,16 +949,16 @@
           "mergeGap": 0
         },
         "metrics": {
-          "precision": 0.6831919982604914,
-          "recall": 0.14628057057423766,
-          "f1": 0.2409668964886786,
-          "granularity": 1.4761904761904763,
-          "plagdet": 0.18420823293278865,
+          "precision": 0.2974137931034483,
+          "recall": 0.24025565589383818,
+          "f1": 0.26579656354736975,
+          "granularity": 1.9166666666666667,
+          "plagdet": 0.17211230489723625,
           "cases": 72,
-          "detections": 45,
-          "detectedCases": 21,
-          "missedCases": 51,
-          "falsePositiveDetections": 14
+          "detections": 232,
+          "detectedCases": 36,
+          "missedCases": 36,
+          "falsePositiveDetections": 163
         }
       },
       {
@@ -969,16 +969,16 @@
           "mergeGap": 40
         },
         "metrics": {
-          "precision": 0.6685909980430529,
-          "recall": 0.1465063597423345,
-          "f1": 0.24034633984317894,
-          "granularity": 1.2857142857142858,
-          "plagdet": 0.2015237762585958,
+          "precision": 0.25806451612903225,
+          "recall": 0.2420992302754351,
+          "f1": 0.2498270662972756,
+          "granularity": 1.5555555555555556,
+          "plagdet": 0.1845598743781241,
           "cases": 72,
-          "detections": 40,
-          "detectedCases": 21,
-          "missedCases": 51,
-          "falsePositiveDetections": 13
+          "detections": 217,
+          "detectedCases": 36,
+          "missedCases": 36,
+          "falsePositiveDetections": 161
         }
       },
       {
@@ -989,16 +989,16 @@
           "mergeGap": 120
         },
         "metrics": {
-          "precision": 0.6685909980430529,
-          "recall": 0.1465063597423345,
-          "f1": 0.24034633984317894,
-          "granularity": 1.2857142857142858,
-          "plagdet": 0.2015237762585958,
+          "precision": 0.24644549763033174,
+          "recall": 0.24632060401400166,
+          "f1": 0.24638303499476366,
+          "granularity": 1.4444444444444444,
+          "plagdet": 0.1910676779082463,
           "cases": 72,
-          "detections": 40,
-          "detectedCases": 21,
-          "missedCases": 51,
-          "falsePositiveDetections": 13
+          "detections": 211,
+          "detectedCases": 36,
+          "missedCases": 36,
+          "falsePositiveDetections": 159
         }
       }
     ]
@@ -1006,21 +1006,21 @@
   "hybrid": {
     "config": {
       "method": "hybrid",
-      "threshold": 0.6,
+      "threshold": 0.7,
       "alpha": 0.25,
       "mergeGap": 120
     },
     "metrics": {
-      "precision": 0.5852763535551174,
-      "recall": 0.5446058503992423,
-      "f1": 0.5642091275195049,
-      "granularity": 1.5614035087719298,
-      "plagdet": 0.415796863390999,
+      "precision": 0.3027187498857037,
+      "recall": 0.5092411233787011,
+      "f1": 0.3797154054912083,
+      "granularity": 1.6551724137931034,
+      "plagdet": 0.2695300332156884,
       "cases": 72,
-      "detections": 143,
-      "detectedCases": 57,
-      "missedCases": 15,
-      "falsePositiveDetections": 54
+      "detections": 312,
+      "detectedCases": 58,
+      "missedCases": 14,
+      "falsePositiveDetections": 216
     },
     "search": [
       {
@@ -1031,2136 +1031,2136 @@
           "mergeGap": 0
         },
         "metrics": {
-          "precision": 0.0365169180991656,
-          "recall": 0.7459754677540935,
-          "f1": 0.06962553387726239,
-          "granularity": 3.8285714285714287,
-          "plagdet": 0.03065048583655409,
+          "precision": 0.03195048453270812,
+          "recall": 0.7974455877229221,
+          "f1": 0.06143933825711363,
+          "granularity": 4.76056338028169,
+          "plagdet": 0.024320757325158926,
           "cases": 72,
-          "detections": 6907,
-          "detectedCases": 70,
-          "missedCases": 2,
-          "falsePositiveDetections": 6639
-        }
-      },
-      {
-        "config": {
-          "method": "hybrid",
-          "threshold": 0.2,
-          "alpha": 0,
-          "mergeGap": 40
-        },
-        "metrics": {
-          "precision": 0.024544773899128042,
-          "recall": 0.75047644384586,
-          "f1": 0.04753489119798338,
-          "granularity": 2.5,
-          "plagdet": 0.02630080601095591,
-          "cases": 72,
-          "detections": 6672,
-          "detectedCases": 70,
-          "missedCases": 2,
-          "falsePositiveDetections": 6497
-        }
-      },
-      {
-        "config": {
-          "method": "hybrid",
-          "threshold": 0.2,
-          "alpha": 0,
-          "mergeGap": 120
-        },
-        "metrics": {
-          "precision": 0.019798717408258445,
-          "recall": 0.7644915351776783,
-          "f1": 0.03859783241238239,
-          "granularity": 2,
-          "plagdet": 0.024352520892336835,
-          "cases": 72,
-          "detections": 6557,
-          "detectedCases": 70,
-          "missedCases": 2,
-          "falsePositiveDetections": 6417
-        }
-      },
-      {
-        "config": {
-          "method": "hybrid",
-          "threshold": 0.3,
-          "alpha": 0,
-          "mergeGap": 0
-        },
-        "metrics": {
-          "precision": 0.036532785821398725,
-          "recall": 0.7459754677540935,
-          "f1": 0.06965437582786811,
-          "granularity": 3.8285714285714287,
-          "plagdet": 0.030663182612425104,
-          "cases": 72,
-          "detections": 6904,
-          "detectedCases": 70,
-          "missedCases": 2,
-          "falsePositiveDetections": 6636
-        }
-      },
-      {
-        "config": {
-          "method": "hybrid",
-          "threshold": 0.3,
-          "alpha": 0,
-          "mergeGap": 40
-        },
-        "metrics": {
-          "precision": 0.024552133651421632,
-          "recall": 0.75047644384586,
-          "f1": 0.047548693007031226,
-          "granularity": 2.5,
-          "plagdet": 0.02630844247952077,
-          "cases": 72,
-          "detections": 6670,
-          "detectedCases": 70,
-          "missedCases": 2,
-          "falsePositiveDetections": 6495
-        }
-      },
-      {
-        "config": {
-          "method": "hybrid",
-          "threshold": 0.3,
-          "alpha": 0,
-          "mergeGap": 120
-        },
-        "metrics": {
-          "precision": 0.019804758206857457,
-          "recall": 0.7644915351776783,
-          "f1": 0.038609311641767126,
-          "granularity": 2,
-          "plagdet": 0.024359763479703738,
-          "cases": 72,
-          "detections": 6555,
-          "detectedCases": 70,
-          "missedCases": 2,
-          "falsePositiveDetections": 6415
-        }
-      },
-      {
-        "config": {
-          "method": "hybrid",
-          "threshold": 0.4,
-          "alpha": 0,
-          "mergeGap": 0
-        },
-        "metrics": {
-          "precision": 0.038368271525543673,
-          "recall": 0.7422034906557256,
-          "f1": 0.07296463038095932,
-          "granularity": 3.7857142857142856,
-          "plagdet": 0.03230332642566193,
-          "cases": 72,
-          "detections": 6502,
-          "detectedCases": 70,
-          "missedCases": 2,
-          "falsePositiveDetections": 6237
-        }
-      },
-      {
-        "config": {
-          "method": "hybrid",
-          "threshold": 0.4,
-          "alpha": 0,
-          "mergeGap": 40
-        },
-        "metrics": {
-          "precision": 0.02577973730694335,
-          "recall": 0.7466541446863002,
-          "f1": 0.04983869340242549,
-          "granularity": 2.4714285714285715,
-          "plagdet": 0.027757101051629957,
-          "cases": 72,
-          "detections": 6279,
-          "detectedCases": 70,
-          "missedCases": 2,
-          "falsePositiveDetections": 6106
-        }
-      },
-      {
-        "config": {
-          "method": "hybrid",
-          "threshold": 0.4,
-          "alpha": 0,
-          "mergeGap": 120
-        },
-        "metrics": {
-          "precision": 0.02088586248846034,
-          "recall": 0.7601292489217064,
-          "f1": 0.04065466784060163,
-          "granularity": 1.9857142857142858,
-          "plagdet": 0.02576217170430979,
-          "cases": 72,
-          "detections": 6173,
-          "detectedCases": 70,
-          "missedCases": 2,
-          "falsePositiveDetections": 6034
-        }
-      },
-      {
-        "config": {
-          "method": "hybrid",
-          "threshold": 0.5,
-          "alpha": 0,
-          "mergeGap": 0
-        },
-        "metrics": {
-          "precision": 0.06984446130726557,
-          "recall": 0.7091521533854184,
-          "f1": 0.12716448108733247,
-          "granularity": 3.463768115942029,
-          "plagdet": 0.05891985131692588,
-          "cases": 72,
-          "detections": 3219,
-          "detectedCases": 69,
-          "missedCases": 3,
-          "falsePositiveDetections": 2980
-        }
-      },
-      {
-        "config": {
-          "method": "hybrid",
-          "threshold": 0.5,
-          "alpha": 0,
-          "mergeGap": 40
-        },
-        "metrics": {
-          "precision": 0.04823919638394374,
-          "recall": 0.7133390952833137,
-          "f1": 0.0903673465544395,
-          "granularity": 2.3043478260869565,
-          "plagdet": 0.05240614217057266,
-          "cases": 72,
-          "detections": 3088,
-          "detectedCases": 69,
-          "missedCases": 3,
-          "falsePositiveDetections": 2929
-        }
-      },
-      {
-        "config": {
-          "method": "hybrid",
-          "threshold": 0.5,
-          "alpha": 0,
-          "mergeGap": 120
-        },
-        "metrics": {
-          "precision": 0.04133622221522614,
-          "recall": 0.7244090993178026,
-          "f1": 0.07820964663338378,
-          "granularity": 1.9565217391304348,
-          "plagdet": 0.050009337147805026,
-          "cases": 72,
-          "detections": 3040,
-          "detectedCases": 69,
-          "missedCases": 3,
-          "falsePositiveDetections": 2905
-        }
-      },
-      {
-        "config": {
-          "method": "hybrid",
-          "threshold": 0.6,
-          "alpha": 0,
-          "mergeGap": 0
-        },
-        "metrics": {
-          "precision": 0.2823527288920541,
-          "recall": 0.5984877850986721,
-          "f1": 0.3836895706932718,
-          "granularity": 2.7936507936507935,
-          "plagdet": 0.1994656824647814,
-          "cases": 72,
-          "detections": 589,
-          "detectedCases": 63,
-          "missedCases": 9,
-          "falsePositiveDetections": 413
-        }
-      },
-      {
-        "config": {
-          "method": "hybrid",
-          "threshold": 0.6,
-          "alpha": 0,
-          "mergeGap": 40
-        },
-        "metrics": {
-          "precision": 0.2199926676703815,
-          "recall": 0.6011420158648118,
-          "f1": 0.32210753819213805,
-          "granularity": 1.9682539682539681,
-          "plagdet": 0.20521442094530415,
-          "cases": 72,
-          "detections": 531,
-          "detectedCases": 63,
-          "missedCases": 9,
-          "falsePositiveDetections": 407
-        }
-      },
-      {
-        "config": {
-          "method": "hybrid",
-          "threshold": 0.6,
-          "alpha": 0,
-          "mergeGap": 120
-        },
-        "metrics": {
-          "precision": 0.19898502132844015,
-          "recall": 0.6088864589160335,
-          "f1": 0.29994692962138175,
-          "granularity": 1.7301587301587302,
-          "plagdet": 0.20700487897621694,
-          "cases": 72,
-          "detections": 515,
-          "detectedCases": 63,
-          "missedCases": 9,
-          "falsePositiveDetections": 406
-        }
-      },
-      {
-        "config": {
-          "method": "hybrid",
-          "threshold": 0.7,
-          "alpha": 0,
-          "mergeGap": 0
-        },
-        "metrics": {
-          "precision": 0.6768408343172208,
-          "recall": 0.4624301283030776,
-          "f1": 0.5494594422633237,
-          "granularity": 2.3,
-          "plagdet": 0.3189958086006622,
-          "cases": 72,
-          "detections": 161,
-          "detectedCases": 50,
-          "missedCases": 22,
-          "falsePositiveDetections": 46
-        }
-      },
-      {
-        "config": {
-          "method": "hybrid",
-          "threshold": 0.7,
-          "alpha": 0,
-          "mergeGap": 40
-        },
-        "metrics": {
-          "precision": 0.6069730326529887,
-          "recall": 0.46458813980041136,
-          "f1": 0.5263208100450834,
-          "granularity": 1.64,
-          "plagdet": 0.3757990404454935,
-          "cases": 72,
-          "detections": 127,
-          "detectedCases": 50,
-          "missedCases": 22,
-          "falsePositiveDetections": 45
-        }
-      },
-      {
-        "config": {
-          "method": "hybrid",
-          "threshold": 0.7,
-          "alpha": 0,
-          "mergeGap": 120
-        },
-        "metrics": {
-          "precision": 0.5931732025509954,
-          "recall": 0.4661255249349529,
-          "f1": 0.5220305910734657,
-          "granularity": 1.54,
-          "plagdet": 0.38817633046815114,
-          "cases": 72,
-          "detections": 122,
-          "detectedCases": 50,
-          "missedCases": 22,
-          "falsePositiveDetections": 45
-        }
-      },
-      {
-        "config": {
-          "method": "hybrid",
-          "threshold": 0.8,
-          "alpha": 0,
-          "mergeGap": 0
-        },
-        "metrics": {
-          "precision": 0.7101438732008409,
-          "recall": 0.30093490088971836,
-          "f1": 0.4227308130197077,
-          "granularity": 1.7567567567567568,
-          "plagdet": 0.2889534590242403,
-          "cases": 72,
-          "detections": 89,
-          "detectedCases": 37,
-          "missedCases": 35,
-          "falsePositiveDetections": 24
-        }
-      },
-      {
-        "config": {
-          "method": "hybrid",
-          "threshold": 0.8,
-          "alpha": 0,
-          "mergeGap": 40
-        },
-        "metrics": {
-          "precision": 0.6637416592089365,
-          "recall": 0.3020914117297146,
-          "f1": 0.4152076810941733,
-          "granularity": 1.3513513513513513,
-          "plagdet": 0.3366120821900644,
-          "cases": 72,
-          "detections": 73,
-          "detectedCases": 37,
-          "missedCases": 35,
-          "falsePositiveDetections": 23
-        }
-      },
-      {
-        "config": {
-          "method": "hybrid",
-          "threshold": 0.8,
-          "alpha": 0,
-          "mergeGap": 120
-        },
-        "metrics": {
-          "precision": 0.649330587460748,
-          "recall": 0.3060445678896595,
-          "f1": 0.41601270023413245,
-          "granularity": 1.2702702702702702,
-          "plagdet": 0.3516995023388763,
-          "cases": 72,
-          "detections": 70,
-          "detectedCases": 37,
-          "missedCases": 35,
-          "falsePositiveDetections": 23
-        }
-      },
-      {
-        "config": {
-          "method": "hybrid",
-          "threshold": 0.9,
-          "alpha": 0,
-          "mergeGap": 0
-        },
-        "metrics": {
-          "precision": 0.6831919982604914,
-          "recall": 0.14628057057423766,
-          "f1": 0.2409668964886786,
-          "granularity": 1.4761904761904763,
-          "plagdet": 0.18420823293278865,
-          "cases": 72,
-          "detections": 45,
-          "detectedCases": 21,
-          "missedCases": 51,
-          "falsePositiveDetections": 14
-        }
-      },
-      {
-        "config": {
-          "method": "hybrid",
-          "threshold": 0.9,
-          "alpha": 0,
-          "mergeGap": 40
-        },
-        "metrics": {
-          "precision": 0.6685909980430529,
-          "recall": 0.1465063597423345,
-          "f1": 0.24034633984317894,
-          "granularity": 1.2857142857142858,
-          "plagdet": 0.2015237762585958,
-          "cases": 72,
-          "detections": 40,
-          "detectedCases": 21,
-          "missedCases": 51,
-          "falsePositiveDetections": 13
-        }
-      },
-      {
-        "config": {
-          "method": "hybrid",
-          "threshold": 0.9,
-          "alpha": 0,
-          "mergeGap": 120
-        },
-        "metrics": {
-          "precision": 0.6685909980430529,
-          "recall": 0.1465063597423345,
-          "f1": 0.24034633984317894,
-          "granularity": 1.2857142857142858,
-          "plagdet": 0.2015237762585958,
-          "cases": 72,
-          "detections": 40,
-          "detectedCases": 21,
-          "missedCases": 51,
-          "falsePositiveDetections": 13
-        }
-      },
-      {
-        "config": {
-          "method": "hybrid",
-          "threshold": 0.2,
-          "alpha": 0.25,
-          "mergeGap": 0
-        },
-        "metrics": {
-          "precision": 0.04248093894421703,
-          "recall": 0.8345101061735243,
-          "f1": 0.08084637366834248,
-          "granularity": 4.291666666666667,
-          "plagdet": 0.03363382596270916,
-          "cases": 72,
-          "detections": 6769,
-          "detectedCases": 72,
-          "missedCases": 0,
-          "falsePositiveDetections": 6460
-        }
-      },
-      {
-        "config": {
-          "method": "hybrid",
-          "threshold": 0.2,
-          "alpha": 0.25,
-          "mergeGap": 40
-        },
-        "metrics": {
-          "precision": 0.027726838351013403,
-          "recall": 0.839640123194869,
-          "f1": 0.05368100700390259,
-          "granularity": 2.7083333333333335,
-          "plagdet": 0.028391068502909508,
-          "cases": 72,
-          "detections": 6517,
-          "detectedCases": 72,
-          "missedCases": 0,
-          "falsePositiveDetections": 6322
-        }
-      },
-      {
-        "config": {
-          "method": "hybrid",
-          "threshold": 0.2,
-          "alpha": 0.25,
-          "mergeGap": 120
-        },
-        "metrics": {
-          "precision": 0.02134627880060291,
-          "recall": 0.8545108148799188,
-          "f1": 0.041652059963130456,
-          "granularity": 2.0694444444444446,
-          "plagdet": 0.0257432865854622,
-          "cases": 72,
-          "detections": 6391,
-          "detectedCases": 72,
-          "missedCases": 0,
-          "falsePositiveDetections": 6242
-        }
-      },
-      {
-        "config": {
-          "method": "hybrid",
-          "threshold": 0.3,
-          "alpha": 0.25,
-          "mergeGap": 0
-        },
-        "metrics": {
-          "precision": 0.04358852140570033,
-          "recall": 0.833963106257678,
-          "f1": 0.08284690623950655,
-          "granularity": 4.291666666666667,
-          "plagdet": 0.03446609043269381,
-          "cases": 72,
-          "detections": 6597,
-          "detectedCases": 72,
-          "missedCases": 0,
-          "falsePositiveDetections": 6288
-        }
-      },
-      {
-        "config": {
-          "method": "hybrid",
-          "threshold": 0.3,
-          "alpha": 0.25,
-          "mergeGap": 40
-        },
-        "metrics": {
-          "precision": 0.028447072659564598,
-          "recall": 0.839093123279023,
-          "f1": 0.05502855811824327,
-          "granularity": 2.7083333333333335,
-          "plagdet": 0.029103767800738197,
-          "cases": 72,
-          "detections": 6352,
-          "detectedCases": 72,
-          "missedCases": 0,
-          "falsePositiveDetections": 6157
-        }
-      },
-      {
-        "config": {
-          "method": "hybrid",
-          "threshold": 0.3,
-          "alpha": 0.25,
-          "mergeGap": 120
-        },
-        "metrics": {
-          "precision": 0.022065521485975143,
-          "recall": 0.8533081163470004,
-          "f1": 0.04301863287092567,
-          "granularity": 2.0833333333333335,
-          "plagdet": 0.02648130180366845,
-          "cases": 72,
-          "detections": 6228,
-          "detectedCases": 72,
-          "missedCases": 0,
-          "falsePositiveDetections": 6078
-        }
-      },
-      {
-        "config": {
-          "method": "hybrid",
-          "threshold": 0.4,
-          "alpha": 0.25,
-          "mergeGap": 0
-        },
-        "metrics": {
-          "precision": 0.07853576108701668,
-          "recall": 0.8061595284166123,
-          "f1": 0.14312804164984624,
-          "granularity": 3.816901408450704,
-          "plagdet": 0.0631046696248389,
-          "cases": 72,
-          "detections": 3197,
+          "detections": 10169,
           "detectedCases": 71,
           "missedCases": 1,
-          "falsePositiveDetections": 2926
+          "falsePositiveDetections": 9831
         }
       },
       {
         "config": {
           "method": "hybrid",
-          "threshold": 0.4,
-          "alpha": 0.25,
+          "threshold": 0.2,
+          "alpha": 0,
           "mergeGap": 40
         },
         "metrics": {
-          "precision": 0.05035941624989664,
-          "recall": 0.8111906541568812,
-          "f1": 0.09483160460174912,
-          "granularity": 2.3380281690140845,
-          "plagdet": 0.05453238394200384,
+          "precision": 0.020245938157961246,
+          "recall": 0.8043425979519991,
+          "f1": 0.03949768832046549,
+          "granularity": 2.915492957746479,
+          "plagdet": 0.020057794843368757,
           "cases": 72,
-          "detections": 3034,
+          "detections": 9828,
           "detectedCases": 71,
           "missedCases": 1,
-          "falsePositiveDetections": 2868
+          "falsePositiveDetections": 9621
         }
       },
       {
         "config": {
           "method": "hybrid",
-          "threshold": 0.4,
-          "alpha": 0.25,
+          "threshold": 0.2,
+          "alpha": 0,
           "mergeGap": 120
         },
         "metrics": {
-          "precision": 0.03893033973580312,
-          "recall": 0.823608882754992,
-          "f1": 0.07434647092913912,
-          "granularity": 1.7887323943661972,
-          "plagdet": 0.05024735979341207,
+          "precision": 0.016063613070396783,
+          "recall": 0.8178590043621122,
+          "f1": 0.03150836856460771,
+          "granularity": 2.295774647887324,
+          "plagdet": 0.018312243559037246,
           "cases": 72,
-          "detections": 2965,
+          "detections": 9671,
           "detectedCases": 71,
           "missedCases": 1,
-          "falsePositiveDetections": 2838
-        }
-      },
-      {
-        "config": {
-          "method": "hybrid",
-          "threshold": 0.5,
-          "alpha": 0.25,
-          "mergeGap": 0
-        },
-        "metrics": {
-          "precision": 0.35715740236610294,
-          "recall": 0.6983069187770651,
-          "f1": 0.47259860929181197,
-          "granularity": 3.0144927536231885,
-          "plagdet": 0.23568443820677276,
-          "cases": 72,
-          "detections": 547,
-          "detectedCases": 69,
-          "missedCases": 3,
-          "falsePositiveDetections": 339
-        }
-      },
-      {
-        "config": {
-          "method": "hybrid",
-          "threshold": 0.5,
-          "alpha": 0.25,
-          "mergeGap": 40
-        },
-        "metrics": {
-          "precision": 0.2735824089047774,
-          "recall": 0.7014871847620751,
-          "f1": 0.3936427821553211,
-          "granularity": 2.0144927536231885,
-          "plagdet": 0.24727621608345074,
-          "cases": 72,
-          "detections": 473,
-          "detectedCases": 69,
-          "missedCases": 3,
-          "falsePositiveDetections": 334
-        }
-      },
-      {
-        "config": {
-          "method": "hybrid",
-          "threshold": 0.5,
-          "alpha": 0.25,
-          "mergeGap": 120
-        },
-        "metrics": {
-          "precision": 0.23183731281608416,
-          "recall": 0.7139186935546431,
-          "f1": 0.35001203348001453,
-          "granularity": 1.608695652173913,
-          "plagdet": 0.2530216056204065,
-          "cases": 72,
-          "detections": 442,
-          "detectedCases": 69,
-          "missedCases": 3,
-          "falsePositiveDetections": 331
-        }
-      },
-      {
-        "config": {
-          "method": "hybrid",
-          "threshold": 0.6,
-          "alpha": 0.25,
-          "mergeGap": 0
-        },
-        "metrics": {
-          "precision": 0.677935029626795,
-          "recall": 0.5351764485004925,
-          "f1": 0.5981558463692573,
-          "granularity": 2.43859649122807,
-          "plagdet": 0.33569939918442016,
-          "cases": 72,
-          "detections": 194,
-          "detectedCases": 57,
-          "missedCases": 15,
-          "falsePositiveDetections": 55
-        }
-      },
-      {
-        "config": {
-          "method": "hybrid",
-          "threshold": 0.6,
-          "alpha": 0.25,
-          "mergeGap": 40
-        },
-        "metrics": {
-          "precision": 0.6088646878401159,
-          "recall": 0.5374347340088867,
-          "f1": 0.5709241849375382,
-          "granularity": 1.719298245614035,
-          "plagdet": 0.39558659941483,
-          "cases": 72,
-          "detections": 152,
-          "detectedCases": 57,
-          "missedCases": 15,
-          "falsePositiveDetections": 54
-        }
-      },
-      {
-        "config": {
-          "method": "hybrid",
-          "threshold": 0.6,
-          "alpha": 0.25,
-          "mergeGap": 120
-        },
-        "metrics": {
-          "precision": 0.5852763535551174,
-          "recall": 0.5446058503992423,
-          "f1": 0.5642091275195049,
-          "granularity": 1.5614035087719298,
-          "plagdet": 0.415796863390999,
-          "cases": 72,
-          "detections": 143,
-          "detectedCases": 57,
-          "missedCases": 15,
-          "falsePositiveDetections": 54
-        }
-      },
-      {
-        "config": {
-          "method": "hybrid",
-          "threshold": 0.7,
-          "alpha": 0.25,
-          "mergeGap": 0
-        },
-        "metrics": {
-          "precision": 0.7272101463825157,
-          "recall": 0.40719140894700906,
-          "f1": 0.5220615622658259,
-          "granularity": 2.1666666666666665,
-          "plagdet": 0.31393418278305346,
-          "cases": 72,
-          "detections": 121,
-          "detectedCases": 42,
-          "missedCases": 30,
-          "falsePositiveDetections": 30
-        }
-      },
-      {
-        "config": {
-          "method": "hybrid",
-          "threshold": 0.7,
-          "alpha": 0.25,
-          "mergeGap": 40
-        },
-        "metrics": {
-          "precision": 0.6733998518625295,
-          "recall": 0.4091215131656012,
-          "f1": 0.5090012544044902,
-          "granularity": 1.5714285714285714,
-          "plagdet": 0.37355968849274773,
-          "cases": 72,
-          "detections": 95,
-          "detectedCases": 42,
-          "missedCases": 30,
-          "falsePositiveDetections": 29
-        }
-      },
-      {
-        "config": {
-          "method": "hybrid",
-          "threshold": 0.7,
-          "alpha": 0.25,
-          "mergeGap": 120
-        },
-        "metrics": {
-          "precision": 0.6627498470319597,
-          "recall": 0.4104021292919293,
-          "f1": 0.5069066719544035,
-          "granularity": 1.5,
-          "plagdet": 0.38346009432350825,
-          "cases": 72,
-          "detections": 92,
-          "detectedCases": 42,
-          "missedCases": 30,
-          "falsePositiveDetections": 29
-        }
-      },
-      {
-        "config": {
-          "method": "hybrid",
-          "threshold": 0.8,
-          "alpha": 0.25,
-          "mergeGap": 0
-        },
-        "metrics": {
-          "precision": 0.7267265727484364,
-          "recall": 0.26304932210036264,
-          "f1": 0.38627922403181775,
-          "granularity": 1.625,
-          "plagdet": 0.27743617777969704,
-          "cases": 72,
-          "detections": 70,
-          "detectedCases": 32,
-          "missedCases": 40,
-          "falsePositiveDetections": 18
-        }
-      },
-      {
-        "config": {
-          "method": "hybrid",
-          "threshold": 0.8,
-          "alpha": 0.25,
-          "mergeGap": 40
-        },
-        "metrics": {
-          "precision": 0.6996998675127764,
-          "recall": 0.263929072028501,
-          "f1": 0.3832826706491866,
-          "granularity": 1.34375,
-          "plagdet": 0.3119114915923973,
-          "cases": 72,
-          "detections": 60,
-          "detectedCases": 32,
-          "missedCases": 40,
-          "falsePositiveDetections": 17
-        }
-      },
-      {
-        "config": {
-          "method": "hybrid",
-          "threshold": 0.8,
-          "alpha": 0.25,
-          "mergeGap": 120
-        },
-        "metrics": {
-          "precision": 0.6782498580494032,
-          "recall": 0.26952654927976877,
-          "f1": 0.3857583758698864,
-          "granularity": 1.21875,
-          "plagdet": 0.33551584459378636,
-          "cases": 72,
-          "detections": 56,
-          "detectedCases": 32,
-          "missedCases": 40,
-          "falsePositiveDetections": 17
-        }
-      },
-      {
-        "config": {
-          "method": "hybrid",
-          "threshold": 0.9,
-          "alpha": 0.25,
-          "mergeGap": 0
-        },
-        "metrics": {
-          "precision": 0.6060606060606061,
-          "recall": 0.0981694224898622,
-          "f1": 0.16896927787441482,
-          "granularity": 1.1764705882352942,
-          "plagdet": 0.1505977761870981,
-          "cases": 72,
-          "detections": 33,
-          "detectedCases": 17,
-          "missedCases": 55,
-          "falsePositiveDetections": 13
-        }
-      },
-      {
-        "config": {
-          "method": "hybrid",
-          "threshold": 0.9,
-          "alpha": 0.25,
-          "mergeGap": 40
-        },
-        "metrics": {
-          "precision": 0.6129032258064516,
-          "recall": 0.09828858751287337,
-          "f1": 0.16940969009594442,
-          "granularity": 1.1176470588235294,
-          "plagdet": 0.15650402972599048,
-          "cases": 72,
-          "detections": 31,
-          "detectedCases": 17,
-          "missedCases": 55,
-          "falsePositiveDetections": 12
-        }
-      },
-      {
-        "config": {
-          "method": "hybrid",
-          "threshold": 0.9,
-          "alpha": 0.25,
-          "mergeGap": 120
-        },
-        "metrics": {
-          "precision": 0.6129032258064516,
-          "recall": 0.09828858751287337,
-          "f1": 0.16940969009594442,
-          "granularity": 1.1176470588235294,
-          "plagdet": 0.15650402972599048,
-          "cases": 72,
-          "detections": 31,
-          "detectedCases": 17,
-          "missedCases": 55,
-          "falsePositiveDetections": 12
-        }
-      },
-      {
-        "config": {
-          "method": "hybrid",
-          "threshold": 0.2,
-          "alpha": 0.5,
-          "mergeGap": 0
-        },
-        "metrics": {
-          "precision": 0.0465324541002461,
-          "recall": 0.8702737691054048,
-          "f1": 0.08834140342972274,
-          "granularity": 4.555555555555555,
-          "plagdet": 0.035708916984578905,
-          "cases": 72,
-          "detections": 6542,
-          "detectedCases": 72,
-          "missedCases": 0,
-          "falsePositiveDetections": 6214
-        }
-      },
-      {
-        "config": {
-          "method": "hybrid",
-          "threshold": 0.2,
-          "alpha": 0.5,
-          "mergeGap": 40
-        },
-        "metrics": {
-          "precision": 0.028694443820356564,
-          "recall": 0.8762215615373803,
-          "f1": 0.0555691140898318,
-          "granularity": 2.7083333333333335,
-          "plagdet": 0.029389659636148643,
-          "cases": 72,
-          "detections": 6264,
-          "detectedCases": 72,
-          "missedCases": 0,
-          "falsePositiveDetections": 6069
-        }
-      },
-      {
-        "config": {
-          "method": "hybrid",
-          "threshold": 0.2,
-          "alpha": 0.5,
-          "mergeGap": 120
-        },
-        "metrics": {
-          "precision": 0.02176658392589652,
-          "recall": 0.8894961523695061,
-          "f1": 0.04249332685548677,
-          "granularity": 2.0416666666666665,
-          "plagdet": 0.026477868698719317,
-          "cases": 72,
-          "detections": 6143,
-          "detectedCases": 72,
-          "missedCases": 0,
-          "falsePositiveDetections": 5996
+          "falsePositiveDetections": 9508
         }
       },
       {
         "config": {
           "method": "hybrid",
           "threshold": 0.3,
-          "alpha": 0.5,
+          "alpha": 0,
           "mergeGap": 0
         },
         "metrics": {
-          "precision": 0.06791644966229847,
-          "recall": 0.8367883313677402,
-          "f1": 0.12563588427294692,
-          "granularity": 4.069444444444445,
-          "plagdet": 0.05364864666629511,
+          "precision": 0.03195362679121842,
+          "recall": 0.7974455877229221,
+          "f1": 0.061445147886543254,
+          "granularity": 4.76056338028169,
+          "plagdet": 0.024323057066521953,
           "cases": 72,
-          "detections": 3978,
-          "detectedCases": 72,
-          "missedCases": 0,
-          "falsePositiveDetections": 3685
-        }
-      },
-      {
-        "config": {
-          "method": "hybrid",
-          "threshold": 0.3,
-          "alpha": 0.5,
-          "mergeGap": 40
-        },
-        "metrics": {
-          "precision": 0.04377627174819188,
-          "recall": 0.8421543253446857,
-          "f1": 0.08322633109450948,
-          "granularity": 2.513888888888889,
-          "plagdet": 0.045903576027039705,
-          "cases": 72,
-          "detections": 3786,
-          "detectedCases": 72,
-          "missedCases": 0,
-          "falsePositiveDetections": 3605
-        }
-      },
-      {
-        "config": {
-          "method": "hybrid",
-          "threshold": 0.3,
-          "alpha": 0.5,
-          "mergeGap": 120
-        },
-        "metrics": {
-          "precision": 0.03372081275138692,
-          "recall": 0.8547131818569124,
-          "f1": 0.06488185579671835,
-          "granularity": 1.9166666666666667,
-          "plagdet": 0.04201320588252507,
-          "cases": 72,
-          "detections": 3699,
-          "detectedCases": 72,
-          "missedCases": 0,
-          "falsePositiveDetections": 3561
-        }
-      },
-      {
-        "config": {
-          "method": "hybrid",
-          "threshold": 0.4,
-          "alpha": 0.5,
-          "mergeGap": 0
-        },
-        "metrics": {
-          "precision": 0.27274544771130876,
-          "recall": 0.7683474476506638,
-          "f1": 0.4025832268012157,
-          "granularity": 3.2753623188405796,
-          "plagdet": 0.19206787196469785,
-          "cases": 72,
-          "detections": 769,
-          "detectedCases": 69,
-          "missedCases": 3,
-          "falsePositiveDetections": 543
-        }
-      },
-      {
-        "config": {
-          "method": "hybrid",
-          "threshold": 0.4,
-          "alpha": 0.5,
-          "mergeGap": 40
-        },
-        "metrics": {
-          "precision": 0.19298741192148677,
-          "recall": 0.7728570218682274,
-          "f1": 0.3088523808134732,
-          "granularity": 2.0579710144927534,
-          "plagdet": 0.19152748377993845,
-          "cases": 72,
-          "detections": 675,
-          "detectedCases": 69,
-          "missedCases": 3,
-          "falsePositiveDetections": 533
-        }
-      },
-      {
-        "config": {
-          "method": "hybrid",
-          "threshold": 0.4,
-          "alpha": 0.5,
-          "mergeGap": 120
-        },
-        "metrics": {
-          "precision": 0.15469100780978262,
-          "recall": 0.7831644868831187,
-          "f1": 0.25835217566529417,
-          "granularity": 1.5797101449275361,
-          "plagdet": 0.18896319475864257,
-          "cases": 72,
-          "detections": 638,
-          "detectedCases": 69,
-          "missedCases": 3,
-          "falsePositiveDetections": 529
-        }
-      },
-      {
-        "config": {
-          "method": "hybrid",
-          "threshold": 0.5,
-          "alpha": 0.5,
-          "mergeGap": 0
-        },
-        "metrics": {
-          "precision": 0.5645308165188643,
-          "recall": 0.6610317006548456,
-          "f1": 0.6089820151747353,
-          "granularity": 2.6417910447761193,
-          "plagdet": 0.32659352710600464,
-          "cases": 72,
-          "detections": 294,
-          "detectedCases": 67,
-          "missedCases": 5,
-          "falsePositiveDetections": 117
-        }
-      },
-      {
-        "config": {
-          "method": "hybrid",
-          "threshold": 0.5,
-          "alpha": 0.5,
-          "mergeGap": 40
-        },
-        "metrics": {
-          "precision": 0.47669779143945207,
-          "recall": 0.6638091503595202,
-          "f1": 0.5549047433495728,
-          "granularity": 1.8208955223880596,
-          "plagdet": 0.37088764093622373,
-          "cases": 72,
-          "detections": 238,
-          "detectedCases": 67,
-          "missedCases": 5,
-          "falsePositiveDetections": 116
-        }
-      },
-      {
-        "config": {
-          "method": "hybrid",
-          "threshold": 0.5,
-          "alpha": 0.5,
-          "mergeGap": 120
-        },
-        "metrics": {
-          "precision": 0.4164521855763987,
-          "recall": 0.6728473088504013,
-          "f1": 0.514475098471236,
-          "granularity": 1.4328358208955223,
-          "plagdet": 0.4011067128022823,
-          "cases": 72,
-          "detections": 212,
-          "detectedCases": 67,
-          "missedCases": 5,
-          "falsePositiveDetections": 116
-        }
-      },
-      {
-        "config": {
-          "method": "hybrid",
-          "threshold": 0.6,
-          "alpha": 0.5,
-          "mergeGap": 0
-        },
-        "metrics": {
-          "precision": 0.6517221425638449,
-          "recall": 0.49092992781835715,
-          "f1": 0.560012820524579,
-          "granularity": 2.173076923076923,
-          "plagdet": 0.3361658591371468,
-          "cases": 72,
-          "detections": 166,
-          "detectedCases": 52,
-          "missedCases": 20,
-          "falsePositiveDetections": 53
-        }
-      },
-      {
-        "config": {
-          "method": "hybrid",
-          "threshold": 0.6,
-          "alpha": 0.5,
-          "mergeGap": 40
-        },
-        "metrics": {
-          "precision": 0.5782026315073815,
-          "recall": 0.49316730864991914,
-          "f1": 0.5323103158801149,
-          "granularity": 1.5384615384615385,
-          "plagdet": 0.39607766111554477,
-          "cases": 72,
-          "detections": 132,
-          "detectedCases": 52,
-          "missedCases": 20,
-          "falsePositiveDetections": 52
-        }
-      },
-      {
-        "config": {
-          "method": "hybrid",
-          "threshold": 0.6,
-          "alpha": 0.5,
-          "mergeGap": 120
-        },
-        "metrics": {
-          "precision": 0.5581170425315426,
-          "recall": 0.4964291286431858,
-          "f1": 0.5254688029376732,
-          "granularity": 1.4230769230769231,
-          "plagdet": 0.4115384217479298,
-          "cases": 72,
-          "detections": 126,
-          "detectedCases": 52,
-          "missedCases": 20,
-          "falsePositiveDetections": 52
-        }
-      },
-      {
-        "config": {
-          "method": "hybrid",
-          "threshold": 0.7,
-          "alpha": 0.5,
-          "mergeGap": 0
-        },
-        "metrics": {
-          "precision": 0.6783856697192507,
-          "recall": 0.3415022400537764,
-          "f1": 0.45430526945076327,
-          "granularity": 1.9210526315789473,
-          "plagdet": 0.2937657232250907,
-          "cases": 72,
-          "detections": 105,
-          "detectedCases": 38,
-          "missedCases": 34,
-          "falsePositiveDetections": 32
-        }
-      },
-      {
-        "config": {
-          "method": "hybrid",
-          "threshold": 0.7,
-          "alpha": 0.5,
-          "mergeGap": 40
-        },
-        "metrics": {
-          "precision": 0.6105905585958126,
-          "recall": 0.343049544440694,
-          "f1": 0.43929111684612926,
-          "granularity": 1.368421052631579,
-          "plagdet": 0.35314903310124846,
-          "cases": 72,
-          "detections": 83,
-          "detectedCases": 38,
-          "missedCases": 34,
-          "falsePositiveDetections": 31
-        }
-      },
-      {
-        "config": {
-          "method": "hybrid",
-          "threshold": 0.7,
-          "alpha": 0.5,
-          "mergeGap": 120
-        },
-        "metrics": {
-          "precision": 0.6009755106599067,
-          "recall": 0.34491684365160863,
-          "f1": 0.4382878776932412,
-          "granularity": 1.3157894736842106,
-          "plagdet": 0.3617716818410299,
-          "cases": 72,
-          "detections": 81,
-          "detectedCases": 38,
-          "missedCases": 34,
-          "falsePositiveDetections": 31
-        }
-      },
-      {
-        "config": {
-          "method": "hybrid",
-          "threshold": 0.8,
-          "alpha": 0.5,
-          "mergeGap": 0
-        },
-        "metrics": {
-          "precision": 0.6640563850460623,
-          "recall": 0.1962458322645976,
-          "f1": 0.3029593445925664,
-          "granularity": 1.48,
-          "plagdet": 0.2312066461424024,
-          "cases": 72,
-          "detections": 55,
-          "detectedCases": 25,
-          "missedCases": 47,
-          "falsePositiveDetections": 18
-        }
-      },
-      {
-        "config": {
-          "method": "hybrid",
-          "threshold": 0.8,
-          "alpha": 0.5,
-          "mergeGap": 40
-        },
-        "metrics": {
-          "precision": 0.645596594610397,
-          "recall": 0.19709564038327088,
-          "f1": 0.3019946522823988,
-          "granularity": 1.28,
-          "plagdet": 0.2539832308280416,
-          "cases": 72,
-          "detections": 49,
-          "detectedCases": 25,
-          "missedCases": 47,
-          "falsePositiveDetections": 17
-        }
-      },
-      {
-        "config": {
-          "method": "hybrid",
-          "threshold": 0.8,
-          "alpha": 0.5,
-          "mergeGap": 120
-        },
-        "metrics": {
-          "precision": 0.6224833290415098,
-          "recall": 0.20156673351846377,
-          "f1": 0.30452502100371964,
-          "granularity": 1.16,
-          "plagdet": 0.27409220389026084,
-          "cases": 72,
-          "detections": 46,
-          "detectedCases": 25,
-          "missedCases": 47,
-          "falsePositiveDetections": 17
-        }
-      },
-      {
-        "config": {
-          "method": "hybrid",
-          "threshold": 0.9,
-          "alpha": 0.5,
-          "mergeGap": 0
-        },
-        "metrics": {
-          "precision": 0.6060606060606061,
-          "recall": 0.0887126421567932,
-          "f1": 0.15477060410351393,
-          "granularity": 1.1764705882352942,
-          "plagdet": 0.13794287985562995,
-          "cases": 72,
-          "detections": 33,
-          "detectedCases": 17,
-          "missedCases": 55,
-          "falsePositiveDetections": 13
-        }
-      },
-      {
-        "config": {
-          "method": "hybrid",
-          "threshold": 0.9,
-          "alpha": 0.5,
-          "mergeGap": 40
-        },
-        "metrics": {
-          "precision": 0.625,
-          "recall": 0.0887126421567932,
-          "f1": 0.15537177870478336,
-          "granularity": 1.1764705882352942,
-          "plagdet": 0.1384786906207007,
-          "cases": 72,
-          "detections": 32,
-          "detectedCases": 17,
-          "missedCases": 55,
-          "falsePositiveDetections": 12
-        }
-      },
-      {
-        "config": {
-          "method": "hybrid",
-          "threshold": 0.9,
-          "alpha": 0.5,
-          "mergeGap": 120
-        },
-        "metrics": {
-          "precision": 0.625,
-          "recall": 0.0887126421567932,
-          "f1": 0.15537177870478336,
-          "granularity": 1.1764705882352942,
-          "plagdet": 0.1384786906207007,
-          "cases": 72,
-          "detections": 32,
-          "detectedCases": 17,
-          "missedCases": 55,
-          "falsePositiveDetections": 12
-        }
-      },
-      {
-        "config": {
-          "method": "hybrid",
-          "threshold": 0.2,
-          "alpha": 0.75,
-          "mergeGap": 0
-        },
-        "metrics": {
-          "precision": 0.05072148029540781,
-          "recall": 0.8651649629899475,
-          "f1": 0.09582508387210564,
-          "granularity": 4.361111111111111,
-          "plagdet": 0.03955575507567716,
-          "cases": 72,
-          "detections": 5713,
-          "detectedCases": 72,
-          "missedCases": 0,
-          "falsePositiveDetections": 5399
-        }
-      },
-      {
-        "config": {
-          "method": "hybrid",
-          "threshold": 0.2,
-          "alpha": 0.75,
-          "mergeGap": 40
-        },
-        "metrics": {
-          "precision": 0.031470203123268085,
-          "recall": 0.8707433815433486,
-          "f1": 0.060744975582552735,
-          "granularity": 2.638888888888889,
-          "plagdet": 0.032597285094725884,
-          "cases": 72,
-          "detections": 5504,
-          "detectedCases": 72,
-          "missedCases": 0,
-          "falsePositiveDetections": 5314
-        }
-      },
-      {
-        "config": {
-          "method": "hybrid",
-          "threshold": 0.2,
-          "alpha": 0.75,
-          "mergeGap": 120
-        },
-        "metrics": {
-          "precision": 0.024215732578575185,
-          "recall": 0.8841728016697058,
-          "f1": 0.04714038390236035,
-          "granularity": 2.0277777777777777,
-          "plagdet": 0.02949482803829762,
-          "cases": 72,
-          "detections": 5414,
-          "detectedCases": 72,
-          "missedCases": 0,
-          "falsePositiveDetections": 5268
-        }
-      },
-      {
-        "config": {
-          "method": "hybrid",
-          "threshold": 0.3,
-          "alpha": 0.75,
-          "mergeGap": 0
-        },
-        "metrics": {
-          "precision": 0.14348022948915978,
-          "recall": 0.804096060777427,
-          "f1": 0.24350944302166194,
-          "granularity": 3.563380281690141,
-          "plagdet": 0.11118630310456404,
-          "cases": 72,
-          "detections": 1620,
+          "detections": 10168,
           "detectedCases": 71,
           "missedCases": 1,
-          "falsePositiveDetections": 1367
+          "falsePositiveDetections": 9830
         }
       },
       {
         "config": {
           "method": "hybrid",
           "threshold": 0.3,
-          "alpha": 0.75,
+          "alpha": 0,
           "mergeGap": 40
         },
         "metrics": {
-          "precision": 0.09419749083077324,
-          "recall": 0.8089456782819949,
-          "f1": 0.16874545635421243,
-          "granularity": 2.1971830985915495,
-          "plagdet": 0.1006353284271205,
+          "precision": 0.020247998393858057,
+          "recall": 0.8043425979519991,
+          "f1": 0.0395016089283966,
+          "granularity": 2.915492957746479,
+          "plagdet": 0.02005978581430623,
           "cases": 72,
-          "detections": 1499,
+          "detections": 9827,
           "detectedCases": 71,
           "missedCases": 1,
-          "falsePositiveDetections": 1343
+          "falsePositiveDetections": 9620
         }
       },
       {
         "config": {
           "method": "hybrid",
           "threshold": 0.3,
-          "alpha": 0.75,
+          "alpha": 0,
           "mergeGap": 120
         },
         "metrics": {
-          "precision": 0.07564237962013787,
-          "recall": 0.8205571905609338,
-          "f1": 0.1385157961990616,
-          "granularity": 1.732394366197183,
-          "plagdet": 0.09551721850302865,
+          "precision": 0.016065274250652253,
+          "recall": 0.8178590043621122,
+          "f1": 0.03151156415615986,
+          "granularity": 2.295774647887324,
+          "plagdet": 0.01831410079422536,
           "cases": 72,
-          "detections": 1454,
+          "detections": 9670,
           "detectedCases": 71,
           "missedCases": 1,
-          "falsePositiveDetections": 1331
+          "falsePositiveDetections": 9507
         }
       },
       {
         "config": {
           "method": "hybrid",
           "threshold": 0.4,
-          "alpha": 0.75,
+          "alpha": 0,
           "mergeGap": 0
         },
         "metrics": {
-          "precision": 0.3299640103471538,
-          "recall": 0.7314494123483276,
-          "f1": 0.4547746925069117,
-          "granularity": 2.9411764705882355,
-          "plagdet": 0.22984364515770153,
+          "precision": 0.03292214440805896,
+          "recall": 0.795161996321352,
+          "f1": 0.06322651716921651,
+          "granularity": 4.690140845070423,
+          "plagdet": 0.025205268249205725,
           "cases": 72,
-          "detections": 563,
+          "detections": 9717,
+          "detectedCases": 71,
+          "missedCases": 1,
+          "falsePositiveDetections": 9384
+        }
+      },
+      {
+        "config": {
+          "method": "hybrid",
+          "threshold": 0.4,
+          "alpha": 0,
+          "mergeGap": 40
+        },
+        "metrics": {
+          "precision": 0.020875274841973067,
+          "recall": 0.8018228461599594,
+          "f1": 0.04069116450096505,
+          "granularity": 2.8732394366197185,
+          "plagdet": 0.020829443037464732,
+          "cases": 72,
+          "detections": 9388,
+          "detectedCases": 71,
+          "missedCases": 1,
+          "falsePositiveDetections": 9184
+        }
+      },
+      {
+        "config": {
+          "method": "hybrid",
+          "threshold": 0.4,
+          "alpha": 0,
+          "mergeGap": 120
+        },
+        "metrics": {
+          "precision": 0.016497152355582814,
+          "recall": 0.8153392525700724,
+          "f1": 0.032339954807189895,
+          "granularity": 2.2535211267605635,
+          "plagdet": 0.019001127079146658,
+          "cases": 72,
+          "detections": 9235,
+          "detectedCases": 71,
+          "missedCases": 1,
+          "falsePositiveDetections": 9075
+        }
+      },
+      {
+        "config": {
+          "method": "hybrid",
+          "threshold": 0.5,
+          "alpha": 0,
+          "mergeGap": 0
+        },
+        "metrics": {
+          "precision": 0.054484449611662635,
+          "recall": 0.764160234362758,
+          "f1": 0.10171653367915821,
+          "granularity": 4.197183098591549,
+          "plagdet": 0.042778843069723446,
+          "cases": 72,
+          "detections": 5256,
+          "detectedCases": 71,
+          "missedCases": 1,
+          "falsePositiveDetections": 4958
+        }
+      },
+      {
+        "config": {
+          "method": "hybrid",
+          "threshold": 0.5,
+          "alpha": 0,
+          "mergeGap": 40
+        },
+        "metrics": {
+          "precision": 0.03483407835096957,
+          "recall": 0.7706508666191855,
+          "f1": 0.0666552809874056,
+          "granularity": 2.5774647887323945,
+          "plagdet": 0.03624662531988516,
+          "cases": 72,
+          "detections": 5046,
+          "detectedCases": 71,
+          "missedCases": 1,
+          "falsePositiveDetections": 4863
+        }
+      },
+      {
+        "config": {
+          "method": "hybrid",
+          "threshold": 0.5,
+          "alpha": 0,
+          "mergeGap": 120
+        },
+        "metrics": {
+          "precision": 0.028622024085942825,
+          "recall": 0.7812363357141692,
+          "f1": 0.05522092831922773,
+          "granularity": 2.0985915492957745,
+          "plagdet": 0.03384438715514818,
+          "cases": 72,
+          "detections": 4961,
+          "detectedCases": 71,
+          "missedCases": 1,
+          "falsePositiveDetections": 4812
+        }
+      },
+      {
+        "config": {
+          "method": "hybrid",
+          "threshold": 0.6,
+          "alpha": 0,
+          "mergeGap": 0
+        },
+        "metrics": {
+          "precision": 0.1794571526127152,
+          "recall": 0.6567588702313166,
+          "f1": 0.28188906594734947,
+          "granularity": 3.2941176470588234,
+          "plagdet": 0.13408209614146097,
+          "cases": 72,
+          "detections": 1211,
           "detectedCases": 68,
           "missedCases": 4,
-          "falsePositiveDetections": 363
-        }
-      },
-      {
-        "config": {
-          "method": "hybrid",
-          "threshold": 0.4,
-          "alpha": 0.75,
-          "mergeGap": 40
-        },
-        "metrics": {
-          "precision": 0.24944741518266958,
-          "recall": 0.7346319120328927,
-          "f1": 0.372433454294414,
-          "granularity": 1.9558823529411764,
-          "plagdet": 0.2381914237310041,
-          "cases": 72,
-          "detections": 489,
-          "detectedCases": 68,
-          "missedCases": 4,
-          "falsePositiveDetections": 356
-        }
-      },
-      {
-        "config": {
-          "method": "hybrid",
-          "threshold": 0.4,
-          "alpha": 0.75,
-          "mergeGap": 120
-        },
-        "metrics": {
-          "precision": 0.2101391329412686,
-          "recall": 0.7456847221757932,
-          "f1": 0.3278795358092017,
-          "granularity": 1.5735294117647058,
-          "plagdet": 0.2404252624051188,
-          "cases": 72,
-          "detections": 462,
-          "detectedCases": 68,
-          "missedCases": 4,
-          "falsePositiveDetections": 355
-        }
-      },
-      {
-        "config": {
-          "method": "hybrid",
-          "threshold": 0.5,
-          "alpha": 0.75,
-          "mergeGap": 0
-        },
-        "metrics": {
-          "precision": 0.5054980808935592,
-          "recall": 0.5803087405637789,
-          "f1": 0.5403262327768942,
-          "granularity": 2.5344827586206895,
-          "plagdet": 0.2966382094167653,
-          "cases": 72,
-          "detections": 274,
-          "detectedCases": 58,
-          "missedCases": 14,
-          "falsePositiveDetections": 127
-        }
-      },
-      {
-        "config": {
-          "method": "hybrid",
-          "threshold": 0.5,
-          "alpha": 0.75,
-          "mergeGap": 40
-        },
-        "metrics": {
-          "precision": 0.4218135350366295,
-          "recall": 0.5830887446372203,
-          "f1": 0.4895097356039898,
-          "granularity": 1.7758620689655173,
-          "plagdet": 0.33233607875129434,
-          "cases": 72,
-          "detections": 229,
-          "detectedCases": 58,
-          "missedCases": 14,
-          "falsePositiveDetections": 126
-        }
-      },
-      {
-        "config": {
-          "method": "hybrid",
-          "threshold": 0.5,
-          "alpha": 0.75,
-          "mergeGap": 120
-        },
-        "metrics": {
-          "precision": 0.3849742955403258,
-          "recall": 0.5903570435920913,
-          "f1": 0.4660411859139058,
-          "granularity": 1.5172413793103448,
-          "plagdet": 0.34992186664989633,
-          "cases": 72,
-          "detections": 214,
-          "detectedCases": 58,
-          "missedCases": 14,
-          "falsePositiveDetections": 126
+          "falsePositiveDetections": 987
         }
       },
       {
         "config": {
           "method": "hybrid",
           "threshold": 0.6,
-          "alpha": 0.75,
-          "mergeGap": 0
-        },
-        "metrics": {
-          "precision": 0.6086049529298843,
-          "recall": 0.4442666754491882,
-          "f1": 0.5136103810040583,
-          "granularity": 2.0408163265306123,
-          "plagdet": 0.32011443396812894,
-          "cases": 72,
-          "detections": 160,
-          "detectedCases": 49,
-          "missedCases": 23,
-          "falsePositiveDetections": 60
-        }
-      },
-      {
-        "config": {
-          "method": "hybrid",
-          "threshold": 0.6,
-          "alpha": 0.75,
+          "alpha": 0,
           "mergeGap": 40
         },
         "metrics": {
-          "precision": 0.5266185592708787,
-          "recall": 0.4461719807730851,
-          "f1": 0.48306893628126263,
-          "granularity": 1.4285714285714286,
-          "plagdet": 0.37736579005455784,
-          "cases": 72,
-          "detections": 129,
-          "detectedCases": 49,
-          "missedCases": 23,
-          "falsePositiveDetections": 59
-        }
-      },
-      {
-        "config": {
-          "method": "hybrid",
-          "threshold": 0.6,
-          "alpha": 0.75,
-          "mergeGap": 120
-        },
-        "metrics": {
-          "precision": 0.515347572586852,
-          "recall": 0.44821903720601053,
-          "f1": 0.47944499210280633,
-          "granularity": 1.3673469387755102,
-          "plagdet": 0.3856318806339281,
-          "cases": 72,
-          "detections": 126,
-          "detectedCases": 49,
-          "missedCases": 23,
-          "falsePositiveDetections": 59
-        }
-      },
-      {
-        "config": {
-          "method": "hybrid",
-          "threshold": 0.7,
-          "alpha": 0.75,
-          "mergeGap": 0
-        },
-        "metrics": {
-          "precision": 0.606265251982485,
-          "recall": 0.29166279498067543,
-          "f1": 0.3938511966318604,
-          "granularity": 1.878787878787879,
-          "plagdet": 0.25818494893446764,
-          "cases": 72,
-          "detections": 100,
-          "detectedCases": 33,
-          "missedCases": 39,
-          "falsePositiveDetections": 38
-        }
-      },
-      {
-        "config": {
-          "method": "hybrid",
-          "threshold": 0.7,
-          "alpha": 0.75,
-          "mergeGap": 40
-        },
-        "metrics": {
-          "precision": 0.5522524740704133,
-          "recall": 0.29306965594807743,
-          "f1": 0.38292725772777364,
-          "granularity": 1.4545454545454546,
-          "plagdet": 0.2955926655606853,
-          "cases": 72,
-          "detections": 85,
-          "detectedCases": 33,
-          "missedCases": 39,
-          "falsePositiveDetections": 37
-        }
-      },
-      {
-        "config": {
-          "method": "hybrid",
-          "threshold": 0.7,
-          "alpha": 0.75,
-          "mergeGap": 120
-        },
-        "metrics": {
-          "precision": 0.535871467024209,
-          "recall": 0.2960633392750669,
-          "f1": 0.38140463591168366,
-          "granularity": 1.3636363636363635,
-          "plagdet": 0.30733452591017313,
-          "cases": 72,
-          "detections": 82,
-          "detectedCases": 33,
-          "missedCases": 39,
-          "falsePositiveDetections": 37
-        }
-      },
-      {
-        "config": {
-          "method": "hybrid",
-          "threshold": 0.8,
-          "alpha": 0.75,
-          "mergeGap": 0
-        },
-        "metrics": {
-          "precision": 0.5742213791837484,
-          "recall": 0.1747787511624593,
-          "f1": 0.2679884594896685,
-          "granularity": 1.4166666666666667,
-          "plagdet": 0.21051419179469685,
-          "cases": 72,
-          "detections": 59,
-          "detectedCases": 24,
-          "missedCases": 48,
-          "falsePositiveDetections": 25
-        }
-      },
-      {
-        "config": {
-          "method": "hybrid",
-          "threshold": 0.8,
-          "alpha": 0.75,
-          "mergeGap": 40
-        },
-        "metrics": {
-          "precision": 0.5533159513303917,
-          "recall": 0.1756287100345175,
-          "f1": 0.26662700730043826,
-          "granularity": 1.25,
-          "plagdet": 0.227900939779673,
-          "cases": 72,
-          "detections": 54,
-          "detectedCases": 24,
-          "missedCases": 48,
-          "falsePositiveDetections": 24
-        }
-      },
-      {
-        "config": {
-          "method": "hybrid",
-          "threshold": 0.8,
-          "alpha": 0.75,
-          "mergeGap": 120
-        },
-        "metrics": {
-          "precision": 0.5448879504120973,
-          "recall": 0.178481007290145,
-          "f1": 0.26888671186204055,
-          "granularity": 1.2083333333333333,
-          "plagdet": 0.23525512111638078,
-          "cases": 72,
-          "detections": 53,
-          "detectedCases": 24,
-          "missedCases": 48,
-          "falsePositiveDetections": 24
-        }
-      },
-      {
-        "config": {
-          "method": "hybrid",
-          "threshold": 0.9,
-          "alpha": 0.75,
-          "mergeGap": 0
-        },
-        "metrics": {
-          "precision": 0.5675675675675675,
-          "recall": 0.09521531200728822,
-          "f1": 0.1630733825406849,
-          "granularity": 1.2352941176470589,
-          "plagdet": 0.14052421107527618,
-          "cases": 72,
-          "detections": 37,
-          "detectedCases": 17,
-          "missedCases": 55,
-          "falsePositiveDetections": 16
-        }
-      },
-      {
-        "config": {
-          "method": "hybrid",
-          "threshold": 0.9,
-          "alpha": 0.75,
-          "mergeGap": 40
-        },
-        "metrics": {
-          "precision": 0.5833333333333334,
-          "recall": 0.09521531200728822,
-          "f1": 0.1637090154669851,
-          "granularity": 1.2352941176470589,
-          "plagdet": 0.14107195108109546,
-          "cases": 72,
-          "detections": 36,
-          "detectedCases": 17,
-          "missedCases": 55,
-          "falsePositiveDetections": 15
-        }
-      },
-      {
-        "config": {
-          "method": "hybrid",
-          "threshold": 0.9,
-          "alpha": 0.75,
-          "mergeGap": 120
-        },
-        "metrics": {
-          "precision": 0.5714285714285714,
-          "recall": 0.09806760926291573,
-          "f1": 0.16740538775484556,
-          "granularity": 1.1764705882352942,
-          "plagdet": 0.14920392295430418,
-          "cases": 72,
-          "detections": 35,
-          "detectedCases": 17,
-          "missedCases": 55,
-          "falsePositiveDetections": 15
-        }
-      },
-      {
-        "config": {
-          "method": "hybrid",
-          "threshold": 0.2,
-          "alpha": 1,
-          "mergeGap": 0
-        },
-        "metrics": {
-          "precision": 0.06388895395765609,
-          "recall": 0.823470602362026,
-          "f1": 0.1185780330534631,
-          "granularity": 4.027777777777778,
-          "plagdet": 0.05089358775409481,
-          "cases": 72,
-          "detections": 4204,
-          "detectedCases": 72,
-          "missedCases": 0,
-          "falsePositiveDetections": 3914
-        }
-      },
-      {
-        "config": {
-          "method": "hybrid",
-          "threshold": 0.2,
-          "alpha": 1,
-          "mergeGap": 40
-        },
-        "metrics": {
-          "precision": 0.04098956311076944,
-          "recall": 0.8285052049716719,
-          "f1": 0.07811448126751094,
-          "granularity": 2.513888888888889,
-          "plagdet": 0.04308412953592894,
-          "cases": 72,
-          "detections": 4034,
-          "detectedCases": 72,
-          "missedCases": 0,
-          "falsePositiveDetections": 3853
-        }
-      },
-      {
-        "config": {
-          "method": "hybrid",
-          "threshold": 0.2,
-          "alpha": 1,
-          "mergeGap": 120
-        },
-        "metrics": {
-          "precision": 0.03273113622567909,
-          "recall": 0.8410273619235047,
-          "f1": 0.06301004502033856,
-          "granularity": 1.9861111111111112,
-          "plagdet": 0.03992354345576449,
-          "cases": 72,
-          "detections": 3955,
-          "detectedCases": 72,
-          "missedCases": 0,
-          "falsePositiveDetections": 3812
-        }
-      },
-      {
-        "config": {
-          "method": "hybrid",
-          "threshold": 0.3,
-          "alpha": 1,
-          "mergeGap": 0
-        },
-        "metrics": {
-          "precision": 0.1530704622156312,
-          "recall": 0.7619036486143498,
-          "f1": 0.25492512252916727,
-          "granularity": 3.3529411764705883,
-          "plagdet": 0.12013490145240767,
-          "cases": 72,
-          "detections": 1374,
-          "detectedCases": 68,
-          "missedCases": 4,
-          "falsePositiveDetections": 1146
-        }
-      },
-      {
-        "config": {
-          "method": "hybrid",
-          "threshold": 0.3,
-          "alpha": 1,
-          "mergeGap": 40
-        },
-        "metrics": {
-          "precision": 0.10385145984777594,
-          "recall": 0.7662891074035146,
-          "f1": 0.18291353251278064,
+          "precision": 0.12628147298786055,
+          "recall": 0.6605539061091059,
+          "f1": 0.2120283923864156,
           "granularity": 2.1470588235294117,
-          "plagdet": 0.11058831566356389,
+          "plagdet": 0.12819096796585322,
           "cases": 72,
-          "detections": 1277,
+          "detections": 1117,
           "detectedCases": 68,
           "missedCases": 4,
-          "falsePositiveDetections": 1131
+          "falsePositiveDetections": 971
+        }
+      },
+      {
+        "config": {
+          "method": "hybrid",
+          "threshold": 0.6,
+          "alpha": 0,
+          "mergeGap": 120
+        },
+        "metrics": {
+          "precision": 0.10779417937502536,
+          "recall": 0.6738100939434586,
+          "f1": 0.18585570373832347,
+          "granularity": 1.7794117647058822,
+          "plagdet": 0.1260226991778281,
+          "cases": 72,
+          "detections": 1081,
+          "detectedCases": 68,
+          "missedCases": 4,
+          "falsePositiveDetections": 960
+        }
+      },
+      {
+        "config": {
+          "method": "hybrid",
+          "threshold": 0.7,
+          "alpha": 0,
+          "mergeGap": 0
+        },
+        "metrics": {
+          "precision": 0.3810010493586357,
+          "recall": 0.5490313797712436,
+          "f1": 0.4498370707769184,
+          "granularity": 2.6774193548387095,
+          "plagdet": 0.23944141073786576,
+          "cases": 72,
+          "detections": 426,
+          "detectedCases": 62,
+          "missedCases": 10,
+          "falsePositiveDetections": 260
+        }
+      },
+      {
+        "config": {
+          "method": "hybrid",
+          "threshold": 0.7,
+          "alpha": 0,
+          "mergeGap": 40
+        },
+        "metrics": {
+          "precision": 0.2969200392792119,
+          "recall": 0.5524432660251793,
+          "f1": 0.38624573306459825,
+          "granularity": 1.8225806451612903,
+          "plagdet": 0.2580106306842497,
+          "cases": 72,
+          "detections": 372,
+          "detectedCases": 62,
+          "missedCases": 10,
+          "falsePositiveDetections": 259
+        }
+      },
+      {
+        "config": {
+          "method": "hybrid",
+          "threshold": 0.7,
+          "alpha": 0,
+          "mergeGap": 120
+        },
+        "metrics": {
+          "precision": 0.27798844890594926,
+          "recall": 0.5608314897606269,
+          "f1": 0.3717238199750047,
+          "granularity": 1.6451612903225807,
+          "plagdet": 0.2648821118573533,
+          "cases": 72,
+          "detections": 359,
+          "detectedCases": 62,
+          "missedCases": 10,
+          "falsePositiveDetections": 257
+        }
+      },
+      {
+        "config": {
+          "method": "hybrid",
+          "threshold": 0.8,
+          "alpha": 0,
+          "mergeGap": 0
+        },
+        "metrics": {
+          "precision": 0.3787647642334874,
+          "recall": 0.4017334997270492,
+          "f1": 0.3899111665839738,
+          "granularity": 2.1923076923076925,
+          "plagdet": 0.23283842909391925,
+          "cases": 72,
+          "detections": 299,
+          "detectedCases": 52,
+          "missedCases": 20,
+          "falsePositiveDetections": 185
+        }
+      },
+      {
+        "config": {
+          "method": "hybrid",
+          "threshold": 0.8,
+          "alpha": 0,
+          "mergeGap": 40
+        },
+        "metrics": {
+          "precision": 0.3315383352265432,
+          "recall": 0.4041220777429049,
+          "f1": 0.3642494784852277,
+          "granularity": 1.7692307692307692,
+          "plagdet": 0.24787555385851562,
+          "cases": 72,
+          "detections": 276,
+          "detectedCases": 52,
+          "missedCases": 20,
+          "falsePositiveDetections": 184
+        }
+      },
+      {
+        "config": {
+          "method": "hybrid",
+          "threshold": 0.8,
+          "alpha": 0,
+          "mergeGap": 120
+        },
+        "metrics": {
+          "precision": 0.31133803970764495,
+          "recall": 0.4120274738467893,
+          "f1": 0.3546749841109175,
+          "granularity": 1.5961538461538463,
+          "plagdet": 0.25768759068334174,
+          "cases": 72,
+          "detections": 265,
+          "detectedCases": 52,
+          "missedCases": 20,
+          "falsePositiveDetections": 182
+        }
+      },
+      {
+        "config": {
+          "method": "hybrid",
+          "threshold": 0.9,
+          "alpha": 0,
+          "mergeGap": 0
+        },
+        "metrics": {
+          "precision": 0.2974137931034483,
+          "recall": 0.24025565589383818,
+          "f1": 0.26579656354736975,
+          "granularity": 1.9166666666666667,
+          "plagdet": 0.17211230489723625,
+          "cases": 72,
+          "detections": 232,
+          "detectedCases": 36,
+          "missedCases": 36,
+          "falsePositiveDetections": 163
+        }
+      },
+      {
+        "config": {
+          "method": "hybrid",
+          "threshold": 0.9,
+          "alpha": 0,
+          "mergeGap": 40
+        },
+        "metrics": {
+          "precision": 0.25806451612903225,
+          "recall": 0.2420992302754351,
+          "f1": 0.2498270662972756,
+          "granularity": 1.5555555555555556,
+          "plagdet": 0.1845598743781241,
+          "cases": 72,
+          "detections": 217,
+          "detectedCases": 36,
+          "missedCases": 36,
+          "falsePositiveDetections": 161
+        }
+      },
+      {
+        "config": {
+          "method": "hybrid",
+          "threshold": 0.9,
+          "alpha": 0,
+          "mergeGap": 120
+        },
+        "metrics": {
+          "precision": 0.24644549763033174,
+          "recall": 0.24632060401400166,
+          "f1": 0.24638303499476366,
+          "granularity": 1.4444444444444444,
+          "plagdet": 0.1910676779082463,
+          "cases": 72,
+          "detections": 211,
+          "detectedCases": 36,
+          "missedCases": 36,
+          "falsePositiveDetections": 159
+        }
+      },
+      {
+        "config": {
+          "method": "hybrid",
+          "threshold": 0.2,
+          "alpha": 0.25,
+          "mergeGap": 0
+        },
+        "metrics": {
+          "precision": 0.03573155636855997,
+          "recall": 0.8674487532253502,
+          "f1": 0.06863589405895006,
+          "granularity": 5.180555555555555,
+          "plagdet": 0.026119777771221913,
+          "cases": 72,
+          "detections": 9975,
+          "detectedCases": 72,
+          "missedCases": 0,
+          "falsePositiveDetections": 9602
+        }
+      },
+      {
+        "config": {
+          "method": "hybrid",
+          "threshold": 0.2,
+          "alpha": 0.25,
+          "mergeGap": 40
+        },
+        "metrics": {
+          "precision": 0.02226994084715079,
+          "recall": 0.8749320100189162,
+          "f1": 0.04343433290485266,
+          "granularity": 3.125,
+          "plagdet": 0.02124557710940916,
+          "cases": 72,
+          "detections": 9639,
+          "detectedCases": 72,
+          "missedCases": 0,
+          "falsePositiveDetections": 9414
+        }
+      },
+      {
+        "config": {
+          "method": "hybrid",
+          "threshold": 0.2,
+          "alpha": 0.25,
+          "mergeGap": 120
+        },
+        "metrics": {
+          "precision": 0.01625435294910645,
+          "recall": 0.8909559620587196,
+          "f1": 0.0319262522258429,
+          "granularity": 2.263888888888889,
+          "plagdet": 0.01870760747294381,
+          "cases": 72,
+          "detections": 9461,
+          "detectedCases": 72,
+          "missedCases": 0,
+          "falsePositiveDetections": 9298
         }
       },
       {
         "config": {
           "method": "hybrid",
           "threshold": 0.3,
-          "alpha": 1,
-          "mergeGap": 120
-        },
-        "metrics": {
-          "precision": 0.08418637748807112,
-          "recall": 0.7758035505114097,
-          "f1": 0.15189036158102265,
-          "granularity": 1.7058823529411764,
-          "plagdet": 0.1057659321804331,
-          "cases": 72,
-          "detections": 1236,
-          "detectedCases": 68,
-          "missedCases": 4,
-          "falsePositiveDetections": 1120
-        }
-      },
-      {
-        "config": {
-          "method": "hybrid",
-          "threshold": 0.4,
-          "alpha": 1,
+          "alpha": 0.25,
           "mergeGap": 0
         },
         "metrics": {
-          "precision": 0.2880114020606527,
-          "recall": 0.7078758778151305,
-          "f1": 0.409436546031355,
-          "granularity": 2.7611940298507465,
-          "plagdet": 0.214231127721948,
+          "precision": 0.03626757905881487,
+          "recall": 0.8665366449212667,
+          "f1": 0.06962126547989125,
+          "granularity": 5.166666666666667,
+          "plagdet": 0.026527532029469367,
           "cases": 72,
-          "detections": 596,
-          "detectedCases": 67,
-          "missedCases": 5,
-          "falsePositiveDetections": 411
+          "detections": 9800,
+          "detectedCases": 72,
+          "missedCases": 0,
+          "falsePositiveDetections": 9428
         }
       },
       {
         "config": {
           "method": "hybrid",
-          "threshold": 0.4,
-          "alpha": 1,
+          "threshold": 0.3,
+          "alpha": 0.25,
           "mergeGap": 40
         },
         "metrics": {
-          "precision": 0.21065343674983172,
-          "recall": 0.7111514543430201,
-          "f1": 0.3250286462016797,
-          "granularity": 1.8059701492537314,
-          "plagdet": 0.21835990606495004,
+          "precision": 0.0225617697809595,
+          "recall": 0.8740199017148327,
+          "f1": 0.04398804132047094,
+          "granularity": 3.111111111111111,
+          "plagdet": 0.02156775168852008,
           "cases": 72,
-          "detections": 527,
-          "detectedCases": 67,
-          "missedCases": 5,
-          "falsePositiveDetections": 406
+          "detections": 9470,
+          "detectedCases": 72,
+          "missedCases": 0,
+          "falsePositiveDetections": 9246
+        }
+      },
+      {
+        "config": {
+          "method": "hybrid",
+          "threshold": 0.3,
+          "alpha": 0.25,
+          "mergeGap": 120
+        },
+        "metrics": {
+          "precision": 0.016652225201882316,
+          "recall": 0.8888481680411517,
+          "f1": 0.03269197887698578,
+          "granularity": 2.2777777777777777,
+          "plagdet": 0.01908777624939338,
+          "cases": 72,
+          "detections": 9295,
+          "detectedCases": 72,
+          "missedCases": 0,
+          "falsePositiveDetections": 9131
         }
       },
       {
         "config": {
           "method": "hybrid",
           "threshold": 0.4,
-          "alpha": 1,
+          "alpha": 0.25,
+          "mergeGap": 0
+        },
+        "metrics": {
+          "precision": 0.057156665268043444,
+          "recall": 0.8326997571101231,
+          "f1": 0.10697083279733412,
+          "granularity": 4.569444444444445,
+          "plagdet": 0.043176342937447855,
+          "cases": 72,
+          "detections": 5477,
+          "detectedCases": 72,
+          "missedCases": 0,
+          "falsePositiveDetections": 5148
+        }
+      },
+      {
+        "config": {
+          "method": "hybrid",
+          "threshold": 0.4,
+          "alpha": 0.25,
+          "mergeGap": 40
+        },
+        "metrics": {
+          "precision": 0.036562908534372475,
+          "recall": 0.8396545469358947,
+          "f1": 0.07007441408162825,
+          "granularity": 2.8055555555555554,
+          "plagdet": 0.03634363192445247,
+          "cases": 72,
+          "detections": 5258,
+          "detectedCases": 72,
+          "missedCases": 0,
+          "falsePositiveDetections": 5056
+        }
+      },
+      {
+        "config": {
+          "method": "hybrid",
+          "threshold": 0.4,
+          "alpha": 0.25,
           "mergeGap": 120
         },
         "metrics": {
-          "precision": 0.1794518165772903,
-          "recall": 0.7202510718309281,
-          "f1": 0.28731787992917107,
-          "granularity": 1.4776119402985075,
-          "plagdet": 0.21950252267343628,
+          "precision": 0.02779455813906909,
+          "recall": 0.8528866633341932,
+          "f1": 0.05383470743346283,
+          "granularity": 2.111111111111111,
+          "plagdet": 0.03287756425828199,
           "cases": 72,
-          "detections": 502,
-          "detectedCases": 67,
-          "missedCases": 5,
-          "falsePositiveDetections": 403
+          "detections": 5153,
+          "detectedCases": 72,
+          "missedCases": 0,
+          "falsePositiveDetections": 5001
         }
       },
       {
         "config": {
           "method": "hybrid",
           "threshold": 0.5,
-          "alpha": 1,
+          "alpha": 0.25,
           "mergeGap": 0
         },
         "metrics": {
-          "precision": 0.44913278669141554,
-          "recall": 0.5713386184432754,
-          "f1": 0.5029183660702035,
-          "granularity": 2.4482758620689653,
-          "plagdet": 0.2816089095014103,
+          "precision": 0.20185857909605925,
+          "recall": 0.7495630427798052,
+          "f1": 0.31806241792178147,
+          "granularity": 3.7285714285714286,
+          "plagdet": 0.14190318327222,
           "cases": 72,
-          "detections": 300,
+          "detections": 1240,
+          "detectedCases": 70,
+          "missedCases": 2,
+          "falsePositiveDetections": 979
+        }
+      },
+      {
+        "config": {
+          "method": "hybrid",
+          "threshold": 0.5,
+          "alpha": 0.25,
+          "mergeGap": 40
+        },
+        "metrics": {
+          "precision": 0.13730488414989309,
+          "recall": 0.754789012269063,
+          "f1": 0.2323437438664977,
+          "granularity": 2.3285714285714287,
+          "plagdet": 0.13392318000675557,
+          "cases": 72,
+          "detections": 1134,
+          "detectedCases": 70,
+          "missedCases": 2,
+          "falsePositiveDetections": 971
+        }
+      },
+      {
+        "config": {
+          "method": "hybrid",
+          "threshold": 0.5,
+          "alpha": 0.25,
+          "mergeGap": 120
+        },
+        "metrics": {
+          "precision": 0.11130588626578093,
+          "recall": 0.7676246767091363,
+          "f1": 0.19442069387461336,
+          "granularity": 1.8142857142857143,
+          "plagdet": 0.1302416647156098,
+          "cases": 72,
+          "detections": 1085,
+          "detectedCases": 70,
+          "missedCases": 2,
+          "falsePositiveDetections": 958
+        }
+      },
+      {
+        "config": {
+          "method": "hybrid",
+          "threshold": 0.6,
+          "alpha": 0.25,
+          "mergeGap": 0
+        },
+        "metrics": {
+          "precision": 0.3652252991514109,
+          "recall": 0.6312607004020578,
+          "f1": 0.46273079250522864,
+          "granularity": 3.125,
+          "plagdet": 0.2263412852363502,
+          "cases": 72,
+          "detections": 532,
+          "detectedCases": 64,
+          "missedCases": 8,
+          "falsePositiveDetections": 332
+        }
+      },
+      {
+        "config": {
+          "method": "hybrid",
+          "threshold": 0.6,
+          "alpha": 0.25,
+          "mergeGap": 40
+        },
+        "metrics": {
+          "precision": 0.2749568810225995,
+          "recall": 0.634881233566276,
+          "f1": 0.3837275247147536,
+          "granularity": 2.03125,
+          "plagdet": 0.2398427680536565,
+          "cases": 72,
+          "detections": 459,
+          "detectedCases": 64,
+          "missedCases": 8,
+          "falsePositiveDetections": 329
+        }
+      },
+      {
+        "config": {
+          "method": "hybrid",
+          "threshold": 0.6,
+          "alpha": 0.25,
+          "mergeGap": 120
+        },
+        "metrics": {
+          "precision": 0.24890727591943332,
+          "recall": 0.6452216255634537,
+          "f1": 0.35923311933426333,
+          "granularity": 1.765625,
+          "plagdet": 0.24477498011229765,
+          "cases": 72,
+          "detections": 439,
+          "detectedCases": 64,
+          "missedCases": 8,
+          "falsePositiveDetections": 326
+        }
+      },
+      {
+        "config": {
+          "method": "hybrid",
+          "threshold": 0.7,
+          "alpha": 0.25,
+          "mergeGap": 0
+        },
+        "metrics": {
+          "precision": 0.38066385664689323,
+          "recall": 0.5025923589739749,
+          "f1": 0.43321233930702485,
+          "granularity": 2.3793103448275863,
+          "plagdet": 0.2466017106491281,
+          "cases": 72,
+          "detections": 357,
           "detectedCases": 58,
           "missedCases": 14,
+          "falsePositiveDetections": 219
+        }
+      },
+      {
+        "config": {
+          "method": "hybrid",
+          "threshold": 0.7,
+          "alpha": 0.25,
+          "mergeGap": 40
+        },
+        "metrics": {
+          "precision": 0.318141578827932,
+          "recall": 0.5050317633053063,
+          "f1": 0.39037124822294933,
+          "granularity": 1.793103448275862,
+          "plagdet": 0.26343168402841,
+          "cases": 72,
+          "detections": 322,
+          "detectedCases": 58,
+          "missedCases": 14,
+          "falsePositiveDetections": 218
+        }
+      },
+      {
+        "config": {
+          "method": "hybrid",
+          "threshold": 0.7,
+          "alpha": 0.25,
+          "mergeGap": 120
+        },
+        "metrics": {
+          "precision": 0.3027187498857037,
+          "recall": 0.5092411233787011,
+          "f1": 0.3797154054912083,
+          "granularity": 1.6551724137931034,
+          "plagdet": 0.2695300332156884,
+          "cases": 72,
+          "detections": 312,
+          "detectedCases": 58,
+          "missedCases": 14,
+          "falsePositiveDetections": 216
+        }
+      },
+      {
+        "config": {
+          "method": "hybrid",
+          "threshold": 0.8,
+          "alpha": 0.25,
+          "mergeGap": 0
+        },
+        "metrics": {
+          "precision": 0.34352734337908836,
+          "recall": 0.3555905595961817,
+          "f1": 0.3494548766349663,
+          "granularity": 1.9387755102040816,
+          "plagdet": 0.2246987337980699,
+          "cases": 72,
+          "detections": 275,
+          "detectedCases": 49,
+          "missedCases": 23,
+          "falsePositiveDetections": 180
+        }
+      },
+      {
+        "config": {
+          "method": "hybrid",
+          "threshold": 0.8,
+          "alpha": 0.25,
+          "mergeGap": 40
+        },
+        "metrics": {
+          "precision": 0.30010368946928634,
+          "recall": 0.35804810976080736,
+          "f1": 0.3265251538396436,
+          "granularity": 1.5714285714285714,
+          "plagdet": 0.23963916335744845,
+          "cases": 72,
+          "detections": 256,
+          "detectedCases": 49,
+          "missedCases": 23,
+          "falsePositiveDetections": 179
+        }
+      },
+      {
+        "config": {
+          "method": "hybrid",
+          "threshold": 0.8,
+          "alpha": 0.25,
+          "mergeGap": 120
+        },
+        "metrics": {
+          "precision": 0.28269856074549515,
+          "recall": 0.36592785363225383,
+          "f1": 0.31897337285521166,
+          "granularity": 1.4285714285714286,
+          "plagdet": 0.249176938969617,
+          "cases": 72,
+          "detections": 247,
+          "detectedCases": 49,
+          "missedCases": 23,
+          "falsePositiveDetections": 177
+        }
+      },
+      {
+        "config": {
+          "method": "hybrid",
+          "threshold": 0.9,
+          "alpha": 0.25,
+          "mergeGap": 0
+        },
+        "metrics": {
+          "precision": 0.24651162790697675,
+          "recall": 0.19044745257933876,
+          "f1": 0.2148828742216279,
+          "granularity": 1.606060606060606,
+          "plagdet": 0.15550144038496824,
+          "cases": 72,
+          "detections": 215,
+          "detectedCases": 33,
+          "missedCases": 39,
+          "falsePositiveDetections": 162
+        }
+      },
+      {
+        "config": {
+          "method": "hybrid",
+          "threshold": 0.9,
+          "alpha": 0.25,
+          "mergeGap": 40
+        },
+        "metrics": {
+          "precision": 0.21951219512195122,
+          "recall": 0.19222512674857606,
+          "f1": 0.20496446296623985,
+          "granularity": 1.3636363636363635,
+          "plagdet": 0.1651596496817329,
+          "cases": 72,
+          "detections": 205,
+          "detectedCases": 33,
+          "missedCases": 39,
+          "falsePositiveDetections": 160
+        }
+      },
+      {
+        "config": {
+          "method": "hybrid",
+          "threshold": 0.9,
+          "alpha": 0.25,
+          "mergeGap": 120
+        },
+        "metrics": {
+          "precision": 0.21782178217821782,
+          "recall": 0.1934970971463559,
+          "f1": 0.20494017982321638,
+          "granularity": 1.3333333333333333,
+          "plagdet": 0.1676549823494114,
+          "cases": 72,
+          "detections": 202,
+          "detectedCases": 33,
+          "missedCases": 39,
           "falsePositiveDetections": 158
         }
       },
       {
         "config": {
           "method": "hybrid",
+          "threshold": 0.2,
+          "alpha": 0.5,
+          "mergeGap": 0
+        },
+        "metrics": {
+          "precision": 0.03910487237326173,
+          "recall": 0.8818903090830106,
+          "f1": 0.07488900849487198,
+          "granularity": 5.430555555555555,
+          "plagdet": 0.02789221143433053,
+          "cases": 72,
+          "detections": 9526,
+          "detectedCases": 72,
+          "missedCases": 0,
+          "falsePositiveDetections": 9135
+        }
+      },
+      {
+        "config": {
+          "method": "hybrid",
+          "threshold": 0.2,
+          "alpha": 0.5,
+          "mergeGap": 40
+        },
+        "metrics": {
+          "precision": 0.02221196413229844,
+          "recall": 0.8907321177806826,
+          "f1": 0.04334309240533877,
+          "granularity": 3,
+          "plagdet": 0.021671546202669385,
+          "cases": 72,
+          "detections": 9189,
+          "detectedCases": 72,
+          "missedCases": 0,
+          "falsePositiveDetections": 8973
+        }
+      },
+      {
+        "config": {
+          "method": "hybrid",
+          "threshold": 0.2,
+          "alpha": 0.5,
+          "mergeGap": 120
+        },
+        "metrics": {
+          "precision": 0.016303643569373298,
+          "recall": 0.9093780522198315,
+          "f1": 0.03203298866261534,
+          "granularity": 2.1805555555555554,
+          "plagdet": 0.01918971769048358,
+          "cases": 72,
+          "detections": 9008,
+          "detectedCases": 72,
+          "missedCases": 0,
+          "falsePositiveDetections": 8851
+        }
+      },
+      {
+        "config": {
+          "method": "hybrid",
+          "threshold": 0.3,
+          "alpha": 0.5,
+          "mergeGap": 0
+        },
+        "metrics": {
+          "precision": 0.05010596372340762,
+          "recall": 0.8636747972693617,
+          "f1": 0.09471693847829328,
+          "granularity": 5.013888888888889,
+          "plagdet": 0.03659429118026648,
+          "cases": 72,
+          "detections": 6843,
+          "detectedCases": 72,
+          "missedCases": 0,
+          "falsePositiveDetections": 6482
+        }
+      },
+      {
+        "config": {
+          "method": "hybrid",
+          "threshold": 0.3,
+          "alpha": 0.5,
+          "mergeGap": 40
+        },
+        "metrics": {
+          "precision": 0.02897134828281932,
+          "recall": 0.8722550258539832,
+          "f1": 0.05608003687122315,
+          "granularity": 2.8055555555555554,
+          "plagdet": 0.029085540636604616,
+          "cases": 72,
+          "detections": 6569,
+          "detectedCases": 72,
+          "missedCases": 0,
+          "falsePositiveDetections": 6367
+        }
+      },
+      {
+        "config": {
+          "method": "hybrid",
+          "threshold": 0.3,
+          "alpha": 0.5,
+          "mergeGap": 120
+        },
+        "metrics": {
+          "precision": 0.022094909755997583,
+          "recall": 0.8882668761661856,
+          "f1": 0.043117311758100046,
+          "granularity": 2.111111111111111,
+          "plagdet": 0.026332309685594357,
+          "cases": 72,
+          "detections": 6430,
+          "detectedCases": 72,
+          "missedCases": 0,
+          "falsePositiveDetections": 6278
+        }
+      },
+      {
+        "config": {
+          "method": "hybrid",
+          "threshold": 0.4,
+          "alpha": 0.5,
+          "mergeGap": 0
+        },
+        "metrics": {
+          "precision": 0.14291998580558396,
+          "recall": 0.7959417308190142,
+          "f1": 0.24232744579191426,
+          "granularity": 4.071428571428571,
+          "plagdet": 0.10345297685674569,
+          "cases": 72,
+          "detections": 1897,
+          "detectedCases": 70,
+          "missedCases": 2,
+          "falsePositiveDetections": 1612
+        }
+      },
+      {
+        "config": {
+          "method": "hybrid",
+          "threshold": 0.4,
+          "alpha": 0.5,
+          "mergeGap": 40
+        },
+        "metrics": {
+          "precision": 0.08927314533447088,
+          "recall": 0.8035390188896784,
+          "f1": 0.16069327567370995,
+          "granularity": 2.3714285714285714,
+          "plagdet": 0.09164876163636876,
+          "cases": 72,
+          "detections": 1755,
+          "detectedCases": 70,
+          "missedCases": 2,
+          "falsePositiveDetections": 1589
+        }
+      },
+      {
+        "config": {
+          "method": "hybrid",
+          "threshold": 0.4,
+          "alpha": 0.5,
+          "mergeGap": 120
+        },
+        "metrics": {
+          "precision": 0.07190815442493625,
+          "recall": 0.817392797364668,
+          "f1": 0.13218743864031085,
+          "granularity": 1.8571428571428572,
+          "plagdet": 0.08727702366029498,
+          "cases": 72,
+          "detections": 1698,
+          "detectedCases": 70,
+          "missedCases": 2,
+          "falsePositiveDetections": 1568
+        }
+      },
+      {
+        "config": {
+          "method": "hybrid",
+          "threshold": 0.5,
+          "alpha": 0.5,
+          "mergeGap": 0
+        },
+        "metrics": {
+          "precision": 0.2758802973794136,
+          "recall": 0.7131569962787934,
+          "f1": 0.39785347928365306,
+          "granularity": 3.462686567164179,
+          "plagdet": 0.18436960825864887,
+          "cases": 72,
+          "detections": 808,
+          "detectedCases": 67,
+          "missedCases": 5,
+          "falsePositiveDetections": 576
+        }
+      },
+      {
+        "config": {
+          "method": "hybrid",
+          "threshold": 0.5,
+          "alpha": 0.5,
+          "mergeGap": 40
+        },
+        "metrics": {
+          "precision": 0.19568162694927374,
+          "recall": 0.7187093901003774,
+          "f1": 0.3076106832552698,
+          "granularity": 2.1940298507462686,
+          "plagdet": 0.1836067566372753,
+          "cases": 72,
+          "detections": 719,
+          "detectedCases": 67,
+          "missedCases": 5,
+          "falsePositiveDetections": 572
+        }
+      },
+      {
+        "config": {
+          "method": "hybrid",
+          "threshold": 0.5,
+          "alpha": 0.5,
+          "mergeGap": 120
+        },
+        "metrics": {
+          "precision": 0.15920730275279374,
+          "recall": 0.7316612868185461,
+          "f1": 0.2615106680527788,
+          "granularity": 1.7014925373134329,
+          "plagdet": 0.1823954292023775,
+          "cases": 72,
+          "detections": 680,
+          "detectedCases": 67,
+          "missedCases": 5,
+          "falsePositiveDetections": 566
+        }
+      },
+      {
+        "config": {
+          "method": "hybrid",
+          "threshold": 0.6,
+          "alpha": 0.5,
+          "mergeGap": 0
+        },
+        "metrics": {
+          "precision": 0.34286781695195256,
+          "recall": 0.5900824499894111,
+          "f1": 0.4337214718054098,
+          "granularity": 2.8360655737704916,
+          "plagdet": 0.22361071813370687,
+          "cases": 72,
+          "detections": 490,
+          "detectedCases": 61,
+          "missedCases": 11,
+          "falsePositiveDetections": 317
+        }
+      },
+      {
+        "config": {
+          "method": "hybrid",
+          "threshold": 0.6,
+          "alpha": 0.5,
+          "mergeGap": 40
+        },
+        "metrics": {
+          "precision": 0.2564998224605941,
+          "recall": 0.5932705475944403,
+          "f1": 0.35815273276524817,
+          "granularity": 1.8524590163934427,
+          "plagdet": 0.23684120766392816,
+          "cases": 72,
+          "detections": 427,
+          "detectedCases": 61,
+          "missedCases": 11,
+          "falsePositiveDetections": 314
+        }
+      },
+      {
+        "config": {
+          "method": "hybrid",
+          "threshold": 0.6,
+          "alpha": 0.5,
+          "mergeGap": 120
+        },
+        "metrics": {
+          "precision": 0.23242536953811263,
+          "recall": 0.601438021715601,
+          "f1": 0.33528142839163744,
+          "granularity": 1.6065573770491803,
+          "plagdet": 0.2425803939127372,
+          "cases": 72,
+          "detections": 407,
+          "detectedCases": 61,
+          "missedCases": 11,
+          "falsePositiveDetections": 309
+        }
+      },
+      {
+        "config": {
+          "method": "hybrid",
+          "threshold": 0.7,
+          "alpha": 0.5,
+          "mergeGap": 0
+        },
+        "metrics": {
+          "precision": 0.3567730330229558,
+          "recall": 0.4663530579202955,
+          "f1": 0.4042690342693192,
+          "granularity": 2.1578947368421053,
+          "plagdet": 0.24368778221499146,
+          "cases": 72,
+          "detections": 339,
+          "detectedCases": 57,
+          "missedCases": 15,
+          "falsePositiveDetections": 216
+        }
+      },
+      {
+        "config": {
+          "method": "hybrid",
+          "threshold": 0.7,
+          "alpha": 0.5,
+          "mergeGap": 40
+        },
+        "metrics": {
+          "precision": 0.29913450149045356,
+          "recall": 0.4684543906925592,
+          "f1": 0.3651195895560773,
+          "granularity": 1.6491228070175439,
+          "plagdet": 0.2597764242665089,
+          "cases": 72,
+          "detections": 309,
+          "detectedCases": 57,
+          "missedCases": 15,
+          "falsePositiveDetections": 215
+        }
+      },
+      {
+        "config": {
+          "method": "hybrid",
+          "threshold": 0.7,
+          "alpha": 0.5,
+          "mergeGap": 120
+        },
+        "metrics": {
+          "precision": 0.2847948352556235,
+          "recall": 0.4743132354431317,
+          "f1": 0.35589651845815884,
+          "granularity": 1.5263157894736843,
+          "plagdet": 0.26618339972002103,
+          "cases": 72,
+          "detections": 300,
+          "detectedCases": 57,
+          "missedCases": 15,
+          "falsePositiveDetections": 213
+        }
+      },
+      {
+        "config": {
+          "method": "hybrid",
+          "threshold": 0.8,
+          "alpha": 0.5,
+          "mergeGap": 0
+        },
+        "metrics": {
+          "precision": 0.3149591783997175,
+          "recall": 0.30007403594780024,
+          "f1": 0.3073364807507909,
+          "granularity": 1.9318181818181819,
+          "plagdet": 0.19805216193759836,
+          "cases": 72,
+          "detections": 269,
+          "detectedCases": 44,
+          "missedCases": 28,
+          "falsePositiveDetections": 184
+        }
+      },
+      {
+        "config": {
+          "method": "hybrid",
+          "threshold": 0.8,
+          "alpha": 0.5,
+          "mergeGap": 40
+        },
+        "metrics": {
+          "precision": 0.27904142467991966,
+          "recall": 0.30246103450824263,
+          "f1": 0.29027962529057,
+          "granularity": 1.6136363636363635,
+          "plagdet": 0.20942812981369266,
+          "cases": 72,
+          "detections": 254,
+          "detectedCases": 44,
+          "missedCases": 28,
+          "falsePositiveDetections": 183
+        }
+      },
+      {
+        "config": {
+          "method": "hybrid",
+          "threshold": 0.8,
+          "alpha": 0.5,
+          "mergeGap": 120
+        },
+        "metrics": {
+          "precision": 0.26072049742326364,
+          "recall": 0.31167267537706334,
+          "f1": 0.2839288056494475,
+          "granularity": 1.4545454545454546,
+          "plagdet": 0.21917288674980298,
+          "cases": 72,
+          "detections": 245,
+          "detectedCases": 44,
+          "missedCases": 28,
+          "falsePositiveDetections": 181
+        }
+      },
+      {
+        "config": {
+          "method": "hybrid",
+          "threshold": 0.9,
+          "alpha": 0.5,
+          "mergeGap": 0
+        },
+        "metrics": {
+          "precision": 0.23222748815165878,
+          "recall": 0.17501093963425138,
+          "f1": 0.1995997830130605,
+          "granularity": 1.4848484848484849,
+          "plagdet": 0.15199983585644522,
+          "cases": 72,
+          "detections": 211,
+          "detectedCases": 33,
+          "missedCases": 39,
+          "falsePositiveDetections": 162
+        }
+      },
+      {
+        "config": {
+          "method": "hybrid",
+          "threshold": 0.9,
+          "alpha": 0.5,
+          "mergeGap": 40
+        },
+        "metrics": {
+          "precision": 0.2107843137254902,
+          "recall": 0.17667708398344648,
+          "f1": 0.19222951302336982,
+          "granularity": 1.303030303030303,
+          "plagdet": 0.15972096326375176,
+          "cases": 72,
+          "detections": 204,
+          "detectedCases": 33,
+          "missedCases": 39,
+          "falsePositiveDetections": 161
+        }
+      },
+      {
+        "config": {
+          "method": "hybrid",
+          "threshold": 0.9,
+          "alpha": 0.5,
+          "mergeGap": 120
+        },
+        "metrics": {
+          "precision": 0.21287128712871287,
+          "recall": 0.17667708398344648,
+          "f1": 0.19309272512848152,
+          "granularity": 1.303030303030303,
+          "plagdet": 0.1604381947999551,
+          "cases": 72,
+          "detections": 202,
+          "detectedCases": 33,
+          "missedCases": 39,
+          "falsePositiveDetections": 159
+        }
+      },
+      {
+        "config": {
+          "method": "hybrid",
+          "threshold": 0.2,
+          "alpha": 0.75,
+          "mergeGap": 0
+        },
+        "metrics": {
+          "precision": 0.03931811769571569,
+          "recall": 0.8764177100438243,
+          "f1": 0.07525990275857987,
+          "granularity": 5.069444444444445,
+          "plagdet": 0.028928709506380653,
+          "cases": 72,
+          "detections": 8766,
+          "detectedCases": 72,
+          "missedCases": 0,
+          "falsePositiveDetections": 8401
+        }
+      },
+      {
+        "config": {
+          "method": "hybrid",
+          "threshold": 0.2,
+          "alpha": 0.75,
+          "mergeGap": 40
+        },
+        "metrics": {
+          "precision": 0.022977461544454233,
+          "recall": 0.8853701964730921,
+          "f1": 0.04479245245474809,
+          "granularity": 2.888888888888889,
+          "plagdet": 0.02286077995973443,
+          "cases": 72,
+          "detections": 8492,
+          "detectedCases": 72,
+          "missedCases": 0,
+          "falsePositiveDetections": 8284
+        }
+      },
+      {
+        "config": {
+          "method": "hybrid",
+          "threshold": 0.2,
+          "alpha": 0.75,
+          "mergeGap": 120
+        },
+        "metrics": {
+          "precision": 0.017806655559286517,
+          "recall": 0.9000520437604353,
+          "f1": 0.03492240524723996,
+          "granularity": 2.2222222222222223,
+          "plagdet": 0.02068794244852004,
+          "cases": 72,
+          "detections": 8351,
+          "detectedCases": 72,
+          "missedCases": 0,
+          "falsePositiveDetections": 8191
+        }
+      },
+      {
+        "config": {
+          "method": "hybrid",
+          "threshold": 0.3,
+          "alpha": 0.75,
+          "mergeGap": 0
+        },
+        "metrics": {
+          "precision": 0.07621444411156761,
+          "recall": 0.8320162305845716,
+          "f1": 0.13963777324966523,
+          "granularity": 4.347222222222222,
+          "plagdet": 0.057730433138438765,
+          "cases": 72,
+          "detections": 3881,
+          "detectedCases": 72,
+          "missedCases": 0,
+          "falsePositiveDetections": 3568
+        }
+      },
+      {
+        "config": {
+          "method": "hybrid",
+          "threshold": 0.3,
+          "alpha": 0.75,
+          "mergeGap": 40
+        },
+        "metrics": {
+          "precision": 0.04539680197090248,
+          "recall": 0.84063839682554,
+          "f1": 0.08614171283864168,
+          "granularity": 2.486111111111111,
+          "plagdet": 0.04781351342030943,
+          "cases": 72,
+          "detections": 3696,
+          "detectedCases": 72,
+          "missedCases": 0,
+          "falsePositiveDetections": 3517
+        }
+      },
+      {
+        "config": {
+          "method": "hybrid",
+          "threshold": 0.3,
+          "alpha": 0.75,
+          "mergeGap": 120
+        },
+        "metrics": {
+          "precision": 0.0360351018175258,
+          "recall": 0.8534405704697446,
+          "f1": 0.06915044179454997,
+          "granularity": 1.9444444444444444,
+          "plagdet": 0.044384238513682304,
+          "cases": 72,
+          "detections": 3617,
+          "detectedCases": 72,
+          "missedCases": 0,
+          "falsePositiveDetections": 3477
+        }
+      },
+      {
+        "config": {
+          "method": "hybrid",
+          "threshold": 0.4,
+          "alpha": 0.75,
+          "mergeGap": 0
+        },
+        "metrics": {
+          "precision": 0.15898054975534562,
+          "recall": 0.7700571791701157,
+          "f1": 0.26355035942213717,
+          "granularity": 3.657142857142857,
+          "plagdet": 0.11874605728907578,
+          "cases": 72,
+          "detections": 1540,
+          "detectedCases": 70,
+          "missedCases": 2,
+          "falsePositiveDetections": 1284
+        }
+      },
+      {
+        "config": {
+          "method": "hybrid",
+          "threshold": 0.4,
+          "alpha": 0.75,
+          "mergeGap": 40
+        },
+        "metrics": {
+          "precision": 0.1048543683544134,
+          "recall": 0.7766521126237298,
+          "f1": 0.18476407935179118,
+          "granularity": 2.242857142857143,
+          "plagdet": 0.1088598587433298,
+          "cases": 72,
+          "detections": 1428,
+          "detectedCases": 70,
+          "missedCases": 2,
+          "falsePositiveDetections": 1271
+        }
+      },
+      {
+        "config": {
+          "method": "hybrid",
+          "threshold": 0.4,
+          "alpha": 0.75,
+          "mergeGap": 120
+        },
+        "metrics": {
+          "precision": 0.08354481884190093,
+          "recall": 0.7885858436704575,
+          "f1": 0.1510834655462017,
+          "granularity": 1.7428571428571429,
+          "plagdet": 0.10378896400619378,
+          "cases": 72,
+          "detections": 1378,
+          "detectedCases": 70,
+          "missedCases": 2,
+          "falsePositiveDetections": 1256
+        }
+      },
+      {
+        "config": {
+          "method": "hybrid",
+          "threshold": 0.5,
+          "alpha": 0.75,
+          "mergeGap": 0
+        },
+        "metrics": {
+          "precision": 0.25361276546028283,
+          "recall": 0.6766979292045061,
+          "f1": 0.36895036075800375,
+          "granularity": 3.1666666666666665,
+          "plagdet": 0.17919835430046063,
+          "cases": 72,
+          "detections": 794,
+          "detectedCases": 66,
+          "missedCases": 6,
+          "falsePositiveDetections": 585
+        }
+      },
+      {
+        "config": {
+          "method": "hybrid",
+          "threshold": 0.5,
+          "alpha": 0.75,
+          "mergeGap": 40
+        },
+        "metrics": {
+          "precision": 0.18223145490531692,
+          "recall": 0.6813526354433206,
+          "f1": 0.28755481590746335,
+          "granularity": 2.0606060606060606,
+          "plagdet": 0.17818299792166545,
+          "cases": 72,
+          "detections": 718,
+          "detectedCases": 66,
+          "missedCases": 6,
+          "falsePositiveDetections": 582
+        }
+      },
+      {
+        "config": {
+          "method": "hybrid",
+          "threshold": 0.5,
+          "alpha": 0.75,
+          "mergeGap": 120
+        },
+        "metrics": {
+          "precision": 0.15459324624989398,
+          "recall": 0.6925971217569178,
+          "f1": 0.2527668902743571,
+          "granularity": 1.6818181818181819,
+          "plagdet": 0.17760319009360107,
+          "cases": 72,
+          "detections": 685,
+          "detectedCases": 66,
+          "missedCases": 6,
+          "falsePositiveDetections": 574
+        }
+      },
+      {
+        "config": {
+          "method": "hybrid",
+          "threshold": 0.6,
+          "alpha": 0.75,
+          "mergeGap": 0
+        },
+        "metrics": {
+          "precision": 0.31377903116186945,
+          "recall": 0.5753497800028088,
+          "f1": 0.4060889587235275,
+          "granularity": 2.6451612903225805,
+          "plagdet": 0.21762740306406983,
+          "cases": 72,
+          "detections": 511,
+          "detectedCases": 62,
+          "missedCases": 10,
+          "falsePositiveDetections": 347
+        }
+      },
+      {
+        "config": {
+          "method": "hybrid",
+          "threshold": 0.6,
+          "alpha": 0.75,
+          "mergeGap": 40
+        },
+        "metrics": {
+          "precision": 0.23390388149394012,
+          "recall": 0.5784963677077702,
+          "f1": 0.33311793286610974,
+          "granularity": 1.7580645161290323,
+          "plagdet": 0.22759301797933398,
+          "cases": 72,
+          "detections": 454,
+          "detectedCases": 62,
+          "missedCases": 10,
+          "falsePositiveDetections": 345
+        }
+      },
+      {
+        "config": {
+          "method": "hybrid",
+          "threshold": 0.6,
+          "alpha": 0.75,
+          "mergeGap": 120
+        },
+        "metrics": {
+          "precision": 0.217478163011694,
+          "recall": 0.584121187285236,
+          "f1": 0.3169503636447479,
+          "granularity": 1.5806451612903225,
+          "plagdet": 0.2317342970577394,
+          "cases": 72,
+          "detections": 438,
+          "detectedCases": 62,
+          "missedCases": 10,
+          "falsePositiveDetections": 340
+        }
+      },
+      {
+        "config": {
+          "method": "hybrid",
+          "threshold": 0.7,
+          "alpha": 0.75,
+          "mergeGap": 0
+        },
+        "metrics": {
+          "precision": 0.313577342916769,
+          "recall": 0.4057539939158421,
+          "f1": 0.3537598121339856,
+          "granularity": 2.150943396226415,
+          "plagdet": 0.2136509633892392,
+          "cases": 72,
+          "detections": 358,
+          "detectedCases": 53,
+          "missedCases": 19,
+          "falsePositiveDetections": 244
+        }
+      },
+      {
+        "config": {
+          "method": "hybrid",
+          "threshold": 0.7,
+          "alpha": 0.75,
+          "mergeGap": 40
+        },
+        "metrics": {
+          "precision": 0.2603473516276786,
+          "recall": 0.40783282983889957,
+          "f1": 0.3178130692901736,
+          "granularity": 1.6415094339622642,
+          "plagdet": 0.2267886111856848,
+          "cases": 72,
+          "detections": 330,
+          "detectedCases": 53,
+          "missedCases": 19,
+          "falsePositiveDetections": 243
+        }
+      },
+      {
+        "config": {
+          "method": "hybrid",
+          "threshold": 0.7,
+          "alpha": 0.75,
+          "mergeGap": 120
+        },
+        "metrics": {
+          "precision": 0.24669994776196208,
+          "recall": 0.4125259127541303,
+          "f1": 0.30875645881739605,
+          "granularity": 1.509433962264151,
+          "plagdet": 0.23260908723572973,
+          "cases": 72,
+          "detections": 320,
+          "detectedCases": 53,
+          "missedCases": 19,
+          "falsePositiveDetections": 240
+        }
+      },
+      {
+        "config": {
+          "method": "hybrid",
+          "threshold": 0.8,
+          "alpha": 0.75,
+          "mergeGap": 0
+        },
+        "metrics": {
+          "precision": 0.2822397838415375,
+          "recall": 0.3015240931350992,
+          "f1": 0.2915634153665591,
+          "granularity": 1.8181818181818181,
+          "plagdet": 0.19505639715458672,
+          "cases": 72,
+          "detections": 282,
+          "detectedCases": 44,
+          "missedCases": 28,
+          "falsePositiveDetections": 202
+        }
+      },
+      {
+        "config": {
+          "method": "hybrid",
+          "threshold": 0.8,
+          "alpha": 0.75,
+          "mergeGap": 40
+        },
+        "metrics": {
+          "precision": 0.2490695251697434,
+          "recall": 0.30401562838476054,
+          "f1": 0.2738132734872317,
+          "granularity": 1.5227272727272727,
+          "plagdet": 0.20510599578710265,
+          "cases": 72,
+          "detections": 268,
+          "detectedCases": 44,
+          "missedCases": 28,
+          "falsePositiveDetections": 201
+        }
+      },
+      {
+        "config": {
+          "method": "hybrid",
+          "threshold": 0.8,
+          "alpha": 0.75,
+          "mergeGap": 120
+        },
+        "metrics": {
+          "precision": 0.24332302574614975,
+          "recall": 0.308693650266885,
+          "f1": 0.27213769538291477,
+          "granularity": 1.4545454545454546,
+          "plagdet": 0.21007098647170327,
+          "cases": 72,
+          "detections": 262,
+          "detectedCases": 44,
+          "missedCases": 28,
+          "falsePositiveDetections": 198
+        }
+      },
+      {
+        "config": {
+          "method": "hybrid",
+          "threshold": 0.9,
+          "alpha": 0.75,
+          "mergeGap": 0
+        },
+        "metrics": {
+          "precision": 0.2146118721461187,
+          "recall": 0.16379948130730895,
+          "f1": 0.18579417884326868,
+          "granularity": 1.46875,
+          "plagdet": 0.14250415884959117,
+          "cases": 72,
+          "detections": 219,
+          "detectedCases": 32,
+          "missedCases": 40,
+          "falsePositiveDetections": 172
+        }
+      },
+      {
+        "config": {
+          "method": "hybrid",
+          "threshold": 0.9,
+          "alpha": 0.75,
+          "mergeGap": 40
+        },
+        "metrics": {
+          "precision": 0.20093457943925233,
+          "recall": 0.1652054077088467,
+          "f1": 0.18132670718448554,
+          "granularity": 1.34375,
+          "plagdet": 0.14756180760182974,
+          "cases": 72,
+          "detections": 214,
+          "detectedCases": 32,
+          "missedCases": 40,
+          "falsePositiveDetections": 171
+        }
+      },
+      {
+        "config": {
+          "method": "hybrid",
+          "threshold": 0.9,
+          "alpha": 0.75,
+          "mergeGap": 120
+        },
+        "metrics": {
+          "precision": 0.1990521327014218,
+          "recall": 0.1680577049644742,
+          "f1": 0.18224651675245793,
+          "granularity": 1.3125,
+          "plagdet": 0.15068503005709907,
+          "cases": 72,
+          "detections": 211,
+          "detectedCases": 32,
+          "missedCases": 40,
+          "falsePositiveDetections": 169
+        }
+      },
+      {
+        "config": {
+          "method": "hybrid",
+          "threshold": 0.2,
+          "alpha": 1,
+          "mergeGap": 0
+        },
+        "metrics": {
+          "precision": 0.041142314536688915,
+          "recall": 0.8352980071689685,
+          "f1": 0.07842198148970285,
+          "granularity": 4.569444444444445,
+          "plagdet": 0.0316532486294524,
+          "cases": 72,
+          "detections": 7564,
+          "detectedCases": 72,
+          "missedCases": 0,
+          "falsePositiveDetections": 7235
+        }
+      },
+      {
+        "config": {
+          "method": "hybrid",
+          "threshold": 0.2,
+          "alpha": 1,
+          "mergeGap": 40
+        },
+        "metrics": {
+          "precision": 0.02340246036324509,
+          "recall": 0.8432208787020916,
+          "f1": 0.045540991805203726,
+          "granularity": 2.5416666666666665,
+          "plagdet": 0.02496178579611209,
+          "cases": 72,
+          "detections": 7327,
+          "detectedCases": 72,
+          "missedCases": 0,
+          "falsePositiveDetections": 7144
+        }
+      },
+      {
+        "config": {
+          "method": "hybrid",
+          "threshold": 0.2,
+          "alpha": 1,
+          "mergeGap": 120
+        },
+        "metrics": {
+          "precision": 0.019242811659487644,
+          "recall": 0.8538194415568805,
+          "f1": 0.037637377276500364,
+          "granularity": 2.0694444444444446,
+          "plagdet": 0.02326198969298927,
+          "cases": 72,
+          "detections": 7208,
+          "detectedCases": 72,
+          "missedCases": 0,
+          "falsePositiveDetections": 7059
+        }
+      },
+      {
+        "config": {
+          "method": "hybrid",
+          "threshold": 0.3,
+          "alpha": 1,
+          "mergeGap": 0
+        },
+        "metrics": {
+          "precision": 0.07815703447595912,
+          "recall": 0.7929443125787968,
+          "f1": 0.14228924380676256,
+          "granularity": 4.027777777777778,
+          "plagdet": 0.06107041860677726,
+          "cases": 72,
+          "detections": 3517,
+          "detectedCases": 72,
+          "missedCases": 0,
+          "falsePositiveDetections": 3227
+        }
+      },
+      {
+        "config": {
+          "method": "hybrid",
+          "threshold": 0.3,
+          "alpha": 1,
+          "mergeGap": 40
+        },
+        "metrics": {
+          "precision": 0.04763064390763817,
+          "recall": 0.8006957573455357,
+          "f1": 0.08991269030444828,
+          "granularity": 2.361111111111111,
+          "plagdet": 0.051409871693759816,
+          "cases": 72,
+          "detections": 3357,
+          "detectedCases": 72,
+          "missedCases": 0,
+          "falsePositiveDetections": 3187
+        }
+      },
+      {
+        "config": {
+          "method": "hybrid",
+          "threshold": 0.3,
+          "alpha": 1,
+          "mergeGap": 120
+        },
+        "metrics": {
+          "precision": 0.03898213466468198,
+          "recall": 0.8114404062500256,
+          "f1": 0.07439050040884376,
+          "granularity": 1.9027777777777777,
+          "plagdet": 0.04838613825877913,
+          "cases": 72,
+          "detections": 3285,
+          "detectedCases": 72,
+          "missedCases": 0,
+          "falsePositiveDetections": 3148
+        }
+      },
+      {
+        "config": {
+          "method": "hybrid",
+          "threshold": 0.4,
+          "alpha": 1,
+          "mergeGap": 0
+        },
+        "metrics": {
+          "precision": 0.14108511615817895,
+          "recall": 0.745476775870867,
+          "f1": 0.23726640737118485,
+          "granularity": 3.536231884057971,
+          "plagdet": 0.10876324433471794,
+          "cases": 72,
+          "detections": 1651,
+          "detectedCases": 69,
+          "missedCases": 3,
+          "falsePositiveDetections": 1407
+        }
+      },
+      {
+        "config": {
+          "method": "hybrid",
+          "threshold": 0.4,
+          "alpha": 1,
+          "mergeGap": 40
+        },
+        "metrics": {
+          "precision": 0.09019409462220446,
+          "recall": 0.7507907688349696,
+          "f1": 0.16104188455284194,
+          "granularity": 2.1159420289855073,
+          "plagdet": 0.09821613032177061,
+          "cases": 72,
+          "detections": 1537,
+          "detectedCases": 69,
+          "missedCases": 3,
+          "falsePositiveDetections": 1391
+        }
+      },
+      {
+        "config": {
+          "method": "hybrid",
+          "threshold": 0.4,
+          "alpha": 1,
+          "mergeGap": 120
+        },
+        "metrics": {
+          "precision": 0.07587828621071985,
+          "recall": 0.7586948030647607,
+          "f1": 0.13795906470818667,
+          "granularity": 1.7391304347826086,
+          "plagdet": 0.09490084582971571,
+          "cases": 72,
+          "detections": 1492,
+          "detectedCases": 69,
+          "missedCases": 3,
+          "falsePositiveDetections": 1372
+        }
+      },
+      {
+        "config": {
+          "method": "hybrid",
+          "threshold": 0.5,
+          "alpha": 1,
+          "mergeGap": 0
+        },
+        "metrics": {
+          "precision": 0.21733006240100172,
+          "recall": 0.6506210030706471,
+          "f1": 0.32582367560067205,
+          "granularity": 2.984848484848485,
+          "plagdet": 0.16335904380649735,
+          "cases": 72,
+          "detections": 874,
+          "detectedCases": 66,
+          "missedCases": 6,
+          "falsePositiveDetections": 677
+        }
+      },
+      {
+        "config": {
+          "method": "hybrid",
           "threshold": 0.5,
           "alpha": 1,
           "mergeGap": 40
         },
         "metrics": {
-          "precision": 0.36963578591655577,
-          "recall": 0.5737050426141485,
-          "f1": 0.44959765950397346,
-          "granularity": 1.7241379310344827,
-          "plagdet": 0.310968139644281,
+          "precision": 0.15615282922319126,
+          "recall": 0.654892652046748,
+          "f1": 0.25217658643373286,
+          "granularity": 1.9696969696969697,
+          "plagdet": 0.16058973520932904,
           "cases": 72,
-          "detections": 256,
-          "detectedCases": 58,
-          "missedCases": 14,
-          "falsePositiveDetections": 156
+          "detections": 803,
+          "detectedCases": 66,
+          "missedCases": 6,
+          "falsePositiveDetections": 673
         }
       },
       {
@@ -3171,16 +3171,16 @@
           "mergeGap": 120
         },
         "metrics": {
-          "precision": 0.3399582832216557,
-          "recall": 0.5813871931667575,
-          "f1": 0.42904078251035,
-          "granularity": 1.5172413793103448,
-          "plagdet": 0.3221405232469911,
+          "precision": 0.13770145294383312,
+          "recall": 0.6618649562544958,
+          "f1": 0.22797297405285016,
+          "granularity": 1.6818181818181819,
+          "plagdet": 0.16018208477765755,
           "cases": 72,
-          "detections": 244,
-          "detectedCases": 58,
-          "missedCases": 14,
-          "falsePositiveDetections": 156
+          "detections": 773,
+          "detectedCases": 66,
+          "missedCases": 6,
+          "falsePositiveDetections": 662
         }
       },
       {
@@ -3191,16 +3191,16 @@
           "mergeGap": 0
         },
         "metrics": {
-          "precision": 0.5500422072866715,
-          "recall": 0.4183456193927071,
-          "f1": 0.4752388279983207,
-          "granularity": 1.9574468085106382,
-          "plagdet": 0.30379272749751524,
+          "precision": 0.27704714127653846,
+          "recall": 0.5697204922377133,
+          "f1": 0.37280459822503176,
+          "granularity": 2.5737704918032787,
+          "plagdet": 0.20289270973215,
           "cases": 72,
-          "detections": 163,
-          "detectedCases": 47,
-          "missedCases": 25,
-          "falsePositiveDetections": 71
+          "detections": 554,
+          "detectedCases": 61,
+          "missedCases": 11,
+          "falsePositiveDetections": 397
         }
       },
       {
@@ -3211,16 +3211,16 @@
           "mergeGap": 40
         },
         "metrics": {
-          "precision": 0.4916520805247679,
-          "recall": 0.41998375513049163,
-          "f1": 0.4530008122115874,
-          "granularity": 1.5106382978723405,
-          "plagdet": 0.34110114858377627,
+          "precision": 0.21140237284639324,
+          "recall": 0.5724948259034705,
+          "f1": 0.3087822353014818,
+          "granularity": 1.7868852459016393,
+          "plagdet": 0.20882662146096845,
           "cases": 72,
-          "detections": 141,
-          "detectedCases": 47,
-          "missedCases": 25,
-          "falsePositiveDetections": 70
+          "detections": 503,
+          "detectedCases": 61,
+          "missedCases": 11,
+          "falsePositiveDetections": 394
         }
       },
       {
@@ -3231,16 +3231,16 @@
           "mergeGap": 120
         },
         "metrics": {
-          "precision": 0.48060103879704547,
-          "recall": 0.4227618011537924,
-          "f1": 0.4498297955432391,
-          "granularity": 1.446808510638298,
-          "plagdet": 0.34846183100515593,
+          "precision": 0.1945786400094157,
+          "recall": 0.5785777098332079,
+          "f1": 0.2912188820334294,
+          "granularity": 1.5901639344262295,
+          "plagdet": 0.21209735961891818,
           "cases": 72,
-          "detections": 138,
-          "detectedCases": 47,
-          "missedCases": 25,
-          "falsePositiveDetections": 70
+          "detections": 485,
+          "detectedCases": 61,
+          "missedCases": 11,
+          "falsePositiveDetections": 388
         }
       },
       {
@@ -3251,16 +3251,16 @@
           "mergeGap": 0
         },
         "metrics": {
-          "precision": 0.5487148940971136,
-          "recall": 0.28014373043337604,
-          "f1": 0.37091738645729855,
-          "granularity": 1.7878787878787878,
-          "plagdet": 0.25076085164559186,
+          "precision": 0.2666559587162524,
+          "recall": 0.3858919407844957,
+          "f1": 0.31538032843103814,
+          "granularity": 2.0384615384615383,
+          "plagdet": 0.19670196328971556,
           "cases": 72,
-          "detections": 105,
-          "detectedCases": 33,
-          "missedCases": 39,
-          "falsePositiveDetections": 46
+          "detections": 390,
+          "detectedCases": 52,
+          "missedCases": 20,
+          "falsePositiveDetections": 284
         }
       },
       {
@@ -3271,16 +3271,16 @@
           "mergeGap": 40
         },
         "metrics": {
-          "precision": 0.4938078000102816,
-          "recall": 0.28154794494188784,
-          "f1": 0.3586239534415164,
-          "granularity": 1.393939393939394,
-          "plagdet": 0.2847608075511479,
+          "precision": 0.2236979758144358,
+          "recall": 0.3878598299619909,
+          "f1": 0.2837457327589,
+          "granularity": 1.5961538461538463,
+          "plagdet": 0.20615424689341547,
           "cases": 72,
-          "detections": 91,
-          "detectedCases": 33,
-          "missedCases": 39,
-          "falsePositiveDetections": 45
+          "detections": 365,
+          "detectedCases": 52,
+          "missedCases": 20,
+          "falsePositiveDetections": 282
         }
       },
       {
@@ -3291,16 +3291,16 @@
           "mergeGap": 120
         },
         "metrics": {
-          "precision": 0.4824326943925351,
-          "recall": 0.28341524415280245,
-          "f1": 0.35706508560500727,
-          "granularity": 1.3333333333333333,
-          "plagdet": 0.2921034844232969,
+          "precision": 0.21539078207573875,
+          "recall": 0.3919985655887894,
+          "f1": 0.2780189607848404,
+          "granularity": 1.5,
+          "plagdet": 0.21031322494778323,
           "cases": 72,
-          "detections": 89,
-          "detectedCases": 33,
-          "missedCases": 39,
-          "falsePositiveDetections": 45
+          "detections": 356,
+          "detectedCases": 52,
+          "missedCases": 20,
+          "falsePositiveDetections": 278
         }
       },
       {
@@ -3311,16 +3311,16 @@
           "mergeGap": 0
         },
         "metrics": {
-          "precision": 0.482485333935018,
-          "recall": 0.15671105472359542,
-          "f1": 0.23658076582158405,
-          "granularity": 1.3478260869565217,
-          "plagdet": 0.19213502600483706,
+          "precision": 0.25368116481042996,
+          "recall": 0.27136841051387695,
+          "f1": 0.2622268742123798,
+          "granularity": 1.8333333333333333,
+          "plagdet": 0.17452699819024536,
           "cases": 72,
-          "detections": 64,
-          "detectedCases": 23,
-          "missedCases": 49,
-          "falsePositiveDetections": 33
+          "detections": 301,
+          "detectedCases": 42,
+          "missedCases": 30,
+          "falsePositiveDetections": 224
         }
       },
       {
@@ -3331,16 +3331,16 @@
           "mergeGap": 40
         },
         "metrics": {
-          "precision": 0.4555773113871382,
-          "recall": 0.1575309510655911,
-          "f1": 0.23411045501039585,
-          "granularity": 1.173913043478261,
-          "plagdet": 0.2089722931390061,
+          "precision": 0.2301627830799899,
+          "recall": 0.27375442817456175,
+          "f1": 0.25007314559573585,
+          "granularity": 1.5952380952380953,
+          "plagdet": 0.18175678565459755,
           "cases": 72,
-          "detections": 59,
-          "detectedCases": 23,
-          "missedCases": 49,
-          "falsePositiveDetections": 32
+          "detections": 289,
+          "detectedCases": 42,
+          "missedCases": 30,
+          "falsePositiveDetections": 222
         }
       },
       {
@@ -3351,16 +3351,16 @@
           "mergeGap": 120
         },
         "metrics": {
-          "precision": 0.44619071330760607,
-          "recall": 0.16038324832121859,
-          "f1": 0.23595314173682067,
-          "granularity": 1.1304347826086956,
-          "plagdet": 0.2162430448880055,
+          "precision": 0.22759623830070583,
+          "recall": 0.278802219893725,
+          "f1": 0.2506103067688837,
+          "granularity": 1.5476190476190477,
+          "plagdet": 0.18575428071592737,
           "cases": 72,
-          "detections": 58,
-          "detectedCases": 23,
-          "missedCases": 49,
-          "falsePositiveDetections": 32
+          "detections": 284,
+          "detectedCases": 42,
+          "missedCases": 30,
+          "falsePositiveDetections": 219
         }
       },
       {
@@ -3371,16 +3371,16 @@
           "mergeGap": 0
         },
         "metrics": {
-          "precision": 0.4782608695652174,
-          "recall": 0.0964641322204126,
-          "f1": 0.16054641650963639,
-          "granularity": 1.2222222222222223,
-          "plagdet": 0.13936283454719245,
+          "precision": 0.18295115114195118,
+          "recall": 0.13308952155368012,
+          "f1": 0.1540870101654728,
+          "granularity": 1.4827586206896552,
+          "plagdet": 0.11744938002217356,
           "cases": 72,
-          "detections": 46,
-          "detectedCases": 18,
-          "missedCases": 54,
-          "falsePositiveDetections": 24
+          "detections": 235,
+          "detectedCases": 29,
+          "missedCases": 43,
+          "falsePositiveDetections": 192
         }
       },
       {
@@ -3391,16 +3391,16 @@
           "mergeGap": 40
         },
         "metrics": {
-          "precision": 0.4888888888888889,
-          "recall": 0.0964641322204126,
-          "f1": 0.16113436069568784,
-          "granularity": 1.2222222222222223,
-          "plagdet": 0.13987320139377202,
+          "precision": 0.1695370457319936,
+          "recall": 0.13446538542515535,
+          "f1": 0.14997817031542257,
+          "granularity": 1.3448275862068966,
+          "plagdet": 0.12198485954744777,
           "cases": 72,
-          "detections": 45,
-          "detectedCases": 18,
-          "missedCases": 54,
-          "falsePositiveDetections": 23
+          "detections": 230,
+          "detectedCases": 29,
+          "missedCases": 43,
+          "falsePositiveDetections": 191
         }
       },
       {
@@ -3411,16 +3411,16 @@
           "mergeGap": 120
         },
         "metrics": {
-          "precision": 0.4772727272727273,
-          "recall": 0.0993164294760401,
-          "f1": 0.16441871167436056,
-          "granularity": 1.1666666666666667,
-          "plagdet": 0.14739764210931702,
+          "precision": 0.1681129226476041,
+          "recall": 0.13731768268078284,
+          "f1": 0.15116282758790817,
+          "granularity": 1.3103448275862069,
+          "plagdet": 0.12512358427184772,
           "cases": 72,
-          "detections": 44,
-          "detectedCases": 18,
-          "missedCases": 54,
-          "falsePositiveDetections": 23
+          "detections": 226,
+          "detectedCases": 29,
+          "missedCases": 43,
+          "falsePositiveDetections": 188
         }
       }
     ]

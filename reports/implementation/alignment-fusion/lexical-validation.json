@@ -1,0 +1,502 @@
+{
+  "config": {
+    "method": "lexical",
+    "threshold": 0.6,
+    "alpha": 1,
+    "mergeGap": 120
+  },
+  "metrics": {
+    "precision": 0.1945786400094157,
+    "recall": 0.5785777098332079,
+    "f1": 0.2912188820334294,
+    "granularity": 1.5901639344262295,
+    "plagdet": 0.21209735961891818,
+    "cases": 72,
+    "detections": 485,
+    "detectedCases": 61,
+    "missedCases": 11,
+    "falsePositiveDetections": 388
+  },
+  "search": [
+    {
+      "config": {
+        "method": "lexical",
+        "threshold": 0.2,
+        "alpha": 1,
+        "mergeGap": 0
+      },
+      "metrics": {
+        "precision": 0.041142314536688915,
+        "recall": 0.8352980071689685,
+        "f1": 0.07842198148970285,
+        "granularity": 4.569444444444445,
+        "plagdet": 0.0316532486294524,
+        "cases": 72,
+        "detections": 7564,
+        "detectedCases": 72,
+        "missedCases": 0,
+        "falsePositiveDetections": 7235
+      }
+    },
+    {
+      "config": {
+        "method": "lexical",
+        "threshold": 0.2,
+        "alpha": 1,
+        "mergeGap": 40
+      },
+      "metrics": {
+        "precision": 0.02340246036324509,
+        "recall": 0.8432208787020916,
+        "f1": 0.045540991805203726,
+        "granularity": 2.5416666666666665,
+        "plagdet": 0.02496178579611209,
+        "cases": 72,
+        "detections": 7327,
+        "detectedCases": 72,
+        "missedCases": 0,
+        "falsePositiveDetections": 7144
+      }
+    },
+    {
+      "config": {
+        "method": "lexical",
+        "threshold": 0.2,
+        "alpha": 1,
+        "mergeGap": 120
+      },
+      "metrics": {
+        "precision": 0.019242811659487644,
+        "recall": 0.8538194415568805,
+        "f1": 0.037637377276500364,
+        "granularity": 2.0694444444444446,
+        "plagdet": 0.02326198969298927,
+        "cases": 72,
+        "detections": 7208,
+        "detectedCases": 72,
+        "missedCases": 0,
+        "falsePositiveDetections": 7059
+      }
+    },
+    {
+      "config": {
+        "method": "lexical",
+        "threshold": 0.3,
+        "alpha": 1,
+        "mergeGap": 0
+      },
+      "metrics": {
+        "precision": 0.07815703447595912,
+        "recall": 0.7929443125787968,
+        "f1": 0.14228924380676256,
+        "granularity": 4.027777777777778,
+        "plagdet": 0.06107041860677726,
+        "cases": 72,
+        "detections": 3517,
+        "detectedCases": 72,
+        "missedCases": 0,
+        "falsePositiveDetections": 3227
+      }
+    },
+    {
+      "config": {
+        "method": "lexical",
+        "threshold": 0.3,
+        "alpha": 1,
+        "mergeGap": 40
+      },
+      "metrics": {
+        "precision": 0.04763064390763817,
+        "recall": 0.8006957573455357,
+        "f1": 0.08991269030444828,
+        "granularity": 2.361111111111111,
+        "plagdet": 0.051409871693759816,
+        "cases": 72,
+        "detections": 3357,
+        "detectedCases": 72,
+        "missedCases": 0,
+        "falsePositiveDetections": 3187
+      }
+    },
+    {
+      "config": {
+        "method": "lexical",
+        "threshold": 0.3,
+        "alpha": 1,
+        "mergeGap": 120
+      },
+      "metrics": {
+        "precision": 0.03898213466468198,
+        "recall": 0.8114404062500256,
+        "f1": 0.07439050040884376,
+        "granularity": 1.9027777777777777,
+        "plagdet": 0.04838613825877913,
+        "cases": 72,
+        "detections": 3285,
+        "detectedCases": 72,
+        "missedCases": 0,
+        "falsePositiveDetections": 3148
+      }
+    },
+    {
+      "config": {
+        "method": "lexical",
+        "threshold": 0.4,
+        "alpha": 1,
+        "mergeGap": 0
+      },
+      "metrics": {
+        "precision": 0.14108511615817895,
+        "recall": 0.745476775870867,
+        "f1": 0.23726640737118485,
+        "granularity": 3.536231884057971,
+        "plagdet": 0.10876324433471794,
+        "cases": 72,
+        "detections": 1651,
+        "detectedCases": 69,
+        "missedCases": 3,
+        "falsePositiveDetections": 1407
+      }
+    },
+    {
+      "config": {
+        "method": "lexical",
+        "threshold": 0.4,
+        "alpha": 1,
+        "mergeGap": 40
+      },
+      "metrics": {
+        "precision": 0.09019409462220446,
+        "recall": 0.7507907688349696,
+        "f1": 0.16104188455284194,
+        "granularity": 2.1159420289855073,
+        "plagdet": 0.09821613032177061,
+        "cases": 72,
+        "detections": 1537,
+        "detectedCases": 69,
+        "missedCases": 3,
+        "falsePositiveDetections": 1391
+      }
+    },
+    {
+      "config": {
+        "method": "lexical",
+        "threshold": 0.4,
+        "alpha": 1,
+        "mergeGap": 120
+      },
+      "metrics": {
+        "precision": 0.07587828621071985,
+        "recall": 0.7586948030647607,
+        "f1": 0.13795906470818667,
+        "granularity": 1.7391304347826086,
+        "plagdet": 0.09490084582971571,
+        "cases": 72,
+        "detections": 1492,
+        "detectedCases": 69,
+        "missedCases": 3,
+        "falsePositiveDetections": 1372
+      }
+    },
+    {
+      "config": {
+        "method": "lexical",
+        "threshold": 0.5,
+        "alpha": 1,
+        "mergeGap": 0
+      },
+      "metrics": {
+        "precision": 0.21733006240100172,
+        "recall": 0.6506210030706471,
+        "f1": 0.32582367560067205,
+        "granularity": 2.984848484848485,
+        "plagdet": 0.16335904380649735,
+        "cases": 72,
+        "detections": 874,
+        "detectedCases": 66,
+        "missedCases": 6,
+        "falsePositiveDetections": 677
+      }
+    },
+    {
+      "config": {
+        "method": "lexical",
+        "threshold": 0.5,
+        "alpha": 1,
+        "mergeGap": 40
+      },
+      "metrics": {
+        "precision": 0.15615282922319126,
+        "recall": 0.654892652046748,
+        "f1": 0.25217658643373286,
+        "granularity": 1.9696969696969697,
+        "plagdet": 0.16058973520932904,
+        "cases": 72,
+        "detections": 803,
+        "detectedCases": 66,
+        "missedCases": 6,
+        "falsePositiveDetections": 673
+      }
+    },
+    {
+      "config": {
+        "method": "lexical",
+        "threshold": 0.5,
+        "alpha": 1,
+        "mergeGap": 120
+      },
+      "metrics": {
+        "precision": 0.13770145294383312,
+        "recall": 0.6618649562544958,
+        "f1": 0.22797297405285016,
+        "granularity": 1.6818181818181819,
+        "plagdet": 0.16018208477765755,
+        "cases": 72,
+        "detections": 773,
+        "detectedCases": 66,
+        "missedCases": 6,
+        "falsePositiveDetections": 662
+      }
+    },
+    {
+      "config": {
+        "method": "lexical",
+        "threshold": 0.6,
+        "alpha": 1,
+        "mergeGap": 0
+      },
+      "metrics": {
+        "precision": 0.27704714127653846,
+        "recall": 0.5697204922377133,
+        "f1": 0.37280459822503176,
+        "granularity": 2.5737704918032787,
+        "plagdet": 0.20289270973215,
+        "cases": 72,
+        "detections": 554,
+        "detectedCases": 61,
+        "missedCases": 11,
+        "falsePositiveDetections": 397
+      }
+    },
+    {
+      "config": {
+        "method": "lexical",
+        "threshold": 0.6,
+        "alpha": 1,
+        "mergeGap": 40
+      },
+      "metrics": {
+        "precision": 0.21140237284639324,
+        "recall": 0.5724948259034705,
+        "f1": 0.3087822353014818,
+        "granularity": 1.7868852459016393,
+        "plagdet": 0.20882662146096845,
+        "cases": 72,
+        "detections": 503,
+        "detectedCases": 61,
+        "missedCases": 11,
+        "falsePositiveDetections": 394
+      }
+    },
+    {
+      "config": {
+        "method": "lexical",
+        "threshold": 0.6,
+        "alpha": 1,
+        "mergeGap": 120
+      },
+      "metrics": {
+        "precision": 0.1945786400094157,
+        "recall": 0.5785777098332079,
+        "f1": 0.2912188820334294,
+        "granularity": 1.5901639344262295,
+        "plagdet": 0.21209735961891818,
+        "cases": 72,
+        "detections": 485,
+        "detectedCases": 61,
+        "missedCases": 11,
+        "falsePositiveDetections": 388
+      }
+    },
+    {
+      "config": {
+        "method": "lexical",
+        "threshold": 0.7,
+        "alpha": 1,
+        "mergeGap": 0
+      },
+      "metrics": {
+        "precision": 0.2666559587162524,
+        "recall": 0.3858919407844957,
+        "f1": 0.31538032843103814,
+        "granularity": 2.0384615384615383,
+        "plagdet": 0.19670196328971556,
+        "cases": 72,
+        "detections": 390,
+        "detectedCases": 52,
+        "missedCases": 20,
+        "falsePositiveDetections": 284
+      }
+    },
+    {
+      "config": {
+        "method": "lexical",
+        "threshold": 0.7,
+        "alpha": 1,
+        "mergeGap": 40
+      },
+      "metrics": {
+        "precision": 0.2236979758144358,
+        "recall": 0.3878598299619909,
+        "f1": 0.2837457327589,
+        "granularity": 1.5961538461538463,
+        "plagdet": 0.20615424689341547,
+        "cases": 72,
+        "detections": 365,
+        "detectedCases": 52,
+        "missedCases": 20,
+        "falsePositiveDetections": 282
+      }
+    },
+    {
+      "config": {
+        "method": "lexical",
+        "threshold": 0.7,
+        "alpha": 1,
+        "mergeGap": 120
+      },
+      "metrics": {
+        "precision": 0.21539078207573875,
+        "recall": 0.3919985655887894,
+        "f1": 0.2780189607848404,
+        "granularity": 1.5,
+        "plagdet": 0.21031322494778323,
+        "cases": 72,
+        "detections": 356,
+        "detectedCases": 52,
+        "missedCases": 20,
+        "falsePositiveDetections": 278
+      }
+    },
+    {
+      "config": {
+        "method": "lexical",
+        "threshold": 0.8,
+        "alpha": 1,
+        "mergeGap": 0
+      },
+      "metrics": {
+        "precision": 0.25368116481042996,
+        "recall": 0.27136841051387695,
+        "f1": 0.2622268742123798,
+        "granularity": 1.8333333333333333,
+        "plagdet": 0.17452699819024536,
+        "cases": 72,
+        "detections": 301,
+        "detectedCases": 42,
+        "missedCases": 30,
+        "falsePositiveDetections": 224
+      }
+    },
+    {
+      "config": {
+        "method": "lexical",
+        "threshold": 0.8,
+        "alpha": 1,
+        "mergeGap": 40
+      },
+      "metrics": {
+        "precision": 0.2301627830799899,
+        "recall": 0.27375442817456175,
+        "f1": 0.25007314559573585,
+        "granularity": 1.5952380952380953,
+        "plagdet": 0.18175678565459755,
+        "cases": 72,
+        "detections": 289,
+        "detectedCases": 42,
+        "missedCases": 30,
+        "falsePositiveDetections": 222
+      }
+    },
+    {
+      "config": {
+        "method": "lexical",
+        "threshold": 0.8,
+        "alpha": 1,
+        "mergeGap": 120
+      },
+      "metrics": {
+        "precision": 0.22759623830070583,
+        "recall": 0.278802219893725,
+        "f1": 0.2506103067688837,
+        "granularity": 1.5476190476190477,
+        "plagdet": 0.18575428071592737,
+        "cases": 72,
+        "detections": 284,
+        "detectedCases": 42,
+        "missedCases": 30,
+        "falsePositiveDetections": 219
+      }
+    },
+    {
+      "config": {
+        "method": "lexical",
+        "threshold": 0.9,
+        "alpha": 1,
+        "mergeGap": 0
+      },
+      "metrics": {
+        "precision": 0.18295115114195118,
+        "recall": 0.13308952155368012,
+        "f1": 0.1540870101654728,
+        "granularity": 1.4827586206896552,
+        "plagdet": 0.11744938002217356,
+        "cases": 72,
+        "detections": 235,
+        "detectedCases": 29,
+        "missedCases": 43,
+        "falsePositiveDetections": 192
+      }
+    },
+    {
+      "config": {
+        "method": "lexical",
+        "threshold": 0.9,
+        "alpha": 1,
+        "mergeGap": 40
+      },
+      "metrics": {
+        "precision": 0.1695370457319936,
+        "recall": 0.13446538542515535,
+        "f1": 0.14997817031542257,
+        "granularity": 1.3448275862068966,
+        "plagdet": 0.12198485954744777,
+        "cases": 72,
+        "detections": 230,
+        "detectedCases": 29,
+        "missedCases": 43,
+        "falsePositiveDetections": 191
+      }
+    },
+    {
+      "config": {
+        "method": "lexical",
+        "threshold": 0.9,
+        "alpha": 1,
+        "mergeGap": 120
+      },
+      "metrics": {
+        "precision": 0.1681129226476041,
+        "recall": 0.13731768268078284,
+        "f1": 0.15116282758790817,
+        "granularity": 1.3103448275862069,
+        "plagdet": 0.12512358427184772,
+        "cases": 72,
+        "detections": 226,
+        "detectedCases": 29,
+        "missedCases": 43,
+        "falsePositiveDetections": 188
+      }
+    }
+  ]
+}

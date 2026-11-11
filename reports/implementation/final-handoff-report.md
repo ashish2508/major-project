@@ -10,6 +10,8 @@ The main remaining product issue was handled honestly: when MiniLM retrieves a r
 
 The final native Windows production build uses Webpack. The default Turbopack production bundle produced an unresolved Transformers.js external alias at runtime; the verified Webpack build resolves it correctly.
 
+The latest follow-up session retained the multi-scale segmentation and embedding-reuse changes. Its CPU controlled diagnostic raised the best annotated paraphrase score from `0.5265` to `0.5576` without creating a confirmed negative-control alert. The post-change production build and DirectML rerun remain unverified because the shared WSL/native terminal relay failed after the interrupted benchmark.
+
 ## 2. Architecture
 
 - `src/app`: Next.js App Router UI, API routes and styling.
@@ -36,6 +38,9 @@ The existing project already supplied the PAN-PC-11 parser and split, TF-IDF bas
 - Extended controlled-demo diagnostics to record API review leads.
 - Updated README and demo instructions.
 - Added this report and `overnight-work-log.md`.
+- Added single-sentence semantic windows beside two-sentence context windows.
+- Deduplicated identical passage text before MiniLM embedding and remapped vectors to all passage spans.
+- Added regression coverage for multi-scale paragraph windows.
 
 ## 5. Detection methods
 
@@ -64,6 +69,8 @@ The controlled paraphrase case retrieves the intended source candidate, but its 
 - Frozen semantic threshold: `0.60`
 
 The difference is approximately `1.3e-7`, so the behavior is not a CPU-versus-DirectML discrepancy. The result is treated as a limitation of this fixed model/example combination. No threshold was lowered and no claim of confirmed plagiarism is made.
+
+After the multi-scale window change, the CPU controlled diagnostic measured a best annotated paraphrase score of `0.5576484307`. This is an evidence-ranking improvement, not a benchmark result and not a confirmed detection.
 
 ## 8. Semantic review lead
 
@@ -111,16 +118,21 @@ The held-out subset contains 48 English queries, 36 candidate sources and 57 ann
 - `bun scripts/diagnose-demo.ts after http://127.0.0.1:3100`: passed all nine controlled method/scenario requests and recorded review leads.
 - Native browser check: paraphrase PDF/TXT showed the review lead label, score `0.527`, source/ranges, highlights and actual DirectML provider.
 - `bun test --run tests/detection.test.ts`: 6 passed, 0 failed during implementation.
+- Post-change focused regression: 5 passed, 1 skipped, 0 failed across retrieval and paragraph-review tests.
+- Post-change editor diagnostics: no errors in segmentation, analysis, UI, styles or paragraph tests.
+- Post-change native production build and DirectML verification: attempted but blocked by the terminal/WSL service failure after the interrupted benchmark; no pass is claimed.
 
 ## 13. Files modified, created and deleted
 
 Modified during this session:
 
 - `src/lib/detection/detector.ts`
+- `src/lib/detection/segmentation.ts`
 - `src/lib/application/analysis.ts`
 - `src/app/page.tsx`
 - `src/app/globals.css`
 - `tests/detection.test.ts`
+- `tests/paragraph-review.test.ts`
 - `scripts/diagnose-demo.ts`
 - `README.md`
 - `demo/README.md`
@@ -141,6 +153,7 @@ Deleted during this session: none. Original datasets and model files were not de
 - OCR/scanned PDFs are unsupported.
 - DirectML uses mixed execution and is Windows-specific; WSL uses CPU.
 - PAN-PC-11 is book-based and the benchmark is a bounded reduced-candidate experiment.
+- The alignment-fusion follow-up has frozen validation choices but no held-out result or prediction files; it is incomplete and must not be compared as a completed benchmark.
 
 ## 15. Startup and demonstration instructions
 
@@ -157,31 +170,31 @@ Open `http://127.0.0.1:3000`. For native Windows DirectML, set `$env:MINILM_DEVI
 
 Status meanings: **Completed** = fully implemented and verified; **Partial** = implemented but not fully verified; **Failed** = attempted but unsuccessful; **Not attempted** = not addressed.
 
-| Acceptance criterion                   | Status    | Evidence                                                                          |
-| -------------------------------------- | --------- | --------------------------------------------------------------------------------- |
-| Working production application         | Completed | Webpack build and native production smoke passed                                  |
-| PDF input                              | Completed | PDF smoke and controlled PDF diagnostics passed                                   |
-| TXT input                              | Completed | TXT source smoke and controlled diagnostics passed                                |
-| TF-IDF method                          | Completed | Unit, benchmark and production checks passed                                      |
-| MiniLM method                          | Completed | Focused inference and production checks passed                                    |
-| Hybrid method                          | Completed | Production smoke and benchmark evidence passed                                    |
-| Direct-copy confirmed detections       | Completed | 3/3 for all methods                                                               |
-| Semantic paraphrase review lead        | Completed | Live UI and API showed `0.527` lead                                               |
-| No confirmed negative-control alert    | Completed | 0 confirmed alerts for all methods                                                |
-| Red confirmed-detection banner         | Completed | Existing UI and production smoke evidence                                         |
-| Side-by-side highlighted evidence      | Completed | Browser result inspection passed                                                  |
-| Actual provider reporting              | Completed | DirectML mixed provider displayed                                                 |
-| DirectML execution                     | Completed | Native profile and production provider passed                                     |
-| CPU fallback                           | Completed | CPU diagnostics and provider evidence passed                                      |
-| CPU/GPU numerical consistency          | Completed | Maximum absolute difference `1.155e-7`                                            |
-| Model loading and hash protection      | Completed | Integration test and calibrated hash checks passed                                |
-| Listed edge-case matrix                | Partial   | Automated coverage exists; not every manual failure mode was separately exercised |
-| PAN configuration integrity            | Completed | Frozen parameters unchanged and benchmark retained                                |
-| Documentation and startup instructions | Completed | README, methodology, status and handoff report updated                            |
-| Full final verification                | Completed | Formatting, typecheck, lint, tests, build, smoke and browser checks passed        |
+| Acceptance criterion                   | Status    | Evidence                                                                                      |
+| -------------------------------------- | --------- | --------------------------------------------------------------------------------------------- |
+| Working production application         | Completed | Webpack build and native production smoke passed                                              |
+| PDF input                              | Completed | PDF smoke and controlled PDF diagnostics passed                                               |
+| TXT input                              | Completed | TXT source smoke and controlled diagnostics passed                                            |
+| TF-IDF method                          | Completed | Unit, benchmark and production checks passed                                                  |
+| MiniLM method                          | Completed | Focused inference and production checks passed                                                |
+| Hybrid method                          | Completed | Production smoke and benchmark evidence passed                                                |
+| Direct-copy confirmed detections       | Completed | 3/3 for all methods                                                                           |
+| Semantic paraphrase review lead        | Completed | Live UI and API showed `0.527` lead                                                           |
+| No confirmed negative-control alert    | Completed | 0 confirmed alerts for all methods                                                            |
+| Red confirmed-detection banner         | Completed | Existing UI and production smoke evidence                                                     |
+| Side-by-side highlighted evidence      | Completed | Browser result inspection passed                                                              |
+| Actual provider reporting              | Completed | DirectML mixed provider displayed                                                             |
+| DirectML execution                     | Completed | Native profile and production provider passed                                                 |
+| CPU fallback                           | Completed | CPU diagnostics and provider evidence passed                                                  |
+| CPU/GPU numerical consistency          | Completed | Maximum absolute difference `1.155e-7`                                                        |
+| Model loading and hash protection      | Completed | Integration test and calibrated hash checks passed                                            |
+| Listed edge-case matrix                | Partial   | Automated coverage exists; not every manual failure mode was separately exercised             |
+| PAN configuration integrity            | Completed | Frozen parameters unchanged and benchmark retained                                            |
+| Documentation and startup instructions | Completed | README, methodology, status and handoff report updated                                        |
+| Full final verification                | Partial   | Existing checks passed; post-change build and DirectML rerun were blocked by terminal failure |
 
-Fully completed criteria: 19/20. Partial criteria: 1/20. Failed: 0. Not attempted: 0. Acceptance criteria fully satisfied: **19**. Weighted completion percentage, counting a partial criterion as half complete: **97.5%**.
+Fully completed criteria: 18/20. Partial criteria: 2/20. Failed: 0. Not attempted: 0. Acceptance criteria fully satisfied: **18**. Weighted completion percentage, counting each partial criterion as half complete: **95%**.
 
 ## 17. Final unresolved work
 
-No implementation blocker remains. The remaining partial item is the breadth of manual edge-case execution; the automated paths and production validation are in place. The scientific limitation of the fixed MiniLM paraphrase example remains intentionally unresolved and is transparently surfaced through review-lead evidence rather than hidden by threshold changes.
+The alignment-fusion held-out benchmark remains incomplete: validation and frozen configuration files exist, but no follow-up held-out `benchmark-results.json`, predictions, or fusion result file was produced. The original baseline remains preserved. The post-change native production build and DirectML verification are also unverified because the shared terminal/WSL service stopped responding. The multi-scale implementation itself passes focused tests and improves the controlled CPU paraphrase ranking, but full benchmark improvement is not established.

@@ -36,10 +36,12 @@ export function segmentParagraphs(
     if (boundaries.length > 2 && content.trim().split(/\s+/).length <= 10 && !/[.!?]/.test(content))
       return [];
     const sentences = [...content.matchAll(/[\s\S]+?(?:[.!?]+(?=\s|$)|$)/g)];
-    const windows = sentences.map((sentence, index) => {
-      const end = sentences[Math.min(index + 1, sentences.length - 1)];
-      const offset = sentence.index;
-      return { offset, text: content.slice(offset, end.index + end[0].length) };
+    const windows = sentences.flatMap((sentence, index) => {
+      const offset = sentence.index!;
+      const single = { offset, text: sentence[0] };
+      const next = sentences[index + 1];
+      if (!next) return [single];
+      return [single, { offset, text: content.slice(offset, next.index! + next[0].length) }];
     });
     return windows.flatMap((window) =>
       segment(window.text, documentReference, options).map((passage) => {

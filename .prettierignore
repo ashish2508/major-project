@@ -10,7 +10,10 @@ test-results
 playwright-report
 reports/implementation/split-manifest.json
 reports/implementation/paragraph-experiment/cache
+reports/implementation/alignment-fusion/cache
 reports/implementation/paragraph-experiment/split-manifest.json
+reports/implementation/alignment-fusion/split-manifest.json
+reports/implementation/alignment-fusion/leakage-check.json
 reports/pan-pc-11/results.json
 reports/pan-pc-11/token-probe.json
 bun.lock
