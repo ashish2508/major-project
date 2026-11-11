@@ -8,12 +8,77 @@
  *      layout artefacts, numbered citations, ACL-style author-year citations,
  *      ALL-CAPS headings, etc.).
  *
- * None of these tests read the canonical files from disk.  They embed
- * representative snippets so the suite runs without the data directory.
+ * The QUIC tests exercise the tracked canonical files. Other tests use snippets.
  */
 
+import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
-import { stripReferences } from '../src/lib/detection/strip-references';
+import { stripCanonicalReferences, stripReferences } from '../src/lib/detection/strip-references';
+
+describe('coordinate-verified QUIC bibliographies', () => {
+  it.each([
+    {
+      reference: 'QUIC_Delay_Control_2025',
+      referenceCount: 21,
+      retained: [
+        'between different types of control algorithms.',
+        'Real network results',
+        'that underestimates the effective delay.',
+      ],
+      removed: ['TCP Vegas: end to end congestion', 'Promises and Potential'],
+    },
+    {
+      reference: 'QUIC_Dual_Connectivity_2021',
+      referenceCount: 36,
+      retained: [
+        'Additional experiments:',
+        '6. Conclusions',
+        'Figure 23: Pairwise example traces using SC',
+        'Appendix A. Pairwise fairness example using SC',
+        'behavior of NewReno.',
+      ],
+      removed: [
+        'Cross-layer analysis of TCP',
+        'MMSys, 2018.',
+        'Internet-Draft draft-ietf-quic-recovery-29',
+      ],
+    },
+  ])(
+    'strips only the verified ranges in $reference',
+    ({ reference, referenceCount, retained, removed }) => {
+      const original = readFileSync(`data/external-evaluation/canonical/${reference}.txt`, 'utf8')
+        .replace(/\r\n?/g, '\n')
+        .replace(/\f/g, '\n\n')
+        .replace(/[\u0000-\u0008\u000B\u000E-\u001F]/g, ' ');
+      const result = stripCanonicalReferences(reference, original);
+      expect(result.confident).toBe(true);
+      expect(result.body).toHaveLength(original.length);
+      expect(result.body).not.toMatch(/\bReferences\s*$/m);
+      const maskedNumbers = [...original.matchAll(/\[(\d+)\]/g)]
+        .filter((match) => !result.body.slice(match.index, match.index + match[0].length).trim())
+        .map((match) => Number(match[1]))
+        .sort((a, b) => a - b);
+      expect(maskedNumbers).toEqual(
+        Array.from({ length: referenceCount }, (_, index) => index + 1),
+      );
+      for (const phrase of retained) {
+        const offset = original.indexOf(phrase, result.referenceOffset!);
+        expect(offset).toBeGreaterThan(result.referenceOffset!);
+        expect(result.body.slice(offset, offset + phrase.length)).toBe(phrase);
+      }
+      for (const phrase of removed) {
+        const offset = original.indexOf(phrase, result.referenceOffset!);
+        expect(offset).toBeGreaterThan(result.referenceOffset!);
+        expect(result.body.slice(offset, offset + phrase.length).trim()).toBe('');
+      }
+      const changed = original + '\nNew body paragraph.';
+      expect(stripCanonicalReferences(reference, changed)).toMatchObject({
+        confident: false,
+        body: changed,
+      });
+    },
+  );
+});
 
 // ---------------------------------------------------------------------------
 // Helpers
@@ -182,7 +247,9 @@ describe('two-column PDF layout artefacts', () => {
       'References                                   2017. SearchQA: A new Q&A dataset\n' +
       'Piotr Bojanowski, Edouard Grave, Armand Joulin.   augmented with context from search.\n' +
       '   Tomas Mikolov. 2017. Enriching word vectors.   abs/1704.05179.\n' +
-      '   with subword information. Transactions.      Author2. 2016. Another Citation.\n'.repeat(5);
+      '   with subword information. Transactions.      Author2. 2016. Another Citation.\n'.repeat(
+        5,
+      );
     const text = paper(body, twoColTail);
     const result = stripReferences(text);
     expect(result.confident).toBe(true);

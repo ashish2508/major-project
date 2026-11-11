@@ -45,7 +45,10 @@ import {
 } from '../src/lib/detection/detector';
 import { filterInformativeEvidence } from '../src/lib/detection/informative-evidence';
 import { segment, segmentParagraphs, type Passage } from '../src/lib/detection/segmentation';
-import { describeStripResult, stripReferences } from '../src/lib/detection/strip-references';
+import {
+  describeStripResult,
+  stripCanonicalReferences,
+} from '../src/lib/detection/strip-references';
 import {
   applicationDevice,
   embeddingProvider,
@@ -63,7 +66,7 @@ import { digest } from '../src/lib/digest';
 const INPUT_DIRECTORY = resolve('data/external-evaluation/canonical');
 const OUTPUT_DIRECTORY = resolve('reports/external-evaluation');
 const BASELINE_PATH = resolve(OUTPUT_DIRECTORY, 'external-evaluation.json');
-const OUTPUT_PATH = resolve(OUTPUT_DIRECTORY, 'external-evaluation-body-only.json');
+const OUTPUT_PATH = resolve(OUTPUT_DIRECTORY, 'external-evaluation-body-only-final.json');
 
 const MINIMUM_INFORMATIVE_WORDS = 12;
 
@@ -78,6 +81,7 @@ interface ExternalPaper {
   fullText: string;
   /** Body text with reference section removed (may equal fullText). */
   bodyText: string;
+  bodyChars: number;
   /** Offset in fullText where the reference section starts, or null. */
   referenceOffset: number | null;
   /** Whether the reference-section detection was confident. */
@@ -135,7 +139,7 @@ async function loadPapers(): Promise<ExternalPaper[]> {
     const fullText = normalizeExtractedText(await readFile(resolve(INPUT_DIRECTORY, name), 'utf8'));
     if (!fullText.trim()) throw new Error(`Extracted paper is empty: ${name}`);
 
-    const stripResult = stripReferences(fullText);
+    const stripResult = stripCanonicalReferences(reference, fullText);
     console.log(describeStripResult(reference, stripResult));
 
     papers.push({
@@ -143,6 +147,7 @@ async function loadPapers(): Promise<ExternalPaper[]> {
       title: reference.replaceAll('_', ' '),
       fullText,
       bodyText: stripResult.body,
+      bodyChars: stripResult.body.length - (stripResult.maskedCharacters ?? 0),
       referenceOffset: stripResult.referenceOffset,
       referenceConfident: stripResult.confident,
       detectedHeading: stripResult.detectedHeading,
@@ -186,12 +191,7 @@ function evaluateMethod(
   config: { threshold: number; mergeGap: number },
   documents: ReadonlyMap<string, string>,
 ): MethodResult {
-  const merged = detect(
-    candidates,
-    config.threshold,
-    config.mergeGap,
-    method !== 'lexical',
-  );
+  const merged = detect(candidates, config.threshold, config.mergeGap, method !== 'lexical');
   const retained =
     method === 'lexical'
       ? merged
@@ -210,18 +210,13 @@ function evaluateMethod(
       documents.get(detection.suspiciousReference)!,
       detection.suspiciousSpan,
     ),
-    sourceExcerpt: excerpt(
-      documents.get(detection.sourceReference)!,
-      detection.sourceSpan,
-    ),
+    sourceExcerpt: excerpt(documents.get(detection.sourceReference)!, detection.sourceSpan),
   }));
 
   return { alertCount: alerts.length, alerts };
 }
 
-function summarize(
-  comparisons: DirectionalComparison[],
-): Record<
+function summarize(comparisons: DirectionalComparison[]): Record<
   Method,
   {
     directionalComparisons: number;
@@ -257,12 +252,8 @@ function summarize(
             (comparison) => comparison.methods[method].alertCount > 0,
           ).length,
           totalAlerts: alertRows.length,
-          papersReceivingAlerts: [
-            ...new Set(alertRows.map((alert) => alert.queryPaper)),
-          ].sort(),
-          highestScoringAlerts: alertRows
-            .sort((a, b) => b.score - a.score)
-            .slice(0, 20),
+          papersReceivingAlerts: [...new Set(alertRows.map((alert) => alert.queryPaper))].sort(),
+          highestScoringAlerts: alertRows.sort((a, b) => b.score - a.score).slice(0, 20),
         },
       ];
     }),
@@ -325,10 +316,10 @@ function buildComparison(
     heading: paper.detectedHeading,
     referenceOffset: paper.referenceOffset,
     fullTextChars: paper.fullText.length,
-    bodyChars: paper.bodyText.length,
+    bodyChars: paper.bodyChars,
     strippedFraction:
       paper.fullText.length > 0
-        ? (paper.fullText.length - paper.bodyText.length) / paper.fullText.length
+        ? (paper.fullText.length - paper.bodyChars) / paper.fullText.length
         : 0,
   }));
 
@@ -350,7 +341,10 @@ function buildComparison(
         },
       ];
     }),
-  ) as Record<Method, { baselineAlerts: number | null; bodyOnlyAlerts: number; delta: number | null }>;
+  ) as Record<
+    Method,
+    { baselineAlerts: number | null; bodyOnlyAlerts: number; delta: number | null }
+  >;
 
   return {
     referenceDetection: {
@@ -380,9 +374,7 @@ async function main(): Promise<void> {
   console.log(`Papers with confident reference detection: ${confidentCount}/${papers.length}`);
   if (notConfident.length) {
     console.log(`Papers without confident detection: ${notConfident.join(', ')}`);
-    console.log(
-      '  → These papers are evaluated on their full text (no content removed).',
-    );
+    console.log('  → These papers are evaluated on their full text (no content removed).');
   }
 
   console.log('\nVerifying the calibrated local MiniLM model...');
@@ -395,24 +387,19 @@ async function main(): Promise<void> {
   // The document map used for excerpt generation uses full text so that
   // any span offsets from the original text remain valid.
   // The body-only evaluation uses bodyText for segmentation; offsets emitted
-  // by the segmenter refer to bodyText, not fullText.  Since bodyText is a
-  // *prefix* of fullText (by design), offsets are consistent.
+  // by the segmenter also apply to fullText because references are removed as
+  // a suffix or masked in place.
   const documents = new Map(papers.map((paper) => [paper.reference, paper.bodyText]));
 
   for (const paper of papers) {
-    lexicalByPaper.set(
-      paper.reference,
-      segment(paper.bodyText, paper.reference, { countTokens }),
-    );
+    lexicalByPaper.set(paper.reference, segment(paper.bodyText, paper.reference, { countTokens }));
     semanticByPaper.set(
       paper.reference,
       segmentParagraphs(paper.bodyText, paper.reference, { countTokens }),
     );
   }
 
-  const allSemanticPassages = papers.flatMap(
-    (paper) => semanticByPaper.get(paper.reference)!,
-  );
+  const allSemanticPassages = papers.flatMap((paper) => semanticByPaper.get(paper.reference)!);
   const uniqueTexts = [...new Set(allSemanticPassages.map((passage) => passage.text))];
 
   console.log(`Embedding ${uniqueTexts.length} unique semantic passages on ${device}...`);
@@ -424,13 +411,11 @@ async function main(): Promise<void> {
   for (const paper of papers) {
     semanticVectorsByPaper.set(
       paper.reference,
-      semanticByPaper
-        .get(paper.reference)!
-        .map((passage) => {
-          const vector = vectorByText.get(passage.text);
-          if (!vector) throw new Error('An embedded semantic passage is missing');
-          return vector;
-        }),
+      semanticByPaper.get(paper.reference)!.map((passage) => {
+        const vector = vectorByText.get(passage.text);
+        if (!vector) throw new Error('An embedded semantic passage is missing');
+        return vector;
+      }),
     );
   }
 
@@ -459,18 +444,8 @@ async function main(): Promise<void> {
       );
 
       const methods: Record<Method, MethodResult> = {
-        lexical: evaluateMethod(
-          'lexical',
-          lexicalRows.lexical,
-          configs.lexical,
-          documents,
-        ),
-        semantic: evaluateMethod(
-          'semantic',
-          semanticRows.semantic,
-          configs.semantic,
-          documents,
-        ),
+        lexical: evaluateMethod('lexical', lexicalRows.lexical, configs.lexical, documents),
+        semantic: evaluateMethod('semantic', semanticRows.semantic, configs.semantic, documents),
         hybrid: evaluateMethod(
           'hybrid',
           semanticRows[scoreKey('hybrid', hybridAlpha)],
@@ -517,12 +492,11 @@ async function main(): Promise<void> {
         reference: paper.reference,
         title: paper.title,
         fullTextChars: paper.fullText.length,
-        bodyChars: paper.bodyText.length,
+        bodyChars: paper.bodyChars,
         strippedFraction:
           paper.fullText.length > 0
             ? Math.round(
-                ((paper.fullText.length - paper.bodyText.length) / paper.fullText.length) *
-                  10000,
+                ((paper.fullText.length - paper.bodyChars) / paper.fullText.length) * 10000,
               ) / 10000
             : 0,
         words: paper.bodyText.match(/[\p{L}\p{N}]+/gu)?.length ?? 0,
@@ -532,7 +506,7 @@ async function main(): Promise<void> {
       })),
     },
     methodology: {
-      referenceStripping: 'stripReferences() from src/lib/detection/strip-references.ts',
+      referenceStripping: 'stripCanonicalReferences() from src/lib/detection/strip-references.ts',
       lexicalSegmentation: 'segment() applied to body text only',
       semanticSegmentation: 'segmentParagraphs() applied to body text only',
       informativeEvidenceMinimumWords: MINIMUM_INFORMATIVE_WORDS,
@@ -542,7 +516,7 @@ async function main(): Promise<void> {
       uniqueSemanticPassages: uniqueTexts.length,
       configs,
       groundTruthAvailable: false,
-      note: 'Body offsets are prefixes of fullText offsets; excerpts are drawn from bodyText.',
+      note: 'Body offsets also apply to fullText; excerpts are drawn from bodyText.',
     },
     comparison,
     summary,
@@ -567,9 +541,7 @@ async function main(): Promise<void> {
   for (const method of ['lexical', 'semantic', 'hybrid'] as const) {
     const c = comparison.alertComparison[method];
     const delta =
-      c.delta !== null
-        ? (c.delta > 0 ? `+${c.delta}` : String(c.delta))
-        : 'baseline N/A';
+      c.delta !== null ? (c.delta > 0 ? `+${c.delta}` : String(c.delta)) : 'baseline N/A';
     console.log(
       `  ${method}: body-only=${c.bodyOnlyAlerts}, baseline=${c.baselineAlerts ?? 'N/A'}, delta=${delta}`,
     );

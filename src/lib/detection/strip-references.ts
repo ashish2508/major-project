@@ -1,3 +1,6 @@
+import { digest } from '../digest';
+import quicReferenceRanges from './quic-reference-ranges.json';
+
 /**
  * Reference-section stripping for extracted research-paper text.
  *
@@ -103,6 +106,38 @@ export interface StripResult {
    *     than citation entries.
    */
   confident: boolean;
+  /** Length of verified reference ranges masked in place to preserve offsets. */
+  maskedCharacters?: number;
+}
+
+/**
+ * These ranges were matched line by line from PDF.js coordinates to the canonical text.
+ * Delay Control v3 uses the right column on page 6 and both columns on page 7.
+ * Dual Connectivity v2 uses the right column on page 13 and selected regions of both
+ * columns on page 14, which also contains figures and Appendix A.
+ */
+export function stripCanonicalReferences(reference: string, text: string): StripResult {
+  if (!Object.hasOwn(quicReferenceRanges, reference)) return stripReferences(text);
+  const layout = quicReferenceRanges[reference as keyof typeof quicReferenceRanges];
+  if (digest(text) !== layout.sha256)
+    return { body: text, referenceOffset: null, detectedHeading: null, confident: false };
+
+  let cursor = 0;
+  let maskedCharacters = 0;
+  const parts: string[] = [];
+  for (const [start, end] of layout.ranges) {
+    parts.push(text.slice(cursor, start), text.slice(start, end).replace(/\S/g, ' '));
+    maskedCharacters += end - start;
+    cursor = end;
+  }
+  parts.push(text.slice(cursor));
+  return {
+    body: parts.join(''),
+    referenceOffset: layout.ranges[0][0],
+    detectedHeading: 'References',
+    confident: true,
+    maskedCharacters,
+  };
 }
 
 /**
@@ -215,6 +250,8 @@ export function stripReferences(text: string): StripResult {
  * logging and report generation.
  */
 export function describeStripResult(reference: string, result: StripResult): string {
+  if (result.maskedCharacters)
+    return `${reference}: masked ${result.maskedCharacters} bibliography characters using verified PDF coordinates`;
   if (!result.confident) {
     if (!result.detectedHeading) return `${reference}: no reference-section heading detected`;
     return `${reference}: heading "${result.detectedHeading}" found at offset ${result.referenceOffset} but detection was not confident (possible false positive or stray mention)`;
