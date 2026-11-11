@@ -51,6 +51,8 @@ export function retrieveCandidates(
   semanticAlternatives = 0,
 ): Record<string, Candidate[]> {
   if (!sources.length) throw new Error('At least one source passage is required');
+  if (!Number.isSafeInteger(semanticAlternatives) || semanticAlternatives < 0)
+    throw new Error('Invalid semantic shortlist size');
   if (Boolean(queryEmbeddings) !== Boolean(sourceEmbeddings))
     throw new Error('Both embedding arrays are required');
   if (
@@ -65,8 +67,9 @@ export function retrieveCandidates(
   if (semanticAlternatives && queryEmbeddings) output.semanticAlternatives = [];
   const embeddingNorms = (vectors: number[][]) =>
     vectors.map((vector) => {
+      if (vector.length !== 384) throw new Error('Expected a normalized 384-dimensional embedding');
       const norm = Math.hypot(...vector);
-      if (vector.length !== 384 || !Number.isFinite(norm) || Math.abs(norm - 1) > 0.001)
+      if (!Number.isFinite(norm) || Math.abs(norm - 1) > 0.001)
         throw new Error('Expected a normalized 384-dimensional embedding');
       return norm;
     });
@@ -156,6 +159,14 @@ export function retrieveCandidates(
 }
 const spanGap = (a: { offset: number; length: number }, b: { offset: number; length: number }) =>
   Math.max(a.offset, b.offset) - Math.min(a.offset + a.length, b.offset + b.length);
+function consistentAlignment(a: Candidate, b: Candidate): boolean {
+  const queryOrder = a.suspiciousSpan.offset - b.suspiciousSpan.offset;
+  const sourceOrder = a.sourceSpan.offset - b.sourceSpan.offset;
+  return (
+    queryOrder * sourceOrder >= 0 &&
+    spanGap(a.suspiciousSpan, b.suspiciousSpan) < 0 === spanGap(a.sourceSpan, b.sourceSpan) < 0
+  );
+}
 const spanUnion = (
   a: { offset: number; length: number },
   b: { offset: number; length: number },
@@ -169,7 +180,13 @@ export function detect(
   mergeGap = MERGE_GAP,
   requireConsistentAlignment = false,
 ): Detection[] {
-  if (!Number.isFinite(threshold) || threshold < 0 || threshold > 1 || mergeGap < 0)
+  if (
+    !Number.isFinite(threshold) ||
+    threshold < 0 ||
+    threshold > 1 ||
+    !Number.isFinite(mergeGap) ||
+    mergeGap < 0
+  )
     throw new Error('Invalid detection parameters');
   const accepted = candidates
     .filter((c) => c.score >= threshold)
@@ -180,6 +197,7 @@ export function detect(
         a.suspiciousSpan.offset - b.suspiciousSpan.offset,
     );
   const merged: Detection[] = [];
+  const members = new Map<Detection, Candidate[]>();
   for (const c of accepted) {
     const indices = merged.flatMap((d, i) =>
       d.suspiciousReference === c.suspiciousReference &&
@@ -187,9 +205,7 @@ export function detect(
       spanGap(d.suspiciousSpan, c.suspiciousSpan) <= mergeGap &&
       spanGap(d.sourceSpan, c.sourceSpan) <= mergeGap &&
       (!requireConsistentAlignment ||
-        (d.sourceSpan.offset <= c.sourceSpan.offset &&
-          spanGap(d.suspiciousSpan, c.suspiciousSpan) < 0 ===
-            spanGap(d.sourceSpan, c.sourceSpan) < 0))
+        members.get(d)!.every((window) => consistentAlignment(window, c)))
         ? [i]
         : [],
     );
@@ -200,6 +216,7 @@ export function detect(
         sourceSpan: { ...c.sourceSpan },
         evidenceWindows: 1,
       });
+      if (requireConsistentAlignment) members.set(merged.at(-1)!, [c]);
       continue;
     }
     let next: Detection = {
@@ -208,8 +225,15 @@ export function detect(
       sourceSpan: { ...c.sourceSpan },
       evidenceWindows: 1,
     };
+    const windows = [c];
     for (const i of indices.reverse()) {
+      const group = members.get(merged[i]);
+      if (group && !group.every((a) => windows.every((b) => consistentAlignment(a, b)))) continue;
       const d = merged.splice(i, 1)[0];
+      if (group) {
+        windows.push(...group);
+        members.delete(d);
+      }
       const strongest = d.score > next.score ? d : next;
       next = {
         ...strongest,
@@ -219,6 +243,7 @@ export function detect(
       };
     }
     merged.push(next);
+    if (requireConsistentAlignment) members.set(next, windows);
   }
   return merged.sort(
     (a, b) =>

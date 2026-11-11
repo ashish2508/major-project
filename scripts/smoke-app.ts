@@ -14,7 +14,7 @@ const readiness = await status.json();
 assert.equal(readiness.ready, true);
 assert.equal(readiness.modelAvailable, true);
 
-const passage = 'A researcher compares documents and reviews textual similarity.';
+const passage = 'We log each write so a new node can replay it in order.';
 const pdf = textPdf(passage);
 const endpoint = new URL('/api/analyze', base);
 for (const method of ['lexical', 'semantic', 'hybrid'] as const) {

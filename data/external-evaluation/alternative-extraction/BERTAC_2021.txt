@@ -1,0 +1,884 @@
+      BERTAC: Enhancing Transformer-based Language Models with
+        Adversarially Pretrained Convolutional Neural Networks
+              Jong-Hoon Oh§ Ryu Iida§¶ Julien Kloetzer§ Kentaro Torisawa§¶
+
+                  Data-driven Intelligent System Research Center (DIRECT),
+           National Institute of Information and Communications Technology (NICT)§
+                         Graduate School of Science and Technology, NAIST¶
+                        {rovellia, ryu.iida, julien, torisawa}@nict.go.jp
+
+
+                                                                                                       !"#$"#!"#$%&'()'*+
+                     Abstract                                      01'(#1%2'"3-456#1'6-
+                                                                    78(6-'9:'66%;<$-                     !"#$$%&%'(
+    Transformer-based language models (TLMs),                                                   !!
+                                                                  !!%    % !""                                        )*+,-.&/(0-"
+    such as BERT, ALBERT and GPT-3, have                            ! " !# "
+
+
+
+
+                                                                                                 ...
+    shown strong performance in a wide range of
+
+
+
+
+                                                                                         !!!
+
+
+
+
+                                                                                                                         !!!
+                                                                           !!!
+                                                                                                !"
+    NLP tasks and currently dominate the field                    #$%&'(              !""                             )*+,-.&/(0-1
+    of NLP. However, many researchers wonder                !!$! " !$# "                        !#
+    whether these models can maintain their dom-                  #$%&'(              !""                             )*+,-.&/(0-2
+    inance forever. Of course, we do not have               !!"! " !"# "
+                                                                                                                         !"#
+    answers now, but, as an attempt to find bet-                +34(%%5678                               )!*+,-!"#$"#%"! )+./,-!"#$"#%"" )+./,
+    ter neural architectures and training schemes,
+                                                                  !#! ### "
+    we pretrain a simple CNN using a GAN-style                                                            %&$"#!"!"#$"#%"!#$!"#$"#%""
+    learning scheme and Wikipedia data, and then                                 !8;2'(1%;<-18-';1%13=
+                                                                                 9#$>'6-$';1';?'$
+    integrate it with standard TLMs. We show
+    that on the GLUE tasks, the combination of
+                                                            Figure 1: Overall architecture of BERTAC under
+    our pretrained CNN with ALBERT outper-
+                                                            the setting of classification for a two-sentence input
+    forms the original ALBERT and achieves a
+                                                            (sentencex and sentencey ).
+    similar performance to that of SOTA. Fur-
+    thermore, on open-domain QA (Quasar-T and
+    SearchQA), the combination of the CNN with
+                                                            for improving TLMs by integrating a simple con-
+    ALBERT or RoBERTa achieved stronger per-
+    formance than SOTA and the original TLMs.               ventional CNN to them. We pretrained this CNN
+    We hope that this work provides a hint for              on Wikipedia using a Generative Adversarial Net-
+    developing a novel strong network architec-             work (GAN) style training scheme (Goodfellow
+    ture along with its training scheme. Our                et al., 2014), and then combined it with TLMs.
+    source code and models are available at                 Oh et al. (2019) similarly used GAN-style train-
+    https://github.com/nict-wisdom/bertac.                  ing to improve a QA model using a CNN, but
+                                                            their training scheme was applicable only to QA-
+1   Introduction
+                                                            specific datasets. On the other hand, similarly to
+Transformer-based language models (TLMs) such               TLM, our proposed method for training the CNN
+as BERT (Devlin et al., 2019), ALBERT (Lan                  is independent of specific tasks. We show that the
+et al., 2020), and GPT-3 (Brown et al., 2020) have          combination of this CNN with TLMs can achieve
+shown that large-scale self-supervised pretraining          higher performance than that of the original TLMs
+leads to strong performance on various NLP tasks.           on publicly available datasets for several distinct
+Many researchers have used TLMs for various                 tasks. We hope that this gives an insight into how
+downstream tasks, possibly as subcomponents of              to develop novel strong network architectures and
+their methods, and/or they have focused on scaling          training schemes.
+up TLMs or improving their pretraining schemes.                We call our combination of a TLM and a CNN
+As a result, other architectures like Recurrent Neu-        BERTAC (BERT-style TLM with an Adversari-
+ral Networks (RNN) (Hochreiter and Schmidhu-                ally pretrained Convolutional neural network). Its
+ber, 1997; Cho et al., 2014) and Convolutional              architecture is illustrated in Fig. 1. We do not
+Neural Networks (CNN) (LeCun et al., 1999) are              impose any particular restriction on the TLM in
+fading away. In this work, we propose a method              BERTAC, so any TLM, ALBERT (Lan et al.,
+
+                                                      2103
+               Proceedings of the 59th Annual Meeting of the Association for Computational Linguistics
+            and the 11th International Joint Conference on Natural Language Processing, pages 2103–2115
+                          August 1–6, 2021. ©2021 Association for Computational Linguistics
+                          2%+(340*%025(.+4                            discriminator D and two CNN-based generators R
+                          !"#$%"&"'()*% !                             and F . Once the training is done, we use the gen-
+  "!$"#$%+(30%+7%+#+')()"*'0         #!%"#$5(.+0%+7%+#+')()"*'0       erator F as CNN in BERTAC. The training data
+        *50):+0+')"),0!                      *50):+0+')"),0!          consists of pairs of an entity mention and a sen-
+  6+(3-+')"),-%+7%+#+')()"*'0        9(.+-+')"),-%+7%+#+')()"*'0      tence in which the entity mention is masked with
+         8+'+%()*%0"                        8+'+%()*%0#               a special token [EM]. For example, the entity-
+           #10+')"),                !" +')"),-&(#.+/0#+')+'$+0        masked sentence m1 in Table 1 is obtained by
+  !$%&'()'*+%!,-.,(/0(1"            ![EM] ,2-3+',4')562-!',)-         masking the entity mention e1 , “Suvarnabhumi
+                                    ,)1#()'1,0)'4-',(-+%*7"           Airport,” in the original text s1 . The network F
+                                                                      generates a vector representation of the masked
+Figure 2: GAN-style pretraining of CNNs. The dis-
+                                                                      sentence (m1 ), while R produces a representation
+criminator D takes either a real representation gener-
+ated by R or a fake representation generated by F as                  of the masked entity (e1 ). The discriminator D
+its input and then it predicts whether the input is a real            takes representations generated by either R or F
+or fake representation.                                               as the input, and it predicts which generator actu-
+                                                                      ally gave the representation.
+   s1      Suvarnabhumi     Airport is Thailand’s main
+           :::::::::::::::::e1
+           international air hub.
+                                                                         In the original GAN, a generator learns to gen-
+   m1      [EM] is Thailand’s main international air hub.             erate an artificial image from random noise so that
+   e1      Suvarnabhumi Airport                                       the resulting artificial image is indistinguishable
+                                                                      from given real images. By analogy, we used an
+Table 1: Example of an entity-masked sentence (m1 )
+and the original sentence (s1 )                                       entity-masked sentence as “random noise” and a
+                                                                      masked entity as a “real image.” In our GAN-style
+                                                                      training, we regard the vector representation of a
+2020) or RoBERTa (Liu et al., 2019) for example,                      masked entity given by generator R as a real rep-
+can be used as a subcomponent of BERTAC.                              resentation of the entity (or the representation of
+   We used the CNN to compute representations                         the “real image” in the above analogy). On the
+of a slightly modified version of the input given                     other hand, we regard the representation of the
+to a TLM. To integrate these representations with                     masked sentence, generated by F , as a fake rep-
+those of the TLM, we stacked on top of the TLM                        resentation of the entity (or the representation of
+several layers of Transformers for Integrating                        the “artificial image” generated from the “random
+External Representation (TIERs), which are our                        noise” in the above analogy). This representation
+modified version of normal transformers (Vaswani                      is deemed fake because the entity is masked in the
+et al., 2017). A TIER has the same architec-                          masked sentence, and F does not know what the
+ture as that of a normal transformer encoder ex-                      entity is exactly. During the training, F should try
+cept for its attention: we replace the transformer’s                  to deceive the discriminator D by mimicking the
+self-attention with an attention based on the rep-                    real representation and generating a fake represen-
+resentation provided by the CNN. We expect that,                      tation that is indistinguishable from the real rep-
+by keeping the basic architecture of transformer                      resentation of the entity generated by R. On the
+encoders, the CNN’s representations can be inte-                      other hand, R and D, as a team, try to avoid being
+grated more effectively with the TLM’s original                       mimicked by F and also to make the mimic prob-
+representations.                                                      lem harder for F . If everything goes well, once
+                                                                      the training is over, F should be able to generate
+   We pretrained the CNN using a GAN-style
+                                                                      a fake representation of the entity that is similar to
+training scheme in order to generate represen-
+                                                                      its real representation.
+tations of sentences rather freely without the
+constraint of token embedding prediction in the                          An interesting point is that F ’s output can be
+masked language modeling used for TLMs, as we                         interpreted in two ways: it is a representation of a
+explain later. For the training, we used masked                       masked sentence because it is computed from the
+sentences autogenerated from Wikipedia. As in                         sentence, and at the same time it is a representation
+the masked language modeling, neither human in-                       of the masked entity because it is indistinguishable
+tervention nor downstream task-specific hacking                       from R’s representation of the entity. This duality
+is required. As illustrated in Fig. 2, the GAN-                       suggests that F ’s output can be seen as a represen-
+style training requires three networks, namely, a                     tation of the entire sentence.
+
+                                                                   2104
+   We exploit F as a CNN in BERTAC as follows:         stream tasks and combined with various TLMs,
+first, we use F to compute a representation of a       including potentially future ones. As for the pa-
+masked version of the sentence originally given as     rameter number, BERTAC had just a 14% increase
+input to a TLM. The entity mention to be masked        in parameters when ALBERT-xxlarge was used as
+is chosen by simple rules and, if the input consists   its base TLM (268 M parameters for BERTAC
+of multiple sentences, we generate a representa-       vs. 235 M for ALBERT-xxlarge). We confirmed
+tion of each (masked) input sentence and concate-      from these results that BERTAC could improve
+nate these together into a single one. Then, this      pretrained TLMs with reasonably small computa-
+representation is integrated to the output of the      tional overhead.
+TLM through multiple TIER layers.                         The code and models of BERTAC are available
+   Our GAN-style pretraining is conceptually sim-      at https://github.com/nict-wisdom/bertac.
+ilar to TLM pretraining with masked language
+modeling (predicting what a masked word in a           2 Related Work
+sentence should be). However, it was designed to
+                                                       Pretraining TLMs with entity information:
+pretrain a model that is able to rather freely gen-
+                                                       There have been attempts to explicitly learn entity
+erate entity representations without strongly stick-
+                                                       representation from text corpora using TLMs (He
+ing to the prediction of token embeddings. Our hy-
+                                                       et al., 2020; Peters et al., 2019; Sun et al., 2020;
+pothesis is that such freely generated representa-
+                                                       Wang et al., 2020a; Xiong et al., 2020; Zhang
+tions may be useful for improving the performance
+                                                       et al., 2019). Our proposed method is a comple-
+of downstream tasks. Moreover, we assumed that
+                                                       mentary alternative to these existing methods in
+using multiple text representations computed from
+                                                       the sense that entity representations are integrated
+different perspectives (i.e., predicting token em-
+                                                       into TLMs via CNNs and not directly produced by
+beddings and freely generating entity representa-
+                                                       the TLMs.
+tions) would help to improve the performance of
+                                                       Fine-tuning TLMs with external resources or
+downstream tasks.
+                                                       other NNs: Yang et al. (2019a) and Liu et al.
+   In our experiments, we show that for the GLUE       (2020) have used knowledge graphs for augment-
+tasks (Wang et al., 2018), BERTAC’s average            ing TLMs with entity representations during fine-
+performance on the development set was 0.7%            tuning. Unlike these approaches, BERTAC uses
+higher than that of ALBERT, which was used as          unstructured texts rather than clean structured
+a subcomponent of BERTAC, leading to a perfor-         knowledge, such as knowledge graphs, to adver-
+mance on the test set comparable to that of SOTA       sarially train a CNN. Other previous works have
+(90.3% vs 90.8% (SOTA)). It also outperformed          proposed combining CNNs or RNNs with BERT
+the SOTA method of open-domain QA (Chen                for NLP tasks (Lu et al., 2020; Safaya et al., 2020;
+et al., 2017) on Quasar-T (Dhingra et al., 2017)       Shao et al., 2019; Zhang et al., 2020), but their use
+and SearchQA (Dunn et al., 2017) using either          of CNNs/RNNs was task-specific, so their models
+ALBERT or RoBERTa. We also compared our                were not directly applicable to other tasks.
+method with alternative models using a CNN pre-        Adversarial learning for improving TLMs: Oh
+trained in a self-supervised (non GAN-style) man-      et al. (2019) proposed a CNN-based answer rep-
+ner to directly predict embeddings of the entity       resentation generator for QA that can guess the
+mentions. Consequently, we confirmed that our          vector representation of answers from given why-
+method worked better: only the CNN trained by          type questions and answer passages. The gen-
+our GAN-style pretraining gave significant perfor-     erator was trained in a GAN-style manner using
+mance improvement over base TLMs.                      QA datasets. We took inspiration from their ad-
+  Note that the computational overhead of              versarial training scheme to train task-independent
+BERTAC is reasonably small. It took 20 hours           representation generators from unsupervised texts
+with 16 GPUs to pretrain a single CNN model and        (i.e., Wikipedia sentences in which an entity was
+180 hours for the nine models tested with differ-      masked in a cloze-test style).
+ent parameter settings in this work (cf., 480 hours       ELECTRA (Clark et al., 2020) also employed
+with 96 GPUs for pretraining DeBERTa (He et al.,       an adversarial technique (not a GAN) to pretrain
+2021), for example). Moreover, once pretrained,        two TLMs: A generator was trained to perform
+the CNN models can be re-used for various down-        masked language modeling and a discriminator
+
+                                                   2105
+was trained to distinguish tokens in the training           is a feedforward neural network. Once the train-
+data from tokens replaced by the generator. On              ing is done, we use the generator F as CNN in
+downstream tasks, only the discriminator was fine-          BERTAC. In the training, we regard the represen-
+tuned. In BERTAC, the GAN-style pretraining                 tation of a masked entity output by generator R
+was applied only to the CNN, thus reducing the              as a real representation of the entity that the fake-
+training cost. Furthermore, the CNN can be com-             entity-representation generator F should mimic.
+bined easily with any available TLM, even poten-            F is trained so that, taking an entity-masked sen-
+tially future ones, without having to re-do the pre-        tence as its input, it can generate a representation
+training. In this work, we show that BERTAC out-            of the masked entity mention (called a fake repre-
+performed ELECTRA on the GLUE task.                         sentation of the entity in this work) that D cannot
+   Vernikos et al. (2020) proposed a method that            distinguish from the real representation. The rep-
+used an adversarial objective and an adversarial            resentation generated by F is fake in the sense that
+classifier for regularizing the fine-tuning process         the entity mention is masked in the input sentence
+of TLMs, inspired by adversarial learning for do-           and F cannot know what it is exactly.
+main adaptation (Ganin et al., 2016). Our work                 As mentioned in the Introduction, our GAN-
+uses a GAN-style training scheme only for pre-              style pretraining was designed to train a model ca-
+training CNNs, not for fine-tuning TLMs.                    pable of freely generating entity representations.
+                                                            We assumed that using multiple text representa-
+3       Pretraining of CNNs                                 tions computed from different perspectives (i.e.,
+                                                            prediction of token embeddings in TLMs and
+This section describes the training data and train-
+                                                            generation of entity representations in our CNN)
+ing algorithm for our CNN.
+                                                            would help to improve the performance of down-
+3.1 Training data                                           stream tasks.
+
+We pretrained our CNN with an entity-masked                     Algorithm 1: Adversarial Training Scheme
+version of Wikipedia sentences. WikiExtractor1                 Input: Training examples {(e,m)}, training epochs t,
+was used to extract, from the English Wikipedia2 ,                      mini-batch steps b, mini-batch size n
+sentences that have at least one entity mention,               Output: Real representation generator R, fake
+                                                                          representation generator F , discriminator D
+i.e., an entity with an internal Wikipedia link.             1 j ← 1
+Then we randomly selected one entity mention ei              2 Initialize θR , θF , and θD (parameters of R, F , and D)
+
+in each sentence and generated an entity-masked                  with random weights
+                                                             3 while j ≤ t do
+sentence mi by replacing the entire selected men-            4  k←1
+tion with [EM]. For example, we generated the                5  while k ≤ b do
+                                                             6    Sample mini-batch of n examples {(ei ,mi )}n
+masked sentence m1 , “[EM] is Thailand’s main                     Generate word embeddings {(ei ,mi )}n
+                                                                                                                  i=1
+                                                             7                                             i=1 of the
+international air hub,” (in Table 1) by replacing                   examples.
+the entity mention e1 , Suvarnabhumi Airport, in             8    Update D and R by ascending their stochastic
+                                                                    gradient:
+the sentence s1 , “:::::::::::::
+                   Suvarnabhumi :::::::
+                                   Airport is Thai-
+                                                                            1∑                           (              )
+                                                                                 n
+
+land’s main international air hub,” with [EM]. We                   ∇θD ,θR          [log D(R(ei )) + log 1 − D(F (mi )) ]
+                                                                            n i=1
+obtained about 43.3 million pairs of an entity men-          9    Update F by descending its stochastic gradient:
+tion and a masked sentence ({(ei , mi )}) in this                        1∑ (
+                                                                             n
+                                                                                                      )
+way and used 10% of them (randomly sampled)                         ∇θF          log 1 − D(F (mi ))
+                                                                         n i=1
+as the pretraining data for our CNN.                        10    k ←k+1
+                                                            11  end
+3.2 GAN-style pretraining                                   12  j ←j+1
+                                                            13 end
+As illustrated in Fig. 2, the adversarial train-
+ing is done using three subnetworks: R (real-
+entity-representation generator), F (fake-entity-             For each pair of an entity mention (ei ) and an
+representation generator), and D (discriminator).           entity-masked sentence (mi ) in the training data,
+R and F are CNNs with average pooling and D                 we first generate two matrices of word embed-
+    1                                                       dings ei and mi using word embeddings pretrained
+     https://github.com/samuelbroscheit/wikiextractor-
+wikimentions                                                on Wikipedia with fastText (Bojanowski et al.,
+   2
+     We used the September 2020 version.                    2017). Then, R and F generate, respectively, a
+
+                                                         2106
+real entity representation from ei and a fake entity    the CNNs were initialized using He’s method (He
+representation from mi . Finally, they are given        et al., 2015). We used a logistic regression layer
+to D, which is a feed-forward network that judges       with sigmoid outputs as discriminator D. The
+whether F or R generated the representations, i.e.,     training of a single CNN model took around 20
+whether the representations are real or fake, us-       hours using 16 Nvidia V100 GPUs with 32 GB of
+ing sigmoid outputs by the final logistic regression    memory (180 hours in total for the nine models).
+layer.                                                     We tested all nine CNN models for BERTAC
+   The pseudo code of the training scheme is given      in our GLUE and open-domain QA experiments
+in Algorithm 1. The training proceeds as fol-           (Section 5). For each task, the parameters in-
+lows: R and D as a team try to avoid the possi-         side the CNNs (as well as the word-embedding
+bility that D misjudges F’s output (i.e., a fake en-    vectors) were fixed during the fine-tuning of
+tity representation) as a real entity representation.   BERTAC.
+More precisely, R and D are trained so that D
+can correctly judge the representation R(ei ) given     4 BERTAC
+by generator R as real (i.e., D(R(ei )) = 1) and        As illustrated in Fig. 1, BERTAC (BERT-style
+the representation F (mi ) given by generator F as      TLM with an Adversarially pretrained Convolu-
+fake (i.e., D(F (mi )) = 0). Therefore, the train-      tional neural network) incorporates the representa-
+ing is carried out with
+                     ( the objective )of maximizing     tion provided by the adversarially pretrained CNN
+log D(R(ei )) + log 1 − D(F (mi )) (line 8 in Al-       to the representation generated by a TLM. For the
+gorithm 1). On the other hand, F tries to generate      integration, we use several layers of TIERs (Trans-
+representation F (mi ) so that D judges it as real      formers for Integrating External Representation)
+(i.e., D(F( (mi )) = 1). Thus,
+                          )     F is trained to mini-   stacked on top of the TLM.
+mize log 1 − D(F (mi )) (line 9 in Algorithm 1).
+This minmax game is iterated for the pre-specified      4.1 CNN in BERTAC
+t training epochs.                                      For simplicity, we describe how the CNN is inte-
+                                                        grated in BERTAC using the task of recognizing
+3.3 Pretraining settings                                textual entailment (RTE) as an example. BERTAC
+                                                        for the RTE task takes two sentences sx and sy
+We extracted 43.3 million pairs of an entity men-
+                                                        as input and predicts whether sx entails sy . First,
+tion and a masked sentence from Wikipedia and
+                                                        we explain how the adversarially pretrained CNN
+randomly sampled 10% of them to use as train-
+                                                        (generator F in Section 3.2) generates the repre-
+ing data (4.33 million pairs, around 700 MB in
+                                                        sentation of the two input sentences. We regard
+file size). We used word-embedding vectors in
+                                                        the longest common noun phrase3 of the two sen-
+300 dimensions (for 2.5 million words) pretrained
+                                                        tences as the entity mention to be masked and cre-
+on Wikipedia using fastText (Bojanowski et al.,
+                                                        ate entity-masked sentences mx and my from sx
+2017). The embedding vectors were fixed during
+                                                        and sy by masking the noun phrase with [EM]
+the training.
+                                                        (we use mx = sx and my = sy if no common
+   We set the training epochs to 200 (t = 200 in        noun phrase is found). Then each of the masked
+Algorithm 1) and did not use any early-stopping         sentences mx and my is given to the CNN. Our
+technique. We chose t = 200 from the results            expectation here is that the CNN generates similar
+of our preliminary experiments in which we used         representations from the masked sentences if they
+10% of the training data and set training epochs t      have an entailment relation and that this helps to
+to either of 100, 200, or 300; the loss robustly con-   recognize the entailment relation.
+verged for t = 200 and t = 300, and thus the ear-          Note that the CNN in BERTAC is connected to
+liest point t = 200 was chosen. We used the Rm-         several TIER layers and that, as shown in Fig. 1,
+sProp optimizer (Tieleman and Hinton, 2012) with        its input is iteratively updated so that it provides
+a batch size of 4,000 (n = 4, 000 and b = 1, 084        updated representations to the TIER layers. Let
+in Algorithm 1) and a learning rate of 2e-4. We         mix ∈ R|mx |×dw and miy ∈ R|my |×dw be the ma-
+trained nine CNN models with all combinations           trices of word embeddings of mx and my given
+of the filter’s window sizes ∈ {“1,2,3”, “2,3,4”,          3
+                                                            For single-sentence tasks such as CoLA (Wang et al.,
+“1,2,3,4”} and number of filters ∈ {100, 200, 300}      2018), we regard the longest noun phrase in a sentence as
+for the generators F and R. All of the weights in       an entity.
+
+                                                    2107
+to the CNN connected to the i-th TIER layer,                                             !"#$#%&'()*#+,-./01&
+where dw is the dimension of a word embed-
+                                                                     64&60"
+ding. We denote the representation generated by                                      J      64&60"
+the CNN when the matrix of word embeddings                     2.3&$45                      2.3&$45
+m was used as the input by CN N (m). The i-                       64*7                         64*7
+th TIER layer is given the concatenation of the
+                                                                  214"#                        214"#
+two CNN representations of mx and my , ri =
+[rix , riy ] ∈ R2×de , where rix = CN N (mix ) ∈ Rde ,         64&60"                        MatMul
+
+riy = CN N (miy ) ∈ Rde and de is the dimension               Q       K       V            r       K      V
+of the CNN representation. Note that, for single-             !"#$%&&'(&)*($)($          !0#$%&&'(&)*($)($*1+$
+sentence tasks, ri = rix , the CNN representation           (*+,"-$&+"(./*+,'+.                  2345.
+of mx , is given to the TIER layers.
+    The initial matrices of word embeddings m1x          Figure 3: Attention in normal transformers and TIERs
+and my1 are obtained using the fastText word em-
+beddings (Bojanowski et al., 2017), the same as          encoder (Vaswani et al., 2017) lies in the attention
+that used in our adversarial learning. Then, the up-     mechanism. In the TIER attention mechanism, the
+dated input matrices mi+1  x and my
+                                    i+1 for the (i+1)-
+                                                         query representation, which is one of the three in-
+th CNN are obtained from the i-th input matrices         puts of the transformer’s self-attention, is replaced
+mix and miy as described below. For the word em-         with the representation given by the CNN.
+bedding mix,j of the j-th word in mx , we compute           Fig. 3 shows the difference between the TIERs’
+its bilinear score to rix (Sutskever et al., 2009):      attention computation and that of normal trans-
+        m̄ix,j = softmaxj (miT i i    i                  formers. Attention in normal transformers is com-
+                            x Bx rx )mx,j ,
+                                                         puted in the following way:
+where Bix ∈ Rdw ×de is a trainable matrix and
+softmaxj (v) denotes the j-th element of the soft-                                          QKT
+                                                               Attention(Q, K, V) = softmax( √ )V.
+maxed vector of v. The bilinear score indicates                                               dk
+how much the corresponding token should be               Q, K, and V are query, key, and value matrices in
+highlighted as one associated with the CNN repre-        Rlk ×dk , where lk is the length of an input sequence
+sentation rix during the update process. We expect       and dk is a dimension of keys. Q, K, and V all
+that this allows the CNN in the next TIER layer          come from the same representation of the token
+to generate further refined representations with the     sequence provided from the previous transformer
+updated embeddings.                                      layer. The attention should specify how much the
+   We then compute word embeddings mi+1     x   in a     corresponding tokens in V should be highlighted,
+highway network manner (Srivastava et al., 2015)         so we designed ours in the same way.
+as follows:                                                 In TIERs, we use the following attention. We
+mi+1
+ x   = Hx (m̄ix ) ⊙ Tx (mxi ) + mix ⊙ (1 − Tx (mix )),   basically replace the matrix Q with the CNN’s rep-
+                                                         resentation r ∈ Ru×dk while keeping the original
+where Hx (mix ) = Wih mix + bih , Tx (mix ) =
+                                                         K and V, where u is the number of sentences in
+σ(Wit mix + bit ), σ is the sigmoid function, ⊙ rep-
+                                                         the input of the model (u ∈ {1, 2} in this paper).
+resents the element-wise product, and Wih , Wit ,
+bih , and bit are layer-specific trainable parameters.                                  rKT
+mi+1    is also computed from miy and riy in the         Attention(r, K, V) = (softmax( √ ))T Ju,dk ⊙V.
+   y                                                                                     dk
+same way. During the fine-tuning of BERTAC
+for downstream tasks, we fix the parameters of the       Since r is a matrix with a different size from
+pretrained CNN but train these parameters for up-        Q, we needed to adapt the attention computa-
+dating CNN’s input alongside those of TLMs and           tion. We first multiply r to KT , and then its soft-
+TIERs.                                                   maxed results are converted into a lk × dk dimen-
+                                                         sional matrix using the all-one matrix Ju,dk ∈
+4.2 Transformers for integrating external                Ru×dk .     Let the resulting matrix be A =
+    representation (TIERs)                               (softmax( √    )) Ju,dk ∈ Rlk ×dk . We apply the at-
+                                                                    rKT T
+                                                                     dk
+As explained in the Introduction, the main differ-       tention score to V by using the element-wise prod-
+ence between a TIER and a normal transformer             uct between matrices: A ⊙ V.
+
+                                                     2108
+   In addition, the actual CNN’s representation       pendix B for a summary of the hyperparameters
+rCN N ∈ Ru×de given by our CNNs usually have          tested in the GLUE experiments.
+a size that does not match the size requirement          During the fine-tuning of BERTAC, the parame-
+for r. Thus, we convert it to r ∈ Ru×dk , a dk -      ters inside the CNNs (as well as word embeddings
+column matrix as follows: r = rCN N W + b,            of fastText) were fixed as explained in Section 3.3,
+where W ∈ Rde ×dk and b are trainable.                while those used to update the input to the CNNs
+                                                      were optimized. For each task, we selected the
+5   Experiments                                       pretrained CNN (out of nine) and the BERTAC hy-
+We tested our model on GLUE and on open-              perparameters that gave the best performance on
+domain QA. In this section, we report the results.    the development data.
+
+5.1 GLUE                                              5.1.2 Results
+                                                      Table 2 shows the results of eight tasks on the
+GLUE (Wang et al., 2018) is a multi-task bench-
+                                                      GLUE development set: all of them are single-
+mark composed of nine tasks including two single-
+                                                      model results. Our BERTAC consistently out-
+sentence tasks (CoLA and SST-2) and seven
+                                                      performed the previous TLM-based models over
+two-sentence tasks of similarity/paraphrase tasks
+                                                      seven tasks, except for QQP, and, as a result,
+(MRPC, QQP, and STS-B) and natural language
+                                                      showed the best average performance on the de-
+inference tasks (MNLI, QNLI, RTE, and WNLI).
+                                                      velopment set. Crucially, our model improved
+Following the previous work of ALBERT (Lan
+                                                      the average performance around 0.7% over AL-
+et al., 2020), we performed single-task fine-tuning
+                                                      BERT, the base TLM in our model. This indicates
+for each task under the following settings: single-
+                                                      the effectiveness of adversarially trained CNNs
+model for the development set and ensemble for
+                                                      and TIERs in BERTAC. The test set results ob-
+test set submissions. As in Liu et al. (2019) and
+                                                      tained from the GLUE leaderboard are summa-
+Lan et al. (2020), we report the performance on
+                                                      rized in Table 3. Our model showed comparable
+the development set for each task by averaging
+                                                      performance to SOTA, DeBERTa/TuringNLRv4,
+over five runs with different random initialization
+                                                      and achieved state-of-the-art results on 3 out of 9
+seeds. As in Lan et al. (2020), for test set sub-
+                                                      task. It also showed better performance than AL-
+missions, we fine-tuned the models for the RTE,
+                                                      BERT, our base TLM, in most tasks.
+STS-B, and MRPC tasks by initializing them with
+                                                         To investigate whether our GAN-style pretrain-
+the fine-tuned MNLI single-task model, and we
+                                                      ing of CNNs contributed to the performance im-
+also used task-specific modification for CoLA and
+                                                      provement, we also tested the following alter-
+WNLI to improve scores (see Appendix A for de-
+                                                      native training schemes for the CNN used in
+tails). We explored ensemble settings between 6
+                                                      BERTAC.
+and 30 models per task for our test set submission.
+5.1.1 Fine-tuning details of BERTAC for               Self-supervised CNN: We pretrained the CNN
+        GLUE                                          to generate representations of a masked sentence
+                                                      in a self-supervised way as follows: For an entity
+We used ALBERT-xxlarge-v2 (Lan et al., 2020)
+                                                      mention e and an entity-masked sentence m in the
+as the pretrained TLM. As hyperparameters for
+                                                      training data (Section 3.1), the CNN generates a
+BERTAC, for each task we tested learning rates
+                                                      representation r from the masked sentence trying
+∈ {8e-6, 9e-6, 1e-5, 2e-5, 3e-5}, a linear warmup
+                                                      to minimize MSE (mean squared error) between r
+for the first 6% of steps followed by a linear de-
+                                                      and the entity mention’s representation e (average
+cay to 0, a maximum sequence length of 128, and
+                                                      word embedding of all tokens in e).
+all nine CNNs pretrained with different filter set-
+tings. We set the batch size to 128 for MNLI          Randomly initialized CNN: We did not pre-
+and QQP and 16 for the other tasks. Further-          trained the CNNs, but trained them alongside the
+more, we trained our model with the following set     TLMs during the fine-tuning of BERTAC (the
+of training epochs: {1,2,3,4,5} for MNLI, QQP,        CNNs were randomly initialized).
+and QNLI, {6,7,8,9,10} for CoLA, MRPC, RTE,              We trained both the self-supervised and ran-
+SST-2, and STS-B, and {90,95,100,105,110} for         domly initialized CNNs using the same hyperpa-
+WNLI. We set the number of TIER layers to 3 af-       rameter settings as GAN-style CNNs (see Sec-
+ter preliminary experiments. See Table 9 in Ap-       tion 3.3). We confirm from the results in Table 4
+
+                                                  2109
+             Models               MNLI        QNLI     QQP     RTE     SST-2   MRPC    CoLA    STS-B   Avg.
+             RoBERTaL ARGE       90.2/90.2    94.7     92.2    86.6     96.4    90.9    68.0    92.4   88.9
+             XLNETLARGE          90.8/90.8    94.9     92.3    85.9     97.0    90.8    69.0    92.5   89.2
+             ELECTRAL ARGE        90.9/-      95.0     92.4    88.0     96.9    90.8    69.1    92.6   89.5
+             ALBERTX XLARGE       90.8/-      95.3     92.2    89.2     96.9    90.9    71.4    93.0   90.0
+             DeBERTaL ARGE       91.1/91.1    95.3     92.3    88.3     96.8    91.9    70.5    92.8   90.0
+             BERTACX XLARGE      91.3/91.1    95.7     92.3    89.9     97.2    92.4    73.7    93.1   90.7
+
+Table 2: GLUE dev set results. The results of RoBERTa (Liu et al., 2019), XLNET (Yang et al., 2019b), ELEC-
+TRA (Clark et al., 2020), ALBERT (Lan et al., 2020), and DeBERTa (He et al., 2021) were taken from their papers.
+We omit the results of the WNLI task, since many previous works did not report the dev set results.
+
+ Models                          MNLI       QNLI QQP           RTE     SST-2   MRPC    CoLA    STS-B   WNLI   Score
+ Ensembles on test (from leaderboard as of Feb. 1, 2021)
+ ALBERT                        91.3/91.0      -      90.5       89.2    97.1    91.2   69.1    92.0    91.8     -
+ ELECTRA+Standard Tricks 91.3/90.8           95.8    90.8       89.8    97.1    90.7   71.7    92.5    91.8    89.4
+ ERNIE                         91.4/91.0     96.6    90.9       90.9    97.5    91.4   74.4    92.6    94.5    90.4
+ StructBERT+TAPT               90.9/90.7     97.4    91.0       91.2    97.3    91.9   75.3    92.7    94.5    90.6
+ MacALBERT+DKM                 91.3/91.1     97.8    90.6       92.0    97.0    92.6   74.8    92.6    94.5    90.7
+ DeBERTa/TuringNLRv4           91.9/91.6     99.2    90.8       93.2    97.5    92.0   71.5    92.6    94.5    90.8
+ BERTAC                        91.1/91.6     97.9    90.6       90.4    97.5    91.7   72.3    92.8    94.5    90.3
+
+Table 3: GLUE test set results. Our model for test set results incorporates task-specific modification for CoLA and
+WNLI to improve scores (see Appendix A for details). All results are from the GLUE leaderboard.
+
+
+that only the proposed method with our GAN-                       where P r(pi |q, P ) and P r(a|q, pi ) are computed
+style CNNs showed a higher average score than                     by the passage selector and answer span selector,
+ALBERT. This suggests the effectiveness of our                    respectively.
+GAN-style pretraining scheme of CNNs.                                We input “[CLS] question [SEP] passage
+                                                                  [SEP]” to both the passage selector and answer
+5.2 Open-domain QA                                                span selector, where [CLS] and [SEP] are spe-
+We also tested BERTAC on open-domain                              cial tokens. In the passage selector, the represen-
+QA (Chen et al., 2017) with the publicly available                tation of [CLS] in the top TIER layer is fed into
+datasets Quasar-T (Dhingra et al., 2017) and                      a linear layer with a softmax, which computes the
+SearchQA (Dunn et al., 2017). We used the                         probability that the passage contains a correct an-
+pre-processed version4 of the datasets provided                   swer to the question. Our BERTAC answer span
+by Lin et al. (2018), which contains passages                     selector identifies answer spans from passages by
+retrieved for all questions, and followed their data              computing start and end probabilities of each to-
+split as described in Table 5.                                    ken in passages, where we feed the representation
+                                                                  of each token in the top layer of TIERs to two lin-
+5.2.1 BERTAC for open-domain QA                                   ear layers, each with a softmax for the probabili-
+We implemented our QA model following the ap-                     ties (Devlin et al., 2019).
+proach of Lin et al. (2018), which combines a pas-                5.2.2 Training details for open-domain QA
+sage selector to choose relevant passages from re-                We used all nine pretrained CNNs, as in the
+trieved passages and an answer span selector to                   GLUE experiments. As pretrained TLMs, we
+identify the answer span in the selected passages.                used ALBERT-xxlarge-v2 (Lan et al., 2020) and
+For the given question q and the set of retrieved                 RoBERTa-large (Liu et al., 2019). We set the
+passages P = {pi }, we computed the probability                   learning rate to 1e-5, the number of epochs to
+P r(a|q, P ) of extracting answer span a to ques-                 2, the maximum sequence length to 384, and the
+tion q from P in the following way, and then we                   number of TIER layers to 3. We used a linear
+extracted the answer span â with the highest prob-               warmup for the first 6% of steps followed by a lin-
+ability:                                                          ear decay to 0 with a batch size of 48 for Quasar-
+                       ∑                                          T and 96 for SearchQA. We tested all of the pre-
+   P r(a|q, P ) =            P r(a|q, pi )P r(pi |q, P ),         trained CNNs and chose for each dataset the one
+                         i                                        that maximizes EM (the percentage of the predic-
+   4
+       Available at https://github.com/thunlp/OpenQA              tions matching exactly one of the ground truth an-
+
+                                                              2110
+     CNNs used in BERTAC                MNLI       QNLI        QQP      RTE     SST-2   MRPC     CoLA     STS-B     Avg.
+     Proposed (GAN-style CNN)          91.3/91.1   95.7        92.3     89.9     97.2    92.4     73.7     93.1     90.7
+     Self-supervised CNN               91.0/90.8   95.3        91.5     88.4     96.6    90.9     71.1     93.0     89.8
+     Randomly initialized CNN          91.0/90.7   95.4        91.4     87.4     96.3    91.2     71.5     93.1     89.8
+     ALBERTX XLARGE                     90.8/-     95.3        92.2     89.2     96.9    90.9     71.4     93.0     90.0
+
+               Table 4: Comparison of BERTAC results in different CNN settings on GLUE dev set.
+
+
+                     Train      Dev        Test    #p                   Model                     Quasar-T       SearchQA
+      Quasar-T      37,012     3,000      3,000    100                                           EM     F1      EM      F1
+      SearchQA      99,811    13,893     27,247     50                  O PEN QA                 42.2 49.3      58.8 64.5
+                                                                        O PEN QA+ARG             43.2 49.7      59.6 65.3
+Table 5: Number of questions in each dataset. #p is the                 WKLMBERT-base            45.8 52.2      61.7 66.7
+number of retrieved passages for each question.                         MBERTBERT-large          51.1 59.1      65.1 70.7
+                                                                        CF ORMERRoBERTa-large    54.0 63.9      68.0 75.1
+                                                                        BERTACRoBERTa-large      55.8 63.7      71.9 77.1
+  Non-TLM-based methods                                                 BERTACALBERT-xxlarge     58.0 65.8      74.0 79.2
+  O PEN QA (Lin et al., 2018): An RNN-based method
+  that jointly learns passage-selection and answer extrac-            Table 7: QA test set results. Figures of the previous
+  tion.
+  O PEN QA+ARG (Oh et al., 2019): An extension of                     works were taken from their original papers.
+  O PEN QA that additionally uses an answer representation
+  generator (ARG) trained by adversarial learning.                      Model                     Quasar-T       SearchQA
+  TLM-based methods                                                                              EM     F1      EM      F1
+  WKLM (Xiong et al., 2020): This uses a TLM pre-                       BERTACALBERT-xxlarge     58.0 65.8      74.0 79.2
+  trained with a weakly supervised objective for learning                w/o CNN and TIER        55.6 63.5      72.7 78.0
+  Wikipedia entity information. BERT-base was used for                   w/o GAN-style CNN       56.1 63.9      73.1 78.4
+  the training.                                                          w/o update              56.8 65.0      73.3 78.5
+  MBERT (Wang et al., 2019): A BERT-based method
+  that extracts answers using globally normalized answer                          Table 8: Ablation test results.
+  scores across all the passages retrieved by the same ques-
+  tion. BERT-large was used for the training.
+  CF ORMER (Wang et al., 2020b): It uses a clustering-
+  based sparse transformer for long-range dependency en-
+                                                                      TIER,” which uses ALBERT-xxlarge alone with-
+  coding. The method was trained using RoBERTa-large.                 out using our CNN and TIER, “w/o GAN-style
+                                                                      CNN,” which does not use our CNN pretrained
+            Table 6: Compared QA methods                              by the GAN-style training scheme but uses self-
+                                                                      supervised CNNs (the same as used in the GLUE
+swers) on the development set. See Table 10 in                        experiments, see Table 4), “w/o update,” which
+Appendix B for a summary of the hyperparame-                          does not perform layer-wise update of the CNN
+ters tested for open-domain QA.                                       inputs. The results in Table 8 suggest that all of
+                                                                      the following contributed to the performance im-
+5.2.3 Results                                                         provement: the combination of TLMs and GAN-
+We compared BERTAC with the previous works                            style CNNs, our GAN-style training of CNNs, and
+described in Table 6. Table 7 shows the per-                          the layer-wise update of the CNN inputs.
+formance of all of the methods.        The sub-
+                                                                      6 Conclusion
+scripts of the TLM-based methods represent the
+type of pretrained TLM used by each method.                           We proposed BERTAC (BERT-style TLM with an
+All the methods were evaluated using EM and                           Adversarially pretrained Convolutional neural net-
+F1 score (average overlap between the predic-                         work), a combination of a TLM and a CNN, where
+tion and gold answer). BERTACALBERT-xxlarge                           the CNN was pretrained using a novel GAN-style
+outperformed all of the baselines including the                       training scheme and masked sentences obtained
+SOTA method (CF ORMER) on both EM and F1.                             automatically from Wikipedia. Using this CNN,
+BERTACRoBERTa-large in the same TLM setting                           we improved the performance of standard TLMs.
+as the SOTA method showed a better performance                        We confirmed that BERTAC could achieve com-
+than SOTA except for F1 in Quasar-T. These re-                        parable performance with the SOTA and outper-
+sults suggest that our framework is effective for                     formed the base TLM used as a subcomponent
+QA tasks as well.                                                     of BERTAC in the GLUE task. We also show
+   For ablation studies, we evaluated some vari-                      that BERTAC outperformed the SOTA method of
+ants of BERTACALBERT-xxlarge : “w/o CNN and                           open-domain QA on Quasar-T and SearchQA.
+
+                                                               2111
+References                                                    2017.    SearchQA: A new Q&A dataset aug-
+                                                              mented with context from a search engine. CoRR,
+Piotr Bojanowski, Edouard Grave, Armand Joulin, and           abs/1704.05179.
+   Tomas Mikolov. 2017. Enriching word vectors with
+   subword information. Transactions of the Associa-       Yaroslav Ganin, Evgeniya Ustinova, Hana Ajakan,
+   tion for Computational Linguistics, 5:135–146.            Pascal Germain, Hugo Larochelle, François Lavi-
+                                                             olette, Mario March, and Victor Lempitsky. 2016.
+Siddhartha Brahma. 2018. Unsupervised learning               Domain-adversarial training of neural networks.
+   of sentence representations using sequence consis-        Journal of Machine Learning Research, 17(59):1–
+   tency. CoRR, abs/1808.04217.                              35.
+Tom B. Brown, Benjamin Mann, Nick Ryder, Melanie           Ian Goodfellow, Jean Pouget-Abadie, Mehdi Mirza,
+  Subbiah, Jared Kaplan, Prafulla Dhariwal, Arvind            Bing Xu, David Warde-Farley, Sherjil Ozair, Aaron
+  Neelakantan, Pranav Shyam, Girish Sastry, Amanda            Courville, and Yoshua Bengio. 2014. Generative ad-
+  Askell, Sandhini Agarwal, Ariel Herbert-Voss,               versarial nets. In Advances in Neural Information
+  Gretchen Krueger, Tom Henighan, Rewon Child,                Processing Systems, volume 27, pages 2672–2680.
+  Aditya Ramesh, Daniel M. Ziegler, Jeffrey Wu,               Curran Associates, Inc.
+  Clemens Winter, Christopher Hesse, Mark Chen,
+  Eric Sigler, Mateusz Litwin, Scott Gray, Benjamin        Bin He, Di Zhou, Jinghui Xiao, Xin Jiang, Qun
+  Chess, Jack Clark, Christopher Berner, Sam Mc-             Liu, Nicholas Jing Yuan, and Tong Xu. 2020.
+  Candlish, Alec Radford, Ilya Sutskever, and Dario          BERT-MK: Integrating graph contextualized knowl-
+  Amodei. 2020. Language models are few-shot                 edge into pre-trained language models. In Findings
+  learners. In Advances in Neural Information Pro-           of the Association for Computational Linguistics:
+  cessing Systems 33: Annual Conference on Neu-              EMNLP 2020, pages 2281–2290.
+  ral Information Processing Systems 2020, NeurIPS         Kaiming He, Xiangyu Zhang, Shaoqing Ren, and Jian
+  2020, December 6-12, 2020, virtual.                        Sun. 2015. Delving deep into rectifiers: Surpassing
+                                                             human-level performance on imagenet classifica-
+Danqi Chen, Adam Fisch, Jason Weston, and Antoine            tion. In Proceedings of the 2015 IEEE International
+  Bordes. 2017. Reading Wikipedia to answer open–            Conference on Computer Vision (ICCV), ICCV ’15,
+  domain questions. In Proceedings of the 55th An-           pages 1026–1034, Washington, DC, USA. IEEE
+  nual Meeting of the Association for Computational          Computer Society.
+  Linguistics (Volume 1: Long Papers), pages 1870–
+  1879. Association for Computational Linguistics.         Pengcheng He, Xiaodong Liu, Jianfeng Gao, and
+                                                             Weizhu Chen. 2021.        DeBERTa: Decoding-
+Kyunghyun Cho, Bart van Merriënboer, Caglar Gul-            enhanced BERT with Disentangled Attention. In
+  cehre, Dzmitry Bahdanau, Fethi Bougares, Holger            International Conference on Learning Representa-
+  Schwenk, and Yoshua Bengio. 2014. Learning                 tions.
+  phrase representations using RNN encoder–decoder
+  for statistical machine translation. In Proceedings of   Sepp Hochreiter and Jürgen Schmidhuber. 1997.
+  the 2014 Conference on Empirical Methods in Nat-           Long short-term memory. Neural computation,
+  ural Language Processing (EMNLP), pages 1724–              9(8):1735–1780.
+  1734. Association for Computational Linguistics.
+                                                           Zhenzhong Lan, Mingda Chen, Sebastian Goodman,
+Kevin Clark, Minh-Thang Luong, Quoc V. Le, and               Kevin Gimpel, Piyush Sharma, and Radu Soricut.
+  Christopher D. Manning. 2020. ELECTRA: Pre–                2020. ALBERT: A lite BERT for self-supervised
+  training text encoders as discriminators rather than       learning of language representations. In 8th Inter-
+  generators. In International Conference on Learn-          national Conference on Learning Representations,
+  ing Representations.                                       ICLR 2020, Addis Ababa, Ethiopia, April 26-30,
+                                                             2020.
+Jacob Devlin, Ming-Wei Chang, Kenton Lee, and              Yann LeCun, Patrick Haffner, Léon Bottou, and
+   Kristina Toutanova. 2019. BERT: Pre-training of           Yoshua Bengio. 1999. Object recognition with
+   deep bidirectional transformers for language under-       gradient-based learning. In Shape, contour and
+   standing. In Proceedings of the 2019 Conference of        grouping in computer vision, pages 319–345.
+   the North American Chapter of the Association for         Springer.
+   Computational Linguistics: Human Language Tech-
+   nologies, Volume 1 (Long and Short Papers), pages       Yankai Lin, Haozhe Ji, Zhiyuan Liu, and Maosong Sun.
+   4171–4186.                                                2018. Denoising distantly supervised open-domain
+                                                             question answering. In Proceedings of the 56th An-
+Bhuwan Dhingra, Kathryn Mazaitis, and William W              nual Meeting of the Association for Computational
+  Cohen. 2017. Quasar: Datasets for question an-             Linguistics, ACL 2018, pages 1736–1745.
+  swering by search and reading. arXiv preprint
+  arXiv:1707.03904.                                        Weijie Liu, Peng Zhou, Zhe Zhao, Zhiruo Wang, Qi Ju,
+                                                             Haotang Deng, and Ping Wang. 2020. K-BERT:
+Matthew Dunn, Levent Sagun, Mike Higgins, V. Ugur            Enabling language representation with knowledge
+ Güney, Volkan Cirik, and Kyunghyun Cho.                    graph. In Proceedings of AAAI 2020.
+
+                                                       2112
+Yinhan Liu, Myle Ott, Naman Goyal, Jingfei Du, Man-         Ilya Sutskever, Joshua B. Tenenbaum, and Ruslan R
+  dar Joshi, Danqi Chen, Omer Levy, Mike Lewis,                Salakhutdinov. 2009. Modelling relational data us-
+  Luke Zettlemoyer, and Veselin Stoyanov. 2019.                ing bayesian clustered tensor factorization. In Ad-
+  Roberta: A robustly optimized bert pretraining ap-           vances in Neural Information Processing Systems
+  proach. arXiv preprint arXiv:1907.11692.                     22, pages 1821–1828. Curran Associates, Inc.
+
+Zhibin Lu, Pan Du, and Jian-Yun Nie. 2020. VGCN-            T. Tieleman and G. Hinton. 2012. Lecture 6.5—
+  BERT: augmenting BERT with graph embedding for               RmsProp: Divide the gradient by a running average
+  text classification. In Advances in Information Re-          of its recent magnitude. COURSERA: Neural Net-
+  trieval - 42nd European Conference on IR Research,           works for Machine Learning.
+  ECIR 2020, Lisbon, Portugal, April 14-17, 2020,
+  Proceedings, Part I, volume 12035 of Lecture Notes        Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob
+  in Computer Science, pages 369–382. Springer.               Uszkoreit, Llion Jones, Aidan N Gomez, Ł ukasz
+                                                              Kaiser, and Illia Polosukhin. 2017. Attention is all
+Jong-Hoon Oh, Kazuma Kadowaki, Julien Kloetzer,               you need. In I. Guyon, U. V. Luxburg, S. Bengio,
+  Ryu Iida, and Kentaro Torisawa. 2019. Open–                 H. Wallach, R. Fergus, S. Vishwanathan, and R. Gar-
+  domain why-question answering with adversarial              nett, editors, Advances in Neural Information Pro-
+  learning to encode answer texts. In Proceedings of          cessing Systems 30, pages 5998–6008. Curran As-
+  the 57th Annual Meeting of the Association for Com-         sociates, Inc.
+  putational Linguistics, pages 4227–4237.
+                                                            Giorgos Vernikos, Katerina Margatina, Alexandra
+Matthew E. Peters, Mark Neumann, Robert Logan,                Chronopoulou, and Ion Androutsopoulos. 2020.
+ Roy Schwartz, Vidur Joshi, Sameer Singh, and                 Domain Adversarial Fine-Tuning as an Effective
+ Noah A. Smith. 2019. Knowledge enhanced con-                 Regularizer. In Findings of the Association for Com-
+ textual word representations. In Proceedings of the          putational Linguistics: EMNLP 2020, pages 3103–
+ 2019 Conference on Empirical Methods in Natu-                3112. Association for Computational Linguistics.
+ ral Language Processing and the 9th International
+ Joint Conference on Natural Language Processing            Alex Wang, Amanpreet Singh, Julian Michael, Fe-
+ (EMNLP-IJCNLP), pages 43–54.                                 lix Hill, Omer Levy, and Samuel Bowman. 2018.
+                                                              GLUE: A multi-task benchmark and analysis plat-
+                                                              form for natural language understanding. In Pro-
+Colin Raffel, Noam Shazeer, Adam Roberts, Katherine
+                                                              ceedings of the 2018 EMNLP Workshop Black-
+  Lee, Sharan Narang, Michael Matena, Yanqi Zhou,
+                                                              boxNLP: Analyzing and Interpreting Neural Net-
+  Wei Li, and Peter J. Liu. 2020. Exploring the limits
+                                                              works for NLP, pages 353–355, Brussels, Belgium.
+  of transfer learning with a unified text-to-text trans-
+                                                              Association for Computational Linguistics.
+  former. Journal of Machine Learning Research,
+  21(140):1–67.
+                                                            Ruize Wang, Duyu Tang, Nan Duan, Zhongyu Wei,
+                                                              Xuanjing Huang, Jianshu Ji, Guihong Cao, Daxin
+Ali Safaya, Moutasem Abdullatif, and Deniz Yuret.             Jiang, and Ming Zhou. 2020a. K-adapter: Infusing
+  2020. KUISAIL at SemEval-2020 task 12: BERT-                knowledge into pre-trained models with adapters.
+  CNN for offensive speech identification in social           CoRR, abs/2002.01808.
+  media. In Proceedings of the Fourteenth Workshop
+  on Semantic Evaluation, pages 2054–2059.                  Shuohang Wang, Luowei Zhou, Zhe Gan, Yen-Chun
+                                                              Chen, Yuwei Fang, Siqi Sun, Yu Cheng, and
+Bo Shao, Yeyun Gong, Weizhen Qi, Nan Duan, and                Jingjing Liu. 2020b. Cluster-former: Clustering-
+  Xiaola Lin. 2019. Aggregating bidirectional en-             based sparse transformer for long-range dependency
+  coder representations using MatchLSTM for se-               encoding. arXiv preprint arXiv:2009.06097.
+  quence matching. In Proceedings of the 2019 Con-
+  ference on Empirical Methods in Natural Language          Zhiguo Wang, Patrick Ng, Xiaofei Ma, Ramesh Nalla-
+  Processing and the 9th International Joint Confer-          pati, and Bing Xiang. 2019. Multi-passage BERT:
+  ence on Natural Language Processing (EMNLP-                 A globally normalized BERT model for open-do-
+  IJCNLP), pages 6059–6063.                                   main question answering. In Proceedings of the
+                                                              2019 Conference on Empirical Methods in Natu-
+Rupesh K Srivastava, Klaus Greff, and Jürgen Schmid-         ral Language Processing and the 9th International
+  huber. 2015. Training very deep networks. In Ad-            Joint Conference on Natural Language Processing
+  vances in Neural Information Processing Systems,            (EMNLP-IJCNLP), pages 5878–5882. Association
+  volume 28, pages 2377–2385.                                 for Computational Linguistics.
+
+Yu Sun, Shuohuan Wang, Yukun Li, Shikun Feng, Hao           Wenhan Xiong, Jingfei Du, William Yang Wang, and
+  Tian, Hua Wu, and Haifeng Wang. 2020. ERNIE                 Veselin Stoyanov. 2020. Pretrained encyclopedia:
+  2.0: A continual pre-training framework for lan-            Weakly supervised knowledge-pretrained language
+  guage understanding. In Proceedings of the AAAI             model. In 8th International Conference on Learn-
+  Conference on Artificial Intelligence, pages 8968–          ing Representations, ICLR 2020, Addis Ababa,
+  8975.                                                       Ethiopia, April 26-30, 2020.
+
+                                                        2113
+An Yang, Quan Wang, Jing Liu, Kai Liu, Yajuan Lyu,          Following these approaches, we also converted
+  Hua Wu, Qiaoqiao She, and Sujian Li. 2019a. En-        the data in the same way as Raffel et al. (2020).
+  hancing pre-trained language representations with
+                                                         First, we extract candidate referents for an am-
+  rich knowledge for machine reading comprehension.
+  In Proceedings of the 57th Annual Meeting of the       biguous pronoun as follows. Suppose that the
+  Association for Computational Linguistics, pages       following sentence pair of s1 and s2 is from the
+  2346–2357.                                             WNLI task’s data and has the label correct (mean-
+Zhilin Yang, Zihang Dai, Yiming Yang, Jaime Car-         ing that Susan in s2 is the correct referent of the
+  bonell, Russ R Salakhutdinov, and Quoc V Le.           pronoun she in s1 ).
+  2019b. Xlnet: Generalized autoregressive pretrain-
+  ing for language understanding. In Advances in            s1 :     Jane knocked on Susan’s door but she
+  Neural Information Processing Systems 32, pages                  did not get an answer.
+  5754–5764.
+                                                            s2 : Susan did not get an answer.
+Shaohua Zhang, Haoran Huang, Jicong Liu, and Hang
+  Li. 2020. Spelling error correction with soft-masked   We first find all of the pronouns in the first sen-
+  BERT. In Proceedings of the 58th Annual Meet-
+  ing of the Association for Computational Linguis-      tence (“she” in s1 ). For each pronoun, we find
+  tics, ACL 2020, Online, July 5-10, 2020, pages 882–    the longest sequence of words that precedes or
+  890. Association for Computational Linguistics.        follows the pronoun in the first sentence and that
+                                                         also appears in the second sentence (“did not get
+Zhengyan Zhang, Xu Han, Zhiyuan Liu, Xin Jiang,
+  Maosong Sun, and Qun Liu. 2019. ERNIE: En-             an answer” underlined in s1 and s2 ). We then
+  hanced language representation with informative en-    choose the pronoun that precedes or follows the
+  tities. In Proceedings of the 57th Annual Meeting      longest matching word sequence and obtain a can-
+  of the Association for Computational Linguistics,      didate referent by deleting the matched sequence
+  pages 1441–1451.
+                                                         of words from the second sentence. In the exam-
+A Task-specific Modification for GLUE                    ple sentence pair (s1 , s2 ), we choose the pronoun
+  Test-set Submission                                    she from the first sentence (since there is a single
+                                                         pronoun) and obtain the candidate referent Susan
+We applied task-specific modification to WNLI            from the second sentence through this process. Fi-
+and CoLA in the GLUE tasks to achieve com-               nally, we convert the original sentence pair into a
+petitive GLUE leaderboard results, i.e., the test        pair of a masked sentence and a candidate refer-
+set submission results presented in Table 3. For         ent by replacing the pronoun in the first sentence
+WNLI, we followed Raffel et al. (2020), while, for       with [MASK] and replacing the second sentence
+CoLA, we propose our own modification. Note              with the extracted referent. The (s1 , s2 ) pair is
+that we did not apply the tricks in obtaining the re-    thus changed to the following (s′1 , s′2 ):
+sults on the development set results shown in Ta-
+ble 2. In the following, we describe the tricks.            s′1 : Jane knocked on Susan’s door but [MASK]
+                                                                  did not answer.
+A.1 WNLI
+                                                            s′2 : Susan
+WNLI is a coreference resolution task with a two-
+sentence input. The first sentence has an ambigu-           Note that [MASK] in the sentence is different
+ous pronoun and the second sentence is generated         from the entity mask [EM] used in our GAN-
+from the first sentence by replacing the pronoun         style training for CNNs. For the input to our
+with one of the possible referents (noun phrases)        CNNs, we further replaced [MASK] with [EM].
+in the first sentence (Wang et al., 2018). In this       Since the format of this converted data is simi-
+task, we must predict whether the candidate ref-         lar to that of the training data for the GAN-style
+erent in the second sentence is the correct refer-       training scheme of our CNN, we expect that by
+ent of the pronoun. Since the format of WNLI             using this data conversion, BERTAC can more ef-
+is known for being difficult to learn by a model,        fectively predict whether the candidate referent for
+many previous works, including those using AL-           the masked pronoun is correct.
+BERT, RoBERTa, or T5 (Liu et al., 2019; Lan
+et al., 2020; Raffel et al., 2020), converted the data   A.2 CoLA
+to a simpler format before training their WNLI           In the CoLA task, we need to predict whether a
+model for GLUE test-set submission.                      given sentence is grammatically acceptable. For
+
+                                                     2114
+                          MNLI     QNLI       QQP      RTE     SST-2 MRPC CoLA STS-B                          WNLI
+  Learning rate                                              {8e-6, 9e-6,1e-5, 2e-5, 3e-5}
+  Batch size                       128                                                   16
+  Training epoch                {1,2,3,4,5}                           {6,7,8,9,10}                     {90,95,100, 105,110}
+  TIER layer                                                               3
+  Max sequence length                                                     128
+  Warmup step                                           linear warmup for the first 6% of steps
+  CNN                                               9 models pretrained with different filter settings
+
+                        Table 9: Hyperparameters of BERTAC tested for GLUE experiments.
+
+                                                          Quasar-T                  SearchQA
+                          Learning rate                                   1e-5
+                          Batch size                          48                        96
+                          Training epoch                                  2
+                          TIER layer                                      3
+                          Max sequence length                            384
+                          Warmup step                   linear warmup for the first 6% of steps
+                          CNN                       9 models pretrained with different filter settings
+
+               Table 10: Hyperparameters of BERTAC tested for open-domain QA experiments.
+
+
+this task, we conducted a two-step fine-tuning. In                 then used as a starting point for the second-step
+the first step, we fine-tuned BERTAC with au-                      fine-tuning, using the original CoLA training data
+tomatically generated pseudo-training data. This                   this time, of our final model for CoLA.
+data was prepared as described below, and does
+not include the original CoLA training data. In                    B Hyperparameters
+the second step, we further fined-tuned the model                  Hyperparameters of BERTAC tested for GLUE
+obtained in the first step using the original CoLA                 and open-domain QA experiments are summa-
+training data. The BERTAC model obtained at this                   rized in Tables 9 and 10, where CNN represents
+second step was used for the test-set submission.                  CNN models pretrained with different filter set-
+   To automatically generate pseudo-training data,                 tings (filter’s window sizes ∈ {“1,2,3”, “1,2,3,4”,
+we regarded all of the sentences in the training                   “2,3,4”} and number of filters ∈ {100, 200, 300})
+data of MNLI, QQP, and QNLI as grammatically                       described in Section 3.3. We tested all combina-
+acceptable and used them as positive examples                      tions of these hyperparameters and chose the best
+in the pseudo-training data. After removing du-                    one using the development set of each task.
+plicate sentences, for each positive example, we
+generated one negative example by modifying the
+positive example under the assumption that the
+modification makes the generated example gram-
+matically unacceptable. As a modification, we
+randomly applied one of the following three op-
+erations: permutation (of four words randomly se-
+lected), insertion (of two random words to random
+positions), and deletion (of two randomly selected
+words) (Brahma, 2018).
+   We obtained about 2.14 million examples in this
+way, half of them positives and the other half neg-
+atives. We used all of the training samples auto-
+matically generated in this way for the first-step
+fine-tuning of BERTAC, with a learning rate of
+8e-6, a single training epoch, and a batch size of
+128, while applying the same settings for the other
+hyperparameters as those used for the other tasks.
+The model obtained by the first-step fine-tuning is
+
+                                                             2115
+

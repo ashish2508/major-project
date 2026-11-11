@@ -54,6 +54,44 @@ it('merges evidence only when both matching source and query spans are near', ()
   expect(detect([c(0, 0), c(80, 90)], 0.7, 120, true)).toHaveLength(1);
   expect(detect([c(0, 140), c(80, 0)], 0.7, 120, true)).toHaveLength(2);
   expect(detect([c(0, 0), c(0, 140)], 0.7, 120, true)).toHaveLength(2);
+  expect(detect([c(0, 0), c(100, 100)], 0.7, 0, true)).toHaveLength(1);
+  expect(detect([c(0, 0), c(80, 90), c(170, 50)], 0.7, 120, true)).toHaveLength(2);
+  expect(detect([c(0, 0), c(80, 90), c(170, 50)], 0.7, 120)).toHaveLength(1);
+  expect(() => detect([c(0, 0)], 0.7, NaN)).toThrow();
+});
+
+it('caps and orders each semantic shortlist without changing lexical results', () => {
+  const query = segment('alpha beta', 'query');
+  const sources = Array.from(
+    { length: 7 },
+    (_, i) => segment(i === 1 ? 'alpha beta' : 'beta gamma', String(i))[0],
+  );
+  const tfidf = Tfidf.fit(sources.map(({ text }) => text));
+  const vector = (cosine: number) => [cosine, Math.sqrt(1 - cosine ** 2), ...Array(382).fill(0)];
+  const embeddings = [0.1, 0.5, 0.5, 0.9, 0.3, -0.3, 0.2].map(vector);
+  const ranked = retrieveCandidates(query, sources, tfidf, [vector(1)], embeddings, [1], 5);
+  expect(ranked.semanticAlternatives.map((candidate) => candidate.sourceReference)).toEqual([
+    '3',
+    '1',
+    '2',
+    '4',
+    '6',
+  ]);
+  const lexical = retrieveCandidates(query, sources, tfidf).lexical;
+  expect(ranked.lexical.map((candidate) => ({ ...candidate, semantic: 0 }))).toEqual(lexical);
+  expect(ranked['hybrid:1']).toEqual(ranked.lexical);
+  expect(() =>
+    retrieveCandidates(query, sources, tfidf, [vector(1)], embeddings, [], -1),
+  ).toThrow();
+  for (const invalid of [Array(384).fill(0), vector(NaN), [1]]) {
+    expect(() => retrieveCandidates(query, sources, tfidf, [invalid], embeddings)).toThrow(
+      'normalized',
+    );
+  }
+  expect(
+    retrieveCandidates(query, sources.slice(0, 1), tfidf, [vector(1)], [vector(-1)]).semantic[0]
+      .score,
+  ).toBe(-1);
 });
 
 it('breaks semantic ties with matching words and keeps weaker same-topic candidates below the alert threshold', () => {

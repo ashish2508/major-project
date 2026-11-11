@@ -1,0 +1,1273 @@
+=== PAGE 1 ===
+Proceedings of the 2023 Conference on Empirical Methods in Natural Language Processing , pages 3233–3247
+December 6-10, 2023 ©2023 Association for Computational Linguistics Pushdown Layers: Encoding Recursive Structure
+in Transformer Language Models
+Shikhar Murty †   Pratyusha Sharma ‡   Jacob Andreas ‡   Christopher D. Manning †
+† Computer Science Department, Stanford University   ‡ MIT CSAIL
+{smurty, manning}@cs.stanford.edu, {pratyusha, jda}@mit.edu
+Abstract
+Recursion is a prominent feature of human
+language, and fundamentally challenging for
+self-attention due to the lack of an explicit
+recursive-state tracking mechanism.   Conse-
+quently, Transformer language models poorly
+capture long-tail recursive structure and ex-
+hibit sample-inefficient syntactic generaliza-
+tion. This work introduces   Pushdown Layers ,
+a new self-attention layer that models recur-
+sive state via a   stack tape   that tracks estimated
+depths of every token in an incremental parse
+of the observed prefix. Transformer LMs with
+Pushdown Layers are syntactic language mod-
+els that autoregressively and synchronously up-
+date this stack tape as they predict new tokens,
+in turn using the stack tape to softly modu-
+late attention over tokens—for instance, learn-
+ing to “skip” over closed constituents. When
+trained on a corpus of strings annotated with sil-
+ver constituency parses, Transformers equipped
+with Pushdown Layers achieve dramatically
+better and 3-5x more sample-efficient syntac-
+tic generalization, while maintaining similar
+perplexities. Pushdown Layers are a drop-in
+replacement for standard self-attention. We il-
+lustrate this by finetuning GPT2-medium with
+Pushdown Layers on an automatically parsed
+WikiText-103, leading to improvements on sev-
+eral GLUE text classification tasks.
+1   Introduction
+An important property of human language and
+thought is   recursion , which allows us to compose
+and reason about complex objects in terms of sim-
+pler constituents (Hauser et al., 2002). While ex-
+tensively studied in natural language syntax and
+semantics, recursion is also a key component of sev-
+eral other aspects of intelligent behaviors including
+mathematical reasoning, programming, and goal-
+directed planning. Most recursion-capable systems
+model recursive processes via a stack memory,
+which is updated as new computation is performed. park
+<s>   The   dog   in   the
+0   1   1   0   0
+h l
+1   h  l
+2   h l
+3   h l
+4 h l
+0
+<s>   The   dog   in   the
+<s>   The   dog   in   the   park
+(a)
+(b)
+(c)
+Figure 1: (a) Pushdown Layers use a stack-tape to fea-
+turize contents of an explicit stack, in terms of estimated
+token depths, where the stack represents incremental
+parses. (b) These depths map onto depth embeddings
+(in blue) that are added to token keys before computing
+attention scores, softly biasing attention towards a re-
+cursive syntactic computation. (c) The stack is updated
+synchronously   with the newly predicted word, via an
+attachment head that selects a constituent to reduce the
+newly predicted word with, via attention.
+For instance, a programming language may imple-
+ment recursion by maintaining a run-time stack of
+caller-callee frames, storing intermediate outputs
+in the stack, and updating the stack as new func-
+tion calls are made. Similarly, a shift-reduce parser
+implements recursion through a stack of intermedi-
+3233 
+
+=== PAGE 2 ===
+ate constituents, shifting tokens onto the stack as
+they are observed, and occasionally reducing stack
+elements into constituents as they are completed.
+In contrast, the self-attention mechanism under-
+lying modern neural sequence models has no ex-
+plicit mechanism to maintain a stack memory as it
+generates strings, and instead relies on hidden rep-
+resentations to implicitly but imperfectly encode
+such information (Manning et al., 2020). While this
+encoding can model bounded recursive structure in
+formal languages (Yao et al., 2021), it is unclear if
+it is sufficient for robust syntactic generalization,
+especially under data-constrained settings.
+In this work, we show that an explicit stack mem-
+ory mechanism can improve syntactic generaliza-
+tion in Transformer language models (LMs). We in-
+troduce   Pushdown Layers 1 , a drop-in replacement
+for standard self-attention that augments Trans-
+former LMs with stack memory.   This memory
+is modeled using a   stack tape   that stores estimated
+depths of every token in an incremental parse of the
+observed prefix. The stack tape is updated autore-
+gressively: as new tokens are predicted, Transform-
+ers with Pushdown Layers (Pushdown Transform-
+ers) synchronously make probabilistic   attachment
+decisions   to either “shift”, thus assigning the newly
+predicted token a depth of   0 , or “reduce” with one
+of the constituents in the prefix so far, updating to-
+ken depths accordingly (see Fig. 1). This stack tape
+is used to additively and softly modulate the atten-
+tion of the Transformer over tokens—for instance,
+Pushdown Layers may guide the LM to only attend
+to head words of constituents, or skip over reduced
+constituents by decreasing attention.
+Pushdown Transformer LMs are   syntactic lan-
+guage models   that learn joint probabilities of se-
+quences and parses in terms of individual word
+predictions and structure-building operations, and
+can be trained on any text corpus annotated with
+constituency parses. But unlike other syntactic lan-
+guage models with structural supervision (Vinyals
+et al., 2015; Choe and Charniak, 2016; Qian et al.,
+2021; Sartran et al., 2022), Pushdown Layers do
+not change the output space of the underlying se-
+quence model, and impose no constraints on atten-
+tion mechanisms—the manner in which Pushdown
+Layers use syntactic structure for representation
+building is learnt purely via gradient descent.
+Pushdown Transformers obtain strong general-
+1 We borrow this term from pushdown automata, which are
+finite state machines augmented with stacks.
+ization improvements over standard Transformer
+LMs. When trained on depth-bounded Dyck strings
+and evaluated on deeper Dyck strings, Pushdown
+Transformers improve performance over baseline
+LMs by over 25% (Section 4.1). When trained on
+sentence-level language modeling on the BLLIP-
+LG   datasets of Hu et al. (2020), Pushdown Trans-
+formers improve syntactic generalization over stan-
+dard Transformer LMs by 5–13 points as well as
+other joint models of strings and parses such as
+Qian et al. (2021); Sartran et al. (2022) by 0.3–
+4 points (Section 4.2).   When trained on a new,
+100-million-token dataset of parsed Wikipedia ar-
+ticles we call W IKI T REES , Pushdown Transform-
+ers match the syntactic generalization of ordinary
+Transformers with 3–5 ×   less data. Finally, when
+Pushdown Layers are inserted into a pre-trained
+GPT-2 (medium) model and fine-tuned on W IK -
+I T REES   they yield improvements of 0.3–1 points
+on several GLUE text classification tasks.
+2   Background
+Multi-Head Self-Attention.   Transformer lan-
+guage models (Vaswani et al., 2017) are a class
+of neural sequence models that use multi-head
+self-attention   to obtain contextualized represen-
+tations of tokens in a sequence, which are then
+used to predict the next token. In particular, let
+x   =   { x 1 , x 2 , . . . , x n }   be an input sequence. Let
+h l
+i   ∈   R d   be the hidden representation of the   i th
+token at the   l th   attention block. Then, the hidden
+representation of the   i th   token is updated as
+h l +1
+i   = FF( O   ·   [A 1 ( h l
+≤ i ) , ,   · · ·   ,   A K   ( h l
+≤ i )]) ,
+(1)
+where   O   ∈   R d × d   is a learnt matrix,   FF   denotes a
+feed-forward + residual + layer-norm block, and
+A p   is the   p th   self-attention head.   Each attention
+head performs a weighted average over its inputs,
+A p ( h l
+≤ i ) =
+i ∑
+j =1
+α ij   W   p
+value h l
+j   ,   (2)
+where   α ij   is the   attention weight   assigned to the
+j th   token by the   i th   token. These attention weights
+are computed as
+α ij   = softmax[( W   p
+key h l
+j   ) ⊤ W   p
+query h l
+i ] .   (3)
+Each self-attention head introduces learnt param-
+eters   W   p
+key , W   p
+query , W   p
+value   ∈   R d/K × d . 3234 
+
+=== PAGE 3 ===
+Limitations of Self-Attention.   When trained on
+text corpora, transformers implicitly encode sev-
+eral aspects of linguistic structure unsupervisedly
+(Clark et al., 2019; Hewitt and Manning, 2019;
+Murty et al., 2023). However, there is mounting
+evidence that recursion, a key feature of human
+language, remains a challenge. Hahn (2020) shows
+theoretically that hard-attention cannot model sim-
+ple recursive structures like 2D YCK   (see Section 6
+for an extended discussion). Empirically, Lakretz
+et al. (2022) show that self-attention struggles on
+center embedding phenomenon, and Zhang et al.
+(2023) show poor performance on simple recursive
+tree-traversal problems. We hypothesize that a key
+reason for poor modeling of recursive structure in
+self-attention is a lack of an explicit structural in-
+ductive bias.   One common way to add such an
+inductive bias is via joint modeling of strings and
+syntactic structure, which we introduce next.
+Syntactic   Language   Models.   Let   y   be   the
+ground-truth syntactic parse of   x . A long line of
+work (Vinyals et al., 2015; Dyer et al., 2016; Choe
+and Charniak, 2016; Qian et al., 2021; Sartran et al.,
+2022) considers learning joint distributions   p ( x, y )
+to incorporate explicit syntactic structure into neu-
+ral language models, by learning to output a se-
+quence of   transition actions ,
+p ( x, y ) =   p ( a xy ) =   ∏
+i
+p ( a i   |   a <i )   (4)
+where actions   a i   correspond to both word-level pre-
+dictions as well as   structural actions   corresponding
+to opening and closing of constituents, building up
+the parse tree in a top-down, left-to-right manner.
+Recent work explores using Transformers to param-
+eterize these joint distributions. For instance, Qian
+et al. (2021); Sartran et al. (2022) train Transformer
+LMs over transition actions (Parsing as Language
+Modeling or PLM), sometimes with constrained at-
+tention heads (PLM-mask), and Transformer Gram-
+mars (TG; Sartran et al., 2022) model transition ac-
+tions with Transformers, also with hard constraints
+on attention to model shift/reduce actions.
+These models have several limitations that moti-
+vate our proposed approach. First, their outputs
+are sequences of transition actions that include
+both text and tree-building operations; as each con-
+stituent in a parse tree has an opening and closing
+transition action, and there are   ≈   n   constituents for
+x , this increases input length by a factor of   3 , lead-
+ing to significant computation and memory over-
+head. Second, inference in neural models operat-
+ing on transitions require bespoke decoding proce-
+dures that carefully balance tradeoffs between high-
+entropy word-level predictions and low-entropy
+structural predictions (Stern et al., 2017). Finally,
+to explicitly bias Transformer computations to mir-
+ror the recursive structure of parse trees, some ap-
+proaches like PLM-mask (Qian et al., 2021) and
+TGs (Sartran et al., 2022) impose hard constraints
+on attention patterns. Pushdown Layers provide a
+softer syntactic bias that is amenable to gradient-
+based learning, while having broader applicabil-
+ity to phenomena beyond local tree-structuredness,
+such as topical dependencies, coreference, etc.
+3   Pushdown Layers
+Transformer LMs with   Pushdown Layers   are syn-
+tactic language models that generate strings while
+simultaneously building a parse tree over these
+strings from left to right. This parse tree is built
+incrementally by tracking the recursive state of ev-
+ery token, which is synchronously updated along
+with word-level predictions. This recursive state
+is represented via our   stack tape   as tree-depths of
+every prefix token, and updates are realized with
+a stack. The contents of the stack tape are used
+to   softly modulate   attention over prefix tokens via
+additive offsets to attention logits (Fig. 2).
+3.1   Stack Tape
+Like ordinary self-attention, Pushdown Layers take
+a sequence of hidden states   { h l
+k }   as input, and out-
+put a sequence   { h l +1
+k   } . Additionally, Pushdown
+Layers use a   stack tape   W k   ∈ { 0 , k } k   to simulate a
+pushdown automaton that performs shift/reduce op-
+erations over tokens as they are predicted (Fig. 2).
+The contents of the stack tape encode recursive
+state by tracking the depth of each token within
+reduced constituents in the stack. Concretely, af-
+ter observing the prefix   x ≤ k   =   { x 1 , x 2 , . . . , x k } ,
+W k [ j ] = 0   if token   x j   has not been reduced with
+any other token, while   W k [ j ] =   p   means that   x j
+has appeared in   p   reduce operations such that the
+resulting   constituent   has token   x j   at depth   p —in
+Fig. 2, the stack tape encodes   [1, 1, 0]   for the
+incremental parse [ The dog ]   is .
+Updating the Stack Tape.   As shown in Fig. 2,
+along with predicting the next word   happy , Trans-
+formers with Pushdown Layers ( Pushdown Trans-
+formers ) make an attachment decision to update
+their stack tape. In our running example, this is 3235 
+
+=== PAGE 4 ===
+0
+dog
+The   dog
+The
+is
+The   dog
+The   dog   is
+1   1
+happy
+The   dog   is
+The   dog   is
+happy
+1   1   0 Figure 2: Illustration of how the parse [[ The dog   [ is
+happy ]] is built as a unique sequence of stack-tape up-
+dates in Pushdown LMs. Here, as the word   happy   is
+predicted, the attachment head chooses a constituent
+(bolded) from the current incremental parse, via atten-
+tion. Attachment decisions are made to constituents by
+attending to their rightmost token, and none of the other
+tokens of a constituent can be attended to (shown as
+dashed lines). These attachment decisions are used to
+update depth values in the tape.
+done by selecting a constituent from the incremen-
+tal parse [ The dog ]   is happy .
+Concretely, given prefix   x <k , Pushdown Trans-
+formers predict the next token   x k   as well as an
+update to the stack tape   W k − 1 . This is done by se-
+lecting a token   r k   to reduce with, out of candidate
+tokens   { x 1 , x 2 , . . . , x k } , via attention over hidden
+states   { h L
+1   ,   h L
+2   , . . . ,   h L
+k − 1 ,   ˜ h L
+k   } , where   L   is the fi-
+nal layer of the Transformer, and   ˜ h L
+k   is a vector
+representation for the newly predicted token   x k ,
+obtained as   ˜ h L
+k   = MLP( x k ,   h L
+k − 1 ) . This vector
+attends to all tokens to make a probabilistic attach-
+ment decision,
+p ( r k   =   j   |   x <k ;   W k − 1 )   ∝
+{
+( h L ⊤
+j   W   ⊤ ˜ h L
+k   )   if   j ̸   =   k , shift + reduce
+( ˜ h L ⊤
+k   W   ⊤ ˜ h L
+k   )   shift only   (5)
+where   W   ∈   R d × d   is a learnt parameter ma-
+trix.   We use these probabilities to select token
+r k   = arg max   p ( j   |   x <k ;   W k − 1 )   to reduce   x k
+with, and the stack tape is updated accordingly
+via Algorithm 1. Note that attachment decisions to
+constituents are made by computing the attachment
+score for the rightmost token in the constituent. In
+our running example, the model selects the con-
+stituent [ The dog ] by selecting the word   dog , form-
+ing the parse [[ The dog ] [ is happy ]] and updating
+the stack tape from   [1, 1, 0]   →   [2, 2, 2, 2] .
+Algorithm 1:   Stack Tape Update
+Input :   W k − 1 ,   k ,   r k ,   stack
+Output :   W k ,   stack
+UpdateStackTape ( W k − 1 ,   k ,   r k ,   stack )
+W k   ← W k − 1
+constituent   ←   [ k ]
+if   r k   == k   then
+stack.push ( constituent )
+return
+end
+while   True   do
+top   ←   stack.pop()
+//   Perform a reduce
+constituent   ←   top   +   constituent
+//   Update depths in stack tape
+forall   d   ∈   constituent   do
+W k [ d ]   +=   1
+end
+if   top   ==   r k   then
+break
+end
+end
+stack.push ( constituent )
+3.2   Computing Attention Scores
+We map contents of   W k   onto a   per-layer   depth
+embedding   d l
+kj   for every token   j   ∈ { 0 ,   1 , . . . , k } .
+These depth embeddings are added to attention
+keys, resulting in a   locally additive   modulation to
+attention scores,
+˜ α l
+kj   = softmax ( [ h l
+j   +   d l
+kj   ] ⊤ W   ⊤
+key W query h l
+k
+) .
+(6)
+Of course, since these logits are themselves part of
+a softmax and non-linearities, the overall effect can
+be arbitrarily non-linear. These modified attention
+weights are used to compute contextualized vectors
+using Eq 2 and Eq 1.
+3.3   Training and Inference
+Training.   Given a corpus of strings annotated
+with parses, we first extract ground-truth values of
+W k   for every prefix   x ≤ k . We also extract ground-
+truth attachment decisions for   x k , given prefix   x <k .
+With these quantities precomputed, we can train
+Pushdown Transformers in   parallel , like standard
+Transformers. Attachment probabilities (Eq 5) are
+supervised with ground-truth attachments, along
+with the standard LM objective, all using hidden 3236 
+
+=== PAGE 5 ===
+states that are contextualized using the Pushdown
+Layer attention mechanism that uses the precom-
+puted stack tape.
+Inference.   For any string   x   and parse   y , joint
+probability   p ( x, y )   factorizes as a product of word-
+level and attachment scores as
+p ( x, y ) =
+n ∏
+k =1
+(
+p ( x k   |   x <k ;   W k − 1 ) ×
+p ( r k   |   x <k ;   W k − 1 )
+)
+.   (7)
+While computing the full marginal   p ( x )   = ∑
+y   p ( x, y )   is computationally infeasible due to
+the large space of possible parses, we approximate
+this by marginalizing over a smaller subset with
+beam search. Crucially, since our model predicts
+words and structural actions in   parallel   rather than
+sequentially, we do not need to use complex word-
+synchronous decoding procedures (Stern et al.,
+2017) that introduce additional hyperparameters.
+3.4   Implementation Details
+FLOPs and memory overhead.   Consider query
+and key matrices   Q   ∈   R n d × d , K   ∈   R n s × d   where
+n d   and   n s   refer to destination (hidden states at-
+tending) and source (hidden states being attended
+to).   Let   S   ∈   R n d × n s   be the (lower-triangular)
+matrix denoting pre-computed stack tape values
+for every prefix. For each Pushdown Layer, we
+use   S   to index into depth embeddings to obtain
+D   ∈   R n d × n s × d , which is added to   K   to obtain
+K D   ∈   R n d × n s × d . Unlike standard self-attention
+which multiplies   Q   and   K   directly, Pushdown Lay-
+ers multiply   Q   (a 2D tensor) with   K D   (a 3D ten-
+sor).   This is done by casting   Q   into a 3D ten-
+sor   ∈   R n d × 1 × d   and performing a batched ma-
+trix multiplication with   K D , leading to the same
+number of operations as standard self-attention   2 .
+However, since Pushdown Layers require storing
+3D tensors for keys, this increases memory re-
+quirements from   O ( n d   ·   n s   +   n s   ·   d   +   n d   ·   d )   to
+O ( n d   ·   n s   +   n s   ·   n d   ·   d   +   n d   ·   d ) . We provide stan-
+dalone code for implementing a Pushdown Layer
+block in Appendix D.
+Attending to hidden states with old memory.
+Pushdown Transformers build parse trees incre-
+mentally from left-to-right, and so, depth values of
+prefix tokens change as new tokens are predicted.
+2 We note that standard self-attention is faster in practice
+due to better GPU memory bandwidth management,
+Thus, a token at position   i   builds its representation
+based on attending to   x ≤ i   with a stack tape that may
+soon become “stale" due to future transition opera-
+tions that reduce tokens in   x ≤ i   with new tokens. As
+an example, suppose we have the incremental parse
+[[ The dog ] [ in   [ the park ]]]. Here, the representation
+for   in   attends to representations of   The ,   dog   and   in
+with depths [1, 1, 0] while the representation for
+park   attends to these representations with   updated
+depths [2, 2, 2].
+4   Experiments
+4.1   Warm-up: Dyck Languages
+We train 6 layer LMs with Pushdown Layers
+(Pushdown-LM) as well as standard LMs on 100k
+strings sampled from D YCK 20 , 10 , the language of
+well-nested brackets with 20 bracket types and
+max-nesting depth of 10. To ensure that improve-
+ments are not merely due to multi-task learning
+with an attachment head, base-LM is also trained
+with an attachment loss in a standard multi-task
+learning setup. To test generalization, models are
+provided an input prefix from a separate D YCK
+language, and evaluated on choosing the correct
+closing bracket. Specifically, we test generalization
+to D YCK   strings with deeper nesting of 15–50, and
+D YCK   strings with longer-range dependencies than
+seen at training time (measured as the distance to
+the matching bracket that needs to be closed). From
+Table 1, we find that Pushdown-LM obtains over
+25% accuracy point improvement over standard
+language models at generalizing to deeper struc-
+ture, as well as large improvements at generalizing
+to longer-range dependencies.
+Base-LM   Pushdown-LM
+Long-Range Dependencies
+D YCK   (50)   90.0   96.5
+D YCK   (100)   81.0   88.0
+D YCK   (200)   40.6   61.2
+D YCK   (300)   14.1   42.9
+Deeper Embedded Structure
+Depth Gen.   40.6   68.3
+Table 1: Evaluating LMs at closing Dyck prefixes with
+longer dependencies (dep.   length in brackets) and
+deeper structure. We find significant improvements from
+using Pushdown Layers over standard self-attention. 3237 
+
+=== PAGE 6 ===
+Figure 3: Comparing Pushdown-LMs with baseline Transformer LMs and other syntactic LMs. While Pushdown-
+LMs are comparable with Transformer Grammars (TG; Sartran et al., 2022) across all examples in SG test suites
+(Table 2), they outperform TGs on 4 out of 6 tests, including the recursive center embedding tests.
+4.2   Sentence-Level Language Modeling
+Setup.   Next, we train 16-layer Pushdown Trans-
+former LMs on the BLLIP- LG   dataset of Charniak
+et al. (2000), with training splits from Hu et al.
+(2020), and the same pre-processing as Qian et al.
+(2021). We use the same hyperparameters (model
+size, dropout, learning rate schedulers) as Sartran
+et al. (2022). To measure syntactic generalization,
+we evaluate on BLIMP (Warstadt et al., 2020) and
+the SG test suites (Hu et al., 2020).   In BLIMP,
+models are provided with a grammatical and un-
+grammatical sentence, and evaluated on assigning
+a higher probability to the grammatical sentence.
+SG test suites consist of an extensive set of hand-
+crafted test cases, covering 6 fine-grained syntactic
+phenomena. Each test case involves satisfying a
+specific inequality constraint among surprisal val-
+ues of various continuations given prefixes, where
+these inequalities are grounded in theories of in-
+cremental language processing—for instance, as-
+signing a higher surprisal to the last verb in   The
+painting that the artist deteriorated painted   vs.   The
+painting that the artist painted deteriorated . For
+BLIMP, we obtain   p ( x )   by approximate marginal-
+ization via beam search.   Since surprisal values
+−   log   p ( x t   |   x <t )   in SG test suites are meant to re-
+flect incremental sentence processing, we perform
+marginalization based on the beam state at time
+step   t . We fix the beam size at 300.
+Results.   We present results on SG test suites in
+Figure 3.   As baselines, we compare against a
+standard 16 layer Transformer LM and prior struc-
+tured models (TG, PLM) from Sartran et al. (2022).
+As expected, all models with an explicit notion
+of structure have much better syntactic general-
+ization across all test suites. Next, we note that
+Pushdown-LM, a 16 layer Transformer LM with
+all self-attention blocks replaced with Pushdown
+Layers, outperforms prior approaches—Pushdown-
+LM beats TG on 4/6 tests and PLM on 3/6 tests
+with similar performance on licensing. Next, we
+present results (averaged across 3 seeds) on BLIMP
+as well as aggregate SG test suite results and per-
+plexity on the BLLIP test set in Table 2.   Here,
+we note that Pushdown-LM achieves better syn-
+tactic generalization than prior structured models
+(including the PLM-mask model from (Qian et al.,
+2021)) on BLIMP. Finally, we find that Pushdown-
+LM achieves slight gains in perplexity compared
+to Base-LM.
+4.3   Language Modeling with W IKI T REES
+Can Pushdown Layers continue to offer improve-
+ments on larger-scale language modeling? We con-
+struct W IKI T REES , a dataset of over 100 million to-
+kens extracted from Wikipedia Articles (WikiText- 3238 
+
+=== PAGE 7 ===
+Model   BLIMP   ↑   SG test suites   ↑   PPL   ↓
+Models that add structural tokens to inputs
+PLM   75.1   80.2   29.8 ‡
+PLM-Mask   75.3   78.3   49.1 ‡
+TG   –   82.5 ∗   30.3 ‡
+Models that do not add extra tokens to inputs
+Base-LM   70.1   69.5   20.1
+Pushdown-LM (ours)   75.6   82.3 ∗   19.9
+Table 2: Syntactic Generalization on BLIMP and SG
+test suites. All results for PLM-Mask are taken from
+Qian et al. (2021) and results for PLM and TGs are taken
+from Sartran et al. (2022).   ∗   denotes differences that
+are not significant. PPL results marked with   ‡   are taken
+from prior work and not comparable due to differences
+in tokenization.
+103; Merity et al. (2017)), parsed automatically
+using a state-of-the-art neural constituency parser
+(Kitaev et al., 2019). Typically, LMs trained on
+web-scale data are given multi-sentence contexts
+with large window sizes as inputs, and to adapt
+this to Pushdown-LMs we make a small number of
+modifications (see Appendix B for details).
+Sample-Efficient Generalization.   To measure
+sample efficiency in Pushdown Transformers, we
+train LMs on [10M, 50M, 100M] tokens from W IK -
+I T REES . To ensure stable training under low data
+regimes, we train a 12 layer GPT2 using the exact
+configuration and tokenization scheme as GPT2-
+small (Radford et al., 2019), and additionally use
+dropout to prevent overfitting. For these experi-
+ments, we compare Base-LM with an LM where
+the final 6 self-attention blocks are Pushdown Lay-
+ers (Pushdown-LM). To measure syntactic gener-
+alization, we compute aggregate performance on
+the SG test suites.   From results in Fig. 4, we
+find that Pushdown-LMs exhibit drastically more
+sample-efficient syntactic generalization—for in-
+stance, syntactic generalization of Pushdown-LM
+trained on 10M tokens requires over 40M tokens
+for the Base-LM to surpass.
+Finetuning for text classification.   Can Push-
+down Layers offer improvements on language un-
+derstanding tasks, beyond syntactic generalization?
+To answer this, we perform staged finetuning of
+GPT2-medium with Pushdown Layers.   Specifi-
+cally, we finetune GPT-2 medium with the final
+12 self-attention blocks replaced with Pushdown
+Layers (Pushdown-GPT2), as a language model on 0.2   0.4   0.6   0.8   1.0
+Number of Tokens   1e8
+50
+55
+60
+65
+70
+75
+80
+Syntactic Generalization
+GPT2-small (~9B tokens)
+Pushdown-LM
+Base-LM
+Figure 4: Comparing a standard GPT-2 small archi-
+tecture (Base-LM) with a model where the last 6 self-
+attention blocks use Pushdown Layers, trained on vari-
+ous amounts of tokens from W IKI T REES . We find that
+Pushdown Layers greatly improve sample efficiency of
+syntactic generalization. For reference, we also include
+GPT2-small, which is trained on over 9 billion tokens.
+W IKI T REES . We use this model to obtain parses
+on 4 text classification tasks: RTE, SST5, MRPC
+and STS-B from GLUE (Wang et al., 2019a), and
+use these parses to pre-compute the stack tape for
+every token.   Then, in a second finetuning step,
+Pushdown-GPT2 is trained to perform text classi-
+fication over these datasets by reducing each task
+into language modeling via prompting (See Ap-
+pendix A for prompt details). As a comparison,
+we also perform the same staged finetuning for the
+standard GPT2-medium architecture. We report
+averaged results across 3 seeds in Table 3. We find
+that Pushdown Layers offer improvements on 3 out
+of 4 text classification tasks.
+Model   RTE   SST5   MRPC   STS-B
+GPT2   72.2   54.8   88.4   89.6/89.8
+Pushdown-GPT2   72.9   54.5   89.3   89.8 / 90.1
+Table 3: Finetuning models on various semantic text
+classification/regression tasks. We report accuracy for
+RTE and SST5, F1 for MRPC, and Spearman/Pearson
+Correlation for STS-B.
+5   Analysis
+For all analyses, we use the 16 layer Pushdown-LM
+trained on BLLIP- LG   from Section 4.2.
+Parsing.   Since Pushdown-LM is a syntactic lan-
+guage model, we obtain parses via beam search
+(beam size = 300) to approximately recover the
+most likely parse   y ∗   = arg max y   p ( x, y )   under our 3239 
+
+=== PAGE 8 ===
+number_orc   number_prep   number_src
+0.00
+0.02
+0.04
+0.06
+0.08
+Avg. Attention over distractor token (   )
+Base-LM
+Pushdown-LM (ours) Figure 5: For the three subject-verb agreement tasks
+from (Marvin and Linzen, 2018), we compute average
+attention over the distractor noun when the verb is be-
+ing predicted, for both the Base-LM and Pushdown-LM
+(ours). Across all variants, we find that our model con-
+sistently pulls attention away from distractor nouns.
+model. However, since this parse is (a) unlabeled
+and (b) binarized, we perform an   unlabeled F1 eval-
+uation   (using   EVALB ; Collins, 1997) over   binarized
+ground-truth parses from the PTB test set. We also
+remove instances consisting of unknown words for
+our model, since our model is trained without any
+UNK tokens, giving us 2335 out of 2416 sentences.
+We compare our model against Kitaev et al. (2019),
+the parser that was used to annotate training data
+for Pushdown-LM. We also present unlabeled F1
+on the auto-parsed BLLIP- LG   test set. From re-
+sults in Table 4, we note that our model achieves a
+very competitive unlabeled F1 score of 95.3, out-
+performing the official implementation of Kitaev
+et al. (2019) 3 . We also find that our model obtains
+a high F1 score of 97.3 on the BLLIP- LG   test set.
+Model   PTB   BLLIP- LG
+Pushdown-LM   95.3   97.3
+(Kitaev et al., 2019)   94.7   -
+Table 4: Unlabeled F1 scores against binarized ground-
+truth parses from the PTB and BLLIP test sets. We filter
+all examples from the PTB test set with unknown words,
+giving us 2335 out of 2416 sentences. Annotations on
+BLLIP- LG   are obtained using Kitaev et al. (2019).
+Case Study: Analyzing attention patterns on
+subject-verb agreement tasks.   We consider
+the 3 Subject-Verb agreement tasks (Marvin and
+Linzen, 2018) from the SG test suites. On these
+3 We use the   benepar_en_large   model from   https://
+github.com/nikitakit/self-attentive-parser   which
+reports a score of 96.29 on the full PTB test set, while we
+obtain 95.66 (labeled F1, using the standard   EVALB   script).
+tasks, models are presented with a prefix consist-
+ing of a main subject and a distractor embedded
+subject, where these items conflict in number. The
+objective is to assign a higher logprob to the verb
+that agrees with the main subject rather than the
+distractor subject. For instance, for prefix   The au-
+thor that hurt the senators , the model must assign
+a higher probability to   is   than   are .
+From Fig. 3, we find that Pushdown-LM sig-
+nificantly outperforms other models with close to
+80% accuracy while Base-LM achieves less than
+60% accuracy. To understand how Pushdown Lay-
+ers modulate attention on these examples, we ob-
+tain attention scores over all prefix tokens (aver-
+aged across all layers).   We present the average
+attention assigned to the distractor token for both
+Pushdown-LM and Base-LM in Fig. 5 where we
+observe that Pushdown-LM pulls attention away
+from the distractor noun, allowing it to predict the
+correct verb. Finally, we plot some (averaged) at-
+tention heatmaps in Fig. 6.
+6   Other Related Work
+While recursive structure is fundamental to natu-
+ral language, modeling such structure is difficult
+for self-attention. Hahn (2020) considers D YCK ,
+the simplest formal language with recursive struc-
+ture, proving that hard attention cannot recognize
+D YCK   and soft attention cannot recognize D YCK
+with low cross-entropy. In practice, we find that
+even simpler languages like P ARITY   are challeng-
+ing for encoder-only Transformers (Chiang and
+Cholak, 2022; Bhattamishra et al., 2020). On the
+other hand, Transformers with decoders have been
+shown to be Turing-complete (Perez et al., 2021),
+but these constructions rely on the impractical as-
+sumption of running the decoder for an unbounded
+number of steps. In practice, we find that Trans-
+former LMs struggle with generalization beyond
+regular languages and tend to learn shortcuts in-
+stead (Deletang et al., 2023; Liu et al., 2023).
+Given these limitations, there is significant in-
+terest in inductive biases that encourage recursive
+structure in Transformers. One line of work con-
+siders constraining self-attention patterns accord-
+ing to syntactic parses (Strubell et al., 2018; Wang
+et al., 2019b; Peng et al., 2019; Deshpande and
+Narasimhan, 2020, among others). A second line
+of work adds structure to language modeling by
+learning joint probabilistic modeling of structure
+and strings (Chelba, 1997; Mirowski and Vlachos, 3240 
+
+=== PAGE 9 ===
+-LM   Base-LM Pushdown-LM   Base-LM Figure 6: Given a prefix containing a main noun and
+a distractor noun, Pushdown-LM pulls attention away
+from the distractor (here   senator ), helping the model
+predict the verb with the correct number. These attention
+maps average across all the instances in the number_src
+test of SG test suites, and we show the attention over all
+prefix tokens when the main verb is predicted
+2015; Choe and Charniak, 2016; Dyer et al., 2016,
+among others). Both of these ideas are combined
+in recent work of Qian et al. (2021); Sartran et al.
+(2022), that proposes joint string, parse Trans-
+former language models with constrained attention
+patterns. While Pushdown Layers are also in this
+modeling tradition, we do so without operating
+on long transition actions, and enforce structural
+constraints via gradient based learning.
+A separate line of work proposes neural net-
+works augmented with structured memory like
+stacks (Das et al., 1992; Grefenstette et al., 2015;
+Joulin and Mikolov, 2015; DuSell and Chiang,
+2022) or random access memories (Kurach et al.,
+2015). Such augmented neural networks are vastly
+better at algorithmic generalization and learning
+recursive structure (Suzgun et al., 2019; Deletang
+et al., 2023). Our work is the first that designs a
+structured memory (the stack-tape) for Transform-
+ers, that is updated just like stacks in a shift/reduce
+manner, but unlike prior work, the specific design
+of Pushdown Layers makes training parallelizable.
+Finally, there have been several efforts to add
+syntactic inductive biases into sequence models
+(typically RNNs) that can acquire and use parse
+structures in an unsupervised manner (Bowman
+et al., 2016; Shen et al., 2019; Drozdov et al., 2019;
+Kim et al., 2019, among others). We leave unsuper-
+vised training of Pushdown Transformers for future
+work.
+7   Conclusion
+We propose Pushdown Layers, a new kind of self-
+attention that augments Transformer language mod-
+els with a stack based memory. Pushdown Layers
+enable auto-regressive Transformers to softly bias
+attention towards a recursive syntactic computation,
+through an updatable stack-tape that stores token
+depths in an incremental parse. When trained on
+synthetic and natural languages, we find that Trans-
+former LMs with Pushdown Layers achieve better
+generalization to deep recursive structure, as well
+as better and more sample-efficient syntactic gen-
+eralization. When pre-trained LMs are finetuned
+with Pushdown Layers, we obtain improvements
+on some GLUE tasks.
+8   Reproducibility
+Code and data for these experiments is available at
+https://github.com/MurtyShikhar/Pushdown-Layers .
+Limitations
+Pushdown Layers require constituency-parse anno-
+tated datasets, which may not be available for many
+languages due to a lack of high performing off-the-
+shelf constituency parsers. This also limits appli-
+cability to domains beyond natural and synthetic
+languages, such as algorithmic reasoning. Finally,
+Pushdown Layers can only be applied to languages
+with constituency structure, and our experiments
+are limited to English.
+Acknowledgements
+SM was funded by a gift from Apple Inc. CM is
+a fellow in the CIFAR Learning in Machines and
+Brains program. PS and JA are funded by Project
+CETI via grants from The Audacious Project: a
+collaborative funding initiative housed at TED. We
+thank John Hewitt, Sidd Karamcheti and Róbert
+Csordás for feedback and discussions. 3241 
+
+=== PAGE 10 ===
+References
+Satwik Bhattamishra, Kabir Ahuja, and Navin Goyal.
+2020. On the Ability and Limitations of Transform-
+ers to Recognize Formal Languages.   In   Proceed-
+ings of the 2020 Conference on Empirical Methods
+in Natural Language Processing (EMNLP) , pages
+7096–7116, Online. Association for Computational
+Linguistics.
+Samuel Bowman,   Jon Gauthier,   Abhinav Rastogi,
+Raghav Gupta, Christopher D Manning, and Christo-
+pher Potts. 2016. A fast unified model for parsing
+and sentence understanding. In   Proceedings of the
+54th Annual Meeting of the Association for Compu-
+tational Linguistics (Volume 1: Long Papers) , pages
+1466–1477.
+Eugene Charniak, Don Blaheta, Niyu Ge, Keith Hall,
+John Hale, and Mark Johnson. 2000. Bllip 1987-89
+wsj corpus release 1.   Linguistic Data Consortium,
+Philadelphia , 36.
+Ciprian Chelba. 1997. A structured language model. In
+35th Annual Meeting of the Association for Compu-
+tational Linguistics and 8th Conference of the Euro-
+pean Chapter of the Association for Computational
+Linguistics , pages 498–500.
+David Chiang and Peter Cholak. 2022. Overcoming a
+theoretical limitation of self-attention. In   Proceed-
+ings of the 60th Annual Meeting of the Association
+for Computational Linguistics (Volume 1: Long Pa-
+pers) , pages 7654–7664, Dublin, Ireland. Association
+for Computational Linguistics.
+Do Kook Choe and Eugene Charniak. 2016. Parsing
+as language modeling. In   Proceedings of the 2016
+Conference on Empirical Methods in Natural Lan-
+guage Processing , pages 2331–2336, Austin, Texas.
+Association for Computational Linguistics.
+Kevin Clark, Urvashi Khandelwal, Omer Levy, and
+Christopher D. Manning. 2019. What does BERT
+look at? an analysis of BERT’s attention. In   Pro-
+ceedings of the 2019 ACL Workshop BlackboxNLP:
+Analyzing and Interpreting Neural Networks for NLP ,
+pages 276–286, Florence, Italy. Association for Com-
+putational Linguistics.
+Michael Collins. 1997. Three generative, lexicalised
+models for statistical parsing. In   35th Annual Meet-
+ing of the Association for Computational Linguistics
+and 8th Conference of the European Chapter of the
+Association for Computational Linguistics , pages 16–
+23.
+Sreerupa Das, C Lee Giles, and Guo-Zheng Sun. 1992.
+Learning context-free grammars: Capabilities and
+limitations of a recurrent neural network with an ex-
+ternal stack memory. In   Proceedings of The Four-
+teenth Annual Conference of Cognitive Science Soci-
+ety. Indiana University , volume 14.
+Gregoire Deletang, Anian Ruoss, Jordi Grau-Moya, Tim
+Genewein, Li Kevin Wenliang, Elliot Catt, Chris
+Cundy, Marcus Hutter, Shane Legg, Joel Veness, and
+Pedro A Ortega. 2023.   Neural networks and the
+chomsky hierarchy. In   The Eleventh International
+Conference on Learning Representations .
+Ameet Deshpande and Karthik Narasimhan. 2020.
+Guiding attention for self-supervised learning with
+transformers. In   Findings of the Association for Com-
+putational Linguistics: EMNLP 2020 , pages 4676–
+4686.
+Andrew Drozdov, Patrick Verga, Mohit Yadav, Mo-
+hit Iyyer, and Andrew McCallum. 2019. Unsuper-
+vised latent tree induction with deep inside-outside
+recursive auto-encoders. In   Proceedings of the 2019
+Conference of the North American Chapter of the
+Association for Computational Linguistics: Human
+Language Technologies, Volume 1 (Long and Short
+Papers) , pages 1129–1141.
+Brian DuSell and David Chiang. 2022. Learning hierar-
+chical structures with differentiable nondeterministic
+stacks. In   International Conference on Learning Rep-
+resentations .
+Chris Dyer, Adhiguna Kuncoro, Miguel Ballesteros,
+and Noah A. Smith. 2016. Recurrent neural network
+grammars. In   Proceedings of the 2016 Conference
+of the North American Chapter of the Association
+for Computational Linguistics: Human Language
+Technologies , pages 199–209, San Diego, California.
+Association for Computational Linguistics.
+Edward Grefenstette, Karl Moritz Hermann, Mustafa
+Suleyman, and Phil Blunsom. 2015.   Learning to
+transduce with unbounded memory.   Advances in
+neural information processing systems , 28.
+Michael Hahn. 2020. Theoretical Limitations of Self-
+Attention in Neural Sequence Models.   Transactions
+of the Association for Computational Linguistics ,
+8:156–171.
+Marc D. Hauser, Noam Chomsky, and W. Tecumseh
+Fitch. 2002.   The faculty of language:   What is
+it, who has it, and how did it evolve?   Science ,
+298(5598):1569–1579.
+John Hewitt and Christopher D. Manning. 2019.   A
+structural probe for finding syntax in word represen-
+tations. In   Proceedings of the 2019 Conference of
+the North American Chapter of the Association for
+Computational Linguistics: Human Language Tech-
+nologies, Volume 1 (Long and Short Papers) , pages
+4129–4138, Minneapolis, Minnesota. Association for
+Computational Linguistics.
+Jennifer Hu, Jon Gauthier, Peng Qian, Ethan Wilcox,
+and Roger Levy. 2020.   A systematic assessment
+of syntactic generalization in neural language mod-
+els. In   Proceedings of the 58th Annual Meeting of
+the Association for Computational Linguistics , pages
+1725–1744, Online. Association for Computational
+Linguistics. 3242 
+
+=== PAGE 11 ===
+Armand Joulin and Tomas Mikolov. 2015.   Inferring
+algorithmic patterns with stack-augmented recurrent
+nets.   Advances in neural information processing
+systems , 28.
+Yoon Kim, Alexander M Rush, Lei Yu, Adhiguna Kun-
+coro, Chris Dyer, and Gábor Melis. 2019. Unsuper-
+vised recurrent neural network grammars.   In   Pro-
+ceedings of the 2019 Conference of the North Amer-
+ican Chapter of the Association for Computational
+Linguistics: Human Language Technologies, Volume
+1 (Long and Short Papers) , pages 1105–1117.
+Nikita Kitaev, Steven Cao, and Dan Klein. 2019. Multi-
+lingual constituency parsing with self-attention and
+pre-training. In   Proceedings of the 57th Annual Meet-
+ing of the Association for Computational Linguistics ,
+pages 3499–3505.
+Karol   Kurach,   Marcin   Andrychowicz,   and   Ilya
+Sutskever. 2015. Neural random-access machines.
+arXiv preprint arXiv:1511.06392 .
+Yair Lakretz, Théo Desbordes, Dieuwke Hupkes, and
+Stanislas Dehaene. 2022. Can transformers process
+recursive nested constructions, like humans?   In
+Proceedings of the 29th International Conference
+on Computational Linguistics , pages 3226–3232,
+Gyeongju, Republic of Korea. International Com-
+mittee on Computational Linguistics.
+Bingbin Liu, Jordan T. Ash, Surbhi Goel, Akshay Kr-
+ishnamurthy, and Cyril Zhang. 2023. Transformers
+learn shortcuts to automata. In   The Eleventh Interna-
+tional Conference on Learning Representations .
+Christopher D. Manning, Kevin Clark, John Hewitt,
+Urvashi Khandelwal, and Omer Levy. 2020. Emer-
+gent linguistic structure in artificial neural networks
+trained by self-supervision.   Proceedings of the Na-
+tional Academy of Sciences , 117:30046 – 30054.
+Rebecca Marvin and Tal Linzen. 2018. Targeted syn-
+tactic evaluation of language models.   In   Proceed-
+ings of the 2018 Conference on Empirical Methods
+in Natural Language Processing , pages 1192–1202,
+Brussels, Belgium. Association for Computational
+Linguistics.
+Stephen Merity, Caiming Xiong, James Bradbury, and
+Richard Socher. 2017. Pointer sentinel mixture mod-
+els. In   International Conference on Learning Repre-
+sentations .
+Piotr Mirowski and Andreas Vlachos. 2015.   Depen-
+dency recurrent neural language models for sentence
+completion. In   Proceedings of the 53rd Annual Meet-
+ing of the Association for Computational Linguistics
+and the 7th International Joint Conference on Natu-
+ral Language Processing (Volume 2: Short Papers) ,
+pages 511–517.
+Shikhar Murty, Pratyusha Sharma, Jacob Andreas, and
+Christopher D Manning. 2023. Characterizing intrin-
+sic compositionality in transformers with tree projec-
+tions. In   The Eleventh International Conference on
+Learning Representations .
+Hao Peng, Roy Schwartz, and Noah A. Smith. 2019.
+PaLM: A hybrid parser and language model.   In
+Proceedings of the 2019 Conference on Empirical
+Methods in Natural Language Processing and the
+9th International Joint Conference on Natural Lan-
+guage Processing (EMNLP-IJCNLP) , pages 3644–
+3651, Hong Kong, China. Association for Computa-
+tional Linguistics.
+Jorge Perez, Pablo Barcelo, and Javier Marinkovic.
+2021. Attention is turing-complete.   Journal of Ma-
+chine Learning Research , 22(75):1–35.
+Peng Qian, Tahira Naseem, Roger Levy, and Ramón
+Fernandez Astudillo. 2021. Structural guidance for
+transformer language models. In   Proceedings of the
+59th Annual Meeting of the Association for Compu-
+tational Linguistics and the 11th International Joint
+Conference on Natural Language Processing (Vol-
+ume 1: Long Papers) , pages 3735–3745, Online. As-
+sociation for Computational Linguistics.
+Alec Radford, Jeff Wu, Rewon Child, David Luan,
+Dario Amodei, and Ilya Sutskever. 2019. Language
+models are unsupervised multitask learners.
+Laurent Sartran, Samuel Barrett, Adhiguna Kuncoro,
+Miloš Stanojevi´ c, Phil Blunsom, and Chris Dyer.
+2022. Transformer Grammars: Augmenting Trans-
+former Language Models with Syntactic Inductive
+Biases at Scale.   Transactions of the Association for
+Computational Linguistics , 10:1423–1439.
+Yikang Shen, Shawn Tan, Alessandro Sordoni, and
+Aaron Courville. 2019. Ordered neurons: Integrating
+tree structures into recurrent neural networks. In   In-
+ternational Conference on Learning Representations .
+Mitchell Stern, Daniel Fried, and Dan Klein. 2017. Ef-
+fective inference for generative neural parsing. In
+Proceedings of the 2017 Conference on Empirical
+Methods in Natural Language Processing , pages
+1695–1700, Copenhagen, Denmark. Association for
+Computational Linguistics.
+Emma Strubell, Patrick Verga, Daniel Andor, David
+Weiss, and Andrew McCallum. 2018. Linguistically-
+informed self-attention for semantic role labeling.
+In   Proceedings of the 2018 Conference on Empiri-
+cal Methods in Natural Language Processing , pages
+5027–5038, Brussels, Belgium. Association for Com-
+putational Linguistics.
+Mirac Suzgun, Sebastian Gehrmann, Yonatan Belinkov,
+and Stuart M Shieber. 2019.   Memory-augmented
+recurrent neural networks can learn generalized dyck
+languages.   arXiv preprint arXiv:1911.03329 .
+Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob
+Uszkoreit, Llion Jones, Aidan N Gomez, Łukasz
+Kaiser, and Illia Polosukhin. 2017. Attention is all
+you need. In   Advances in Neural Information Pro-
+cessing Systems , volume 30. Curran Associates, Inc. 3243 
+
+=== PAGE 12 ===
+Oriol Vinyals, Łukasz Kaiser, Terry Koo, Slav Petrov,
+Ilya Sutskever, and Geoffrey Hinton. 2015. Gram-
+mar as a foreign language. In   Advances in Neural
+Information Processing Systems , volume 28. Curran
+Associates, Inc.
+Alex Wang, Amanpreet Singh, Julian Michael, Felix
+Hill, Omer Levy, and Samuel R. Bowman. 2019a.
+GLUE: A multi-task benchmark and analysis plat-
+form for natural language understanding. In   Interna-
+tional Conference on Learning Representations .
+Yaushian Wang, Hung-Yi Lee, and Yun-Nung Chen.
+2019b. Tree transformer: Integrating tree structures
+into self-attention. In   Proceedings of the 2019 Con-
+ference on Empirical Methods in Natural Language
+Processing and the 9th International Joint Confer-
+ence on Natural Language Processing (EMNLP-
+IJCNLP) , pages 1061–1070, Hong Kong, China. As-
+sociation for Computational Linguistics.
+Alex Warstadt, Alicia Parrish, Haokun Liu, Anhad Mo-
+hananey, Wei Peng, Sheng-Fu Wang, and Samuel R.
+Bowman. 2020. BLiMP: The benchmark of linguis-
+tic minimal pairs for English.   Transactions of the
+Association for Computational Linguistics , 8:377–
+392.
+Shunyu Yao, Binghui Peng, Christos Papadimitriou,
+and Karthik Narasimhan. 2021. Self-attention net-
+works can process bounded hierarchical languages.
+In   Proceedings of the 59th Annual Meeting of the
+Association for Computational Linguistics and the
+11th International Joint Conference on Natural Lan-
+guage Processing (Volume 1: Long Papers) , pages
+3770–3785, Online. Association for Computational
+Linguistics.
+Shizhuo Dylan Zhang, Curt Tigges, Stella Biderman,
+Maxim Raginsky, and Talia Ringer. 2023. Can trans-
+formers learn to solve problems recursively?   arXiv
+preprint arXiv:2305.14699 . 3244 
+
+=== PAGE 13 ===
+A   Model Hyperparameters
+BLLIP.   All our hyperparameters for BLLIP are
+borrowed from the 16-layer Transformer LM used
+in Sartran et al. (2022). This includes model hy-
+perparameters (hidden state dimension, number of
+attention heads, number of layers), dropout (input
+dropout, output dropout, attention dropout), and
+learning rate schedulers. We train for 300k steps,
+evaluating every 3k steps and early stop based on
+validation set perplexity.
+WikiTrees.   For experiments on WikiTrees, we
+use the same model hyperparameters as GPT2-
+small, and a context window of 512.   We train
+with a batch size of 480, and train till validation
+loss stops decreasing, with a learning rate that lin-
+early warms up from 0 to 6e-4 over 200 iterations,
+followed by a cosine learning rate scheduler. For
+sample efficiency experiments, we add dropout of
+0.2 to prevent overfitting.
+GPT2-medium finetuning.   We use a batch size
+of 256, and a constant learning rate of 3e-5. We
+early stop based on validation set performance, and
+report average of 3 runs. To convert text classifi-
+cation tasks into language modeling, we use the
+following prompts:
+•   RTE:   Premise: {p}. Hypothesis: {h}. Label:
+{l} , given a premise, hypothesis pair ( p , h ) with
+label   l   mapped into {Yes, No}.
+•   MRPC:   Given the sentence pair   ( s 1 , s 2 ) , we
+create a prompt   Sentence1: { s 1 }. Sentence2:
+{ s 2 }. Label: { l }.   where   l   ∈ { 0 ,   1 } .
+•   SST5:   Sentence: {s}. Sentiment: {l}   for an
+input sentence   s   with label   l .
+•   STS-B : Given the sentence pair   ( s 1 , s 2 ) , we
+create a prompt   Sentence1: { s 1 }. Sentence2:
+{ s 2 } , and use the final hidden state to featurize
+a linear regressor, trained jointly with the LM.
+B   Training Pushdown-LM with
+context-windows
+In standard LMs, context windows for training are
+arbitrary offsets into the entire corpora—a window
+might start in the middle of some sentence. Be-
+cause Pushdown-LMs always start with the stack
+state initialized as all 0s and make attachments only
+to stack tape contents, a Pushdown-LM cannot start
+in the middle of a sentence without the stack tape
+appropriately initialized. We get around this by
+simply sampling these context windows to always
+start at sentence boundaries. We also prepend a spe-
+cial token   ROOT   before the start of every sentence
+such that the attachment decision of the final word
+is made to this   ROOT   token.
+C   Parsing with Pushdown-LM.
+Since the BLLIP- LG   trained Pushdown-LM op-
+erates over sub-word tokens, parses produced by
+this model have subwords as leaf nodes. We pro-
+cess this by recursively merging leaf siblings that
+are part of the same word. For instance, given the
+bracketing   (ab, (ra, (ca, dabra))) , we recursively
+merge these to get a single node   abracadabra . This
+procedure deterministically converts the parse over
+subwords into a parse tree over words.
+D   Implementation details: Pseudocode
+for implementing Pushdown Layers
+See Fig. 7 and Fig. 8 for reference implementations
+of Pushdown Layers and the attachment head. 3245 
+
+=== PAGE 14 ===
+1   class   PushdownSelfAttention ( nn . Module ):
+2   ...
+3
+4   def   forward ( self ,   x ,   stack_tape ):
+5   B ,   T ,   C   =   x. size ()
+6   q ,   k ,   v   =   self . c_attn (x). split ( self . n_embd ,   dim =2)
+7
+8   #   (B ,   nh ,   T   ( dest ) ,   hs )
+9   q   =   q. view (B ,   T ,   self . n_head ,   C   //   self . n_head ). transpose (1 ,   2)
+10   #   (B ,   nh ,   T   ( src ) ,   hs )
+11   k   =   k. view (B ,   T ,   self . n_head ,   C   //   self . n_head ). transpose (1 ,   2)
+12   #   (B ,   nh ,   T ,   hs )
+13   v   =   v. view (B ,   T ,   self . n_head ,   C   //   self . n_head ). transpose (1 ,   2)
+14
+15
+16   augmented_keys   =   k. unsqueeze (2)   +   self . beta ( stack_tape . int () ). unsqueeze (1)
+17   augmented_keys   /=   math . sqrt (k. size ( -1) )
+18   #   B   x   nh   x   T   ( dest )   x   T( src )
+19   augmented_att   =   (q. unsqueeze (3)   @   augmented_keys . transpose ( -2 ,   -1) ). squeeze
+↪ →   (3)
+20
+21   att   =   augmented_att . masked_fill ( self . bias [: ,   :,   :T ,   :T]   ==   0,   float (" - inf "))
+22
+23   att   =   F. softmax ( att ,   dim = -1)
+24   att   =   self . attn_dropout ( att )
+25   #   (B ,   nh ,   T ,   T)   x   (B ,   nh ,   T ,   hs )   ->   (B ,   nh ,   T ,   hs )
+26   y   =   att   @   v
+27   #   re - assemble   all   head   outputs   side   by   side
+28   y   =   y. transpose (1 ,   2) . contiguous () . view (B ,   T ,   C)
+29   #   output   projection
+30   y   =   self . resid_dropout ( self . c_proj (y))
+31   return   y
+Figure 7: Python implementation of a Pushdown Layer attention block. 3246 
+
+=== PAGE 15 ===
+1   class   AttachmentHead ( nn . Module ):
+2   ...
+3   def   forward ( self ,   x ,   stack_tape ,   next_word ):
+4   B ,   T ,   C   =   x. size ()
+5
+6   q ,   k   =   self . data_to_qk (x). split ( self . embd_dim ,   dim =2)
+7   #   (B ,   T   ( dest ) ,   hs )
+8   next_word_q   =   self . q_next_word_mlp ( torch . cat ([q ,   next_word ],   dim = -1) )
+9   #   (B ,   T   ( dest ) ,   hs )
+10   next_word_k   =   self . k_next_word_mlp ( torch . cat ([q ,   next_word ],   dim = -1) )
+11   #   (B ,   T   ( dest ) ,   T   ( src ) ,   hs )
+12   k   =   k. unsqueeze (1) . repeat (1 ,   T ,   1,   1)
+13   #   B   x   T   ( dest )   x   T   ( src )   x   hs
+14   depth_embds   =   self . beta ( stack_tape . int () )
+15   k_with_write_info   =   self . key_and_stack_mlp ( torch . cat ([k ,   depth_embds ],   dim
+↪ →   = -1) )
+16
+17   #   first ,   calculate   attention   score   between   query   and   keys
+18   k_with_write_info   /=   math . sqrt (k. size ( -1) )
+19   attach_logits   =   ( next_word_q . unsqueeze (2)   @   k_with_write_info . transpose ( -2 ,
+↪ →   -1) ). squeeze (2)
+20
+21   #   if   no   reduce ,   then   we   compute   score   with   it self
+22   next_word_k   /=   math . sqrt (k. size ( -1) )
+23   logits_ self   =   ( next_word_q . unsqueeze (2)   @   next_word_k . unsqueeze (3) ). squeeze
+↪ →   (2)
+24
+25   #   now   insert   logits_ self   into   the   k +1 th   position   of   attach_logits   for   each   k
+26   pad_tensor   =   torch . zeros ( attach_logits . shape [0] ,   attach_logits . shape [1] ,   1,
+↪ →   device = attach_logits . device )
+27
+28   attach_logits_l   =   torch . cat ([ attach_logits ,   pad_tensor ],   dim = -1)
+29
+30   logits   =   attach_logits_l . scatter (
+31   2,
+32   (1   +   torch . arange (T))
+33   . unsqueeze (0)
+34   . unsqueeze ( -1)
+35   . repeat (B ,   1,   1)
+36   . to ( attach_logits_l . device ) ,
+37   logits_ self ,
+38   )
+39
+40   #   B   x   T   x   T +1.   =>   B   x   T +1   x   T +1   by   padding   the   first   row   with   zeros
+41   logits   =   torch . cat (
+42   [
+43   torch . zeros (
+44   logits . shape [0] ,
+45   1,
+46   logits . shape [2] ,
+47   device = logits . device ,
+48   ) ,
+49   logits ,
+50   ],
+51   dim =1 ,
+52   )
+53
+54   #   set   upper   triangular   part   to   - inf
+55   logits   =   logits . masked_fill ( self . bias [: ,: T +1 ,   :T +1]   ==   0,   float (" - inf "))
+56   return   logits [: ,   1:]
+Figure 8: Python implementation of the Attachment head in Pushdown Transformers. 3247 

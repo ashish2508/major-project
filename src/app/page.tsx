@@ -103,8 +103,9 @@ export default function Home() {
   }, [active, result]);
   const reviewingLead = active === -1;
   const chosen = reviewingLead ? result?.semanticReviewLead : result?.detections[active];
-  const selectedSource =
-    result?.sources.find((s) => s.reference === chosen?.sourceReference) ?? result?.sources[0];
+  const selectedSource = chosen
+    ? result?.sources.find((s) => s.reference === chosen.sourceReference)
+    : result?.sources[0];
   const config = status?.configs?.[method];
   async function submit(event: FormEvent) {
     event.preventDefault();
@@ -578,7 +579,11 @@ export default function Home() {
                 >
                   <HighlightedText
                     text={result.query.text}
-                    span={chosen?.suspiciousSpan}
+                    span={
+                      selectedSource && chosen?.suspiciousReference === result.query.reference
+                        ? chosen.suspiciousSpan
+                        : undefined
+                    }
                     review={reviewingLead}
                   />
                 </pre>
@@ -596,7 +601,11 @@ export default function Home() {
                   >
                     <HighlightedText
                       text={selectedSource.text}
-                      span={chosen?.sourceSpan}
+                      span={
+                        chosen?.suspiciousReference === result.query.reference
+                          ? chosen.sourceSpan
+                          : undefined
+                      }
                       review={reviewingLead}
                     />
                   </pre>

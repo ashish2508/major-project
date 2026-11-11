@@ -1,0 +1,592 @@
+                                      Transformers in the loop:
+                                Polarity in neural models of language
+
+                        Lisa Bylinina∗                                  Alexey Tikhonov∗
+                    Bookarang, Amsterdam                        Yandex Technologies GmbH, Berlin
+                   bylinina@gmail.com                               altsoph@gmail.com
+
+
+
+                         Abstract                              humans, and ‘theoretical’ and ‘perceived’ versions
+                                                               of the same phenomenon can be significantly dif-
+    Representation of linguistic phenomena in com-             ferent (for instance, see Geurts 2003 on inference
+    putational language models is typically as-                judgments; discussed in Section 2). If this is some-
+    sessed against the predictions of existing lin-
+                                                               thing that LRMs inherit through training on human-
+    guistic theories of these phenomena. Using the
+    notion of polarity as a case study, we show that           produced texts, this makes LRMs an attractive pos-
+    this is not always the most adequate set-up. We            sible component in an experimental pipeline, serv-
+    probe polarity via so-called ‘negative polarity            ing as a source of empirical predictions about hu-
+    items’ (in particular, English any) in two pre-            man linguistic behaviour (Baroni, 2021; Linzen
+    trained Transformer-based models (BERT and                 and Baroni, 2021).
+    GPT-2). We show that – at least for polarity –
+                                                                  As a case study, we focus on polarity: a com-
+    metrics derived from language models are more
+    consistent with data from psycholinguistic ex-             plex property of sentences at the intersection of
+    periments than linguistic theory predictions.              grammar and semantics. We tackle polarity via
+    Establishing this allows us to more adequately             the distribution of items that are sensitive to it –
+    evaluate the performance of language models                namely, so-called negative polarity items (NPIs)
+    and also to use language models to discover                like English any. As a basic illustration of NPI
+    new insights into natural language grammar                 sensitivity to polarity, consider a pair of sentences
+    beyond existing linguistic theories. This work
+                                                               in (1) (* = ungrammaticality):
+    contributes to establishing closer ties between
+    psycholinguistic experiments and experiments               (1)    a. Mary didn’t buy any books.
+    with language models.                                             b. *Mary bought any books.
+
+1   Introduction                                               (1-a) is a negative sentence (has negative polarity),
+                                                               and any is grammatical in it. (1-b) is an affirma-
+Recent Transformer-based language representation               tive sentence (has positive polarity) and any in this
+models (LRMs) – such as BERT and GPT-2 (De-                    sentence is grammatically degraded compared to
+vlin et al., 2019; Radford et al., 2019) – show im-            (1-a). Apart from this paradigmatic contrast, as we
+pressive results on practical text analysis tasks. But         discuss below, polarity contrasts are expressed in a
+do these models have access to complex linguistic              variety of ways and are tied to semantics.
+notions? The results in this domain are less clear –              As a proxy for a grammaticality measure, we
+as well as ways to best approach this question.                will use the probability of any in the masked to-
+   Instead of asking whether LRMs encode frag-                 ken position (in BERT) (following Goldberg 2019;
+ments of current linguistic theory, we will directly           Warstadt et al. 2019 a.o.) and perplexity increase
+compare metrics derived from LRMs to correspond-               when adding any to a sentence (in GPT-2). The
+ing human judgments obtained in psycholinguistic               differences in the metrics for the two different mod-
+experiments. The motivation for this is twofold.               els stem from the differences in their architecture
+First, linguistic theories can be inaccurate – so,             and training objectives. For all experiments, we
+evaluating a model with respect to predictions of              use non-fine-tuned pre-trained LRMs. For this, we
+such theories is not informative about the model               introduce our ANY dataset, which combines natural
+performance. Second, robust abstract theoretical               and synthetic data.
+notions rarely correspond to robust judgments in
+                                                                  We find high levels of alignment between results
+    ∗
+        Equal contribution. Accepted to ACL main conference.   of psycholinguistic experiments on monotonicity
+and NPIs, on the one hand – and our LRM-derived                  d. *Many people had any thoughts
+results, on the other hand. Furthermore, show how       The notion of polarity at play here relates to a se-
+LRMs can be used to make new predictions about          mantic notion of monotonicity.1
+NPIs in contexts with different numerals and con-          The notion of monotonicity builds on logical en-
+firm these predictions in a psycholinguistic experi-    tailment. Monotonicity of a linguistic environment
+ment.                                                   defines its entailment patterns. In (4), the domain
+   This case study contributes to the complement        in square brackets is upward-entailing (UE), or
+of the ‘interpretability of neural LRMs’ research       upward-monotone, – as evidenced by the valid in-
+agenda: we can ask not only what linguistic tasks       ference from sets (textbooks) to supersets (books):
+tell us about LRMs, but also what these models can      sentence (4-b) entails sentence (4-a).
+help us find out about natural language (see Baroni
+2021; Linzen and Baroni 2021 for a discussion           (4)      a.    Some boxes [ contain books ]↑
+along these lines).                                              b.    Some boxes [ contain textbooks ]↑
+   The paper is structured as follows. First, in sec-   In contrast, (5) shows a downward-entailing (DE),
+tion 2, we set up the context for our study: we         or downward-monotone, environment, which sup-
+describe the background in theoretical and experi-      ports inferences from sets (books) to subsets (text-
+mental linguistics in the domains relevant for our      books): (5-a) entails (5-b).
+discussion. Section 3 discusses previous work on        (5)      a.    No boxes [ contain books ]↓
+NPIs and polarity in computational linguistics. Sec-             b.    No boxes [ contain textbooks ]↓
+tion 4 contains the description of our experimen-
+                                                        Not all environments are either UE or DE – some
+tal method. First, we introduce our ANY dataset;
+                                                        are non-monotone, that is, supporting neither of
+then, we describe the tests and metrics we use with
+                                                        the inferences:
+BERT and with GPT-2 given our dataset. Section
+5 discusses our results. In section 6, we go be-        (6)      a.    Exactly 5 boxes [ contain books ]−
+yond state-of-the-art knowledge in experimental                  b.    Exactly 5 boxes [ contain textbooks ]−
+semantics and pragmatics and study the effect of        Expressions responsible for monotonicity of a lin-
+the numeral on NPI acceptability – first, we do a       guistic context are a heterogeneous class that in-
+BERT study and then confirm the results on hu-          cludes sentential operators such as negation and
+man participants. Section 7 concludes: we propose       conditional if; quantifiers (some, no, few, at most
+directions for future work aligning experimental        five etc.); quantificational adverbs (rarely, always
+studies of language in humans and LRMs.                 etc.) and more.
+                                                           Monotonicity is a highly abstract logical prop-
+2     Background
+                                                        erty interfacing with general reasoning. At the
+NPIs are expressions with limited linguistic distri-    same time, it is deeply embedded into natural lan-
+bution. While their use is grammatical in some          guage grammar and it is relevant for understanding
+sentences, in other sentences their use results in      of inner workings of different linguistic expres-
+ungrammaticality. The distribution of NPIs like         sions, such as NPIs.
+any is governed by the notion of polarity that is          As shown by examples (1)-(3), DE contexts give
+much more intricate than the simple presence or         rise to negative polarity, as seen from NPI accept-
+absence of sentential negation, as in (1).              ability; UE contexts are positive. There is conflict-
+   For instance, in examples (2)-(3), (2) are ‘neg-     ing evidence concerning non-monotone contexts
+ative enough’ to allow for (=‘license’) any, while      (Crnič, 2014; Alexandropoulou et al., 2020).
+(3) are not – even though none of these sentences          The connection between monotonicity and NPI
+contain overt sentential negation.                      licensing is undeniable also beyond examples (1)-
+(2)     a.   None of the boxes contain anything.        (3) (see Fauconnier 1975; Ladusaw 1979 and much
+        b.   Nobody talked to anybody.                      1
+                                                              This is a simplification. This is true of so-called ‘weak
+        c.   At most five students did anything.        NPIs’ – a subclass of NPIs to which any belongs. We will
+                                                        keep referring to them simply as NPIs since we are only dis-
+        d.   Few people had any thoughts                cussing weak ones. There are also other factors in weak NPI
+(3)     a. *Some of the boxes contain anything.         distribution apart from monotonicity (see Giannakidou 1998;
+                                                        Barker 2018). Still, we focus on monotonicity as a crucial
+        b. *Somebody talked to anybody.                 factor in NPI acceptability, following evidence discussed in
+        c. *At least 5 students did anything.           the rest of the section.
+                 Logical monotonicity                                    Subjective monotonicity
+    NEG >> AFF;    AT MOST > AT LEAST                            NEG > AT MOST ;   NO > FEW
+    NO >> SOME ;   AT MOST > BETWEEN / EXACTLY                   NEG > FEW ;       NO > FEWER
+    FEW > MANY ;   FEW > BETWEEN / EXACTLY                       NEG > FEWER ;     FEWER > AT MOST
+    FEWER > MORE; FEWER > BETWEEN / EXACTLY                      NO > AT MOST ;    EXACTLY > BETWEEN
+
+Table 1: Graded monotonicity: summary of psycholinguistic experimental results (Geurts, 2003; Sanford et al.,
+2007; Chemla et al., 2011; McNabb et al., 2016; Denić et al., 2020). The order in pairs represents that the first
+element is judged as a better NPI licenser than the second one or that it better supports DE inferences (or both).
+That is, ‘NEG >> AFF’ reads as ‘Sentences with sentential negation show much higher level of NPI acceptability
+or support DE inferences more than simple affirmative sentences.’. The ‘Logical monotonicity’ side of the table
+groups together all relations expected under the logical view of monotonicity; ‘Subjective monotonicity’ contains
+additional asymmetries found experimentally that do not follow from the simple logical view.
+
+
+subsequent literature). Experimental evidence             test dataset (Marvin and Linzen, 2018; Hu et al.,
+shows a bi-directional connection between infer-          2020), and as the main object of study (Jumelet
+ence judgments in a context and NPI acceptability         and Hupkes, 2018; Warstadt et al., 2019; Jumelet
+in that context. Chemla et al. (2011) found that the      et al., 2021; Weber et al., 2021). Here we focus
+inferences a person considers valid in a given lin-       on (Warstadt et al., 2019) as a representative case,
+guistic context predict how acceptable they would         as it shares with other previous studies its general
+find an NPI in that same context. Conversely, Denić      set-up: assessment of LRMs against predictions of
+et al. (2020) show that inferential judgments are         linguistic theory.
+modified by the presence of an NPI. So, the two              Warstadt et al. (2019) focus on NPIs in BERT.
+phenomena show clear mutual influence.                    Using a variety of testing techniques, both zero-
+   Importantly, both monotonicity and NPI accept-         shot and with fine-tuning, they conclude that
+ability in humans is not an all-or-nothing matter.        BERT’s ability to recognize NPI licensing envi-
+Acceptance of logically valid inferences and re-          ronments and, therefore, to tell licit uses of NPIs
+jection of invalid ones varies to some extent from        from illicit ones varies a lot depending on the type
+person to person – and from context to context            of context, scope configuration and the type of ex-
+(Geurts, 2003; Sanford et al., 2007; Chemla et al.,       perimental setting.
+2011; McNabb et al., 2016; Denić et al., 2020).             This might lead one to conclude that BERT’s
+   Chemla et al. (2011) report that logically DE          ability to recognize polarity of a sentence is not
+sentences with no are perceived as DE by human            so great across the board. Indeed, reports from
+participants only 72% of the time. At most – also         other tasks that involve polarity and/or monotonic-
+logically a DE environment – is only recognized as        ity seem to support this. In particular, natural
+such 56% of the time. Moreover, less than and at          language inference has been reported to be hard
+most – truth-conditionally equivalent environments        for LRMs (Yanaka et al., 2019a,b; Talmor et al.,
+– differ in DE inference endorsement by 11%. The          2020; Geiger et al., 2020). Remarkably, Geiger
+best predictor of NPI acceptability by humans was         et al. (2020) report that fine-tuning BERT on the
+found to be not the logical entailment pattern but        SNLI dataset and then evaluating it on DE sen-
+the subjective, or perceived, one (Chemla et al.,         tences (their NMoNLI dataset) results in 2.2% ac-
+2011; Denić et al., 2020).                               curacy – that is, the model practically ignores the
+   There is no single overarching psycholinguistic        monotonicity profile of the sentence. But is alleged
+study testing the whole landscape of contexts. Com-       poor polarity detection to blame here?
+bined knowledge from an array of studies (Geurts,            Importantly for our study, Warstadt et al. (2019)
+2003; Sanford et al., 2007; Chemla et al., 2011;          judge BERT’s recognition of NPI acceptability
+McNabb et al., 2016; Denić et al., 2020) produces        against logical monotonicity rather than subjective
+the picture summarized in Table 1.                        monotonicity as uncovered by psycholinguistic ex-
+                                                          periments. So, we believe that these results deserve
+3     Previous work
+                                                          a second look.
+NPIs have been a topic of an investigation in the            One of the measuring techniques in Warstadt
+context of LRMs, both as a subset of a more general       et al. (2019) is very close to one of the two tech-
+niques we will adopt in this paper. It is a version of
+                                                               The first set was modified to substitute the negated
+Cloze Test adapted for MLM, where probabilities
+                                                               verb by its non-negated version, so we contrast
+of candidates for the masked position are compared.
+                                                               3844 sentences with negation and 3844 affirmative
+We discuss the set-up in section 4.
+                                                               ones (NEG vs. AFF). In the second dataset, we
+   Finally, the idea of targeted LRM evaluations
+                                                               substituted nobody for somebody and no one for
+modeled after psycholinguistic experiments is be-
+                                                               someone, to check the SOME vs. NO contrast.
+ing used in an increasing number of recent studies,
+albeit mainly in the domains of syntax and lexical             4.1.2    Synthetic data
+semantics (Gulordava et al., 2018; Linzen et al.,              We used the following procedure. First, we auto-
+2016; Marvin and Linzen, 2018; Wilcox et al.,                  matically identified the set of verbs and nouns to
+2018; Chowdhury and Zamparelli, 2018; Futrell                  build our items from. To do so, we started with
+et al., 2019; Nair et al., 2020; Abdou et al., 2020;           bert-base-uncased4 vocabulary. Taking its
+Ettinger, 2020).                                               non-subword lexical tokens is an easy way to get
+   We move on to describing our dataset, procedure             a list of simple and common words. We ran this
+and results.                                                   list through a SpaCy POS tagger5 . Further, we lem-
+                                                               matized the result using pattern6 and dropped
+4     Method                                                   duplicates. Then, we filtered out modal verbs, sin-
+We perform two types of tests using the dataset that           gularia tantum nouns and some visible lemmatiza-
+we produce for this purpose. One experiment is                 tion mistakes. Finally, we filtered out non-transitive
+done with BERT, the other one with GPT-2. Both                 verbs to give the dataset a bit of a higher baseline
+experiments are performed in a zero-shot setting –             of grammaticality.7
+using the pre-trained models without fine-tuning.                 We kept top 100 nouns and top 100 verbs from
+The goal of these experiments is to test the contrasts         the resulting lists – these are the lexical entries we
+between types of sentences described in Table 1.               will deal with. Then, we generated sentences with
+We will do this by comparing the relevant pairs of             these words, using the following pattern:
+contexts along LRM-derived metrics that are meant                    A(n) nounx verb.PST.SG a(n) nouny 8
+to capture grammaticality / acceptability.
+                                                               For this, we iterate over the 100 nouns in the subject
+   First, we describe the dataset; then we explain
+                                                               and the object positions (excluding cases where the
+the experiment procedure for BERT and GPT-2;
+                                                               same noun appears in both positions) and over the
+finally, we report and discuss the results.
+                                                               100 verbs. The procedure gave us 990k sentences
+4.1     The ANY dataset2                                       like these:
+
+Our dataset consists of two parts: one with natural            (7)      a.    A girl crossed a road.
+and one with synthetic data.                                            b.    A community hosted a game.
+                                                                        c.    A record put an air.
+4.1.1    Natural data                                          Some are more natural, make more sense and ad-
+We scraped the Gutenberg Project and a subset of               here to the verb’s selectional restrictions better than
+English Wikipedia to obtain the list of sentences              the others. To control for this, we ran the sentences
+that contain any. Next, using a combination of                 through GPT-29 and assigned perplexity to all can-
+heuristics3 , we filtered the result with regular ex-          didates. Then we took the bottom 20k of the sen-
+pressions to produce two sets of sentences (the                tences (≈ the most ‘natural’ ones) as the core of
+second set underwent additional manual filtering):             our synthetic dataset.
+                                                                  4
+    • 3844 sentences with sentential negation and a                  https://huggingface.co/
+      plural object with any to the right to the verb;         bert-base-uncased
+                                                                   5
+                                                                     https://github.com/explosion/
+                                                               spacy-models
+    • 330 sentences with nobody / no one as subject                6
+                                                                     https://pypi.org/project/Pattern/
+      and a plural object with any to the right.                   7
+                                                                     Our procedure was equivalent to that in github.com/
+                                                               Mirith/Verb-categorizer
+   2                                                               8
+     The data are available at https://github.com/                   We use the singular indefinite object for this part of the
+altsoph/Transformers-in-the-loop                               procedure to avoid idiomatic verb phrases (change hands, join
+   3                                                           forces) at the top of the list.
+     The script that can be used to reproduce the filtering
+                                                                   9
+procedure is available in the project repository, see fn. 2.         https://huggingface.co/gpt2
+   We tried to approximate the ‘naturalness’ of ex-        the differences in their architecture and training
+amples by a combination of measures. We rely               objectives.
+on insights from different models (GPT-2, BERT,
+corpus-based statistical insights into verb transitiv-     4.2   BERT: Cloze Test
+ity) on different stages of the dataset creation. Still,   The Cloze Test on BERT is very similar to that
+some sentences sound intuitively ‘weird’. We do            described in (Warstadt et al., 2019). In each of
+not see this as a problem though – we will not rely        the sentences in the dataset, we mask any and ask
+directly on the naturalness of individual examples,        BERT for predictions for the masked position:
+rather we will measure the effect of the NPI across
+                                                           [CLS] Few girls crossed [MASK] roads . [SEP]
+the dataset (as is common practice when working
+with synthetic data – see, for example, Geiger et al.      We extract the probability that BERT assigns to
+2020, 2021). The amount of the examples will               any in the masked position, as well as the rank of
+allow us to generalize across varying parts of the         any in BERT vocabulary sorted by the probability
+sentences to make sure that the results can be at-         in the masked position.
+tributed to the parts we are interested in: items             Further, we compare these values between con-
+responsible for the polarity of the sentence. The          ditions (= different types of contexts). The compar-
+quantity of test items is crucial for reproducing psy-     ison between a pair of conditions will be expressed
+cholinguistic experiments on LRMs – while in the           as the percentage of sentences in our dataset where
+former one sentence gives rise to a number of ob-          any got a higher probability in the first condition
+servations when different human participants make          compared to the probability of any in the corre-
+a judgment, in the latter one test sentence gives one      sponding sentence in the second condition. The
+observation only.                                          same for the rank of any instead of probability. For
+   With this in mind, we use the 20k sentences             example, ⟨AFF : NEG⟩ : 0.12% reads as: in 0.12%
+produced by the previous steps to build the parts          of the dataset, any got a higher probability (or a
+of our synthetic dataset. Each of the sentences            higher rank) in an affirmative sentence compared
+has a pluralized (not singular anymore!) object in         to the corresponding sentence with negation. In-
+combination with any: any roads. The subject               tuitively: that most of the time, a sentence with
+type varies in different datasets comprising our           negation makes a better environment for any than
+synthetic data. Here is what we end up with:               the minimally different affirmative sentence.
+
+      • 12 datasets 20k sentences each:                    4.3   GPT-2: Perplexity difference
+        AFF (8-a); NEG (8-b); SOME (8-c); NO ;
+                                                           In this test, for each sentence in the dataset, we
+        MANY ; FEW ; MORE THAN 5; FEWER THAN
+                                                           calculate perplexity of this sentence (9-a) according
+        5; AT LEAST 5; AT MOST 5; EXACTLY 5;
+                                                           to the GPT-2 model – and perplexity of that same
+        BETWEEN 5 AND 10;
+                                                           sentence with any deleted (9-b):
+      • 2 datasets 8230 sentences each:                    (9)    a.    Few girls crossed any roads.
+        SOMEBODY / SOMEONE / SOMETHING (8-d);                     b.    Few girls crossed roads.
+        NOBODY / NO ONE / NOTHING (replacing the           We take the difference between these perplexity
+        whole subject, duplicates deleted)                 values normalized by the number of tokens as our
+                                                           measure of how much the presence of any affects
+(8)      a.   A girl crossed any roads.                    the ‘naturalness’ of each particular sentence.
+         b.   A girl didn’t cross any roads.                  As before, we compare these values for differ-
+         c.   Some girls crossed any roads.                ent conditions. For example, ⟨AFF : NEG⟩ : 0.25%
+         d.   Somebody crossed any roads.                  reads as: in 0.25% of sentences, the presence of
+Overall, sentences in all parts of our dataset vary        any leads to a smaller increase in perplexity for the
+in the type of context it instantiates (simple affir-      affirmative sentence, compared to the analogous
+mative, negation, different quantifiers) – but all         negative sentence. That is, most of the time the
+sentences contain any in the object position in com-       presence of any worsens affirmative sentences a lot,
+bination with a plural noun.                               while the corresponding negative one – less so.
+   The next two subsections explain the metrics de-           This is the closest possible LM analogue of the
+rived from the two model we study, stemming from           acceptability judgment experiments like (Alexan-
+        (a) BERT-prob comparison across conditions           (b) GPT-PPL-diff comparison across conditions
+
+                                        Figure 1: LRM experiment results
+
+
+dropoulou et al., 2020), which measure the differ-       judgments seen in psycholinguistic experiments.
+ences between acceptability scores with and with-           Establishing this, first of all, helps us make more
+out any for different types of contexts.                 sense of the metrics derived from such models and
+                                                         helps draw a more accurate line between noise
+5   Results of model evaluation                          and meaningful output. Second, it encourages a
+                                                         closer tie between experiments with humans and
+We will discuss results from BERT and GPT-2 to-          with LRMs: LRMs encode a snapshot of numerous
+gether, because they mostly agree.                       subjective linguistic intuitions, and maybe we can
+   One general result that allows us to limit our at-    use LRMs to get indirect access to speakers’ shared
+tention to one of the two BERT metrics is that           intuitions as a source of new theoretically relevant
+BERT rank and BERT probability produce the               linguistic generalisations. The next section is a
+same order on all condition pairs of interest ex-        pilot attempt in this direction. We establish a new
+cept for one (⟨AT MOST, AT LEAST⟩) and we will           generalization looking at LRM data – and then
+only discuss BERT probabilities in this section.         confirm it in a psycholinguistic experiment.
+   The 20k synthetic data results are summarized
+in Fig. 1. The conditions in the 20k results are
+                                                         6    Next step: Cardinality dependency
+sorted for readability. 8k synthetic data results:
+⟨NO -, SOME -⟩: 99.76% (BERT-prob); 99.56%               For the conditions which involve numerals we left
+(GPT-PPL-diff).                                          one parameter unexplored so far, namely, the nu-
+   In short, all predictions based on psycholin-         meral itself. In this section, we look at the depen-
+guistic evidence discussed in section 2 (Table 1)        dency between NPI acceptability and the numeral.
+are confirmed by our LRM data.                              There is no experimental data on this. Theoret-
+   As a sanity check, we compare these results with      ical literature tentatively suggests that the higher
+the results of the same procedure on our natural         the numeral, the less acceptable an NPI in its scope
+dataset, and they are very similar: ⟨NEG , AFF⟩:         (Crnič, 2014):
+97.21% (BERT-prob), 97.17% (GPT-PPL-diff);
+⟨NO -, SOME -⟩: 98.29% (BERT-prob), 96.98%               (10)      Exactly two of the boxes contain anything
+                                                         (11)      ?? Exactly 98 of the boxes contain anything
+(GPT-PPL-diff).
+   The take home message from these results is that      However, the judgments are subtle and theoretical
+LRMs can tell between negative and positive              discussion still waits for an empirical basis. Let us
+polarity, as well as between different types of          look at our conditions with numerals (apart from
+contexts by their monotonicity, as measured by           BETWEEN – we set it aside as too complicated). For
+NPI acceptability. Moreover, what is encoded is          each of the conditions, we keep everything constant
+a subjective version of the relevant property, sim-      apart from the numeral and check the effect the
+ilar to what is reflected in graded non-categorical      numeral has on NPI acceptability.
+6.1   As seen in LRMs                                         The participants saw pairs of sentences and were
+We looked at numerals with these numeric values:           instructed to pick the one that is more grammatical.
+[2 − 20, 30, 40, 50, 60, 70, 80, 90]. As before, we        The study has a 2x2 design with these factors:
+made pair-wise comparisons between sentences in               • NUMERAL: five vs. seventy
+our synthetic dataset that differ only in the numeral         • QUANTIFIER: at least vs. more than
+it contains. The measures are the same as before.          This gives six forced-choice test conditions:
+   Both models show an upward trend: the higher
+the numeral, the worse the context becomes for any.                     at least five vs. at least seventy
+This tendency is shown on Fig. 2.                                        at least five vs. more than five
+   The lines show comparison between sentence                         at least five vs. more than seventy
+pairs in which the second one has a numeral higher                    at least seventy vs. more than five
+than the one in the first sentence by n, where n is                 at least seventy vs. more than seventy
+plotted on the x axis (so, 10 on the x axis comprises               more than five vs. more than seventy
+all pairs that differ by 10 – ⟨2, 12⟩,⟨3, 13⟩...). On y,   These prefixes were used to generate pairs of sen-
+we show the percentage of pairs in which the first         tences using patterns from the 20k synthetic dataset.
+sentence showed higher probability of any than the         We randomly selected 50 out of the 20k patterns,
+second one.                                                which results in 2500 pattern pairs. With 6 test
+                                                           conditions, this amounts to 15k unique test items.
+                                                               We used Toloka to recruit self-reported native
+                                                           speakers of English for this experiment.10 They
+                                                           were allowed to complete the full task after they
+                                                           passed a test with 10 control items with 7 or more
+                                                           correctly identified grammatical sentences.
+                                                               In the main part of the task, each participant saw
+                                                           38 pairs of sentences: 22 were filler/control items
+                                                           and 16 test items. All participants saw the same
+                                                           filler/control items (random order), test items were
+                                                           taken from the pool of 15k test items in random
+                                                           order and evaluated with no overlap.
+                                                               In total, 968 participants were recruited. We
+       Figure 2: The effect of numeral on any.             filtered out the data from those who gave wrong
+                                                           answers to more than 30% of the filter/control items
+The effect of the numeral on the NPI acceptabil-           in the main part of the task. We were left with 656
+ity can be sometimes quite strong: to the point            participants (= 10496 test items; more than a 2/3
+of flipping the ‘better NPI licenser’ relation in a        of our pool of test items). Fig. 3 shows the results
+pair of contexts. For example, this is the case for        of the experiment. We used the binomial test to
+AT LEAST and MORE THAN in BERT. They have                  analyze the data. The boxes in the plot show the
+the same logical monotonicity profile (both UE).           95% confidence interval.
+However, we can find a pair of numerals such that          Result #1: The effect of the numeral is confirmed
+flipping them orders the resulting contexts differ-        both within and across the two types of contexts
+ently:                                                     (lines 1, 6, 9 and 10 in Fig. 3). Result #2: AT
+       AT LEAST 2 > MORE THAN 70: 94%                      LEAST and MORE THAN are not ordered with re-
+       MORE THAN 2 > AT LEAST 70: 68%                      spect to each other (lines 7 and 8). It is possible
+                                                           to find a particular numeral where the difference
+Let us check the effect of numeral on humans, as
+                                                           reaches significance (line 2), but overall there is
+well as a licensing flip due to the numeral.
+                                                           no clear order. Result #3: Our data do not show a
+6.2   In humans                                            statistically significant flip between contexts with
+                                                           different numeral values. Even though one side of
+For the ease of comparison between our LRM ex-
+                                                           the flip is there (line 3), the flip of this pair did not
+periment data in the previous section and the ex-
+                                                           reach significance (line 5).
+periment on human participants, we formulate the
+                                                             10
+latter as a forced-choice task.                                   https://toloka.ai/ready-to-go/
+                                                         for example, eye-tracking or reaction times in self-
+                                                         paced reading studies – that is, studies that tell us
+                                                         which parts of input are important in processing?
+                                                         One obvious LRM-based candidate is attention.
+                                                            We took a preliminary look at BERT attention
+                                                         distribution in sentences with any in an attempt to
+                                                         identify the attention head that contributes most to
+                                                         monotonicity-via-NPIs (see Voita et al. 2019 for
+                                                         a discussion of attention head specialization). To
+                                                         factor out linear position, we focused on the natural
+                                                         part of our dataset. We took the sentences that con-
+                                                         tained both a quantifier with a clear monotonicity
+                                                         profile (somebody, nobody, someone etc.) and any;
+                                                         calculated attention from any to the quantifier for
+                                                         every layer and every attention head and averaged
+    Figure 3: Human judgments of any-acceptability       it across sentences. Then we sorted the results and
+                                                         went through the top of the resulting list.
+                                                            We found that the attention head (6,2) of
+Conclusion: The results are generally in line with
+                                                         bert-base-uncased model – 6th layer, at-
+the trend observed in section 6: the higher the nu-
+                                                         tention head 2 – seems to specialize in precisely
+meral, the worse the context gets for an NPI. This
+                                                         what we are looking for. Saliency maps below
+is the first experimental confirmation of this effect,
+                                                         show that in a variety of contexts beyond the
+to the best of our knowledge. It is noteworthy that
+                                                         ones we checked for the purposes of this paper,
+we first found it via LRM – and then confirmed it
+                                                         monotonicity-affecting items are highlighted – but-
+with human participants.
+                                                         tressing the hypothesis that monotonicity is impor-
+   A more specific result of this effect – what we
+                                                         tant for NPI licensing (without, do-support in a
+call a ‘flip’ – is seen in our data as a tendency, but
+                                                         question, if, lexical negation):
+the effect did not reach significance. It could be an
+LRM artifact – or the lack of it could be an artifact     [CLS]      it   felt    odd   without       any     wards      on     it    .       [SEP]
+of our experiment. A different choice of numerals
+                                                          [CLS]      do   you    have   any       brothers     or       sisters       ?       [SEP]
+or a higher number of participants could sharpen
+these results. We leave this for future work.             [CLS]      if   there    ’    d    been    any    babies       present          ,     he    ’
+
+                                                         d    have   been   un     ##sto      ##ppa    ##ble       .    [SEP]
+7    Discussion and outlook
+                                                          [CLS]      we   are    unable      to     identify      any    others           who    knew
+
+Our experiments provide solid support for an ap-         of    the   scheme      at    the    time    it    was     being     considered              .
+
+proach under which LRM performance is com-               [SEP]
+
+pared directly to psycholinguistic data rather than
+to predictions of a linguistic theory. This opens        Additionally, this attention head reflects the role of
+up prospects for research that will result in a more     the numeral in NPI licensing that we established
+empirically grounded picture of where the limits of      in section 6: in all contexts with numerals that
+LRM abilities lie.                                       we looked at, a lot of attention goes from any to
+   Our results tell us something new about LRMs          both the quantifier (say, exactly) and the numeral
+but also suggest that LRMs can be included in the        that comes with it. Moreover, the higher the nu-
+experimental loop of theoretical semantics along-        meral, the more attention goes to it, compared to
+side with traditional experiments. To pilot this idea,   the amount of attention that goes to the quantifier:
+we conducted an experiment on the effect of the           [CLS]      exactly     two    games       told    any    stories        .       [SEP]
+numeral on NPI acceptability. We confirmed our
+                                                             [CLS]   exactly      ninety     games     told       any    stories          .     [SEP]
+LRM findings in a parallel psycholinguistic study.
+   In this paper, we only explore the connection         More work is needed to verify and interpret these
+between behavioral experiments and LRM-derived           patterns systematically and compare them to other
+metrics. What about online measures in psycholin-        attribution measures and to online metrics in psy-
+guistic studies? Can we find a usable analogue to,       cholinguistic studies.
+Acknowledgements                                           Richard Futrell, Ethan Wilcox, Takashi Morita, Peng
+                                                             Qian, Miguel Ballesteros, and Roger Levy. 2019.
+We thank the anonymous ARR reviewers; the audi-              Neural language models as psycholinguistic subjects:
+ence and organizers of the CNRS Seminar on the               Representations of syntactic state. In Proceedings of
+Interactions between Formal and Computational                the 2019 Conference of the North American Chap-
+                                                             ter of the Association for Computational Linguistics:
+Linguistics; Toloka team for the help with the hu-           Human Language Technologies, Volume 1 (Long and
+man assessment study. We also thank Alexandre                Short Papers), pages 32–42.
+Cremers, Ekaterina Garmash, Borislav Kozlovskii,
+                                                           Atticus Geiger, Hanson Lu, Thomas Icard, and Christo-
+Rick Nouwen, and Denis Paperno for the discus-               pher Potts. 2021. Causal abstractions of neural net-
+sions of our ideas and earlier versions of the paper.        works. arXiv preprint arXiv:2106.02997.
+                                                           Atticus Geiger, Kyle Richardson, and Christopher Potts.
+                                                             2020. Neural natural language inference models par-
+References                                                   tially embed theories of lexical entailment and nega-
+Mostafa Abdou, Vinit Ravishankar, Maria Barrett,             tion. In Proceedings of the Third BlackboxNLP Work-
+ Yonatan Belinkov, Desmond Elliott, and Anders Sø-           shop on Analyzing and Interpreting Neural Networks
+ gaard. 2020. The sensitivity of language models             for NLP, pages 163–173.
+ and humans to Winograd schema perturbations. In
+ Proceedings of the 58th Annual Meeting of the Asso-       Bart Geurts. 2003. Reasoning with quantifiers. Cogni-
+ ciation for Computational Linguistics, pages 7590–          tion, 86(3):223–251.
+ 7604.                                                     Anastasia Giannakidou. 1998. Polarity sensitivity as
+                                                             (non) veridical dependency, volume 23. John Ben-
+Stavroula Alexandropoulou, Lisa Bylinina, and Rick
+                                                             jamins Publishing.
+   Nouwen. 2020. Is there ‘any’ licensing in non-DE
+   contexts? An experimental study. In Proceedings of      Yoav Goldberg. 2019. Assessing BERT’s syntactic abil-
+   Sinn und Bedeutung, volume 24, pages 35–47.               ities. arXiv preprint arXiv:1901.05287.
+Chris Barker. 2018. Negative polarity as scope marking.    Kristina Gulordava, Piotr Bojanowski, Edouard Grave,
+  Linguistics and philosophy, 41(5):483–510.                 Tal Linzen, and Marco Baroni. 2018. Colorless green
+                                                             recurrent networks dream hierarchically. In Proceed-
+Marco Baroni. 2021.         On the proper role of            ings of the 2018 Conference of the North American
+ linguistically-oriented deep net analysis in linguistic     Chapter of the Association for Computational Lin-
+ theorizing. arXiv preprint arXiv:2106.08694.                guistics: Human Language Technologies, Volume 1
+                                                             (Long Papers), pages 1195–1205.
+Emmanuel Chemla, Vincent Homer, and Daniel Roth-
+  schild. 2011. Modularity and intuitions in formal        Jennifer Hu, Jon Gauthier, Peng Qian, Ethan Wilcox,
+  semantics: The case of polarity items. Linguistics         and Roger Levy. 2020. A systematic assessment
+  and Philosophy, 34(6):537–570.                             of syntactic generalization in neural language mod-
+                                                             els. In Proceedings of the 58th Annual Meeting of
+Shammur Absar Chowdhury and Roberto Zamparelli.              the Association for Computational Linguistics, pages
+  2018. RNN simulations of grammaticality judgments          1725–1744.
+  on long-distance dependencies. In Proceedings of
+  the 27th international conference on computational       Jaap Jumelet, Milica Denic, Jakub Szymanik, Dieuwke
+  linguistics, pages 133–144.                                 Hupkes, and Shane Steinert-Threlkeld. 2021. Lan-
+                                                              guage models use monotonicity to assess NPI licens-
+Luka Crnič. 2014. Non-monotonicity in NPI licensing.         ing. CoRR, abs/2105.13818.
+  Natural Language Semantics, 22(2):169–217.
+                                                           Jaap Jumelet and Dieuwke Hupkes. 2018. Do lan-
+Milica Denić, Vincent Homer, Daniel Rothschild, and          guage models understand anything? on the ability
+  Emmanuel Chemla. 2020. The influence of polarity            of lstms to understand negative polarity items. In
+  items on inferential judgments. Submitted.                 BlackboxNLP@ EMNLP.
+Jacob Devlin, Ming-Wei Chang, Kenton Lee, and              William A Ladusaw. 1979. Polarity sensitivity as in-
+   Kristina Toutanova. 2019. BERT: Pre-training of           herent scope relations. Ph.D. thesis, Austin, TX:
+   deep bidirectional transformers for language under-       University of Texas at Austin.
+   standing. In NAACL-HLT.
+                                                           Tal Linzen and Marco Baroni. 2021. Syntactic structure
+Allyson Ettinger. 2020. What BERT is not: Lessons             from deep learning. Annual Review of Linguistics,
+  from a new suite of psycholinguistic diagnostics for       7:195–212.
+  language models. volume 8, pages 34–48. MIT
+  Press.                                                   Tal Linzen, Emmanuel Dupoux, and Yoav Goldberg.
+                                                             2016. Assessing the ability of LSTMs to learn syntax-
+Gilles Fauconnier. 1975. Polarity and the scale princi-      sensitive dependencies. In Transactions of the As-
+  ple. In Proceedings of Chicago Linguistc Society 11,       sociation for Computational Linguistics, volume 4,
+  pages 188–99.                                              pages 521–535. MIT Press.
+Rebecca Marvin and Tal Linzen. 2018. Targeted syn-         Hitomi Yanaka, Koji Mineshima, Daisuke Bekki, Ken-
+  tactic evaluation of language models. In Proceedings       taro Inui, Satoshi Sekine, Lasha Abzianidze, and
+  of the 2018 Conference on Empirical Methods in             Johan Bos. 2019a. Can neural networks understand
+  Natural Language Processing, pages 1192–1202.              monotonicity reasoning? In Proceedings of the 2019
+                                                             ACL Workshop BlackboxNLP: Analyzing and Inter-
+Yaron McNabb, Stavroula Alexandropoulou, Do-                 preting Neural Networks for NLP, pages 31–40.
+  minique Blok, Sofia Bimpikou, and Rick Nouwen.
+  2016. The likelihood of upper-bound construals           Hitomi Yanaka, Koji Mineshima, Daisuke Bekki, Ken-
+  among numeral modifiers. In Proceedings of Sinn            taro Inui, Satoshi Sekine, Lasha Abzianidze, and
+  und Bedeutung, volume 20, pages 497–514.                   Johan Bos. 2019b. HELP: A dataset for identify-
+                                                             ing shortcomings of neural models in monotonic-
+Sathvik Nair, Mahesh Srinivasan, and Stephan Mey-            ity reasoning. In Proceedings of the Eighth Joint
+  lan. 2020. Contextualized word embeddings encode           Conference on Lexical and Computational Semantics
+  aspects of human-like word sense knowledge. In Pro-        (*SEM 2019), pages 250–255.
+  ceedings of the Workshop on the Cognitive Aspects
+  of the Lexicon, pages 129–141.
+
+Alec Radford, Jeff Wu, Rewon Child, David Luan,
+  Dario Amodei, and Ilya Sutskever. 2019. Language
+  models are unsupervised multitask learners.
+
+Anthony J Sanford, Eugene J Dawydiak, and Linda M
+  Moxey. 2007. A unified account of quantifer per-
+  spective effects in discourse. Discourse Processes,
+  44(1):1–32.
+
+Alon Talmor, Yanai Elazar, Yoav Goldberg, and
+  Jonathan Berant. 2020. oLMpics-on what language
+  model pre-training captures. In Transactions of the
+  Association for Computational Linguistics, volume 8,
+  pages 743–758. MIT Press.
+
+Elena Voita, David Talbot, Fedor Moiseev, Rico Sen-
+  nrich, and Ivan Titov. 2019. Analyzing multi-head
+  self-attention: Specialized heads do the heavy lift-
+  ing, the rest can be pruned. In Proceedings of the
+  57th Annual Meeting of the Association for Computa-
+  tional Linguistics, pages 5797–5808, Florence, Italy.
+  Association for Computational Linguistics.
+
+Alex Warstadt, Yu Cao, Ioana Grosu, Wei Peng, Ha-
+  gen Blix, Yining Nie, Anna Alsop, Shikha Bordia,
+  Haokun Liu, Alicia Parrish, et al. 2019. Investigating
+  bert’s knowledge of language: Five analysis methods
+  with npis. In Proceedings of the 2019 Conference on
+  Empirical Methods in Natural Language Processing
+  and the 9th International Joint Conference on Natu-
+  ral Language Processing (EMNLP-IJCNLP), pages
+  2877–2887.
+
+Lucas Weber, Jaap Jumelet, Elia Bruni, and Dieuwke
+  Hupkes. 2021. Language modelling as a multi-task
+  problem. In Proceedings of the 16th Conference of
+  the European Chapter of the Association for Compu-
+  tational Linguistics: Main Volume, pages 2049–2060,
+  Online. Association for Computational Linguistics.
+
+Ethan Wilcox, Roger Levy, Takashi Morita, and Richard
+  Futrell. 2018. What do RNN language models learn
+  about filler-gap dependencies? In Proceedings of the
+  2018 EMNLP Workshop BlackboxNLP: Analyzing
+  and Interpreting Neural Networks for NLP, pages
+  211–221.
+

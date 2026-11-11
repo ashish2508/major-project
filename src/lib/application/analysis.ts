@@ -10,6 +10,7 @@ import {
   type DetectionConfig,
   type Method,
 } from '../detection/detector';
+import { filterInformativeEvidence } from '../detection/informative-evidence';
 import { segment, segmentParagraphs } from '../detection/segmentation';
 import { Tfidf } from '../detection/tfidf';
 import { digest } from '../digest';
@@ -119,12 +120,20 @@ export async function analyzeDocuments(
       5,
     );
   }
-  const detections = detect(
+  const mergedDetections = detect(
     rows[scoreKey(method, config.alpha)],
     config.threshold,
     mergeGap,
     alignSemantically,
   );
+  // Selected on PAN validation for paragraph-window semantic and hybrid alerts.
+  const detections = alignSemantically
+    ? filterInformativeEvidence(
+        mergedDetections,
+        new Map([query, ...sources].map(({ reference, text }) => [reference, text])),
+        12,
+      )
+    : mergedDetections;
   const semanticReviewThreshold = configs.semantic.threshold;
   const semanticReviewLead =
     method === 'lexical' || !rows.semanticAlternatives

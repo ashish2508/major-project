@@ -1,0 +1,632 @@
+    Exploring Transformers as Compact, Data-efficient Language Models
+
+                    Clayton Fields                                  Casey Kennington
+            Department of Computer Science                    Department of Computer Science
+                Boise State University                            Boise State University
+                  claytonfields@u.                                  caseykennington
+                   boisestate.edu                                    boisestate.edu
+
+
+                      Abstract                             per hour.1 Even the moderately sized BERT (De-
+                                                           vlin et al., 2018) model required 16 TPU chips for
+    Large scale transformer models, trained with           pretraining, putting such a task beyond the meager
+    massive datasets have become the standard in           means of many researchers. Costs this high make
+    natural language processing. The huge size of          research on end-to-end pretraining impossible for
+    most transformers make research with these             potentially timely and impactful academic research
+    models impossible for those with limited com-
+                                                           (Togelius and Yannakakis, 2023).
+    putational resources. Additionally, the enor-
+    mous pretraining data requirements of trans-              Second, large models require pretraining with
+    formers exclude pretraining them with many             large datasets that can generally only be obtained
+    smaller datasets that might provide enlighten-         from data extracted from the internet. BERT, for
+    ing results. In this study, we show that trans-        instance, was trained on a 3.3 billion word web-
+    formers can be significantly reduced in size,          based corpus. In contrast, datasets derived from
+    with as few as 5.7 million parameters, and
+                                                           other sources, human speech for instance, are nec-
+    still retain most of their downstream capabil-
+    ity. Further we show that transformer mod-             essarily much smaller and sometimes contain only
+    els can retain comparable results when trained         a few million words. Using data that is not based on
+    on human-scale datasets, as few as 5 million           internet text can offer insight into how the nature of
+    words of pretraining data. Overall, the results        language data affects language model performance.
+    of our study suggest transformers function well        Currently, such efforts to create language models
+    as compact, data efficient language models             from smaller, alternative data sources are of grow-
+    and that complex model compression methods,            ing interest in computational linguistics (Warstadt
+    such as model distillation are not necessarily
+                                                           et al., 2023; Huebner et al., 2021).2,3
+    superior to pretraining reduced size transformer
+    models from scratch.                                      Most research for creating efficient transformers
+                                                           has focused on distillation, which trains a smaller
+1   Introduction                                           student model using output from a large, pretrained
+                                                           teacher model (Sanh et al., 2019; Wang et al., 2020;
+In the space of a few years, transformers have revo-       Sun et al., 2020; Jiao et al., 2019). While these
+lutionized natural language processing. Their suc-         efforts have produced more efficient models, they
+cess has been driven by increasingly large models          require the same large datasets and the use of larger
+and more training data. Sizes of the most power-           teacher models which themselves require ample
+ful language models have ballooned to billions of          compute power during training, even though the
+parameters and are pretrained with (in some cases)         end goal is a smaller model. Remarkably, there has
+trillions of tokens of text (Hoffmann et al., 2022;        to date been little research into simply reducing the
+Chowdhery et al., 2022). However, the size and             size of transformers, pretraining them from scratch
+data input requirements of transformers limit their        and fine-tuning them on downstream tasks. The
+reach as research tools in two key ways:                   process of increasing the size of transformer mod-
+   First, training transformers usually requires ac-       els and their data inputs are well explored (Kaplan
+cess to powerful compute resources. For instance,          et al., 2020; Hoffmann et al., 2022). However, it
+the creators of the PALM model (Chowdhery et al.,          1
+                                                             https://cloud.google.com/tpu/pricing
+2022), used 6,144 TPUv3 chips for pretraining. At          2
+                                                             https://babylm.github.io
+the time of this writing, the on-demand cost of this       3
+                                                             https://sites.google.com/view/learning-with-small-
+much compute would be a little less than $20,000        data/home
+                                                     521
+       Proceedings of the 27th Conference on Computational Natural Language Learning (CoNLL), pages 521–531
+                         December 6–7, 2023. ©2023 Association for Computational Linguistics
+is still an open question to what degree the trans-      data required and the training process still requires
+former architecture can function as a lightweight,       using a full-sized teacher model to train the student
+data-friendly research tool.                             model.
+   In this paper, we offer a preliminary study to-          Pruning is another popular model compression
+ward addressing these issues. In contrast to pre-        method in which some fraction of the trained
+vious studies that have approached these topics,         model’s parameters are set to zero. Li et al. (2020)
+we forego the use of knowledge distillation and          and Sanh et al. (2020) use unstructured pruning
+other complex compression techniques. Rather we          methods to eliminate a large percentage of weights
+pretrain various configurations of the ELECTRA           throughout transformer models with small corre-
+(Clark et al., 2020) transformer in search of parame-    sponding reductions in performance. Structured
+ter and data efficient models. We conduct all of our     pruning methods such as Fan et al. (2019) set the
+experiments using a single 12GB GPU to demon-            parameter values of entire regions of the model
+strate the computational efficiency of the models        to zero; in this case whole transformer layers are
+we train. The main contributions of our study are:       pruned. Michel et al. (2019) showed that a large
+                                                         percentage of BERT’s attention heads can be en-
+    • We show that compact transformers can re-
+                                                         tirely removed before testing without a significant
+      tain a surprising amount of capability on the
+                                                         decrease in performance. However, these tech-
+      GLUE benchmark (Wang et al., 2018) when
+                                                         niques are are all premised on pretraining full-sized
+      trained with only 5 million word tokens. Fur-
+                                                         models and then reducing the model size prior to
+      ther, we show that when training with such a
+                                                         inference time, therefore still have the same pre-
+      small dataset, several model dimensions can
+                                                         training data and compute requirements.
+      be significantly reduced with little ill-effect.
+                                                            There has also been some research directly ad-
+    • We show that when using such a small dataset       dressing the size of pretraining datasets for trans-
+      we can shrink transformers to as few as 5.7        formers. Micheli et al. (2020) and Martin et al.
+      million parmeters and train them faster, us-       (2019) experimented with reducing the absolute
+      ing less compute, while retaining much of the      amount of training data in French language models.
+      performance of much larger models.                 They showed that full sized French language trans-
+                                                         former models can perform well on select tasks
+    • We show that with suitable changes to model        with significantly less pretraining data. Warstadt
+      configuration, compact variants of the ELEC-       et al. (2020b) and Zhang et al. (2020) investigated
+      TRA model trained on the moderately sized          the effect of different pretraining data volumes on
+      OpenWebText (Gokaslan and Cohen) corpus            the grammatical knowledge of the RoBERTa-base
+      can perform on par with compact transform-         model using probing techniques.
+      ers trained with complex distillation methods         Huebner et al. (2021) experimented with using
+      such as DistilBERT (Sanh et al., 2019). Fur-       AOCHILDES, the 5 million word dataset com-
+      ther they can do so with significantly fewer       posed of child directed speech for pretraining and
+      parameters and computational requirements.         evaluated their results using a grammatical bench-
+2    Related Work                                        mark based on BLIMP (Warstadt et al., 2020a).
+                                                         This study is notable because the authors used a
+The excessive compute requirements of transform-         very small pretraining dataset derived from human
+ers has led to the creation of a sizable body of         speech and opted to use a scaled-down version of
+research into reducing their size and memory foot-       the RoBERTa model (Liu et al., 2019) to accom-
+print. The most well explored strategy is knowl-         modate it. Unfortunately, the resulting model was
+edge distillation, a process whereby a full-sized        only tested on narrow set of grammatical learning
+teacher network is used to train a smaller student       tasks, using a specialized dataset for evaluation.
+network. DistilBERT (Sanh et al., 2019), Tiny-
+BERT (Wang et al., 2020), MiniLM (Jiao et al., 3 Data and Evaluation Criteria
+2019) and MobileBERT (Sun et al., 2020) are pop-
+ular examples of compact transformers distilled         3.1 Pretraining Data
+using full sized BERT models as teachers. These         The ELECTRA model was originally pretrained
+methods produce effective smaller models, how- with the 3.3 billion word corpus used to train BERT
+ever they don’t directly address the amount of input    (Devlin et al., 2018). This dataset, however, is not
+                                                     522
+      Model          Params    COLA      MRPC     QNLI     MNLI     QQP     SST2    STSB    RTE     Avg.
+      ELECTRA        13.6M     0.570     0.907    0.883    0.814    0.894   0.858   0.822   0.657   0.801
+      MobileBERT     15.1M     0.531     0.881    0.908    0.814    0.858   0.901   0.874   0.592   0.794
+      DistillBERT    67M       0.496     0.869    0.886    0.824    0.866   0.901   0.864   0.585   0.783
+
+Table 1: Results for downstream tasks with compact, pretrained models downloaded from the Huggingface library.
+
+
+publicly available. Fortunately, there are a variety
+of open source alternatives freely available for re-
+search purposes. We use a web-sourced, public
+text corpus, or a subset of it, called OpenWebText
+(Gokaslan and Cohen) for pretraining in all of our
+experiments. The OpenWebText corpus was cre-
+                                                          Figure 1: The ELECTRA model is a Generator-
+ated as a publicly available reproduction of Ope-         Discriminator ensemble. The Discriminator is tasked
+nAI’s WebText corpus that was used in the training        with determining if the Generator properly guessed a
+of GPT-2. It consists of over 38GB of text data           masked word; borrowed from (Clark et al., 2020).
+scraped from over 8 million internet documents. It
+is a popular choice for pretraining language models.
+We chose this dataset, specifically because it con-       because its popularity in NLP research allows us
+tains text from a wide variety of sources and will        to directly compare the performance of our models
+prepare our models for the diverse range of tasks         with previously published results. Following De-
+contained in the GLUE benchmark (Wang et al.,             vlin et al. (2018) and Clark et al. (2020) we exclude
+2018).                                                    the WNLI task from our consideration. COLA is a
+   In the first two of our three experiments we aim       grammatical acceptability task, SST-2 a sentiment
+to test models trained with scarce data, specifically     classification, QQP, MRPC, STS-B are sentence
+we use approximately 5 million words of pretrain-         similarity tasks and MNLI, QNLI, and RTE are
+ing data. 5 million words is a rough estimate of how      inference tasks. Our evaluation metrics are Spear-
+many words an American child might hear before            man correlation for STS-B, Matthews correlation
+they begin speaking (Gilkerson et al., 2017). In          for CoLA, F1 score for QQP and MRPC and accu-
+that sense it represents a realistic size for a human     racy for the remainning tasks. All of the reported
+scale dataset. To obtain a corpus of suitable size for    results were obtained by evaluating on the dev sets
+this experiment we randomly selected documents            of the tasks described and are fine-tuned for 10
+from OpenWebText until we had a set with just             epochs. In general, the standard practice for GLUE
+over 5 million words and 306,462 unique words             fine-tuning is to train for 3 epochs with a batch size
+including names of websites such as "tumblr" and          of 32 and a learning rate of 2e-5. However, Clark
+non-English words and phrases. In terms of disk           et al. (2020) noted that ELECTRA performs better
+space it requires only 43MB to store. In our third        on select GLUE tasks when trained for 10 epochs.
+and final experiment we make use of all 38GB of           We found that since overfitting is not a concern for
+the OpenwebText corpus. The scale and diversity           the small variants of ELECTRA that we trained,
+of the full dataset are similar to those used to train    our models benefited from training for 10 epochs
+models such as BERT and will allow us to compare          on all of the GLUE tasks.
+our compact model variations to other pretrained
+compact models.                                           4   Language Model: ELECTRA-small
+
+                                                       In this section we describe the ELECTRA-small
+3.2   Finetuning Data & Tasks
+                                                       model (Clark et al., 2020) and the rationale behind
+GLUE To evaluate our pretrained models we              using it as the basis for our experiments. In place of
+fine-tune them on the GLUE tasks introduced in         masked language modeling, ELECTRA pretrains
+Wang et al. (2018). The GLUE benchmark consists        a transformer encoder stack, structurally identical
+of nine supervised sentence-level tasks and their      to BERT’s, by replacing some input tokens with
+associated datasets that cover a variety of natural    plausible alternative words sampled from a small
+language understanding domains. We chose GLUE          generator network. A larger discriminator model
+as a benchmark because it spans several tasks and      then predicts whether or not each input token has
+                                                    523
+       intr    emb
+       size    size    lyrs      prms    COLA    MRPC    QNLI      MNLI    QQP     SST2    STSB    RTE     Avg.
+       1024    128     12        13.6M   0.417   0.825   0.818     0.755   0.836   0.838   0.802   0.596   0.736
+       768     128     12        12.0M   0.422   0.841   0.823     0.755   0.838   0.849   0.800   0.556   0.736
+       512     128     12        10.4M   0.425   0.832   0.822     0.757   0.838   0.807   0.800   0.570   0.731
+       256     128     12        8.82M   0.343   0.833   0.828     0.758   0.838   0.830   0.794   0.588   0.727
+       128     128     12        8.03M   0.379   0.861   0.819     0.750   0.839   0.825   0.815   0.592   0.735
+       64      128     12        7.64M   0.366   0.852   0.816     0.753   0.838   0.819   0.813   0.639   0.737
+       1024    96      12        12.5M   0.362   0.818   0.821     0.752   0.840   0.823   0.807   0.588   0.726
+       1024    64      12        11.5M   0.346   0.824   0.820     0.746   0.830   0.820   0.784   0.552   0.715
+       1024    32      12        10.5M   0.246   0.822   0.798     0.725   0.816   0.831   0.757   0.563   0.695
+       1024    128     10        12.0M   0.415   0.834   0.827     0.746   0.840   0.844   0.807   0.599   0.739
+       1024    128     8         10.4M   0.442   0.851   0.826     0.748   0.839   0.826   0.806   0.585   0.740
+       1024    128     6         8.81M   0.367   0.814   0.826     0.746   0.835   0.852   0.787   0.516   0.718
+       1024    128     4         7.2M    0.28    0.823   0.819     0.740   0.832   0.818   0.791   0.581   0.710
+
+Table 2: Results for downstream tasks with reduced model dimensions. Note that the top row represents the
+full-sized ELECTRA-small model. All results were trained with a 5M word subset of openwebtext trained for
+100,000 steps with batch size of 128. Reduced parameter settings are shown in bold.
+
+
+been replaced. See Figure 1 for an illustration of           5     Experiment 1: Reducing Individual
+the ELECTRA model. Clark et al. (2020) show                        Model Dimensions in a Low Data
+that this strategy leads to better results with less               Setting
+data and less compute than causal language model-
+ing or standard masked language modeling. After              In the first set of experiments that we conduct, we
+training, the generator is discarded and the discrim-        test varying the size and configuration of the ELEC-
+inator is used for downstream tasks.                         TRA model using the 5 million word subset of
+   The ELECTRA-small model also has the advan-               openwebtext described in Section 3.1 as the pre-
+tage of beginning with only 13.6 million parame-             training dataset for each model variation. We begin
+ters and performs favorably to similarly sized mod-          by changing only a single dimension of the model’s
+els. Further, it can be pretrained without the use           configuration. The goal of this series of experi-
+of model distillation. As the purpose of our study           ments is to determine which parts of the model’s
+is to train transformers in data and resource scarce         architecture can be reduced and what effect these
+settings, it is desirable to use a model that doesn’t        reductions have on performance. In the process,
+require a teacher model pretrained on a massive              we hope to provide some insight into how the size
+text corpus, and can be trained on a single GPU.             of each dimension of the transformer model con-
+                                                             tributes to its downstream performance.
+   To ensure that ELECTRA-small can produce re-
+sults on par with other compact models we use
+                                                             5.1     Procedure
+the pretrained models from the Huggingface trans-
+former hub and test them on our selected down-               The basic architecture of transformer models is best
+stream tasks.4 The results are summarized in Ta-             described by Vaswani et al. (2017) and consists of
+ble 1. We tested three pretrained models, ELEC-              an embedding layer followed by stacked attention
+TRA, MobileBERT and DistilBERT. Of the three,                layers, each composed of a multi-head attention
+ELECTRA is the smallest model in terms of abso-              mechanism followed by a feed-forward neural net-
+lute number of parameters with only 13.6 million.            work sub-layer. All of the stacked layers have the
+Despite its small size, it achieves the best average         same dimension, but have varying weights. The
+results on GLUE. Notably it does so using only               embedding size, vocab size, hidden state size, the
+pretraining and fine-tuning without the benefit of           feed-forward network’s intermediate size and the
+knowledge distillation from a larger model. These            absolute number of layers can all be altered. The
+features harmonize well with the goals of our study          number of attention heads per layer and the max-
+and make the ELECTRA-small model the logical                 imum sequence length can also be varied, though
+choice on which to base our succeeding experi-               these changes don’t affect the overall number of
+ments.                                                       model parameters. We first test the effect of reduc-
+                                                             ing the size of each of the these parameters and
+   4
+       https://huggingface.co/                               then pretrain a given model on our 5 million word
+                                                          524
+subset of openwebtext. Each model is trained for          Embedding Size In transformer models, the em-
+100,000 steps with a batch size of 128 and a learn-       bedding size refers to the length of each vocabulary
+ing rate of 5e-4. The generator network used for          word’s embedding vector. The default size of the
+training is one quarter the size of the discriminator     embedding vectors for ELECTRA is 128. Like the
+network.                                                  intermediate layer size, the embedding size can be
+   The downstream tasks on which we fine-tune             substantially decreased while retaining most of the
+and evaluate our resulting models are the GLUE            model’s downstream performance. We see from
+tasks described in Section 3, including an Average        our results that an embedding size of 96 has vir-
+of all scores (Avg.). For each task we fine-tune          tually the same capability as a full-sized model.
+models for 10 epochs, with a learning rate of 2e-5        An embedding size of 64 shows slightly reduced
+and a batch size of 32. Four of these tasks, QQP,         performance on most of the GLUE tasks with a 2
+QNLI, SST-2 and MNLI are associated with rela-            percent drop in average score. This is a notable
+tively large datasets and the results are fairly robust   result and it suggests that the embedding layer may
+to changes in the model’s size. The remainder of          also be over parameterized in a low data setting.
+the GLUE tasks on the other hand, use very small
+                                                          Model Depth Finally, we also reduce the depth
+training sets leading to wide variation, even scores
+                                                          of the model, and its number of parameters by sim-
+at the level of chance when model capacity is suffi-
+                                                          ply decreasing the number of attention layers in the
+ciently degraded.
+                                                          model. The number of hidden layers in ELECTRA-
+5.2   Results                                             small is 12 by default. The results for reducing
+                                                          model depth are included in Table 2. We see that
+The results for the models with a single dimension        decreasing the number of layers to 10 or 8 actually
+reduced are discussed in this section and summa-          improves the model’s performance on most of our
+rized in Table 2. We had the most success in reduc-       downstream tasks with a 1.5 million and 2.3 mil-
+ing the intermediate size, the embedding size and         lion decrease in their respective parameter counts.
+the number of attention layers and we provide dis-        Further decreasing the number of layers to 6 or
+cussion for each below. The results of modifying          4, with 3-5 million fewer parameters, shows only
+the hidden size, vocabulary size and number of at-        small decreases in the overall GLUE score.
+tention heads were less successful and are available
+in Appendix A.                                            6   Experiment 2: Reducing Overall Model
+                                                              Size in a Low Data Setting
+Intermediate Size The intermediate size refers
+to the dimension of the hidden layer in the feed- Guided by our results from the previous experi-
+forward network (FFN) contained in each attention      ments, we now aim to find an overall configuration
+layer. Following Vaswani et al. (2017), ELEC- of ELECTRA-small that has significantly fewer
+TRA’s default intermediate size is 4 times that of     parameters than its default of 13.6 million and re-
+the the hidden size, which yields an intermediate      tains most of its downstream performance. Using
+size of 1024 for ELECTRA-Small. Our results            the same 5 million word dataset, we train models
+indicate that the number of these parameters can       with any number of their dimensions reduced or
+be dramatically decreased with relatively little ef- modified. In essence, we trained and evaluated a
+fect on the model’s capability when training with      large number of models with various combinations
+a small dataset. Downstream performance shows          of our most successful modifications from our pre-
+essentially no loss with as few as 64 parameters in    vious experiments in search of a robust and well
+each FFNs hidden layer, nearly a 16-fold reduction     functioning model.
+in size. This is a remarkable result as the model         We found early in our efforts that simply re-
+performs nearly identically with 6 million fewer       ducing model size while keeping the dimensions
+parameters. Most transformer architectures also        proportionate produced poor results. Our results
+use an intermediate size 4 times that of the hidden    from the previous section suggest that this may be
+size of the attention layers. These results suggest    due to the models low tolerance for decreases in
+that the intermediate stage of transformer’s FFNs      its hidden size. We did however find several alter-
+may be over-parameterized. In the final experiment     native configurations with parameter counts that
+we address how well these results hold for models      ranged from 5.7 to 10 million that retained most of
+trained on large-scale datasets.                       the performance of the full-sized ELECTRA-small
+                                                    525
+  Model           Hidden Size      Inter Size     Layers     Emb Size      Params      time 100k     time 1M
+  ELECTRA-
+  small           256              1024           12         128           13.7M       16h26m        6d21h
+  Model 1         256              1024           8          128           10.4M       11h15m        4d17h
+  Model 2         256              256            16         64            8.4M        16h11m        6d5h
+  Model 3         256              128            14         96            7.7M        13h           5d18h
+  Model 4         256              64             12         128           7.6M        11h58m        5d7h
+  Model 5         196              128            18         64            5.7M        13h48m        5d17h
+
+Table 3: Model Key Dimensions for 5 smaller model configurations of ELECTRA. Training times for 100k and
+1M training steps with a batch size of 128 on a 12GB GPU included. Note that the top row represents the full-sized
+ELECTRA-small model for reference. Reduced parameter settings are shown in bold.
+
+  Model                  COLA       MRPC        QNLI     MNLI      QQP       SST2     STSB      RTE      Avg.
+  ELECTRA-Small          0.417      0.825       0.818    0.755     0.836     0.838    0.802     0.596    0.736
+  Model 1                0.442      0.851       0.826    0.748     0.839     0.826    0.806     0.585    0.740
+  Model 2                0.383      0.834       0.833    0.752     0.841     0.826    0.815     0.614    0.737
+  Model 3                0.366      0.852       0.816    0.753     0.838     0.819    0.813     0.639    0.737
+  Model 4                0.386      0.849       0.832    0.751     0.839     0.842    0.817     0.567    0.735
+  Model 5                0.334      0.838       0.819    0.736     0.827     0.815    0.794     0.614    0.722
+
+Table 4: Low Data Setting Results for select models trained with the 5M word subset of OpenWebText corpus for
+100k steps. Results for MobilBERT and DistilBERT are appended for the sake of comparison.
+
+
+model trained on our 5 million word set. The most          train all of our models using the 5 million word
+successful configurations modified some combina-           subset of openwebtext for 100,000 steps. We eval-
+tion of intermediate size, embedding size or layer         uate our models using the same metrics and hyper-
+count. We discovered that we could improve per-            parameters as the previous experiment in order to
+formance relative to parameter count by decreasing         compare our results.
+the width (intermediate size and hidden size) of
+the model while increasing its depth (number of     Results The downstream results for these mod-
+layers). We had less success increasing the width   els are summarized in Table 4 and discussion is
+and decreasing the number of layers. Turc et al.    provided below. In this low data setting, our small
+(2019) observed a similar phenomenon leveraging     Models 1-4 have essentially the same performance
+knowledge distillation on pretrained compact mod-   as the original ELECTRA-Small model configura-
+els.                                                tion trained with the same data and settings. Model
+   Though we trained several dozen model varia-     5 performed only slightly worse, despite having
+tions, we present only our 5 most succesful. The    only 5.7 million parameters. These results sug-
+dimensions and parameter counts of these mod-       gest that when using small datasets, small-scale
+els are described in Table 3. Two of the models,    transformers may perform as well as their compu-
+Model 1 and Model 4, feature only a single modi-    tationally more expensive larger cousins.
+fied dimension and were mentioned in the previous      Moreover, the reduction in size can be performed
+experiment. Model 1 has 8 layers and Model 4 has    in a variety of ways. The results for Model 1 show
+an intermediate size of only 64 parameters. These   that we can also decrease the model depth by 4
+modifications led to good results in our previous   layers without ill-effect. Doing so cuts our training
+experimental settings and a sizeable reduction in   time nearly in half and reduces our model size by
+model size. The remaining models feature a de-      3 million parameters. Alternatively, increasing the
+crease in the model width and the size of the em-   depth to compensate for loss of width and embed-
+bedding layer with an increase in model depth.      ding size was also very effective in lowering overall
+                                                    model size. Models 2, 3 and 5 made use of this
+Procedure As in our previous experiments where      strategy to varying degrees and produced similar
+we altered only a single model dimension, we pre- results. Increasing model depth, however, comes
+                                                 526
+  Model                  COLA       MRPC       QNLI      MNLI      QQP      SST2      STSB     RTE      Avg.
+  ELECTRA-Small          0.591      0.908      0.875     0.812     0.856    0.885     0.857    0.632    0.802
+  Model 1                0.487      0.886      0.865     0.788     0.847    0.894     0.842    0.61     0.777
+  Model 2                0.504      0.896      0.859     0.784     0.848    0.853     0.841    0.621    0.776
+  Model 3                0.478      0.881      0.854     0.792     0.847    0.885     0.842    0.632    0.776
+  Model 4                0.409      0.868      0.846     0.774     0.836    0.858     0.849    0.643    0.760
+  Model 5                0.444      0.906      0.860     0.784     0.846    0.859     0.834    0.661    0.774
+  MobileBERT             0.510      0.880      0.908     0.831     0.873    0.917     0.874    0.625    0.802
+  DistilBERT             0.527      0.826      0.889     0.818     0.870    0.896     0.865    0.585    0.785
+
+Table 5: High Data Setting Results for select models trained with the full OpenWebText corpus for 1 million steps.
+Results for MobilBERT and DistilBERT are appended for the sake of comparison.
+
+
+at the cost of slower training times, presumably         counterparts to a noticeable degree. This was an
+because of the increased number of non-linear acti-      expected result given the abundance of training
+vation functions. Though smaller, Models 2, 3 and        data used. Over the course of a million training
+5 required longer train times than did models 1 and      steps, the differences in training times are consider-
+4, which had fewer layers. Model 2 required nearly       able. Model 1 requires almost 2 days fewer to train.
+as much time to train than ELECTRA-small.                Models 3, 4 and 5 all require a day less in training
+                                                         time. The slow training of Model 2 is again on
+7 Experiment 3: Reducing Model Size in                   display, requiring over six days of training time.
+     a High Data Setting                                    Of the small models we tested, all had quite
+                                                         similar performance, though Model 4 showed a
+In this experiment, we pretrain a selection of mod-
+                                                         slight drop relative to the other models. In our
+els using the full OpenWebText corpus as the pre-
+                                                         high data setting, with longer training time, our
+traing dataset and training for a million steps. We
+                                                         smallest model, Model 5 performs as well as the
+use the same five models described in Table 3.
+                                                         other small model variants. This is a change from
+Because the training times in this experiment are
+                                                         the low data setting where it lagged slightly behind.
+much longer, we will not repeat the exhaustive
+                                                         Models 2 and 3 also perform well in this setting
+study of the effects of changing individual model di-
+                                                         suggesting that increasing model depth to offset
+mensions as we did in the low data setting. Rather,
+                                                         reductions in other dimensions scales fairly well
+we only pretrain and evaluate the 5 models consid-
+                                                         to larger datasets. Notably Model 1, with 8 layers
+ered in Experiment 2. The goal of this experiment
+                                                         of the original ELECTRA-small dimensions, had
+is determine to what degree the results of Exper-
+                                                         similar performance and a favorable training time.
+iments 1 and 2 will hold with a full-size dataset
+                                                         Though it contains more parameters than the other
+trained for an extended time. Given that the models
+                                                         small models, its reduced depth markedly reduces
+considered contain so few parameters, it is a natural
+                                                         training time, requiring less than 5 days to train for
+question as to whether or not they can adequately
+                                                         a million steps.
+make use of the additional information provided
+by more data and longer pretraining. The results            It is not immediately clear why these particu-
+of this experiment will also be more readily com-        lar distributions of parameters perform well. Most
+pared to other compact transformers which are also       transformer   architectures feature a roughly 2:1 ratio
+trained on full-sized datasets. We use the same eval- of parameters between their feed-forward networks
+uation criteria as that performed in Experiments 1 and their multi-head attention mechanisms. Our
+and 2.                                                   results suggest that this ratio might be open to sig-
+                                                         nificant modification. The theoretical purpose of
+Results The results of fine-tuning these models          the FFN is to introduce non-linearity. The fact that
+on the GLUE corpus are summarized in Table 5             increasing the number of layers, and therefore the
+and discussion is provided below. As opposed to          number of non-linear activation functions, seems
+the scarce data setting, the larger ELECTRA-Small        to offset reductions in the size of the FFN lends cre-
+model is able to make greater use of more data and       dence to that theory. MobileBERT also has a long,
+increased training time and outperforms its smaller      thin architecture. Its creators, however, felt com-
+                                                      527
+                                                           million steps, are available on the Huggingface.5
+                                                              For the sake of comparison, we have added the
+                                                           results of two compact transfomers trained with
+                                                           distillation to Table 5, DistilBERT (Sanh et al.,
+                                                           2019) and MobileBERT (Sun et al., 2020). We
+                                                           again downloaded the pretrained weights for these
+                                                           models from Huggingface. This time however, we
+                                                           finetuned the models for 10 epochs and the same
+                                                           fine-tuning parameters as the previous experiments
+                                                           in order to fairly compare the results to the com-
+                                                           pact ELECTRA variants we trained. Though dif-
+                                                           ferences in training data and training times make
+                                                           this comparison somewhat inexact, the results are
+Figure 2: Relative size comparison of Electra-small
+                                                           still illuminating. We see that ELECTRA-Tiny pro-
+(blue) with Electra-tiny (red). Electra-tiny has smaller
+embeddings, hidden size, and intermediate size, but has    duces scores only slightly below that of the Distil-
+more hidden layers.                                        BERT model, despite being a tenth of the size and
+                                                           being trained without complex distillation losses.
+                                                           MobileBERT performs slightly better, on par with
+pelled to stack additional FFNs to restore the 2:1         the ELECTRA-Small model. MobileBERT has 15
+parameter ratio. We suggest that this may not be           million parameters, slightly more than ELECTRA-
+necessary. In general, we also advocate for a more         Small and 3 times as many as ELECTRA-Tiny. All
+thorough investigation of how parameters are dis-          told, our data suggest that complex compression
+tributed within the transformer architecture. While        techniques like distillation may be less profitable
+the focus of this study was in low data settings and       than simply starting with much smaller models and
+small models, even small improvements in param-            pretraining them on a suitable training corpus with
+eter efficiency could be of great consequence for          a data efficient proxy task such as the discrimina-
+very large models.                                         tive loss of ELECTRA.
+
+7.1   Our Smallest Model: ELECTRA-tiny                     8   Conclusion
+
+The smallest model configuration we found that          In this study, we have shown that the transform-
+didn’t experience large reductions in performance       ers, specifically ELECTRA, can function as com-
+was Model 5. It had a hidden size of 196, reduced       pact data-efficient models. Our results suggest that
+from 256, intermediate size of 128, decreased from      when training with small datasets, the intermedi-
+1024, an embedding size of 64, decreased from           ate size, embedding size and number of layers can
+128 and 18 layers, increased from 12. We call           all be reduced with little ill-effect. Additionally,
+this model ELECTRA-Tiny and it contains just 5.7 we presented the GLUE results for 5 model vari-
+million parameters. Figure 2 shows visually how         ations that significantly reduce the overall size of
+ELECTRA-Tiny compares to ELECTRA-Small. the ELECTRA-Small model. In the final phase of
+ELECTRA-Tiny is an extremely small given the            our experiments, we tested the same five models
+model’s performance on a diverse set of tasks such      trained with the full OpenWebText corpus. We
+as GLUE. When training the ELECTRA-Small                showed that several compact transformer architec-
+model, the largest batch size that our 12GB GPU         tures can function on par with larger models trained
+could accommodate was 128. Because of the small         using complex distillation methods. Finally, we
+size of ELECTRA-Tiny, we could train at batch           present a compact configuration of ELECTRA we
+sizes of up to 256; alternatively we might have         call ELECTRA-Tiny with just 5.7 million param-
+trained ELECTRA-Tiny at a batch size 128 on an          eters that performs remarkably well on the GLUE
+even smaller GPU. The compactness, low compute          benchmark given its small size, requires less com-
+requirements and favorable training times make a        pute and can be trained end to end on a single 12GB
+model like this ideal for researchers without access    GPU.
+to multiple GPUs. The model weights from Exper-            5
+                                                             https://huggingface.co/claytonfields/electra-
+iment 2, trained with the full OpenWebText for 1 tiny/tree/main
+                                                     528
+Limitations                                                 Jill Gilkerson, Jeffrey A Richards, Steven F Warren, Ju-
+                                                                dith K Montgomery, Charles R Greenwood, D Kim-
+One of the primary limitations of our study was                 brough Oller, John HL Hansen, and Terrance D Paul.
+that of computational resources. Had we had more                2017. Mapping the early language environment using
+compute, we would to have been able to conduct                  all-day recordings and automated analysis. American
+                                                                journal of speech-language pathology, 26(2):248–
+more exhaustive studies of our models in high data              265.
+scenarios with extended training times. There are
+several model compression methods such as quan-             Aaron Gokaslan and Vanya Cohen. Openwebtext cor-
+tization (Bondarenko et al., 2022) and adaptive               pus.
+sequence length reduction (Guskin et al., 2021)             Shira Guskin, Moshe Wasserblat, Ke Ding, and Gyuwan
+that would have been compatible with the models               Kim. 2021. Dynamic-TinyBERT: Boost TinyBERT’s
+that we trained. An exhaustive study of these tech-           inference efficiency by dynamic sequence length.
+niques applied to the type of small models we used          Jordan Hoffmann, Sebastian Borgeaud, Arthur Mensch,
+in this study could potentially have produced even             Elena Buchatskaya, Trevor Cai, Eliza Rutherford,
+more efficient models.                                         Diego de Las Casas, Lisa Anne Hendricks, Johannes
+                                                               Welbl, Aidan Clark, Tom Hennigan, Eric Noland,
+Ethics Statement                                               Katie Millican, George van den Driessche, Bogdan
+                                                               Damoc, Aurelia Guy, Simon Osindero, Karen Si-
+There are no compelling ethical conflicts to report            monyan, Erich Elsen, Jack W Rae, Oriol Vinyals,
+for this study.                                                and Laurent Sifre. 2022. Training Compute-Optimal
+                                                               large language models.
+Acknowledgements
+                                                            Philip A Huebner, Elior Sulem, Fisher Cynthia, and
+Thanks to the anonymous reviewers for their very              Dan Roth. 2021. Babyberta: Learning more gram-
+useful feedback. This material is based upon work             mar with small-scale child-directed language. In Pro-
+                                                              ceedings of the 25th Conference on Computational
+supported by the National Science Foundation un-              Natural Language Learning, pages 624–646.
+der Grant No. 2140642.
+                                                            Xiaoqi Jiao, Yichun Yin, Lifeng Shang, Xin Jiang, Xiao
+                                                              Chen, Linlin Li, Fang Wang, and Qun Liu. 2019.
+References                                                    Tinybert: Distilling bert for natural language under-
+                                                              standing. arXiv preprint arXiv:1909.10351.
+Alexander Bondarenko, Magdalena Wolska, Ste-
+  fan Heindorf, Lukas Blübaum, Axel-Cyrille                 Jared Kaplan, Sam McCandlish, Tom Henighan, Tom B
+  Ngonga Ngomo, Benno Stein, Pavel Braslavski,                 Brown, Benjamin Chess, Rewon Child, Scott Gray,
+  Matthias Hagen, and Martin Potthast. 2022.                   Alec Radford, Jeffrey Wu, and Dario Amodei. 2020.
+  CausalQA: A benchmark for causal question                    Scaling laws for neural language models.
+  answering. In Proceedings of the 29th Interna-
+  tional Conference on Computational Linguistics,           Zhuohan Li, Eric Wallace, Sheng Shen, Kevin Lin, Kurt
+  pages 3296–3308, Gyeongju, Republic of Ko-                  Keutzer, Dan Klein, and Joseph E Gonzalez. 2020.
+  rea. International Committee on Computational               Train large, then compress: Rethinking model size
+  Linguistics.                                                for efficient training and inference of transformers.
+                                                              arXiv preprint arXiv:2002.11794.
+Aakanksha Chowdhery, Sharan Narang, Jacob Devlin,
+  Maarten Bosma, Gaurav Mishra, Adam Roberts,               Yinhan Liu, Myle Ott, Naman Goyal, Jingfei Du, Man-
+  Paul Barham, Hyung Won Chung, Charles Sutton,               dar Joshi, Danqi Chen, Omer Levy, Mike Lewis,
+  Sebastian Gehrmann, et al. 2022. Palm: Scaling              Luke Zettlemoyer, and Veselin Stoyanov. 2019.
+  language modeling with pathways. arXiv preprint             Roberta: A robustly optimized bert pretraining ap-
+  arXiv:2204.02311.                                           proach. arXiv preprint arXiv:1907.11692.
+Kevin Clark, Minh-Thang Luong, Quoc V Le, and               Louis Martin, Benjamin Muller, Pedro Javier Ortiz
+  Christopher D Manning. 2020. Electra: Pre-training
+                                                              Suárez, Yoann Dupont, Laurent Romary, Éric Ville-
+  text encoders as discriminators rather than generators.
+                                                              monte de La Clergerie, Djamé Seddah, and Benoît
+  arXiv preprint arXiv:2003.10555.
+                                                              Sagot. 2019. Camembert: a tasty french language
+Jacob Devlin, Ming-Wei Chang, Kenton Lee, and                 model. arXiv preprint arXiv:1911.03894.
+   Kristina Toutanova. 2018. Bert: Pre-training of deep
+   bidirectional transformers for language understand-      Paul Michel, Omer Levy, and Graham Neubig. 2019.
+   ing. arXiv preprint arXiv:1810.04805.                      Are sixteen heads really better than one? Advances
+                                                              in neural information processing systems, 32.
+Angela Fan, Edouard Grave, and Armand Joulin. 2019.
+  Reducing transformer depth on demand with struc-          Vincent Micheli, Martin d’Hoffschmidt, and François
+  tured dropout. arXiv preprint arXiv:1909.11556.             Fleuret. 2020. On the importance of pre-training data
+                                                        529
+  volume for compact language models. In Proceed-           Yonghui Wu, Mike Schuster, Zhifeng Chen, Quoc V Le,
+  ings of the 2020 Conference on Empirical Methods            Mohammad Norouzi, Wolfgang Macherey, Maxim
+  in Natural Language Processing (EMNLP), pages               Krikun, Yuan Cao, Qin Gao, Klaus Macherey, et al.
+  7853–7858, Online. Association for Computational            2016. Google’s neural machine translation system:
+  Linguistics.                                                Bridging the gap between human and machine trans-
+                                                              lation. arXiv preprint arXiv:1609.08144.
+Victor Sanh, Lysandre Debut, Julien Chaumond, and
+  Thomas Wolf. 2019. Distilbert, a distilled version        Yian Zhang, Alex Warstadt, Haau-Sing Li, and
+  of bert: smaller, faster, cheaper and lighter. arXiv        Samuel R Bowman. 2020. When do you need bil-
+  preprint arXiv:1910.01108.                                  lions of words of pretraining data? arXiv preprint
+                                                              arXiv:2011.04946.
+Victor Sanh, Thomas Wolf, and Alexander Rush. 2020.
+  Movement pruning: Adaptive sparsity by fine-tuning.
+  Advances in Neural Information Processing Systems,        A     Additional Results
+  33:20378–20389.
+                                                            A.1    Experiment 2: Hidden Size
+Zhiqing Sun, Hongkun Yu, Xiaodan Song, Renjie Liu,          We found that small reductions in hidden size re-
+  Yiming Yang, and Denny Zhou. 2020. Mobilebert: a
+  compact task-agnostic bert for resource-limited de-       sult in significantly fewer model parameters and
+  vices. arXiv preprint arXiv:2004.02984.                   notable effects on downstream performance. Low-
+                                                            ering the hidden size from 256 to 192 results in
+Julian Togelius and Georgios N Yannakakis.
+   2023.    Choose your weapon: Survival strate-            tolerable losses in performance, even on our low
+   gies for depressed ai academics. arXiv preprint          data tasks COLA and BLiMP. However, further
+   arXiv:2304.06035.                                        reductions show sizable drops in downstream per-
+Iulia Turc, Ming-Wei Chang, Kenton Lee, and Kristina        formance, especially for COLA and BLiMP. As
+   Toutanova. 2019. Well-read students learn better:        was mentioned in section 6.2, the effect of decreas-
+   On the importance of pre-training compact models.        ing hidden size can be offset by increasing mode
+   arXiv preprint arXiv:1908.08962.                         depth.
+Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob
+  Uszkoreit, Llion Jones, Aidan N Gomez, Łukasz             A.2    Experiment 2: Vocabulary Size
+  Kaiser, and Illia Polosukhin. 2017. Attention is all      Altering the vocabulary size is somewhat more in-
+  you need. Advances in neural information processing       volved than changing the other dimensions. The
+  systems, 30.
+                                                            vocab is produced by the WordPiece algorithm (Wu
+Alex Wang, Amanpreet Singh, Julian Michael, Felix           et al., 2016) and must be trained on a corpus of text.
+  Hill, Omer Levy, and Samuel R Bowman. 2018.               The number of words in the vocab is chosen prior
+  Glue: A multi-task benchmark and analysis platform
+  for natural language understanding. arXiv preprint        to training and the algorithm determines the opti-
+  arXiv:1804.07461.                                         mum choice of word pieces. In order to form a fair
+                                                            comparison with the original vocabulary we elected
+Wenhui Wang, Furu Wei, Li Dong, Hangbo Bao, Nan
+ Yang, and Ming Zhou. 2020. Minilm: Deep self-              to train various tokenizers on a large fraction of the
+ attention distillation for task-agnostic compression       openwebtext data. In contrast to embedding size,
+ of pre-trained transformers. Advances in Neural In-        we see significant effect from lowering the vocab
+ formation Processing Systems, 33:5776–5788.                size relative to the decrease in parameter count. As
+Alex Warstadt, Leshem Choshen, Aaron Mueller, Adina         such, decreased vocabulary size did not figure into
+  Williams, Ethan Wilcox, and Chengxu Zhuang. 2023.         our most effective reduced model configurations.
+  Call for papers – the BabyLM challenge: Sample-
+  efficient pretraining on a developmentally plausible      A.3    Experiment 2: Attention Heads
+  corpus.
+                                                            Finally, we tried altering the number of attention
+Alex Warstadt, Alicia Parrish, Haokun Liu, Anhad Mo-        heads per layer from the defualt number of 4. Since
+  hananey, Wei Peng, Sheng-Fu Wang, and Samuel R.
+  Bowman. 2020a. BLiMP: The benchmark of linguis-
+                                                            the number of attention heads does not affect the
+  tic minimal pairs for English. Transactions of the        number of parameters in the model, we also tried
+  Association for Computational Linguistics, 8:377–         increasing the number to 8 (the number of attention
+  392.                                                      heads must evenly divide the attention layer hidden
+Alex Warstadt, Yian Zhang, Haau-Sing Li, Haokun Liu,        size). Our results show that doing so did not greatly
+  and Samuel R Bowman. 2020b. Learning which                impact model performance.
+  features matter: Roberta acquires a preference for lin-
+  guistic generalizations (eventually). arXiv preprint
+  arXiv:2010.05358.
+                                                         530
+     hid voc    atn
+     size size  hds Prms COLA MRPC QNLI MNLI QQP SST2 STSB RTE Avg.
+     256 30,522 4   13.6M 0.417 0.825 0.818 0.755 0.836 0.838 0.802 0.596 0.736
+     192 30,522 4   10.6M 0.369 0.824 0.824 0.752 0.839 0.833 0.789 0.567 0.725
+     128 30,522 4   7.9M 0.284 0.828 0.824 0.738 0.826 0.815 0.716 0.534 0.696
+     64 30,522 4    5.8M 0.176 0.815 0.773 0.696 0.79 0.803 -0.107 0.505 0.556
+     32 30,522 4    4.8M 0.0    0.812 0.657 0.655 0.753 0.763 -0.139 0.52 0.503
+     256 28,672 4   13.3M 0.339 0.841 0.811 0.74  0.832 0.807 0.789 0.585 0.718
+     256 24,576 4   12.8M 0.275 0.838 0.818 0.745 0.836 0.813 0.765 0.552 0.705
+     256 20,480 4   12.3M 0.294 0.842 0.813 0.744 0.837 0.828 0.794 0.599 0.719
+     256 16,384 4   11.7M 0.33  0.821 0.821 0.742 0.837 0.821 0.779 0.578 0.716
+     256 12,288 4   11.2M 0.335 0.818 0.824 0.74  0.839 0.798 0.809 0.534 0.712
+     256 8,192 4    10.7M 0.279 0.844 0.819 0.735 0.84 0.817 0.807 0.545 0.711
+     256 30,522 8   13.5M 0.381 0.828 0.824 0.749 0.842 0.831 0.765 0.552 0.722
+     256 30,522 2   13.5M 0.385 0.848 0.815 0.752 0.839 0.844 0.801 0.581 0.733
+     256 30,522 1   13.5M 0.401 0.803 0.819 0.746 0.838 0.838 0.788 0.574 0.726
+
+Table 6: Additional results for downstream tasks with reduced model dimensions. Note that the top row represents
+the full-sized ELECTRA-small model. All results were trained with a 5M word subset of openwebtext trained for
+100,000 steps with batch size of 128. Modified parameter settings are shown in bold.
+
+
+
+
+                                                      531
+

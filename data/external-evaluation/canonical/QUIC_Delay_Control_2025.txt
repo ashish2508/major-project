@@ -1,0 +1,439 @@
+                                        QUIC Delay Control: an implementation of congestion
+                                                        and delay control
+                                                         Saverio Mascolo, Andrea Vittorio Balillo, Gioacchino Manfredi,
+                                                                      Davide D’Agostino, Luca De Cicco
+                                                             Politecnico di Bari, Dipartimento di Ingegneria Elettrica e dell’Informazione
+                                                                                              Bari, Italy
+                                                                                       name.surname@poliba.it
+                                        Abstract                                                            In this paper we propose a new congestion and delay
+                                                                                                         control and we experiment it in controlled and uncontrolled
+arXiv:2507.00896v3 [cs.NI] 3 Jul 2025
+
+
+
+
+                                        A new congestion and delay control algorithm named QUIC
+                                        Delay Control (QUIC-DC) is proposed for controlling not          network environments.
+                                        only congestion but also the queueing delay encountered             Figure 1 shows an Internet connection between two TCP/UDP
+                                        along the forward communication path. The core idea is           peers over an IP network. The essential elements that play a
+                                        to estimate the one-way queueing delay of a connection to        key role are the communication links and the buffers. Indeed,
+                                        trigger an early reaction to congestion. This idea, along with   TCP/IP or UDP/IP packets go through a set of communication
+                                        a the TCP Westwood+ congestion control algorithm, has            links and buffers connecting the routers that are encountered
+                                        been implemented in QUIC-DC and compared with QUIC               as they travel from the sender to the destination. Figure 1
+                                        Cubic, BBRv2, NewReno, Westwood+. The results obtained           shows the sequence of communication links and buffers,
+                                        in the emulated and real network environments show that          each link 𝑖 with a propagation delay 𝑇𝑝𝑖 and each buffer 𝑖
+                                        QUIC-DC can significantly reduce packet losses along with        with a queueing delay 𝑇𝑞𝑖 , which are encountered by a packet
+                                        end-to-end communication delays, while preserving network        travelling from the sender to the destination.
+                                        utilization, features that are both very useful for real-time       The round trip time (𝑅𝑇𝑇 ) is the sum of the propagation
+                                        applications.                                                    and queueing delays encountered going from theÍ       sender to
+                                                                                                         the destination and then back to the sender: 𝑅𝑇𝑇 = 𝑖 ∈𝑃 (𝑇𝑝𝑖 +
+                                        CCS Concepts                                                     𝑇𝑞𝑖 ), where 𝑃 is the set of links and buffers belonging to the
+                                                                                                         bidirectional communication path.
+                                        • Network protocols → low-delay congestion control.
+                                                                                                            The propagation delays 𝑇𝑝𝑖 are fixed and depend on the
+                                                                                                         physical distance (the propagation speed is roughly 1/3 of the
+                                        Keywords                                                         speed of light). In contrast, the queueing delays𝑇𝑞𝑖 depend on
+                                        Congestion Control, Delay Control, QUIC                          queueing occupancy and can be reduced by controlling   Í the
+                                                                                                         queue length. The overall queueing delay is 𝑇𝑞 = 𝑖 ∈𝑃 𝑇𝑞𝑖 ,
+                                                                                                                                                           Í
+                                                                                                         whereas the overall propagation delay is 𝑇𝑝 = 𝑖 ∈𝑃 𝑇𝑝𝑖 .
+                                        1   Introduction                                                    In other terms, the RTT is made of a constant propagation
+                                        Classic congestion control aims at maximizing throughput         time plus a time-varying stochastic component due to the
+                                        while minimizing congestion, i.e. packet losses and retrans-     queueing delay as follows: 𝑅𝑇𝑇 = 𝑇𝑝 + 𝑇𝑞
+                                        missions. This implies that communication delays are not            QUIC-DC can bound the component of delay due to the
+                                        controlled and oscillate between a minimum, equal to the         queueing. Conceptually, it can be viewed as a form of Explicit
+                                        propagation time, up to a maximum equal to the propagation       Congestion Notification (ECN) [18] implemented end-to-end.
+                                        time plus the maximum queuing delay encountered along
+                                        the communication path.                                          2   Related Work
+                                           The goal of this paper is to propose an algorithm that not    Traditional loss-based TCP [11, 16] is not suitable for delay-
+                                        only avoids congestion while still providing high network        sensitive traffic, such as in the case of video conferencing
+                                        utilization but also controls the network queueing delay.        traffic, because its congestion control mechanism contin-
+                                           Controlling delays is nowadays of the utmost importance       uously probes for available network bandwidth, creating
+                                        since the Internet is not only aimed at delay insensitive        a periodic pattern in which network queues are cyclically
+                                        data traffic, but is increasingly used for real-time applica-    filled up to packet loss and then drained. These queue oscil-
+                                        tions such as live streaming, video-conferencing, virtual re-    lations introduce a time-varying stochastic queueing delay
+                                        ality/augmented reality, 360◦ video, autonomous driving,         component, which adds to the fixed network propagation
+                                        tele-robotics and tele-surgery.                                  delay, thereby impairing delay-sensitive communications.
+                                                                                                                   Mascolo et al.
+
+
+     Sender                                                                                                         Receiver
+
+
+
+
+                            link 1      queue 1         link 2   queue 2               link         queue
+                                                                           ...
+
+
+
+
+              Figure 1: Packets going from the sender to the receiver through a series of links and buffers
+
+But more than anything, it is the retransmission of lost pack-   sudden link capacity variations make the congestion con-
+ets that harms real-time communication. Therefore, reduc-        trol design challenging [20]. The Google Congestion Control
+ing the packet loss rate is fundamental in real-time traffic.    (GCC) [4], implemented in the Google Chrome web browser,
+For this reason, the idea of using delay measurements to         employs the one way delay variation as a congestion signal
+proactively react to the onset of network congestion has         and an adaptive threshold mechanism to effectively compete
+been proposed [12]. Issues related to delay measurements         with loss-based congestion control algorithms [4]. GCC is
+and throughput degradation when loss-based flows share           the only widely deployed non-proprietary congestion con-
+the bottleneck with delay-based flows have been addressed        trol algorithm used in a video conferencing application such
+in [2, 6, 17]. The first efforts focusing on the reduction of    as Google Meet.
+the queueing delay were set in the TCP congestion control
+research domain. In particular, the first congestion control     3   QUIC Delay Control
+algorithm specifically designed to contain the end-to-end        In this section, we introduce the main idea to obtain queue-
+latency by employing delay measurements is described in          ing delay control. The algorithm will be implemented and
+the seminal work by Jain [12]. Since then, many delay-based      evaluated in QUIC [10].
+TCP congestion control variants have been designed, such            To focus on the delay problem, let us consider again Fig-
+as TCP Vegas [1] or [2]. TCP Vegas employs end-to-end RTT        ure 1, which shows a connection between two TCP/UDP
+measurements to establish delay thresholds used to infer         peers over an IP network. As we have seen, the RTT is the
+incipient congestion by comparison with a base RTT [1]. It       sum of the encountered propagation delays and queueing
+has been shown that, when the RTT is used as a congestion        delays.
+metric, a low channel utilization may be obtained in the pres-      Therefore, by keeping the queue as low as possible, we
+ence of reverse traffic, which inflates queues in the backward   can target a minimum RTT equal to the propagation delay
+path, or when competing with loss-based flows [6]. To tackle     only:
+such fairness issues, the algorithms proposed in [2] infer                                𝑅𝑇𝑇 min = 𝑇𝑝                    (1)
+the presence of concurrent loss-based flows and switch to
+loss-based mode, returning back to the delay-based mode          Similarly, RTTmax can be defined as:
+when loss-based flows are detected to be no longer present.                        𝑅𝑇𝑇 max = 𝑅𝑇𝑇 min + 𝑇𝑞max                   (2)
+Other algorithms employ one-way-delay measurements to
+rule out the sensitivity to reverse-path congestion. Examples    where 𝑇𝑞max is the maximum queueing time encountered
+are LEDBAT (over UDP) [19] and TCP Santa Cruz [15]. In           by a packet going through all the buffers belonging to the
+particular, LEDBAT employs an increasing phase in which          communication path.
+the congestion window is increased at a rate that is propor-        At this point, it is important to distinguish between queue-
+tional to the distance between the measured one-way delay        ing on the forward path and queueing on the backward path.
+and a fixed delay target [19]. It has been shown that LED-       A connection is primarily constrained by congestion on the
+BAT is affected by the so-called latecomer effect: when two      forward path; therefore, if RTT is used as a congestion signal,
+flows share the same bottleneck the second flow typically        queueing in the backward path caused by reverse traffic may
+starves the first one [5]. Recently the idea of employing RTT    lead to a false indication of congestion. This, in turn, would
+gradient has been proposed to overcome the aforementioned        unnecessarily slow down the forward traffic — a behavior
+latecomer effect. Some examples are CDG [8] and Verus [20].      that is indeed observed in TCP Vegas [6].
+CDG has been designed with the aim of coexisting with loss-         To this end, it is necessary to consider the variation of
+based flows while keeping end-to-end delay low [8]. Verus        the One-Way Delay (OWD), where the OWD is the time
+has been designed for the case of cellular networks where        a packet takes to travel from the sender to the receiver, in
+                                                                 order to estimate the forward queueing delay only. Precisely,
+QUIC Delay Control: an implementation of congestion and delay control
+
+
+                                                                        episode, QUIC-DC sets the congestion window equal to the
+                                                                        product of the available bandwidth times the minimum 𝑅𝑇𝑇 ,
+           Sender                                 Receiver              which keeps full the propagation pipe and empty the queue-
+                                                                        ing pipe.
+                                                                           In summary, a congestion episode is defined by a timeout, a
+                            packe                                       3DUPACK, or OWD > OWD𝑡ℎ . The reaction to a congestion
+                                    t
+                                                                        episode is the same of that of TCP Westwood+ after a timeout
+                                                                        or after 3DUPACK, and the reaction to OWD > OWD𝑡ℎ is
+                              pac
+                                 ket                                    the same of TCP Westwood+ after 3DUPACK.
+                                                                           The implementation of TCP Westwood+ congestion con-
+                                                                        trol [6] in QUIC-DC closely adheres to its counterpart im-
+                                                                        plementation in the Linux TCP kernel with a small change
+                  time                                                  in the Westwood+ low-pass filter to make the bandwidth
+                                                                        estimation BWE faster. Indeed, the original low pass filter
+                                                                        used to estimate the available bandwidth BWE adversely
+ Figure 2: Measurement of one-way delay variation                       impacts the algorithm’s responsiveness during transient net-
+                                                                        work conditions, leading to a lower goodput during the start
+the OWD is the difference between the packet arrival time 𝑡 𝑟           up phase. The low pass filter employed in QUIC-DC is:
+at the receiver and the packet departure time 𝑡 𝑠 at the sender
+                                                                               𝐵𝑊 𝐸𝑖 = 0.2 · 𝐵𝑊 𝐸𝑖 −1 + 0.8 · 𝑏𝑎𝑛𝑑𝑤𝑖𝑑𝑡ℎ𝑠𝑎𝑚𝑝𝑙𝑒𝑖            (7)
+as shown in Figure 2:
+                         𝑂𝑊 𝐷𝑖 = 𝑡𝑖𝑟 − 𝑡𝑖𝑠                        (3)   which significantly improves the goodput.
+
+The OWD measurement contains a systematic error due to                  4    QUIC-DC implementation and the
+the clock offset between the sender and the receiver. How-
+                                                                             testbed
+ever, what is useful to know is not the absolute value but just
+the OWD variation 𝑂𝑊 𝐷𝑉 , which measures an increase or                 QUIC-DC has been implemented into Meta’s mvfst QUIC
+decrease in the forward queueing delay. Thus, by computing              transport implementation, which serves as the underlying
+the one-way delay variation:                                            transport layer for Proxygen, Meta’s HTTP libraries collec-
+                                                                        tion1 . Both mvfst and Proxygen are implemented in C++ to
+                𝑂𝑊 𝐷𝑉𝑖 = 𝑂𝑊 𝐷𝑖 − 𝑂𝑊 𝐷𝑖 −1
+                                                                        ensure high performance and scalability. To simplify deploy-
+                  = (𝑡𝑖𝑟 − 𝑡𝑖𝑠 ) − (𝑡𝑖𝑟−1 − 𝑡𝑖𝑠−1 )               (4)   ment and testing, all components were containerized using
+                  = (𝑡𝑖𝑟 − 𝑡𝑖𝑟−1 ) − (𝑡𝑖𝑠 − 𝑡𝑖𝑠−1 )                     Docker. In our laboratory testbed, we have set the maximum
+                                                                        possible value for the advertised window so that the con-
+   Equation 4 shows that the one-way delay variation can
+                                                                        gestion window size is constrained only by the congestion
+be easily obtained by computing the difference between the
+                                                                        window.
+inter arrival times of two consecutive packets 𝑖 and 𝑖–1, and
+                                                                           QUIC-DC has been evaluated using two testbeds. The first
+their corresponding inter departure times.
+                                                                        is a controlled laboratory testbed made of two machines
+   By summing the one way delay variations, we can com-
+                                                                        connected with an Ethernet cable. The first machine acts as
+pute the one-way queueing delay as:
+                                                                        the client, sending one or multiple HTTP3/QUIC requests
+               𝑂𝑊 𝑄𝐷𝑖 = 𝑂𝑊 𝑄𝐷𝑖 −1 + 𝑂𝑊 𝐷𝑉𝑖                        (5)   to the second machine, which acts as the server. Both ma-
+   It should be noted that this measure is both simple and              chines are equipped with Gigabit Ethernet Network Interface
+robust and can be easily implemented.                                   Controllers (NICs). All the Docker containers are based on
+   Once we have the measurement of the queueing delay                   Ubuntu 22.04 images. The bottleneck is located physically
+along the forward path, we can use it to define a new conges-           on the interface of the server where we applied a 25 ms delay
+tion event which occurs when 𝑂𝑊 𝑄𝐷 reaches a threshold                  both incoming and outgoing, thus summing up to a total
+𝑂𝑊 𝑄𝐷𝑡ℎ :                                                               propagation time of 50 ms. We use the Linux traffic control
+                    𝑂𝑊 𝑄𝐷 > 𝑂𝑊 𝑄𝐷𝑡ℎ                       (6)           (tc) tool from the iproute2 suite to perform all the net-
+                                                                        work emulation tasks2 . The propagation delay 𝑇𝑝 is set using
+Using Eq. (6), we can control queue build-up and reduce
+                                                                        netem queueing disciplines on the server Ethernet interface,
+the risk of packet loss, which is particularly important for
+latency-sensitive applications.                                         1 https://engineering.fb.com/2014/11/05/production-engineering/
+   In QUIC Delay Control (QUIC-DC), we use the TCP West-                introducing-proxygen-facebook-s-c-http-framework
+wood+ congestion control [6, 14] i.e., after a congestion               2 https://man7.org/linux/man-pages/man8/tc.8.html
+                                                                                                                           Mascolo et al.
+
+
+                                                                          1.0
+
+
+
+                                                                          0.8
+
+
+
+                                                                          0.6
+           Receivers                            Senders
+                                                                                                                      QUIC-DC (10%)
+
+
+
+
+                                                                    CDF
+                                  Bottleneck
+                                                                                                                      QUIC-DC (20%)
+                                                                          0.4                                         QUIC-DC (50%)
+                                                                                                                      QUIC-DC (80%)
+                                                                                                                      Westwood+
+                                                                          0.2
+                                                                                                                      BBRv2
+                                                                                                                      Cubic
+             Figure 3: Single bottleneck testbed                          0.0
+                                                                                                                      New Reno
+
+                                                                                50   75   100   125     150   175   200   225   250
+
+while the bandwidth capacity 𝐶 in Mbps and the buffer size                                            RTT (ms)
+𝐵 in bytes are set using the token bucket filter (TBF) mecha-     Figure 4: Round-trip-time (RTT) distribution for a sin-
+nism. The results have been averaged over 3 runs and appear       gle flow – emulated link, buffer=4×BDP
+consistent between each run.
+   The other testbed considered is an uncontrolled real In-          Figure 4 shows the corresponding CDF of the measured
+ternet setup consisting of a residential client in Bari that      RTT for all the algorithms under analysis. The curves show
+accesses the Internet using an ADSL modem. The server is          that QUIC-DC provides lower RTT values compared to the
+located at the University of Rome, La Sapienza.                   other algorithms. Moreover, it can be noticed that by decreas-
+   Pacing is enabled at the application level to ensure that      ing the 𝑂𝑊 𝑄𝐷𝑡ℎ the RTT curves shift to the left towards
+packets are transmitted at evenly spaced intervals, minimiz-      lower RTT values. This is expected since a higher 𝑂𝑊 𝑄𝐷𝑡ℎ
+ing burstiness. 3                                                 implies larger queues along the path. It is worth noting that
+                                                                  in the case of algorithms with a larger loss rate, the RTT
+5     Experimental results                                        measurements underestimate the effective delays because
+QUIC-DC has been compared with other state-of-the-art             retransmitted packets experience very large delays, which do
+congestion control algorithms, namely Westwood+ [6, 14],          not contribute to the RTT measurements [13]. Similar con-
+Cubic [7], New Reno [9], and BBR version 2 [3].In this work       siderations can be drawn from Table 2, which corresponds
+BBRv2 has been considered due to its superior fairness com-       to the case of bottleneck buffer size set to 2 BDP.
+pared to BBRv3 [21]. The bottleneck buffer size 𝐵 has been           A nice understanding of the meaning of the proposed ap-
+set equal 0.5, 1, 2, 4 times the bandwidth delay product (BDP),   proach is provided by Figure 5, which compares the 𝑅𝑇𝑇
+where the bandwidth is the bottleneck capacity 𝐶 and the          and 𝑐𝑤𝑛𝑑 dynamics of QUIC Westwood+ (blue line) and
+delay is the round trip propagation delay 𝑇𝑝 = 𝑅𝑇𝑇𝑚𝑖𝑛 . We        QUIC-DC (red line) in the case of a bottleneck buffer size set
+will consider single-flow and multiple-flows scenarios.           to 2 BDP. It can be observed that, while QUIC Westwood+
+                                                                  resets the congestion window when the maximum RTT is
+5.1     Emulated network results                                  reached (dashed green line), QUIC-DC resets the congestion
+5.1.1 Single Flow. To understand the dynamics of QUIC-DC,         window when the 𝑂𝑊 𝑄𝐷 reaches the delay control thresh-
+we begin by examining a single-flow connection transferring       old set at 80% of the bottleneck buffer size in time. Under this
+a 100 MB file. QUIC-DC has been tested using different values     setting, buffer saturation at the bottleneck is prevented, ef-
+for the one-way queueing delay threshold 𝑂𝑊 𝑄𝐷𝑡ℎ , which          fectively avoiding packet losses. Consequently, the observed
+has been set equal to 10%, 20%, 50%, and 80% of the bottleneck    packet loss ratio was reduced by one order of magnitude (see
+buffer size expressed in time.                                    Table 1).
+   Table 1 shows the performance metrics of a single flow            When the buffer size is set to 1 BDP or 0.5 BDP, the results
+connections for the case of a buffer size set equal to 4 BDP,     in Table 3 and Table 4 indicate that QUIC-DC tends to be less
+where 𝐶=25 Mbps and 𝑅𝑇𝑇𝑚𝑖𝑛 = 𝑇𝑝 =50 ms. In this case, all         efficient in terms of goodput. Notably, in this scenario with an
+the congestion control algorithms achieve comprable good-         undersized bottleneck buffer, both BBRv2 and Cubic achieve
+puts but with larger loss rate in the case of Cubic and BBRv2.    higher goodput, with Cubic also exhibiting the lowest loss
+In comparison to QUIC Cubic, the loss percentage is reduced       rate. As will be shown in the following, this result disappears
+up to two orders of magnitude.                                    in the case of a multi-flow scenario.
+                                                                  5.1.2 Multiple Flows. The multi-flow scenario shown in Fig-
+3 The pacing interval has been set to 200 𝜇𝑠.                     ure 3 is considered. In particular, four connections of the
+QUIC Delay Control: an implementation of congestion and delay control
+
+
+                                                            Westwood+                  Table 2: Single-flow emulation; buffer = 2 × BDP ( 𝐶 =
+                         140
+                                                            QUIC-DC(80%)               10 Mbps, 𝑅𝑇𝑇min = 50 ms ).
+                                                            Delay Control threshold
+                                                            RTT min
+                                                            RTT Max
+                         120                                                            CCA              Gput   Tput        Loss    RTTavg RTTstd
+  RTT (ms)
+
+
+
+
+                                                                                                        (Mbps) (Mbps)        (%)      (ms)   (ms)
+                         100
+                                                                                        QUIC-DC (10%)     9.06      9.06    0.03      52.74         1.23
+                                                                                        QUIC-DC (20%)     9.16      9.16    0.03      55.98         3.65
+                          80
+                                                                                        QUIC-DC (50%)     9.14      9.15    0.14      68.33        10.25
+                                                                                        QUIC-DC (80%)     9.16      9.16    0.04      84.86        16.47
+                          60
+                                                                                        Westwood+         9.15      9.18    0.26      90.53        20.04
+                                                                                        BBRv2             9.12      9.18    0.66      87.94        26.94
+                                                                    Westwood+           Cubic             9.16      9.20    0.39     104.82        13.57
+                         200                                        QUIC-DC(80%)
+                                                                                        New Reno          9.17      9.18    0.14      93.78        18.79
+  cwnd / ssthresh (KB)
+
+
+
+
+                         150                                                           Table 3: Single-flow emulation; buffer = 1 × BDP ( 𝐶 =
+                                                                                       10 Mbps, 𝑅𝑇𝑇min = 50 ms ).
+                         100
+
+                                                                                        CCA              Gput   Tput        Loss    RTTavg RTTstd
+                          50
+                                                                                                        (Mbps) (Mbps)        (%)      (ms)   (ms)
+                                                                                        QUIC-DC (10%)      7.08     7.13     0.63        52.51      1.06
+                           0
+                                                                                        QUIC-DC (20%)      7.75     7.79     0.53        52.63      1.65
+                               0   10       20         30              40
+                                                                                        QUIC-DC (50%)      8.51     8.58     0.83        53.64      3.96
+                                            Time (s)                                    QUIC-DC (80%)      8.39     8.46     0.83        52.44      1.15
+                                                                                        Westwood+          8.22     8.27     0.64        53.11      3.03
+Figure 5: Time evolution of RTT and congestion win-                                     BBRv2              9.12     9.21     0.87        57.21      7.72
+dow – buffer=2×BDP.                                                                     Cubic              9.19     9.20     0.15        63.06      7.15
+                                                                                        New Reno           7.39     7.42     0.37        52.39      1.10
+Table 1: Single-flow emulation; buffer = 4 × BDP ( 𝐶 =                                 Table 4: Single-flow emulated link; buffer = 0.5 × BDP (
+10 Mbps, 𝑅𝑇𝑇min = 50 ms ).                                                             𝐶 = 10 Mbps, 𝑅𝑇𝑇min = 50 ms ).
+
+ CCA                                Gput   Tput    Loss     RTTavg RTTstd               CCA              Gput   Tput        Loss    RTTavg RTTstd
+                                   (Mbps) (Mbps)    (%)       (ms)   (ms)                               (Mbps) (Mbps)        (%)      (ms)   (ms)
+ QUIC-DC (10%)                       9.16   9.16   0.02         55.75           3.00    QUIC-DC (10%)      3.30     3.32     0.44        52.45      1.49
+ QUIC-DC (20%)                       9.17   9.17   0.01         63.83           7.64    QUIC-DC (20%)      3.58     3.62     1.24        52.23      1.06
+ QUIC-DC (50%)                       9.16   9.17   0.03         88.60          19.14    QUIC-DC (50%)      3.44     3.49     1.42        52.11      1.02
+ QUIC-DC (80%)                       9.16   9.16   0.02        123.82          26.48    QUIC-DC (80%)      3.75     3.82     1.77        52.26      1.04
+ Westwood+                           9.18   9.19   0.07        170.23          43.10    Westwood+          3.68     3.73     1.33        52.29      1.02
+ BBRv2                               9.15   9.21   0.65        102.33          27.44    BBRv2              6.27     6.35     1.20        51.41      0.77
+ Cubic                               9.10   9.20   1.03        190.32          31.37    Cubic              5.53     5.54     0.24        51.32      0.95
+ New Reno                            9.20   9.20   0.07        159.26          45.14    New Reno           3.34     3.37     0.81        52.48      0.96
+                                                                                       Table 5: Four concurrent flows, emulated link –
+same type are started at different times to avoid synchroniza-                         buffer=2×BDP. (Average ± standard deviation).
+tion. In this case, the control delay threshold 𝑂𝑊 𝑄𝐷𝑡ℎ = 80%
+and the bottleneck buffer size is set to 2 BDP. We have mea-                            CCA               RTT𝑎𝑣𝑔            Goodput              Loss
+sured and averaged goodputs, throughputs, losses and RTTs                                                  (ms)            (Mbps, JFI)            (%)
+for each connection.                                                                    QUIC-DC (80%)   95.07 ± 0.16 2.29 ± 0.07 (0.999) 0.12 ± 0.02
+   Table 5 presents the average values along with the corre-                            Westwood+       101.19 ± 0.13 2.28 ± 0.12 (0.998) 0.43 ± 0.06
+sponding standard deviations for the RTT, goodput, Jain’s                               BBRv2           111.55 ± 0.29 2.28 ± 0.34 (0.984) 1.05 ± 0.11
+fairness index, and loss percentage of each control algorithm.                          Cubic           114.26 ± 0.09 2.30 ± 0.03 (0.999) 0.34 ± 0.03
+As shown, QUIC-DC exhibits the lowest RTT and loss per-                                 New Reno        113.87 ± 0.44 1.95 ± 0.12 (0.998) 0.58 ± 0.07
+centage, while maintaining a goodput level comparable to the
+other considered algorithms. It is worth noting that, since the
+                                                                                                                                                Mascolo et al.
+
+
+            1.0                                                                              1.0
+
+
+            0.8                                                                              0.8
+
+
+            0.6
+                                                                                             0.6
+      CDF
+
+
+
+
+                                                                                       CDF
+                                                                                                                                           QUIC-DC (20%)
+            0.4                                            QUIC-DC (80%)                     0.4                                           QUIC-DC (50%)
+                                                           Westwood+
+                                                                                                                                           Westwood+
+            0.2                                            BBRv2
+                                                                                             0.2                                           BBRv2
+                                                           Cubic
+                                                                                                                                           Cubic
+                                                           New Reno
+            0.0                                                                                                                            New Reno
+                                                                                             0.0
+                  50   75      100   125      150    175    200      225
+                                      RTT (ms)                                                     30     35       40        45       50        55         60
+                                                                                                                        RTT (ms)
+Figure 6: RTT distribution for four concurrent flows –
+emulated link, buffer=2×BDP.                                                           Figure 7: RTT distribution on real network path.
+
+      Table 6: Single flow, real network connections.                              6         Conclusions
+                                                                                   QUIC DC controls the delay of an Internet connection by
+ CCA                         Gput     Tput          Loss RTT𝑎𝑣𝑔 RTT𝑠𝑡𝑑
+                                                                                   measuring the one-way queueing delay to trigger an early
+                            (Mbps)   (Mbps)          (%)   (ms)   (ms)
+                                                                                   reaction to congestion. The idea has been implemented in
+ QUIC-DC (20%)              26.744   26.746     0.0096       30.92          9.30   QUIC using the TCP Westwood+ congestion control and has
+ QUIC-DC (50%)              30.954   30.956     0.0103       32.09         11.18   been evaluated against QUIC NewReno, QUIC Westwood+,
+ Westwood+                  33.115   33.132     0.0470       35.08         11.50
+                                                                                   QUIC Cubic, and QUIC BBRv2. Experimental results show
+ BBRv2                      33.560   33.586     0.0730       32.00         11.28
+ Cubic                      33.529   33.555     0.0733       36.17         12.05   that the cumulative distribution function of the round-trip
+ New Reno                   33.935   32.959     0.0765       35.92         12.18   time can be shifted to lower values, while the packet loss rate
+                                                                                   can be reduced by an order of magnitude. BBRv2 has shown
+                                                                                   serious drawbacks when multiple flows share the bottleneck.
+
+link capacity is set to 25 Mbps, a goodput around 6 Mbps in-                       Acknowledgments
+dicates that the link is fully utilized and fairly shared among
+                                                                                   This work has been funded by the “LOREN” Project,
+the four connectioncs.
+                                                                                   n. 20223Y85JN, under the PRIN (Progetti di Ricerca d’Interesse
+   Figure 6 shows the CDF of the RTT in the case of mul-
+                                                                                   Nazionale) 2022 programme of the Italian Ministry of Re-
+tiple connections over a shared bottleneck. It shows that
+                                                                                   search.
+QUIC-DC provides lower RTT values compared to the other
+considered congestion control algorithms. Due to space con-
+straints, we are here unable to investigate the friendliness                       References
+between different types of control algorithms.                                      [1] L.S. Brakmo and L.L. Peterson. 1995. TCP Vegas: end to end congestion
+                                                                                        avoidance on a global Internet. IEEE Journal on Selected Areas in
+                                                                                        Communications 13, 8 (1995), 1465–1480. doi:10.1109/49.464716
+5.2         Real network results                                                    [2] Łukasz Budzisz, Rade Stanojevic, Arieh Schlote, Fred Baker, and Robert
+We consider the real network scenario described in Section 4.                           Shorten. 2011. On the Fair Coexistence of Loss- and Delay-Based
+                                                                                        TCP. IEEE/ACM Transactions on Networking 19, 6 (2011), 1811–1824.
+During the experiments, we have measured 𝑅𝑇𝑇𝑚𝑖𝑛 = 30 𝑚𝑠,                                doi:10.1109/TNET.2011.2159736
+𝑅𝑇𝑇𝑚𝑎𝑥 = 60 𝑚𝑠, which means that there is a bottleneck                              [3] Neal Cardwell, Yuchung Cheng, Soheil Hassas Yeganeh, Priyaranjan
+buffer size equal to 1 𝐵𝐷𝑃. Table 6 shows that QUIC-DC                                  Jha, Yousuk Seung, Ian Swett, Victor Vasiliev, Bin Wu, Matt Mathis,
+reduces the loss rate by one order of magnitude whereas the                             and Van Jacobson. 2019. BBR v2: a model-based congestion control
+goodput is only slightly lower than the other approaches                                IETF 105 update. Presentation at IETF105 (2019).
+                                                                                    [4] Gaetano Carlucci, Luca De Cicco, Stefan Holmer, and Saverio Mascolo.
+(note that QUIC Westwood+ corresponds to QUIC-DC (100%)).                               2017. Congestion control for web real-time communication. IEEE/ACM
+Moreover, Figure 7 shows that QUIC-DC also provides shorter                             Transactions on Networking 25, 5 (2017), 2629–2642.
+RTT. However, it should also be noted that algorithms ex-                           [5] Giovanna Carofiglio, Luca Muscariello, Dario Rossi, and Silvio Valenti.
+periencing higher loss rates provide RTT delays that are                                2010. The quest for LEDBAT fairness. In Proc. IEEE GLOBECOM ’10.
+underestimated because retransmitted packets are not con-                               IEEE.
+                                                                                    [6] Luigi A. Grieco and Saverio Mascolo. 2004. Performance evaluation
+sidered in RTT measurements [13]. In other terms, the algo-                             and comparison of Westwood+, New Reno, and Vegas TCP congestion
+rithms with larger loss-rates provide a distribution of RTT                             control. SIGCOMM Comput. Commun. Rev. 34, 2 (April 2004), 25–38.
+that underestimates the effective delay.                                                doi:10.1145/997150.997155
+QUIC Delay Control: an implementation of congestion and delay control
+
+
+ [7] Sangtae Ha, Injong Rhee, and Lisong Xu. 2008. CUBIC: a new TCP-              transport over wireless links. In Proceedings of the 7th annual interna-
+     friendly high-speed TCP variant. ACM SIGOPS operating systems                tional conference on Mobile computing and networking. 287–297.
+     review 42, 5 (2008), 64–74.                                             [15] Christina Parsa and Jose Joaquin Garcia-Luna-Aceves. 1999. Improving
+ [8] David A Hayes and Grenville Armitage. 2011. Revisiting TCP con-              TCP congestion control over internets with heterogeneous transmis-
+     gestion control using delay gradients. In International Conference on        sion media. In Proc. ICNP ’99. IEEE, 213–221.
+     Research in Networking. Springer, 328–341.                              [16] Larry L Peterson and Bruce S Davie. 2021. Computer networks: a
+ [9] Tom Henderson, Sally Floyd, Andrei Gurtov, and Yoshifumi Nishida.            systems approach. Elsevier.
+     2012. The NewReno modification to TCP’s fast recovery algorithm.        [17] Ravi S Prasad, Manish Jain, and Constantinos Dovrolis. 2004. On the
+     Technical Report.                                                            effectiveness of delay-based congestion avoidance. In Proc. PFLDNet,
+[10] J. Iyengar and M. Thomson. 2021. QUIC: A UDP-Based Multiplexed               Vol. 4.
+     and Secure Transport. RFC 9000. RFC Editor. https://www.rfc-editor.     [18] Kadangode Ramakrishnan, Sally Floyd, and David Black. 2001. The ad-
+     org/rfc/rfc9000.txt                                                          dition of explicit congestion notification (ECN) to IP. Technical Report.
+[11] V. Jacobson. 1988. Congestion avoidance and control. In Proc. of ACM    [19] Sea Shalunov, Greg Hazel, Janardhan Iyengar, and Mirja Kuehlewind.
+     SIGCOMM ’88 (Stanford, California, USA) (SIGCOMM ’88). Association           2012. Low extra delay background transport (LEDBAT). RFC. RFC
+     for Computing Machinery, New York, NY, USA, 314–329. doi:10.1145/            Editor. https://www.rfc-editor.org/rfc/rfc6817.txt
+     52324.52356                                                             [20] Yasir Zaki, Thomas Pötsch, Jay Chen, Lakshminarayanan Subrama-
+[12] R. Jain. 1989. A delay-based approach for congestion avoidance in in-        nian, and Carmelita Görg. 2015. Adaptive congestion control for
+     terconnected heterogeneous computer networks. SIGCOMM Comput.                unpredictable cellular networks. In Proc. ACM SIGCOMM ’15. 509–
+     Commun. Rev. 19, 5 (Oct. 1989), 56–71. doi:10.1145/74681.74686               522.
+[13] Phil Karn and Craig Partridge. 1987. Improving round-trip time es-      [21] Danesh Zeynali, Emilia N. Weyulu, Seifeddine Fathalli, Balakrishnan
+     timates in reliable transport protocols. ACM SIGCOMM Computer                Chandrasekaran, and Anja Feldmann. 2024. Promises and Potential
+     Communication Review 17, 5 (1987), 2–7.                                      of BBRv3. In Proc. of PAM 2024. Springer-Verlag, Berlin, Heidelberg,
+[14] Saverio Mascolo, Claudio Casetti, Mario Gerla, Medy Y Sanadidi, and          249–272. doi:10.1007/978-3-031-56252-5_12
+     Ren Wang. 2001. TCP Westwood: Bandwidth estimation for enhanced
+
