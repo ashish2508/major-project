@@ -35,15 +35,17 @@ function RevealedScore({ score }: { score: number }) {
 function HighlightedText({
   text,
   span,
+  review = false,
 }: {
   text: string;
   span?: { offset: number; length: number };
+  review?: boolean;
 }) {
   if (!span) return <>{text}</>;
   return (
     <>
       {text.slice(0, span.offset)}
-      <mark tabIndex={-1} data-highlight="true">
+      <mark tabIndex={-1} data-highlight={review ? 'review' : 'true'}>
         {text.slice(span.offset, span.offset + span.length)}
       </mark>
       {text.slice(span.offset + span.length)}
@@ -99,9 +101,10 @@ export default function Home() {
       if (mark && pane) pane.scrollTop = Math.max(0, mark.offsetTop - pane.offsetTop - 80);
     }
   }, [active, result]);
-  const chosen = result?.detections[active],
-    selectedSource =
-      result?.sources.find((s) => s.reference === chosen?.sourceReference) ?? result?.sources[0];
+  const reviewingLead = active === -1;
+  const chosen = reviewingLead ? result?.semanticReviewLead : result?.detections[active];
+  const selectedSource =
+    result?.sources.find((s) => s.reference === chosen?.sourceReference) ?? result?.sources[0];
   const config = status?.configs?.[method];
   async function submit(event: FormEvent) {
     event.preventDefault();
@@ -505,7 +508,11 @@ export default function Home() {
                     </div>
                   </dl>
                 </div>
-                <a className="secondary-button" href="#evidence-comparison">
+                <a
+                  className="secondary-button"
+                  href="#evidence-comparison"
+                  onClick={() => setActive(-1)}
+                >
                   Inspect evidence ↓
                 </a>
               </article>
@@ -543,7 +550,7 @@ export default function Home() {
                 ))}
               </div>
             )}
-            {chosen && (
+            {chosen && !reviewingLead && (
               <div className="evidence-stats">
                 <span>
                   Lexical cosine <b>{chosen.lexical.toFixed(3)}</b>
@@ -569,7 +576,11 @@ export default function Home() {
                   tabIndex={0}
                   aria-label="Document text with suspicious passage highlighted"
                 >
-                  <HighlightedText text={result.query.text} span={chosen?.suspiciousSpan} />
+                  <HighlightedText
+                    text={result.query.text}
+                    span={chosen?.suspiciousSpan}
+                    review={reviewingLead}
+                  />
                 </pre>
               </article>
               {selectedSource && (
@@ -583,7 +594,11 @@ export default function Home() {
                     tabIndex={0}
                     aria-label="Source text with matching passage highlighted"
                   >
-                    <HighlightedText text={selectedSource.text} span={chosen?.sourceSpan} />
+                    <HighlightedText
+                      text={selectedSource.text}
+                      span={chosen?.sourceSpan}
+                      review={reviewingLead}
+                    />
                   </pre>
                 </article>
               )}

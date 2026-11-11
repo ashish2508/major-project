@@ -53,8 +53,8 @@
   "fusion": "union of original lexical and paragraph semantic alerts",
   "selection": "validation PlagDet, precision, higher threshold, fixed alpha order",
   "candidateRetrieval": "exhaustive supplied collection, independent best source window per query window",
-  "gitHead": "dd609fc68696dbd44f7f21bca3bdac5d606dadc9",
-  "gitStatus": "M .prettierignore\n M reports/implementation/alignment-fusion/experiment-config.json\n M reports/implementation/alignment-fusion/frozen-parameters.json\n M reports/implementation/demo-diagnostics-after.json\n M reports/implementation/final-handoff-report.md\n M src/lib/application/analysis.ts\n M src/lib/detection/segmentation.ts\n M tests/paragraph-review.test.ts\n?? .vscode/tasks.json\n?? reports/implementation/alignment-fusion/cache/\n?? reports/implementation/alignment-fusion/leakage-check.json\n?? reports/implementation/alignment-fusion/lexical-validation.json\n?? reports/implementation/alignment-fusion/split-manifest.json",
+  "gitHead": "63314f66e7d937c5c1b814a13ce7916e85101bc3",
+  "gitStatus": "M reports/implementation/alignment-fusion/experiment-config.json",
   "runtime": {
     "bun": "1.3.14",
     "nodeCompatibility": "24.3.0",

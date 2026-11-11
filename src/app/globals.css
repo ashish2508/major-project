@@ -816,6 +816,12 @@ textarea:disabled {
   scroll-behavior: smooth;
 }
 
+.text-panel mark[data-highlight='review'] {
+  background: #fff0b3;
+  color: #503700;
+  border-color: #b07a13;
+  animation: none;
+}
 .text-panel mark {
   background: #ffcabd;
   color: #5b2017;

@@ -14,6 +14,7 @@ import { segment, segmentParagraphs } from '../detection/segmentation';
 import { Tfidf } from '../detection/tfidf';
 import { digest } from '../digest';
 import type { ExtractedDocument } from '../documents/extract';
+import { overlaps } from '../evaluation/pan';
 import {
   applicationDevice,
   embeddingProvider,
@@ -115,14 +116,27 @@ export async function analyzeDocuments(
       vectors.slice(0, queries.length),
       vectors.slice(queries.length),
       [config.alpha],
+      5,
     );
   }
-  const detections = detect(rows[scoreKey(method, config.alpha)], config.threshold, mergeGap);
+  const detections = detect(
+    rows[scoreKey(method, config.alpha)],
+    config.threshold,
+    mergeGap,
+    alignSemantically,
+  );
   const semanticReviewThreshold = configs.semantic.threshold;
   const semanticReviewLead =
-    method === 'lexical' || !rows.semantic
+    method === 'lexical' || !rows.semanticAlternatives
       ? null
-      : selectSemanticReviewLead(rows.semantic, semanticReviewThreshold);
+      : selectSemanticReviewLead(
+          rows.semanticAlternatives.filter(
+            (candidate) =>
+              candidate.semantic < semanticReviewThreshold &&
+              !detections.some((detection) => overlaps(candidate, detection)),
+          ),
+          semanticReviewThreshold,
+        );
   return {
     query,
     sources,

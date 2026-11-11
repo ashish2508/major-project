@@ -48,6 +48,7 @@ export function retrieveCandidates(
   queryEmbeddings?: number[][],
   sourceEmbeddings?: number[][],
   alphas: readonly number[] = ALPHAS,
+  semanticAlternatives = 0,
 ): Record<string, Candidate[]> {
   if (!sources.length) throw new Error('At least one source passage is required');
   if (Boolean(queryEmbeddings) !== Boolean(sourceEmbeddings))
@@ -61,17 +62,16 @@ export function retrieveCandidates(
     ? ['lexical', 'semantic', ...alphas.map((a) => scoreKey('hybrid', a))]
     : ['lexical'];
   const output = Object.fromEntries(keys.map((k) => [k, [] as Candidate[]]));
-  const checkEmbeddings = (vectors: number[][]) => {
-    for (const vector of vectors) {
+  if (semanticAlternatives && queryEmbeddings) output.semanticAlternatives = [];
+  const embeddingNorms = (vectors: number[][]) =>
+    vectors.map((vector) => {
       const norm = Math.hypot(...vector);
       if (vector.length !== 384 || !Number.isFinite(norm) || Math.abs(norm - 1) > 0.001)
         throw new Error('Expected a normalized 384-dimensional embedding');
-    }
-  };
-  if (queryEmbeddings) {
-    checkEmbeddings(queryEmbeddings);
-    checkEmbeddings(sourceEmbeddings!);
-  }
+      return norm;
+    });
+  const queryNorms = queryEmbeddings && embeddingNorms(queryEmbeddings);
+  const sourceNorms = sourceEmbeddings && embeddingNorms(sourceEmbeddings);
   const postings = new Map<string, { index: number; weight: number }[]>();
   for (const [index, source] of sources.entries()) {
     for (const [term, weight] of tfidf.transform(source.text)) {
@@ -100,7 +100,7 @@ export function retrieveCandidates(
         const a = queryEmbeddings[qi],
           b = sourceEmbeddings![si];
         for (let k = 0; k < 384; k++) semantic += a[k] * b[k];
-        semantic = Math.min(1, Math.max(-1, semantic));
+        semantic = Math.min(1, Math.max(-1, semantic / (queryNorms![qi] * sourceNorms![si])));
       }
       lexicalScores[si] = lexical;
       semanticScores[si] = semantic;
@@ -108,7 +108,12 @@ export function retrieveCandidates(
         const alpha = alphas[index - 2];
         const score =
           index === 0 ? lexical : index === 1 ? semantic : alpha * lexical + (1 - alpha) * semantic;
-        if (score > bestScores[index]) {
+        if (
+          score > bestScores[index] ||
+          (index === 1 &&
+            score === bestScores[index] &&
+            lexical > lexicalScores[bestIndices[index]])
+        ) {
           bestScores[index] = score;
           bestIndices[index] = si;
         }
@@ -127,6 +132,25 @@ export function retrieveCandidates(
         score: bestScores[index],
       });
     }
+    if (output.semanticAlternatives) {
+      const ranked = sources
+        .map((_, index) => index)
+        .sort(
+          (a, b) => semanticScores[b] - semanticScores[a] || lexicalScores[b] - lexicalScores[a],
+        );
+      for (const index of ranked.slice(0, semanticAlternatives)) {
+        const source = sources[index];
+        output.semanticAlternatives.push({
+          suspiciousReference: query.documentReference,
+          sourceReference: source.documentReference,
+          suspiciousSpan: { offset: query.offset, length: query.length },
+          sourceSpan: { offset: source.offset, length: source.length },
+          lexical: lexicalScores[index],
+          semantic: semanticScores[index],
+          score: semanticScores[index],
+        });
+      }
+    }
   }
   return output;
 }
@@ -143,6 +167,7 @@ export function detect(
   candidates: Candidate[],
   threshold: number,
   mergeGap = MERGE_GAP,
+  requireConsistentAlignment = false,
 ): Detection[] {
   if (!Number.isFinite(threshold) || threshold < 0 || threshold > 1 || mergeGap < 0)
     throw new Error('Invalid detection parameters');
@@ -160,7 +185,11 @@ export function detect(
       d.suspiciousReference === c.suspiciousReference &&
       d.sourceReference === c.sourceReference &&
       spanGap(d.suspiciousSpan, c.suspiciousSpan) <= mergeGap &&
-      spanGap(d.sourceSpan, c.sourceSpan) <= mergeGap
+      spanGap(d.sourceSpan, c.sourceSpan) <= mergeGap &&
+      (!requireConsistentAlignment ||
+        (d.sourceSpan.offset <= c.sourceSpan.offset &&
+          spanGap(d.suspiciousSpan, c.suspiciousSpan) < 0 ===
+            spanGap(d.sourceSpan, c.sourceSpan) < 0))
         ? [i]
         : [],
     );

@@ -51,4 +51,44 @@ it('merges evidence only when both matching source and query spans are near', ()
   expect(result).toHaveLength(2);
   expect(result[0].suspiciousSpan.length).toBe(180);
   expect(result[0].evidenceWindows).toBe(2);
+  expect(detect([c(0, 0), c(80, 90)], 0.7, 120, true)).toHaveLength(1);
+  expect(detect([c(0, 140), c(80, 0)], 0.7, 120, true)).toHaveLength(2);
+  expect(detect([c(0, 0), c(0, 140)], 0.7, 120, true)).toHaveLength(2);
+});
+
+it('breaks semantic ties with matching words and keeps weaker same-topic candidates below the alert threshold', () => {
+  const query = segment('Battery cooling limits charging power.', 'query');
+  const sources = [
+    ...segment('Battery recycling separates metals.', 'same-topic'),
+    ...segment('Battery cooling limits charging power.', 'copy'),
+    ...segment('Thermal constraints cap the charge rate.', 'paraphrase'),
+  ];
+  const vector = (cosine: number, norm = 1) => [
+    cosine * norm,
+    Math.sqrt(1 - cosine ** 2) * norm,
+    ...Array(382).fill(0),
+  ];
+  const tfidf = Tfidf.fit(sources.map(({ text }) => text));
+  const result = retrieveCandidates(
+    query,
+    sources,
+    tfidf,
+    [vector(1)],
+    [vector(0.6, 1.0005), vector(0.6), vector(0.69)],
+  );
+  expect(result.lexical[0].sourceReference).toBe('copy');
+  expect(result.semantic[0].sourceReference).toBe('paraphrase');
+  expect(detect(result.semantic, 0.7)).toHaveLength(0);
+  const tied = retrieveCandidates(
+    query,
+    sources.slice(0, 2),
+    tfidf,
+    [vector(1)],
+    [vector(0.6), vector(0.6)],
+  );
+  expect(tied.semantic[0].sourceReference).toBe('copy');
+  expect(
+    retrieveCandidates(query, sources.slice(0, 1), tfidf, [vector(1)], [vector(0.6, 1.0005)])
+      .semantic[0].score,
+  ).toBeCloseTo(0.6, 10);
 });

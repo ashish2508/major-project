@@ -67,14 +67,16 @@ it.skipIf(process.env.INFERENCE_TESTS !== '1')(
     );
     const vectors = await embedTexts([...queries, ...sources].map(({ text }) => text));
     const { tfidf } = await getArtifacts();
-    const { semantic } = retrieveCandidates(
+    const { semanticAlternatives } = retrieveCandidates(
       queries,
       sources,
       tfidf,
       vectors.slice(0, queries.length),
       vectors.slice(queries.length),
+      [],
+      5,
     );
-    const aligned = semantic.find((candidate) =>
+    const aligned = semanticAlternatives.find((candidate) =>
       overlaps(candidate, {
         suspiciousReference: 'query',
         sourceReference: 'source-1',
