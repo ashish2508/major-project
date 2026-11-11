@@ -3,10 +3,7 @@
   "generatedAt": "2026-11-11T18:08:29.426Z",
   "description": "Controlled research-paper validation with synthetic suspicious documents. Verbatim copies and hand-written paraphrases of genuine body passages are planted in synthetic documents; negative controls compare against the wrong source. Production detection code, thresholds, alpha values, and model configuration were NOT modified. Synthetic results do NOT establish real-world plagiarism accuracy.",
   "methodology": {
-    "sourcePapers": [
-      "Review4Repair_2020",
-      "Online_Sketch_Query_Optimization_2021"
-    ],
+    "sourcePapers": ["Review4Repair_2020", "Online_Sketch_Query_Optimization_2021"],
     "sourceSelection": "Papers with confidently detected reference sections and the highest counts of clean (letter-dense, multi-sentence) body paragraphs.",
     "referenceStripping": "stripCanonicalReferences() applied in-memory; canonical files unchanged.",
     "lexicalSegmentation": "segment() with existing defaults",

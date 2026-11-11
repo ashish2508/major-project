@@ -177,10 +177,7 @@
   "comparison": {
     "referenceDetection": {
       "papersWithConfidentDetection": 10,
-      "papersWithoutConfidentDetection": [
-        "QUIC_Delay_Control_2025",
-        "QUIC_Dual_Connectivity_2021"
-      ],
+      "papersWithoutConfidentDetection": ["QUIC_Delay_Control_2025", "QUIC_Dual_Connectivity_2021"],
       "detectionDetails": [
         {
           "reference": "BERTAC_2021",

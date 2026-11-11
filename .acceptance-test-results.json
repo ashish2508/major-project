@@ -1,0 +1,40 @@
+[
+  {
+    "name": "PDF Ingestion",
+    "passed": true,
+    "duration": 87,
+    "details": "Basic PDF parsing verified"
+  },
+  {
+    "name": "Corpus Persistence",
+    "passed": true,
+    "duration": 114,
+    "details": "Corpus management layer functional"
+  },
+  {
+    "name": "Detection Methods",
+    "passed": true,
+    "duration": 300,
+    "details": "All detection methods functional"
+  },
+  {
+    "name": "Typecheck",
+    "passed": true,
+    "duration": 1684
+  },
+  {
+    "name": "Lint",
+    "passed": true,
+    "duration": 8142
+  },
+  {
+    "name": "Production Build",
+    "passed": true,
+    "duration": 28625
+  },
+  {
+    "name": "Integration Tests",
+    "passed": true,
+    "duration": 72011
+  }
+]

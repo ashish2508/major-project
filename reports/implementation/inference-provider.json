@@ -16,22 +16,18 @@
       "bundled": true
     },
     {
-      "name": "webgpu",
+      "name": "dml",
       "bundled": true
     },
     {
-      "name": "cuda",
-      "bundled": false
-    },
-    {
-      "name": "tensorrt",
-      "bundled": false
+      "name": "webgpu",
+      "bundled": true
     }
   ],
   "profileObservedProviders": ["CPUExecutionProvider"],
-  "elapsedMs": 27.530293999999998,
+  "elapsedMs": 9.624599999999987,
   "outputs": {
     "last_hidden_state": [1, 9, 384]
   },
-  "note": "GPU hardware exists; CUDA backend is not bundled. CPU explicitly selected and verified from native profiling."
+  "note": "CPU was explicitly selected and verified from native profiling."
 }

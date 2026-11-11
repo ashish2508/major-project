@@ -12,6 +12,7 @@ import {
 } from '../detection/detector';
 import { filterInformativeEvidence } from '../detection/informative-evidence';
 import { segment, segmentParagraphs } from '../detection/segmentation';
+import { stripCanonicalReferences, type StripResult } from '../detection/strip-references';
 import { Tfidf } from '../detection/tfidf';
 import { digest } from '../digest';
 import type { ExtractedDocument } from '../documents/extract';
@@ -24,6 +25,8 @@ import {
   MODEL_DIRECTORY,
   tokenCounter,
 } from '../embeddings/model';
+import { getAllReadyPassages } from '../corpus/service';
+import { getCorpusPassagesAndVectors } from '../corpus/semantic-index';
 
 const configSchema = z.object({
   method: z.enum(['lexical', 'semantic', 'hybrid']),
@@ -80,63 +83,191 @@ async function verifyModel() {
     });
   return modelVerified;
 }
+
+// ---------------------------------------------------------------------------
+// Reference stripping helper
+// ---------------------------------------------------------------------------
+
+function stripDocument(doc: ExtractedDocument): {
+  strippedDoc: ExtractedDocument;
+  stripResult: StripResult;
+} {
+  const stripResult = stripCanonicalReferences(doc.reference, doc.text);
+  const strippedDoc: ExtractedDocument = {
+    ...doc,
+    text: stripResult.body,
+  };
+  return { strippedDoc, stripResult };
+}
+
+// ---------------------------------------------------------------------------
+// Main analysis entry point
+// ---------------------------------------------------------------------------
+
 export async function analyzeDocuments(
   query: ExtractedDocument,
   sources: ExtractedDocument[],
   method: Method,
+  options?: { useCorpus?: boolean; useCanonicalCorpus?: boolean },
 ) {
+  const useCorpus = options?.useCorpus ?? options?.useCanonicalCorpus ?? false;
   const start = performance.now(),
     { tfidf, configs } = await getArtifacts(),
     config = configs[method];
   const countTokens = await tokenCounter();
   const alignSemantically = method === 'semantic' || (method === 'hybrid' && config.alpha < 1);
   const split = alignSemantically ? segmentParagraphs : segment;
-  const queries = split(query.text, query.reference, { countTokens }, query.paragraphBreaks);
-  const sourcePassages = sources.flatMap((source) =>
-    split(source.text, source.reference, { countTokens }, source.paragraphBreaks),
+
+  // --- Reference stripping ---
+  const { strippedDoc: strippedQuery, stripResult: queryStripResult } = stripDocument(query);
+
+  // --- Segmentation of Query ---
+  const queries = split(
+    strippedQuery.text,
+    strippedQuery.reference,
+    { countTokens },
+    strippedQuery.paragraphBreaks,
   );
+
   const mergeGap = config.mergeGap;
-  if (!queries.length || !sourcePassages.length)
-    throw new Error('Documents need extractable words');
+  if (!queries.length) throw new Error('Documents need extractable words');
+
   let rows;
   let provider = 'TF-IDF on CPU';
-  if (method === 'lexical') rows = retrieveCandidates(queries, sourcePassages, tfidf);
-  else {
+  let effectiveSources: ExtractedDocument[] = [];
+  const sourceStripResults: Array<{ reference: string; stripResult: StripResult }> = [];
+
+  if (method === 'lexical') {
+    let sourcePassages;
+
+    if (useCorpus) {
+      const corpusData = await getAllReadyPassages();
+      if (!corpusData.passages.length) {
+        throw new Error(
+          'Corpus contains no ready documents or passages. Ingest research papers first.',
+        );
+      }
+      sourcePassages = corpusData.passages;
+      effectiveSources = corpusData.documents;
+    } else {
+      effectiveSources = sources;
+      const strippedSources: ExtractedDocument[] = effectiveSources.map((src) => {
+        const { strippedDoc, stripResult } = stripDocument(src);
+        sourceStripResults.push({ reference: src.reference, stripResult });
+        return strippedDoc;
+      });
+
+      sourcePassages = strippedSources.flatMap((source) =>
+        split(source.text, source.reference, { countTokens }, source.paragraphBreaks),
+      );
+    }
+
+    if (!sourcePassages.length) throw new Error('Documents need extractable words');
+
+    rows = retrieveCandidates(queries, sourcePassages, tfidf);
+
+    const mergedDetections = detect(
+      rows[scoreKey(method, config.alpha)],
+      config.threshold,
+      mergeGap,
+      alignSemantically,
+    );
+    const detections = mergedDetections;
+    const semanticReviewThreshold = configs.semantic.threshold;
+
+    return buildResult({
+      query,
+      sources: effectiveSources,
+      method,
+      config,
+      mergeGap,
+      detections,
+      semanticReviewLead: null,
+      semanticReviewThreshold,
+      queryPassageCount: queries.length,
+      sourcePassageCount: sourcePassages.length,
+      elapsedSeconds: (performance.now() - start) / 1000,
+      provider,
+      queryStripResult,
+      sourceStripResults,
+      query_ref: query.reference,
+    });
+  } else {
     await verifyModel();
     const device = applicationDevice();
-    const passages = [...queries, ...sourcePassages],
-      uniqueTexts = [...new Set(passages.map((passage) => passage.text))],
-      uniqueVectors = await embedTexts(uniqueTexts, device),
-      vectorByText = new Map(uniqueTexts.map((text, index) => [text, uniqueVectors[index]])),
-      vectors = passages.map((passage) => vectorByText.get(passage.text)!);
+
+    let sourcePassages;
+    let sourceVectors: number[][];
+
+    if (useCorpus) {
+      // Load pre-indexed passages and persistent vectors from disk
+      const corpusData = await getCorpusPassagesAndVectors();
+      if (!corpusData.passages.length) {
+        throw new Error(
+          'Corpus contains no ready documents or passages. Ingest research papers first.',
+        );
+      }
+      sourcePassages = corpusData.passages;
+      sourceVectors = corpusData.vectors;
+      effectiveSources = corpusData.documents;
+    } else {
+      effectiveSources = sources;
+      const strippedSources: ExtractedDocument[] = effectiveSources.map((src) => {
+        const { strippedDoc, stripResult } = stripDocument(src);
+        sourceStripResults.push({ reference: src.reference, stripResult });
+        return strippedDoc;
+      });
+
+      sourcePassages = strippedSources.flatMap((source) =>
+        split(source.text, source.reference, { countTokens }, source.paragraphBreaks),
+      );
+      sourceVectors = [];
+    }
+
+    if (!sourcePassages.length) throw new Error('Documents need extractable words');
+
+    // Embed only query passages (much smaller set)
+    const queryTexts = [...new Set(queries.map((p) => p.text))];
+    const queryUniqueVectors = await embedTexts(queryTexts, device);
+    const queryVectorByText = new Map(queryTexts.map((t, i) => [t, queryUniqueVectors[i]]));
+    const queryVectors = queries.map((p) => queryVectorByText.get(p.text)!);
+
+    if (!useCorpus) {
+      // Need to embed ad-hoc source passages on the fly
+      const sourceTexts = [...new Set(sourcePassages.map((p) => p.text))];
+      const sourceUniqueVectors = await embedTexts(sourceTexts, device);
+      const sourceVectorByText = new Map(sourceTexts.map((t, i) => [t, sourceUniqueVectors[i]]));
+      sourceVectors = sourcePassages.map((p) => sourceVectorByText.get(p.text)!);
+    }
+
     provider = await embeddingProvider(device);
+
     rows = retrieveCandidates(
       queries,
       sourcePassages,
       tfidf,
-      vectors.slice(0, queries.length),
-      vectors.slice(queries.length),
+      queryVectors,
+      sourceVectors,
       [config.alpha],
       5,
     );
-  }
-  const mergedDetections = detect(
-    rows[scoreKey(method, config.alpha)],
-    config.threshold,
-    mergeGap,
-    alignSemantically,
-  );
-  // Selected on PAN validation for paragraph-window semantic and hybrid alerts.
-  const detections = alignSemantically
-    ? filterInformativeEvidence(
-        mergedDetections,
-        new Map([query, ...sources].map(({ reference, text }) => [reference, text])),
-        12,
-      )
-    : mergedDetections;
-  const semanticReviewThreshold = configs.semantic.threshold;
-  const semanticReviewLead =
-    method === 'lexical' || !rows.semanticAlternatives
+
+    const mergedDetections = detect(
+      rows[scoreKey(method, config.alpha)],
+      config.threshold,
+      mergeGap,
+      alignSemantically,
+    );
+
+    const allDocsForFilter = new Map(
+      [strippedQuery, ...effectiveSources].map(({ reference, text }) => [reference, text]),
+    );
+    const detections = alignSemantically
+      ? filterInformativeEvidence(mergedDetections, allDocsForFilter, 12)
+      : mergedDetections;
+
+    const semanticReviewThreshold = configs.semantic.threshold;
+    const semanticReviewLead = !rows.semanticAlternatives
       ? null
       : selectSemanticReviewLead(
           rows.semanticAlternatives.filter(
@@ -146,6 +277,64 @@ export async function analyzeDocuments(
           ),
           semanticReviewThreshold,
         );
+
+    return buildResult({
+      query,
+      sources: effectiveSources,
+      method,
+      config,
+      mergeGap,
+      detections,
+      semanticReviewLead,
+      semanticReviewThreshold,
+      queryPassageCount: queries.length,
+      sourcePassageCount: sourcePassages.length,
+      elapsedSeconds: (performance.now() - start) / 1000,
+      provider,
+      queryStripResult,
+      sourceStripResults,
+      query_ref: query.reference,
+    });
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Result builder (shared between lexical and semantic/hybrid paths)
+// ---------------------------------------------------------------------------
+
+function buildResult({
+  query,
+  sources,
+  method,
+  config,
+  mergeGap,
+  detections,
+  semanticReviewLead,
+  semanticReviewThreshold,
+  queryPassageCount,
+  sourcePassageCount,
+  elapsedSeconds,
+  provider,
+  queryStripResult,
+  sourceStripResults,
+  query_ref,
+}: {
+  query: ExtractedDocument;
+  sources: ExtractedDocument[];
+  method: Method;
+  config: { threshold: number; alpha: number; mergeGap: number; method: Method };
+  mergeGap: number;
+  detections: ReturnType<typeof detect>;
+  semanticReviewLead: ReturnType<typeof selectSemanticReviewLead>;
+  semanticReviewThreshold: number;
+  queryPassageCount: number;
+  sourcePassageCount: number;
+  elapsedSeconds: number;
+  provider: string;
+  queryStripResult: StripResult;
+  sourceStripResults: Array<{ reference: string; stripResult: StripResult }>;
+  query_ref: string;
+}) {
   return {
     query,
     sources,
@@ -157,12 +346,33 @@ export async function analyzeDocuments(
     })),
     semanticReviewLead,
     semanticReviewThreshold,
-    passages: { query: queries.length, sources: sourcePassages.length },
-    elapsedSeconds: (performance.now() - start) / 1000,
+    passages: { query: queryPassageCount, sources: sourcePassageCount },
+    elapsedSeconds,
     provider,
     model: method === 'lexical' ? null : MODEL_CONFIG.model,
+    stripping: {
+      query: {
+        reference: query_ref,
+        confident: queryStripResult.confident,
+        detectedHeading: queryStripResult.detectedHeading,
+        offsetStripped: queryStripResult.referenceOffset,
+        charsRemoved: query.text.length - queryStripResult.body.length,
+      },
+      sources: sourceStripResults.map(({ reference, stripResult }) => {
+        const originalSource = sources.find((s) => s.reference === reference);
+        const originalLen = originalSource?.text.length ?? stripResult.body.length;
+        return {
+          reference,
+          confident: stripResult.confident,
+          detectedHeading: stripResult.detectedHeading,
+          offsetStripped: stripResult.referenceOffset,
+          charsRemoved: originalLen - stripResult.body.length,
+        };
+      }),
+    },
     warning:
-      'Similarity scores are uncalibrated evidence for human review, not probabilities or proof of plagiarism or misconduct. Only supplied sources were searched. PAN-PC-11 calibration is book-based and does not establish CS-paper performance.',
+      'Similarity scores are uncalibrated evidence for human review, not probabilities or proof of plagiarism or misconduct. Only searched sources were evaluated. PAN-PC-11 calibration is book-based and does not establish CS-paper performance.',
   };
 }
+
 export type AnalysisResult = Awaited<ReturnType<typeof analyzeDocuments>>;

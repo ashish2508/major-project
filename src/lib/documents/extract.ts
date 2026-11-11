@@ -1,6 +1,6 @@
 import { decodeCorpusText } from '../dataset/parser';
-export const MAX_FILE_BYTES = 5 * 1024 * 1024;
-export const MAX_DOCUMENT_CHARACTERS = 50000;
+export const MAX_FILE_BYTES = 15 * 1024 * 1024;
+export const MAX_DOCUMENT_CHARACTERS = 250000;
 export interface ExtractedDocument {
   reference: string;
   title: string;
@@ -23,7 +23,7 @@ export function validateText(text: string): string {
 }
 export async function extractFile(file: File, reference: string): Promise<ExtractedDocument> {
   if (file.size === 0 || file.size > MAX_FILE_BYTES)
-    throw new Error('Each file must be nonempty and at most 5 MB');
+    throw new Error('Each file must be nonempty and at most 15 MB');
   const title = file.name.replace(/[\r\n\0]/g, ' ').slice(0, 200),
     bytes = new Uint8Array(await file.arrayBuffer());
   const pdfHeader = Buffer.from(bytes.subarray(0, 5)).toString('ascii') === '%PDF-';
@@ -56,7 +56,9 @@ export async function extractFile(file: File, reference: string): Promise<Extrac
         pages.push({ page: number, start, end: text.length });
         if (number < pdf.numPages) text += '\n\n';
         if (text.length > MAX_DOCUMENT_CHARACTERS)
-          throw new Error('PDF exceeds 50,000 extracted characters');
+          throw new Error(
+            `PDF exceeds ${MAX_DOCUMENT_CHARACTERS.toLocaleString()} extracted characters`,
+          );
         page.cleanup();
       }
       return { reference, title, text: validateText(text), format: 'pdf', pages, paragraphBreaks };

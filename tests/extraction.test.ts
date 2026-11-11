@@ -23,8 +23,8 @@ it('rejects invalid types, UTF-8, PDF signatures, empty files and size limits', 
   await expect(extractFile(new File([], 'empty.txt'), 'q')).rejects.toThrow('nonempty');
   await expect(
     extractFile(new File([new Uint8Array(MAX_FILE_BYTES + 1)], 'large.txt'), 'q'),
-  ).rejects.toThrow('5 MB');
+  ).rejects.toThrow('15 MB');
   expect(() => validateText(' ')).toThrow('no extractable');
-  expect(() => validateText('x'.repeat(50001))).toThrow('exceeds');
+  expect(() => validateText('x'.repeat(250001))).toThrow('exceeds');
   expect(() => validateText('\0')).toThrow();
 });

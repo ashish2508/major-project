@@ -1,7 +1,9 @@
 import { getArtifacts } from '@/lib/application/analysis';
+import { getCorpusStats } from '@/lib/corpus/store';
 import { access } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { MODEL_DIRECTORY } from '@/lib/embeddings/model';
+
 export async function GET(request: Request) {
   // Read request state so this reports local readiness at request time with Cache Components.
   void request.url;
@@ -13,11 +15,13 @@ export async function GET(request: Request) {
     } catch {
       modelAvailable = false;
     }
+    const corpusStats = await getCorpusStats().catch(() => null);
     return Response.json(
       {
         ready: true,
         modelAvailable,
         configs,
+        corpus: corpusStats,
         note: 'Weights are checked against calibration hashes when a semantic/hybrid analysis runs.',
       },
       { headers: { 'Cache-Control': 'no-store' } },

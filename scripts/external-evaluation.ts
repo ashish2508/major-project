@@ -75,9 +75,7 @@ async function loadPapers(): Promise<ExternalPaper[]> {
   const papers: ExternalPaper[] = [];
   for (const name of names) {
     const reference = basename(name, '.txt');
-    const text = normalizeExtractedText(
-      await readFile(resolve(INPUT_DIRECTORY, name), 'utf8'),
-    );
+    const text = normalizeExtractedText(await readFile(resolve(INPUT_DIRECTORY, name), 'utf8'));
     if (!text.trim()) throw new Error(`Extracted paper is empty: ${name}`);
     papers.push({ reference, title: reference.replaceAll('_', ' '), text });
   }
@@ -113,12 +111,7 @@ function evaluateMethod(
   config: { threshold: number; mergeGap: number },
   documents: ReadonlyMap<string, string>,
 ): MethodResult {
-  const merged = detect(
-    candidates,
-    config.threshold,
-    config.mergeGap,
-    method !== 'lexical',
-  );
+  const merged = detect(candidates, config.threshold, config.mergeGap, method !== 'lexical');
   const retained =
     method === 'lexical'
       ? merged
@@ -137,18 +130,13 @@ function evaluateMethod(
       documents.get(detection.suspiciousReference)!,
       detection.suspiciousSpan,
     ),
-    sourceExcerpt: excerpt(
-      documents.get(detection.sourceReference)!,
-      detection.sourceSpan,
-    ),
+    sourceExcerpt: excerpt(documents.get(detection.sourceReference)!, detection.sourceSpan),
   }));
 
   return { alertCount: alerts.length, alerts };
 }
 
-function summarize(
-  comparisons: DirectionalComparison[],
-): Record<
+function summarize(comparisons: DirectionalComparison[]): Record<
   Method,
   {
     directionalComparisons: number;
@@ -184,12 +172,8 @@ function summarize(
             (comparison) => comparison.methods[method].alertCount > 0,
           ).length,
           totalAlerts: alertRows.length,
-          papersReceivingAlerts: [
-            ...new Set(alertRows.map((alert) => alert.queryPaper)),
-          ].sort(),
-          highestScoringAlerts: alertRows
-            .sort((a, b) => b.score - a.score)
-            .slice(0, 20),
+          papersReceivingAlerts: [...new Set(alertRows.map((alert) => alert.queryPaper))].sort(),
+          highestScoringAlerts: alertRows.sort((a, b) => b.score - a.score).slice(0, 20),
         },
       ];
     }),
@@ -300,19 +284,14 @@ async function main(): Promise<void> {
   const documents = new Map(papers.map((paper) => [paper.reference, paper.text]));
 
   for (const paper of papers) {
-    lexicalByPaper.set(
-      paper.reference,
-      segment(paper.text, paper.reference, { countTokens }),
-    );
+    lexicalByPaper.set(paper.reference, segment(paper.text, paper.reference, { countTokens }));
     semanticByPaper.set(
       paper.reference,
       segmentParagraphs(paper.text, paper.reference, { countTokens }),
     );
   }
 
-  const allSemanticPassages = papers.flatMap(
-    (paper) => semanticByPaper.get(paper.reference)!,
-  );
+  const allSemanticPassages = papers.flatMap((paper) => semanticByPaper.get(paper.reference)!);
   const uniqueTexts = [...new Set(allSemanticPassages.map((passage) => passage.text))];
 
   console.log(`Embedding ${uniqueTexts.length} unique semantic passages on ${device}...`);
@@ -324,13 +303,11 @@ async function main(): Promise<void> {
   for (const paper of papers) {
     semanticVectorsByPaper.set(
       paper.reference,
-      semanticByPaper
-        .get(paper.reference)!
-        .map((passage) => {
-          const vector = vectorByText.get(passage.text);
-          if (!vector) throw new Error('An embedded semantic passage is missing');
-          return vector;
-        }),
+      semanticByPaper.get(paper.reference)!.map((passage) => {
+        const vector = vectorByText.get(passage.text);
+        if (!vector) throw new Error('An embedded semantic passage is missing');
+        return vector;
+      }),
     );
   }
 
@@ -359,18 +336,8 @@ async function main(): Promise<void> {
       );
 
       const methods: Record<Method, MethodResult> = {
-        lexical: evaluateMethod(
-          'lexical',
-          lexicalRows.lexical,
-          configs.lexical,
-          documents,
-        ),
-        semantic: evaluateMethod(
-          'semantic',
-          semanticRows.semantic,
-          configs.semantic,
-          documents,
-        ),
+        lexical: evaluateMethod('lexical', lexicalRows.lexical, configs.lexical, documents),
+        semantic: evaluateMethod('semantic', semanticRows.semantic, configs.semantic, documents),
         hybrid: evaluateMethod(
           'hybrid',
           semanticRows[scoreKey('hybrid', hybridAlpha)],

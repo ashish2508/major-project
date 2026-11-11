@@ -34,6 +34,7 @@ yarn-error.log*
 .env*
 # Downloaded research datasets
 /data/raw/
+/data/corpus/
 *.rar
 # vercel
 .vercel

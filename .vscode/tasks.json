@@ -73,18 +73,12 @@
       "label": "windows:build",
       "type": "shell",
       "command": "C:\\Users\\aincrad\\AppData\\Local\\Microsoft\\WinGet\\Packages\\Oven-sh.Bun_Microsoft.Winget.Source_8wekyb3d8bbwe\\bun-windows-x64\\bun.exe",
-      "args": [
-        "run",
-        "build"
-      ],
+      "args": ["run", "build"],
       "options": {
         "cwd": "${workspaceFolder}",
         "shell": {
           "executable": "C:\\Windows\\System32\\cmd.exe",
-          "args": [
-            "/d",
-            "/c"
-          ]
+          "args": ["/d", "/c"]
         }
       },
       "problemMatcher": []
@@ -93,18 +87,12 @@
       "label": "windows:test",
       "type": "shell",
       "command": "C:\\Users\\aincrad\\AppData\\Local\\Microsoft\\WinGet\\Packages\\Oven-sh.Bun_Microsoft.Winget.Source_8wekyb3d8bbwe\\bun-windows-x64\\bun.exe",
-      "args": [
-        "test",
-        "--run"
-      ],
+      "args": ["test", "--run"],
       "options": {
         "cwd": "${workspaceFolder}",
         "shell": {
           "executable": "C:\\Windows\\System32\\cmd.exe",
-          "args": [
-            "/d",
-            "/c"
-          ]
+          "args": ["/d", "/c"]
         }
       },
       "problemMatcher": []
@@ -113,18 +101,12 @@
       "label": "windows:typecheck",
       "type": "shell",
       "command": "C:\\Users\\aincrad\\AppData\\Local\\Microsoft\\WinGet\\Packages\\Oven-sh.Bun_Microsoft.Winget.Source_8wekyb3d8bbwe\\bun-windows-x64\\bun.exe",
-      "args": [
-        "run",
-        "typecheck"
-      ],
+      "args": ["run", "typecheck"],
       "options": {
         "cwd": "${workspaceFolder}",
         "shell": {
           "executable": "C:\\Windows\\System32\\cmd.exe",
-          "args": [
-            "/d",
-            "/c"
-          ]
+          "args": ["/d", "/c"]
         }
       },
       "problemMatcher": []
@@ -133,18 +115,12 @@
       "label": "windows:lint",
       "type": "shell",
       "command": "C:\\Users\\aincrad\\AppData\\Local\\Microsoft\\WinGet\\Packages\\Oven-sh.Bun_Microsoft.Winget.Source_8wekyb3d8bbwe\\bun-windows-x64\\bun.exe",
-      "args": [
-        "run",
-        "lint"
-      ],
+      "args": ["run", "lint"],
       "options": {
         "cwd": "${workspaceFolder}",
         "shell": {
           "executable": "C:\\Windows\\System32\\cmd.exe",
-          "args": [
-            "/d",
-            "/c"
-          ]
+          "args": ["/d", "/c"]
         }
       },
       "problemMatcher": []
@@ -153,18 +129,12 @@
       "label": "windows:format-check",
       "type": "shell",
       "command": "C:\\Users\\aincrad\\AppData\\Local\\Microsoft\\WinGet\\Packages\\Oven-sh.Bun_Microsoft.Winget.Source_8wekyb3d8bbwe\\bun-windows-x64\\bun.exe",
-      "args": [
-        "run",
-        "format:check"
-      ],
+      "args": ["run", "format:check"],
       "options": {
         "cwd": "${workspaceFolder}",
         "shell": {
           "executable": "C:\\Windows\\System32\\cmd.exe",
-          "args": [
-            "/d",
-            "/c"
-          ]
+          "args": ["/d", "/c"]
         }
       },
       "problemMatcher": []
@@ -173,18 +143,12 @@
       "label": "windows:inference",
       "type": "shell",
       "command": "C:\\Users\\aincrad\\AppData\\Local\\Microsoft\\WinGet\\Packages\\Oven-sh.Bun_Microsoft.Winget.Source_8wekyb3d8bbwe\\bun-windows-x64\\bun.exe",
-      "args": [
-        "run",
-        "test:inference"
-      ],
+      "args": ["run", "test:inference"],
       "options": {
         "cwd": "${workspaceFolder}",
         "shell": {
           "executable": "C:\\Windows\\System32\\cmd.exe",
-          "args": [
-            "/d",
-            "/c"
-          ]
+          "args": ["/d", "/c"]
         }
       },
       "problemMatcher": []
@@ -193,11 +157,7 @@
       "label": "windows:start-dml",
       "type": "shell",
       "command": "C:\\Users\\aincrad\\AppData\\Local\\Microsoft\\WinGet\\Packages\\Oven-sh.Bun_Microsoft.Winget.Source_8wekyb3d8bbwe\\bun-windows-x64\\bun.exe",
-      "args": [
-        "start",
-        "-p",
-        "3100"
-      ],
+      "args": ["start", "-p", "3100"],
       "options": {
         "cwd": "${workspaceFolder}",
         "env": {
@@ -205,10 +165,7 @@
         },
         "shell": {
           "executable": "C:\\Windows\\System32\\cmd.exe",
-          "args": [
-            "/d",
-            "/c"
-          ]
+          "args": ["/d", "/c"]
         }
       },
       "isBackground": true,
@@ -218,10 +175,7 @@
       "label": "windows:smoke-dml",
       "type": "shell",
       "command": "C:\\Users\\aincrad\\AppData\\Local\\Microsoft\\WinGet\\Packages\\Oven-sh.Bun_Microsoft.Winget.Source_8wekyb3d8bbwe\\bun-windows-x64\\bun.exe",
-      "args": [
-        "scripts/smoke-app.ts",
-        "http://127.0.0.1:3100"
-      ],
+      "args": ["scripts/smoke-app.ts", "http://127.0.0.1:3100"],
       "options": {
         "cwd": "${workspaceFolder}",
         "env": {
@@ -229,10 +183,7 @@
         },
         "shell": {
           "executable": "C:\\Windows\\System32\\cmd.exe",
-          "args": [
-            "/d",
-            "/c"
-          ]
+          "args": ["/d", "/c"]
         }
       },
       "problemMatcher": []
@@ -241,11 +192,7 @@
       "label": "windows:diagnose-dml",
       "type": "shell",
       "command": "C:\\Users\\aincrad\\AppData\\Local\\Microsoft\\WinGet\\Packages\\Oven-sh.Bun_Microsoft.Winget.Source_8wekyb3d8bbwe\\bun-windows-x64\\bun.exe",
-      "args": [
-        "scripts/diagnose-demo.ts",
-        "after",
-        "http://127.0.0.1:3100"
-      ],
+      "args": ["scripts/diagnose-demo.ts", "after", "http://127.0.0.1:3100"],
       "options": {
         "cwd": "${workspaceFolder}",
         "env": {
@@ -253,10 +200,7 @@
         },
         "shell": {
           "executable": "C:\\Windows\\System32\\cmd.exe",
-          "args": [
-            "/d",
-            "/c"
-          ]
+          "args": ["/d", "/c"]
         }
       },
       "problemMatcher": []
@@ -265,11 +209,7 @@
       "label": "windows:start-cpu",
       "type": "shell",
       "command": "C:\\Users\\aincrad\\AppData\\Local\\Microsoft\\WinGet\\Packages\\Oven-sh.Bun_Microsoft.Winget.Source_8wekyb3d8bbwe\\bun-windows-x64\\bun.exe",
-      "args": [
-        "start",
-        "-p",
-        "3101"
-      ],
+      "args": ["start", "-p", "3101"],
       "options": {
         "cwd": "${workspaceFolder}",
         "env": {
@@ -277,10 +217,7 @@
         },
         "shell": {
           "executable": "C:\\Windows\\System32\\cmd.exe",
-          "args": [
-            "/d",
-            "/c"
-          ]
+          "args": ["/d", "/c"]
         }
       },
       "isBackground": true,
@@ -290,10 +227,7 @@
       "label": "windows:smoke-cpu",
       "type": "shell",
       "command": "C:\\Users\\aincrad\\AppData\\Local\\Microsoft\\WinGet\\Packages\\Oven-sh.Bun_Microsoft.Winget.Source_8wekyb3d8bbwe\\bun-windows-x64\\bun.exe",
-      "args": [
-        "scripts/smoke-app.ts",
-        "http://127.0.0.1:3101"
-      ],
+      "args": ["scripts/smoke-app.ts", "http://127.0.0.1:3101"],
       "options": {
         "cwd": "${workspaceFolder}",
         "env": {
@@ -301,10 +235,7 @@
         },
         "shell": {
           "executable": "C:\\Windows\\System32\\cmd.exe",
-          "args": [
-            "/d",
-            "/c"
-          ]
+          "args": ["/d", "/c"]
         }
       },
       "problemMatcher": []
@@ -313,11 +244,7 @@
       "label": "windows:diagnose-cpu",
       "type": "shell",
       "command": "C:\\Users\\aincrad\\AppData\\Local\\Microsoft\\WinGet\\Packages\\Oven-sh.Bun_Microsoft.Winget.Source_8wekyb3d8bbwe\\bun-windows-x64\\bun.exe",
-      "args": [
-        "scripts/diagnose-demo.ts",
-        "after",
-        "http://127.0.0.1:3101"
-      ],
+      "args": ["scripts/diagnose-demo.ts", "after", "http://127.0.0.1:3101"],
       "options": {
         "cwd": "${workspaceFolder}",
         "env": {
@@ -325,10 +252,7 @@
         },
         "shell": {
           "executable": "C:\\Windows\\System32\\cmd.exe",
-          "args": [
-            "/d",
-            "/c"
-          ]
+          "args": ["/d", "/c"]
         }
       },
       "problemMatcher": []
@@ -337,10 +261,7 @@
       "label": "windows:benchmark-alignment",
       "type": "shell",
       "command": "C:\\Users\\aincrad\\AppData\\Local\\Microsoft\\WinGet\\Packages\\Oven-sh.Bun_Microsoft.Winget.Source_8wekyb3d8bbwe\\bun-windows-x64\\bun.exe",
-      "args": [
-        "scripts/benchmark.ts",
-        "--paragraph-windows"
-      ],
+      "args": ["scripts/benchmark.ts", "--paragraph-windows"],
       "options": {
         "cwd": "${workspaceFolder}",
         "env": {
@@ -348,10 +269,7 @@
         },
         "shell": {
           "executable": "C:\\Windows\\System32\\cmd.exe",
-          "args": [
-            "/d",
-            "/c"
-          ]
+          "args": ["/d", "/c"]
         }
       },
       "problemMatcher": []
@@ -369,10 +287,7 @@
         "cwd": "${workspaceFolder}",
         "shell": {
           "executable": "C:\\Windows\\System32\\cmd.exe",
-          "args": [
-            "/d",
-            "/c"
-          ]
+          "args": ["/d", "/c"]
         }
       },
       "problemMatcher": []
@@ -390,10 +305,7 @@
         "cwd": "${workspaceFolder}",
         "shell": {
           "executable": "C:\\Windows\\System32\\cmd.exe",
-          "args": [
-            "/d",
-            "/c"
-          ]
+          "args": ["/d", "/c"]
         }
       },
       "problemMatcher": []

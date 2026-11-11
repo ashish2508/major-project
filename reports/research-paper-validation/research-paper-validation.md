@@ -13,55 +13,55 @@ Generated: 2026-11-11T18:08:29.426Z
 
 ## Frozen operating points (read-only)
 
-| Method | Threshold | Alpha | Merge gap |
-| --- | ---: | ---: | ---: |
-| lexical | 0.3 | 1 | 120 |
-| semantic | 0.7 | 0 | 120 |
-| hybrid | 0.3 | 1 | 120 |
+| Method   | Threshold | Alpha | Merge gap |
+| -------- | --------: | ----: | --------: |
+| lexical  |       0.3 |     1 |       120 |
+| semantic |       0.7 |     0 |       120 |
+| hybrid   |       0.3 |     1 |       120 |
 
 - Semantic model: onnx-community/all-MiniLM-L6-v2-ONNX (local, CPUExecutionProvider on cpu)
 - Shared embedding batch: 2927 unique passages in 19.0s
 
 ## Ground truth
 
-| Passage | Source paper | Offset | Length |
-| --- | --- | ---: | ---: |
-| R4R-A | Review4Repair_2020 | 815 | 2171 |
-| R4R-B | Review4Repair_2020 | 29407 | 1076 |
-| OS-C | Online_Sketch_Query_Optimization_2021 | 9948 | 777 |
-| OS-D | Online_Sketch_Query_Optimization_2021 | 12516 | 1144 |
+| Passage | Source paper                          | Offset | Length |
+| ------- | ------------------------------------- | -----: | -----: |
+| R4R-A   | Review4Repair_2020                    |    815 |   2171 |
+| R4R-B   | Review4Repair_2020                    |  29407 |   1076 |
+| OS-C    | Online_Sketch_Query_Optimization_2021 |   9948 |    777 |
+| OS-D    | Online_Sketch_Query_Optimization_2021 |  12516 |   1144 |
 
-| Comparison | Arm | Suspicious document | Source paper | Cases |
-| --- | --- | --- | --- | ---: |
-| copy-r4r | direct-copy | SYNTH_COPY_R4R | Review4Repair_2020 | 2 |
-| copy-os | direct-copy | SYNTH_COPY_OS | Online_Sketch_Query_Optimization_2021 | 2 |
-| para-r4r | paraphrase | SYNTH_PARA_R4R | Review4Repair_2020 | 2 |
-| para-os | paraphrase | SYNTH_PARA_OS | Online_Sketch_Query_Optimization_2021 | 2 |
-| neg-r4r-vs-os | negative-control | SYNTH_COPY_R4R | Online_Sketch_Query_Optimization_2021 | 0 |
-| neg-os-vs-r4r | negative-control | SYNTH_COPY_OS | Review4Repair_2020 | 0 |
+| Comparison    | Arm              | Suspicious document | Source paper                          | Cases |
+| ------------- | ---------------- | ------------------- | ------------------------------------- | ----: |
+| copy-r4r      | direct-copy      | SYNTH_COPY_R4R      | Review4Repair_2020                    |     2 |
+| copy-os       | direct-copy      | SYNTH_COPY_OS       | Online_Sketch_Query_Optimization_2021 |     2 |
+| para-r4r      | paraphrase       | SYNTH_PARA_R4R      | Review4Repair_2020                    |     2 |
+| para-os       | paraphrase       | SYNTH_PARA_OS       | Online_Sketch_Query_Optimization_2021 |     2 |
+| neg-r4r-vs-os | negative-control | SYNTH_COPY_R4R      | Online_Sketch_Query_Optimization_2021 |     0 |
+| neg-os-vs-r4r | negative-control | SYNTH_COPY_OS       | Review4Repair_2020                    |     0 |
 
 ## Results by method (PAN passage-level metrics)
 
-| Comparison | Method | Precision | Recall | F1 | Granularity | PlagDet | Detections | Missed | False positives | Detect time (s) |
-| --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| copy-r4r | lexical | 0.8308 | 0.9683 | 0.8943 | 1.0000 | 0.8943 | 2 | 0 | 0 | 0.00 |
-| copy-r4r | semantic | 0.9997 | 0.9956 | 0.9976 | 1.0000 | 0.9976 | 2 | 0 | 0 | 0.00 |
-| copy-r4r | hybrid | 0.9997 | 0.9956 | 0.9976 | 1.0000 | 0.9976 | 2 | 0 | 0 | 0.00 |
-| copy-os | lexical | 0.8546 | 0.9114 | 0.8821 | 1.0000 | 0.8821 | 2 | 0 | 0 | 0.00 |
-| copy-os | semantic | 0.6660 | 1.0000 | 0.7995 | 1.0000 | 0.7995 | 3 | 0 | 1 | 0.00 |
-| copy-os | hybrid | 0.9990 | 1.0000 | 0.9995 | 1.0000 | 0.9995 | 2 | 0 | 0 | 0.00 |
-| para-r4r | lexical | 0.5358 | 0.8049 | 0.6434 | 1.0000 | 0.6434 | 3 | 0 | 1 | 0.00 |
-| para-r4r | semantic | 0.5712 | 0.9986 | 0.7267 | 2.0000 | 0.4585 | 7 | 0 | 3 | 0.00 |
-| para-r4r | hybrid | 0.6000 | 0.6964 | 0.6446 | 1.5000 | 0.4876 | 5 | 0 | 2 | 0.00 |
-| para-os | lexical | 0.5143 | 0.7406 | 0.6070 | 1.0000 | 0.6070 | 3 | 0 | 1 | 0.00 |
-| para-os | semantic | 0.6663 | 0.9369 | 0.7788 | 2.0000 | 0.4913 | 6 | 0 | 2 | 0.00 |
-| para-os | hybrid | 0.5453 | 0.7243 | 0.6222 | 3.0000 | 0.3111 | 11 | 0 | 5 | 0.00 |
-| neg-r4r-vs-os | lexical | 1.0000 | n/a | n/a | n/a | n/a | 0 | 0 | 0 | 0.00 |
-| neg-r4r-vs-os | semantic | 1.0000 | n/a | n/a | n/a | n/a | 0 | 0 | 0 | 0.00 |
-| neg-r4r-vs-os | hybrid | 0.0000 | n/a | n/a | n/a | n/a | 1 | 0 | 1 | 0.00 |
-| neg-os-vs-r4r | lexical | 1.0000 | n/a | n/a | n/a | n/a | 0 | 0 | 0 | 0.00 |
-| neg-os-vs-r4r | semantic | 1.0000 | n/a | n/a | n/a | n/a | 0 | 0 | 0 | 0.00 |
-| neg-os-vs-r4r | hybrid | 1.0000 | n/a | n/a | n/a | n/a | 0 | 0 | 0 | 0.00 |
+| Comparison    | Method   | Precision | Recall |     F1 | Granularity | PlagDet | Detections | Missed | False positives | Detect time (s) |
+| ------------- | -------- | --------: | -----: | -----: | ----------: | ------: | ---------: | -----: | --------------: | --------------: |
+| copy-r4r      | lexical  |    0.8308 | 0.9683 | 0.8943 |      1.0000 |  0.8943 |          2 |      0 |               0 |            0.00 |
+| copy-r4r      | semantic |    0.9997 | 0.9956 | 0.9976 |      1.0000 |  0.9976 |          2 |      0 |               0 |            0.00 |
+| copy-r4r      | hybrid   |    0.9997 | 0.9956 | 0.9976 |      1.0000 |  0.9976 |          2 |      0 |               0 |            0.00 |
+| copy-os       | lexical  |    0.8546 | 0.9114 | 0.8821 |      1.0000 |  0.8821 |          2 |      0 |               0 |            0.00 |
+| copy-os       | semantic |    0.6660 | 1.0000 | 0.7995 |      1.0000 |  0.7995 |          3 |      0 |               1 |            0.00 |
+| copy-os       | hybrid   |    0.9990 | 1.0000 | 0.9995 |      1.0000 |  0.9995 |          2 |      0 |               0 |            0.00 |
+| para-r4r      | lexical  |    0.5358 | 0.8049 | 0.6434 |      1.0000 |  0.6434 |          3 |      0 |               1 |            0.00 |
+| para-r4r      | semantic |    0.5712 | 0.9986 | 0.7267 |      2.0000 |  0.4585 |          7 |      0 |               3 |            0.00 |
+| para-r4r      | hybrid   |    0.6000 | 0.6964 | 0.6446 |      1.5000 |  0.4876 |          5 |      0 |               2 |            0.00 |
+| para-os       | lexical  |    0.5143 | 0.7406 | 0.6070 |      1.0000 |  0.6070 |          3 |      0 |               1 |            0.00 |
+| para-os       | semantic |    0.6663 | 0.9369 | 0.7788 |      2.0000 |  0.4913 |          6 |      0 |               2 |            0.00 |
+| para-os       | hybrid   |    0.5453 | 0.7243 | 0.6222 |      3.0000 |  0.3111 |         11 |      0 |               5 |            0.00 |
+| neg-r4r-vs-os | lexical  |    1.0000 |    n/a |    n/a |         n/a |     n/a |          0 |      0 |               0 |            0.00 |
+| neg-r4r-vs-os | semantic |    1.0000 |    n/a |    n/a |         n/a |     n/a |          0 |      0 |               0 |            0.00 |
+| neg-r4r-vs-os | hybrid   |    0.0000 |    n/a |    n/a |         n/a |     n/a |          1 |      0 |               1 |            0.00 |
+| neg-os-vs-r4r | lexical  |    1.0000 |    n/a |    n/a |         n/a |     n/a |          0 |      0 |               0 |            0.00 |
+| neg-os-vs-r4r | semantic |    1.0000 |    n/a |    n/a |         n/a |     n/a |          0 |      0 |               0 |            0.00 |
+| neg-os-vs-r4r | hybrid   |    1.0000 |    n/a |    n/a |         n/a |     n/a |          0 |      0 |               0 |            0.00 |
 
 Negative controls have no ground-truth cases, so recall is undefined; any detection there is a false positive by construction.
 
@@ -197,4 +197,3 @@ No detections.
 - PAN-PC-11 held-out benchmark (book-based): TF-IDF and hybrid reached F1 0.8074 / PlagDet 0.6033; MiniLM reached F1 0.4237 / PlagDet 0.3047 at its earlier operating point. Those figures describe book-text plagiarism, not CS papers.
 - External 12-paper evaluation (no ground truth, alert counts only): body-only run reported 1,719 TF-IDF, 231 MiniLM, and 2,326 hybrid alerts across 132 directed comparisons. Alert counts measure review workload, not accuracy.
 - This validation adds small-scale ground truth on genuine CS prose but remains synthetic and small; it complements rather than replaces either prior evaluation.
-
