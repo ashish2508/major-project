@@ -483,8 +483,8 @@ export default function Home() {
                   <p>
                     The highest-ranked semantic candidate scored{' '}
                     <strong>{result.semanticReviewLead.semantic.toFixed(3)}</strong>, below the{' '}
-                    <strong>{result.config.threshold.toFixed(2)}</strong> alert threshold. It is
-                    evidence for inspection, not a confirmed match.
+                    <strong>{result.semanticReviewThreshold.toFixed(2)}</strong> MiniLM threshold.
+                    It is evidence for inspection, not a confirmed match.
                   </p>
                   <dl>
                     <div>

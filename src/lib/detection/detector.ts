@@ -1,12 +1,30 @@
 import type { PassagePair } from '../evaluation/pan';
 import type { Passage } from './segmentation';
-import { Tfidf, sparseCosine } from './tfidf';
+import { Tfidf } from './tfidf';
 export type Method = 'lexical' | 'semantic' | 'hybrid';
 export interface DetectionConfig {
   method: Method;
   threshold: number;
   alpha: number;
   mergeGap: number;
+}
+
+/** Fuse separately ranked lexical and semantic evidence at their own operating points. */
+export function fuseEvidence(
+  lexical: Candidate[],
+  semantic: Candidate[],
+  lexicalThreshold: number,
+  semanticThreshold: number,
+  mergeGap: number,
+): Detection[] {
+  return detect(
+    [
+      ...lexical.filter((candidate) => candidate.score >= lexicalThreshold),
+      ...semantic.filter((candidate) => candidate.score >= semanticThreshold),
+    ],
+    0,
+    mergeGap,
+  );
 }
 export interface Candidate extends PassagePair {
   lexical: number;
@@ -43,42 +61,70 @@ export function retrieveCandidates(
     ? ['lexical', 'semantic', ...alphas.map((a) => scoreKey('hybrid', a))]
     : ['lexical'];
   const output = Object.fromEntries(keys.map((k) => [k, [] as Candidate[]]));
-  const sourceVectors = sources.map((p) => tfidf.transform(p.text));
+  const checkEmbeddings = (vectors: number[][]) => {
+    for (const vector of vectors) {
+      const norm = Math.hypot(...vector);
+      if (vector.length !== 384 || !Number.isFinite(norm) || Math.abs(norm - 1) > 0.001)
+        throw new Error('Expected a normalized 384-dimensional embedding');
+    }
+  };
+  if (queryEmbeddings) {
+    checkEmbeddings(queryEmbeddings);
+    checkEmbeddings(sourceEmbeddings!);
+  }
+  const postings = new Map<string, { index: number; weight: number }[]>();
+  for (const [index, source] of sources.entries()) {
+    for (const [term, weight] of tfidf.transform(source.text)) {
+      const posting = postings.get(term);
+      if (posting) posting.push({ index, weight });
+      else postings.set(term, [{ index, weight }]);
+    }
+  }
+  const lexicalScores = new Float64Array(sources.length);
+  const semanticScores = new Float64Array(sources.length);
   for (let qi = 0; qi < queries.length; qi++) {
     const query = queries[qi],
       qv = tfidf.transform(query.text),
-      best = new Map<string, { index: number; lexical: number; semantic: number; score: number }>();
+      bestScores = keys.map(() => -Infinity),
+      bestIndices = keys.map(() => 0);
+    lexicalScores.fill(0);
+    for (const [term, weight] of qv) {
+      const posting = postings.get(term);
+      if (!posting) continue;
+      for (const entry of posting) lexicalScores[entry.index] += weight * entry.weight;
+    }
     for (let si = 0; si < sources.length; si++) {
-      const lexical = sparseCosine(qv, sourceVectors[si]);
+      const lexical = Math.min(1, lexicalScores[si]);
       let semantic = 0;
       if (queryEmbeddings) {
         const a = queryEmbeddings[qi],
           b = sourceEmbeddings![si];
-        if (a.length !== 384 || b.length !== 384) throw new Error('Invalid embedding dimension');
         for (let k = 0; k < 384; k++) semantic += a[k] * b[k];
         semantic = Math.min(1, Math.max(-1, semantic));
       }
-      const scores: Record<string, number> = { lexical };
-      if (queryEmbeddings) {
-        scores.semantic = semantic;
-        for (const alpha of alphas)
-          scores[scoreKey('hybrid', alpha)] = alpha * lexical + (1 - alpha) * semantic;
+      lexicalScores[si] = lexical;
+      semanticScores[si] = semantic;
+      for (let index = 0; index < keys.length; index++) {
+        const alpha = alphas[index - 2];
+        const score =
+          index === 0 ? lexical : index === 1 ? semantic : alpha * lexical + (1 - alpha) * semantic;
+        if (score > bestScores[index]) {
+          bestScores[index] = score;
+          bestIndices[index] = si;
+        }
       }
-      for (const key of keys)
-        if (!best.has(key) || scores[key] > best.get(key)!.score)
-          best.set(key, { index: si, lexical, semantic, score: scores[key] });
     }
-    for (const key of keys) {
-      const b = best.get(key)!,
-        source = sources[b.index];
+    for (const [index, key] of keys.entries()) {
+      const sourceIndex = bestIndices[index];
+      const source = sources[sourceIndex];
       output[key].push({
         suspiciousReference: query.documentReference,
         sourceReference: source.documentReference,
         suspiciousSpan: { offset: query.offset, length: query.length },
         sourceSpan: { offset: source.offset, length: source.length },
-        lexical: b.lexical,
-        semantic: b.semantic,
-        score: b.score,
+        lexical: lexicalScores[sourceIndex],
+        semantic: semanticScores[sourceIndex],
+        score: bestScores[index],
       });
     }
   }

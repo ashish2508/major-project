@@ -27,7 +27,7 @@ const { tfidf } = await getArtifacts();
 const countTokens = await tokenCounter();
 const device = applicationDevice();
 const provider = await embeddingProvider(device);
-const [mode, server] = process.argv.slice(2);
+const [mode, server, outputPath] = process.argv.slice(2);
 const results = [];
 for (const item of cases) {
   const read = async (name: string) => new File([await readFile(`demo/${name}`)], name);
@@ -132,7 +132,9 @@ for (const item of cases) {
     application,
   });
 }
-const path = `reports/implementation/demo-diagnostics-${mode === 'before' ? 'before' : 'after'}.json`;
+const path =
+  outputPath ??
+  `reports/implementation/demo-diagnostics-${mode === 'before' ? 'before' : 'after'}.json`;
 await writeFile(
   path,
   JSON.stringify({ scope: 'Synthetic demonstrations only', results }, null, 2) + '\n',

@@ -16,6 +16,7 @@ import { Tfidf } from '../src/lib/detection/tfidf';
 import {
   retrieveCandidates,
   detect,
+  fuseEvidence,
   ALPHAS,
   THRESHOLDS,
   MERGE_GAP,
@@ -36,6 +37,7 @@ if (
 )
   throw new Error('Set RESEARCH_RUN_DIRECTORY to a separate directory for paragraph experiments');
 const mergeGap = paragraphWindows ? 0 : MERGE_GAP;
+const mergeGaps = paragraphWindows ? [0, 40, MERGE_GAP] : [mergeGap];
 await mkdir(cache, { recursive: true });
 const inv: Inventory = JSON.parse(await readFile(`${cache}/inventory.json`, 'utf8'));
 const manifestBytes = await readFile(`${dir}/split-manifest.json`),
@@ -87,6 +89,8 @@ const preregistration = {
   alphas: ALPHAS,
   thresholds: THRESHOLDS,
   mergeGap,
+  mergeGaps,
+  fusion: paragraphWindows ? 'union of original lexical and paragraph semantic alerts' : null,
   selection: 'validation PlagDet, precision, higher threshold, fixed alpha order',
   candidateRetrieval:
     'exhaustive supplied collection, independent best source window per query window',
@@ -103,13 +107,13 @@ const preregistration = {
   },
 };
 await writeFile(`${dir}/experiment-config.json`, JSON.stringify(preregistration, null, 2) + '\n');
-async function passages(refs: string[]): Promise<Passage[]> {
+async function passages(refs: string[], bounded = paragraphWindows): Promise<Passage[]> {
   const result: Passage[] = [];
   for (const r of refs) {
     const doc = docs.get(r);
     if (!doc) throw new Error(`Unknown reference ${r}`);
     const text = await loadDocument(inv.root, doc);
-    const splitText = paragraphWindows ? segmentParagraphs : segment;
+    const splitText = bounded ? segmentParagraphs : segment;
     result.push(...splitText(text, r, { countTokens }));
   }
   return result;
@@ -190,20 +194,21 @@ function selection(
   let best: { config: DetectionConfig; metrics: ReturnType<typeof evaluatePan> } | undefined;
   const search: unknown[] = [];
   for (const alpha of method === 'hybrid' ? ALPHAS : [method === 'lexical' ? 1 : 0])
-    for (const threshold of THRESHOLDS) {
-      const config = { method, threshold, alpha, mergeGap },
-        predictions = detect(rows[scoreKey(method, alpha)], threshold),
-        metrics = evaluatePan(cases, predictions);
-      search.push({ config, metrics });
-      if (
-        !best ||
-        metrics.plagdet > best.metrics.plagdet ||
-        (metrics.plagdet === best.metrics.plagdet &&
-          (metrics.precision > best.metrics.precision ||
-            (metrics.precision === best.metrics.precision && threshold > best.config.threshold)))
-      )
-        best = { config, metrics };
-    }
+    for (const threshold of THRESHOLDS)
+      for (const gap of mergeGaps) {
+        const config = { method, threshold, alpha, mergeGap: gap },
+          predictions = detect(rows[scoreKey(method, alpha)], threshold, gap),
+          metrics = evaluatePan(cases, predictions);
+        search.push({ config, metrics });
+        if (
+          !best ||
+          metrics.plagdet > best.metrics.plagdet ||
+          (metrics.plagdet === best.metrics.plagdet &&
+            (metrics.precision > best.metrics.precision ||
+              (metrics.precision === best.metrics.precision && threshold > best.config.threshold)))
+        )
+          best = { config, metrics };
+      }
   return { ...best!, search };
 }
 const validationSources = await passages(split.validation.sourceReferences),
@@ -225,6 +230,56 @@ const choices = {
   semantic: selection(validationRows, validationCases, 'semantic'),
   hybrid: selection(validationRows, validationCases, 'hybrid'),
 };
+const original = paragraphWindows
+  ? await (async () => {
+      const calibration = JSON.parse(
+        await readFile('reports/implementation/frozen-parameters.json', 'utf8'),
+      );
+      const raw = await readFile('.cache/research/tfidf.json');
+      if (
+        digest(raw) !== calibration.tfidfSha256 ||
+        calibration.splitManifestSha256 !== digest(manifestBytes)
+      )
+        throw new Error('Fusion requires the original vocabulary and frozen split');
+      const vocabulary = JSON.parse(raw.toString());
+      return {
+        tfidf: new Tfidf(vocabulary.idf, vocabulary.trainingPassages),
+        config: calibration.methods.lexical as DetectionConfig,
+      };
+    })()
+  : null;
+async function originalLexical(partition: 'validation' | 'test') {
+  const queries = await passages(split[partition].suspiciousReferences, false);
+  const sources = await passages(split[partition].sourceReferences, false);
+  return retrieveCandidates(queries, sources, original!.tfidf).lexical;
+}
+const fusionSearch = original
+  ? await (async () => {
+      const lexical = await originalLexical('validation');
+      return [0.5, 0.6, 0.7, 0.8, 0.9, null]
+        .flatMap((threshold) =>
+          (threshold === null ? [original.config.mergeGap] : mergeGaps).map((gap) => {
+            const found =
+              threshold === null
+                ? detect(lexical, original.config.threshold, gap)
+                : fuseEvidence(
+                    lexical,
+                    validationRows.semantic,
+                    original.config.threshold,
+                    threshold,
+                    gap,
+                  );
+            return { threshold, mergeGap: gap, metrics: evaluatePan(validationCases, found) };
+          }),
+        )
+        .sort(
+          (a, b) =>
+            b.metrics.plagdet - a.metrics.plagdet ||
+            b.metrics.precision - a.metrics.precision ||
+            (b.threshold ?? Infinity) - (a.threshold ?? Infinity),
+        );
+    })()
+  : [];
 await writeFile(`${dir}/validation-search.json`, JSON.stringify(choices, null, 2) + '\n');
 const frozen = {
   experimentConfigSha256: digest(JSON.stringify(preregistration)),
@@ -233,6 +288,7 @@ const frozen = {
   selectedAt: new Date().toISOString(),
   selectionPartition: 'validation',
   methods: Object.fromEntries(Object.entries(choices).map(([k, v]) => [k, v.config])),
+  fusion: fusionSearch[0] ?? null,
 };
 await writeFile(`${dir}/frozen-parameters.json`, JSON.stringify(frozen, null, 2) + '\n');
 console.log('Parameters frozen before test scoring', frozen.methods);
@@ -246,6 +302,35 @@ start = performance.now();
 const testRows = retrieveCandidates(testQueries, testSources, tfidf, tq, ts, [
   choices.hybrid.config.alpha,
 ]);
+if (original && fusionSearch.length) {
+  const chosen = fusionSearch[0];
+  const lexical = await originalLexical('test');
+  const detections =
+    chosen.threshold === null
+      ? detect(lexical, original.config.threshold, chosen.mergeGap)
+      : fuseEvidence(
+          lexical,
+          testRows.semantic,
+          original.config.threshold,
+          chosen.threshold,
+          chosen.mergeGap,
+        );
+  await writeFile(
+    `${dir}/fusion-results.json`,
+    JSON.stringify(
+      {
+        splitManifestSha256: frozen.splitManifestSha256,
+        lexicalThreshold: original.config.threshold,
+        search: fusionSearch,
+        selected: chosen,
+        test: evaluatePan(testCases, detections),
+        detections,
+      },
+      null,
+      2,
+    ) + '\n',
+  );
+}
 timing.testSharedScoreGenerationSeconds = (performance.now() - start) / 1000;
 const testResults: Record<string, unknown> = {},
   predictions: Record<string, unknown> = {},

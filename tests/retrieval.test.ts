@@ -1,5 +1,10 @@
 import { it, expect } from 'vitest';
-import { retrieveCandidates, detect, type Candidate } from '../src/lib/detection/detector';
+import {
+  retrieveCandidates,
+  detect,
+  fuseEvidence,
+  type Candidate,
+} from '../src/lib/detection/detector';
 import { segment } from '../src/lib/detection/segmentation';
 import { Tfidf } from '../src/lib/detection/tfidf';
 it('retrieves the source without annotation-known pairs and abstains on OOV', () => {
@@ -25,6 +30,12 @@ it('semantic retrieval is independent of lexical ranking; hybrid combines the sa
   expect(r.semantic[0].sourceReference).toBe('B');
   expect(r['hybrid:0.25'][0].sourceReference).toBe('B');
   expect(r['hybrid:0.25'][0].score).toBe(0.75);
+  expect(
+    fuseEvidence(r.lexical, r.semantic, 0.9, 0.9, 0).map((item) => item.sourceReference),
+  ).toEqual(['A', 'B']);
+  expect(() =>
+    retrieveCandidates(q, s, Tfidf.fit(['alpha', 'beta']), [v(0, 2)], [v(1, 0), v(0, 1)]),
+  ).toThrow('normalized');
 });
 it('merges evidence only when both matching source and query spans are near', () => {
   const c = (q: number, s: number): Candidate => ({

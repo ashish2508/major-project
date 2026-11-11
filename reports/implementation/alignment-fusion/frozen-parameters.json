@@ -1,0 +1,43 @@
+{
+  "experimentConfigSha256": "d76cc6cf9000dadc69d029407b74701bb62950640c53da21675f2c57263a0ba2",
+  "splitManifestSha256": "203a88a979bdfda36d75612c902b699b0a8fd7b2ee82e688d494a036b01f3908",
+  "tfidfSha256": "05985a76accf5bf6912c6150203dc7de37368c38167068240fd07297b1c6bc03",
+  "selectedAt": "2026-11-11T06:33:04.676Z",
+  "selectionPartition": "validation",
+  "methods": {
+    "lexical": {
+      "method": "lexical",
+      "threshold": 0.6,
+      "alpha": 1,
+      "mergeGap": 120
+    },
+    "semantic": {
+      "method": "semantic",
+      "threshold": 0.7,
+      "alpha": 0,
+      "mergeGap": 120
+    },
+    "hybrid": {
+      "method": "hybrid",
+      "threshold": 0.6,
+      "alpha": 0.25,
+      "mergeGap": 120
+    }
+  },
+  "fusion": {
+    "threshold": null,
+    "mergeGap": 120,
+    "metrics": {
+      "precision": 0.7279930113529907,
+      "recall": 0.7541540072142081,
+      "f1": 0.7408426287785357,
+      "granularity": 1.271186440677966,
+      "plagdet": 0.6260045160082044,
+      "cases": 72,
+      "detections": 77,
+      "detectedCases": 59,
+      "missedCases": 13,
+      "falsePositiveDetections": 2
+    }
+  }
+}

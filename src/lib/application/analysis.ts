@@ -1,6 +1,7 @@
 import { readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { z } from 'zod';
+import alignmentCalibration from '../../../reports/implementation/alignment-fusion/frozen-parameters.json';
 import {
   detect,
   retrieveCandidates,
@@ -50,7 +51,7 @@ export async function getArtifacts() {
         .parse(JSON.parse(raw.toString('utf8')));
       const configs = z
         .object({ lexical: configSchema, semantic: configSchema, hybrid: configSchema })
-        .parse(frozen.methods);
+        .parse({ ...frozen.methods, semantic: alignmentCalibration.methods.semantic });
       for (const key of ['lexical', 'semantic', 'hybrid'] as const)
         if (configs[key].method !== key) throw new Error('Invalid calibrated method mapping');
       return { tfidf: new Tfidf(record.idf, record.trainingPassages), configs };
@@ -92,7 +93,7 @@ export async function analyzeDocuments(
   const sourcePassages = sources.flatMap((source) =>
     split(source.text, source.reference, { countTokens }, source.paragraphBreaks),
   );
-  const mergeGap = alignSemantically ? 0 : config.mergeGap;
+  const mergeGap = config.mergeGap;
   if (!queries.length || !sourcePassages.length)
     throw new Error('Documents need extractable words');
   let rows;
@@ -116,10 +117,11 @@ export async function analyzeDocuments(
     );
   }
   const detections = detect(rows[scoreKey(method, config.alpha)], config.threshold, mergeGap);
+  const semanticReviewThreshold = configs.semantic.threshold;
   const semanticReviewLead =
     method === 'lexical' || !rows.semantic
       ? null
-      : selectSemanticReviewLead(rows.semantic, config.threshold);
+      : selectSemanticReviewLead(rows.semantic, semanticReviewThreshold);
   return {
     query,
     sources,
@@ -130,6 +132,7 @@ export async function analyzeDocuments(
       semantic: method === 'lexical' ? null : d.semantic,
     })),
     semanticReviewLead,
+    semanticReviewThreshold,
     passages: { query: queries.length, sources: sourcePassages.length },
     elapsedSeconds: (performance.now() - start) / 1000,
     provider,

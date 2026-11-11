@@ -50,4 +50,6 @@ The [recorded comparison](../reports/implementation/benchmark-summary.md) select
 
 The retained paragraph-window follow-up completed at `2026-11-10T20:58:32.965Z` and changed only window construction and merge distance. Its held-out PlagDet values were 0.3179 for lexical, 0.3140 for MiniLM and 0.3370 for hybrid. Because this follow-up uses a different representation/postprocessing configuration and has 16 clean-query alerts for lexical, it is descriptive evidence only; it does not alter the frozen PAN parameters or the primary comparison.
 
+Validation selected a lexical weight of 0.25 and a threshold of 0.60 for the revised hybrid. The follow-up report compares the full weight sweeps, held-out errors and granularity, and explains why the current split gives little basis for fine-tuning on genuine paraphrases. [Follow-up analysis](../reports/implementation/paragraph-experiment/analysis.md)
+
 Every major milestone closes with relevant documentation, actual checks/results, remaining issues and the next step. Historical functionality checks are not benchmark results. Optional fine-tuning is deferred; the first three methods and their actual comparisons take priority.
