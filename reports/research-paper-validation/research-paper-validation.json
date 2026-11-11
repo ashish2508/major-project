@@ -1,0 +1,1556 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-11-11T18:08:29.426Z",
+  "description": "Controlled research-paper validation with synthetic suspicious documents. Verbatim copies and hand-written paraphrases of genuine body passages are planted in synthetic documents; negative controls compare against the wrong source. Production detection code, thresholds, alpha values, and model configuration were NOT modified. Synthetic results do NOT establish real-world plagiarism accuracy.",
+  "methodology": {
+    "sourcePapers": [
+      "Review4Repair_2020",
+      "Online_Sketch_Query_Optimization_2021"
+    ],
+    "sourceSelection": "Papers with confidently detected reference sections and the highest counts of clean (letter-dense, multi-sentence) body paragraphs.",
+    "referenceStripping": "stripCanonicalReferences() applied in-memory; canonical files unchanged.",
+    "lexicalSegmentation": "segment() with existing defaults",
+    "semanticSegmentation": "segmentParagraphs() with existing defaults",
+    "informativeEvidenceMinimumWords": 12,
+    "model": "onnx-community/all-MiniLM-L6-v2-ONNX",
+    "device": "cpu",
+    "provider": "CPUExecutionProvider",
+    "embeddingSeconds": 18.955351,
+    "uniqueSemanticPassages": 2927,
+    "configs": {
+      "lexical": {
+        "method": "lexical",
+        "threshold": 0.3,
+        "alpha": 1,
+        "mergeGap": 120
+      },
+      "semantic": {
+        "method": "semantic",
+        "threshold": 0.7,
+        "alpha": 0,
+        "mergeGap": 120
+      },
+      "hybrid": {
+        "method": "hybrid",
+        "threshold": 0.3,
+        "alpha": 1,
+        "mergeGap": 120
+      }
+    },
+    "groundTruthAvailable": true,
+    "syntheticParaphrases": true
+  },
+  "groundTruth": {
+    "passages": [
+      {
+        "id": "R4R-A",
+        "sourceReference": "Review4Repair_2020",
+        "offset": 815,
+        "length": 2171,
+        "excerpt": "Abstract Context: Learning-based automatic program repair techniques are showing promise to provide quality fix suggestions for detected bugs in the source code of the soft- ware. These tools mostly e"
+      },
+      {
+        "id": "R4R-B",
+        "sourceReference": "Review4Repair_2020",
+        "offset": 29407,
+        "length": 1076,
+        "excerpt": "We mark focus with two special tokens, i.e., <|startfocus|> and <|endfocus|>. We call the fixed code as code after change and changed portion within the focus as the target. We elaborate on the terms "
+      },
+      {
+        "id": "OS-C",
+        "sourceReference": "Online_Sketch_Query_Optimization_2021",
+        "offset": 9948,
+        "length": 777,
+        "excerpt": "We investigate how to design a lightweight – yet effective – query optimizer for modern in-memory databases. We have two design principles. First, we aim to capitalize on the highly-parallel execution"
+      },
+      {
+        "id": "OS-D",
+        "sourceReference": "Online_Sketch_Query_Optimization_2021",
+        "offset": 12516,
+        "length": 1144,
+        "excerpt": "We introduce two novel strategies to extend Fast-AGMS sketches to multi-way join cardinality estimation. The first strategy – sketch partitioning – is a theoretically sound estimator for a given multi"
+      }
+    ],
+    "suspiciousDocuments": [
+      {
+        "reference": "SYNTH_COPY_R4R",
+        "kind": "verbatim-copy",
+        "characters": 3703,
+        "caseSpans": {
+          "R4R-A": {
+            "offset": 147,
+            "length": 2171
+          },
+          "R4R-B": {
+            "offset": 2470,
+            "length": 1076
+          }
+        }
+      },
+      {
+        "reference": "SYNTH_COPY_OS",
+        "kind": "verbatim-copy",
+        "characters": 2344,
+        "caseSpans": {
+          "OS-C": {
+            "offset": 150,
+            "length": 777
+          },
+          "OS-D": {
+            "offset": 1053,
+            "length": 1144
+          }
+        }
+      },
+      {
+        "reference": "SYNTH_PARA_R4R",
+        "kind": "synthetic-paraphrase",
+        "characters": 2898,
+        "caseSpans": {
+          "R4R-A": {
+            "offset": 124,
+            "length": 1366
+          },
+          "R4R-B": {
+            "offset": 1649,
+            "length": 1102
+          }
+        }
+      },
+      {
+        "reference": "SYNTH_PARA_OS",
+        "kind": "synthetic-paraphrase",
+        "characters": 2438,
+        "caseSpans": {
+          "OS-C": {
+            "offset": 157,
+            "length": 842
+          },
+          "OS-D": {
+            "offset": 1148,
+            "length": 1140
+          }
+        }
+      }
+    ],
+    "comparisons": [
+      {
+        "id": "copy-r4r",
+        "arm": "direct-copy",
+        "suspiciousReference": "SYNTH_COPY_R4R",
+        "sourceReference": "Review4Repair_2020",
+        "cases": [
+          {
+            "suspiciousReference": "SYNTH_COPY_R4R",
+            "sourceReference": "Review4Repair_2020",
+            "suspiciousSpan": {
+              "offset": 147,
+              "length": 2171
+            },
+            "sourceSpan": {
+              "offset": 815,
+              "length": 2171
+            }
+          },
+          {
+            "suspiciousReference": "SYNTH_COPY_R4R",
+            "sourceReference": "Review4Repair_2020",
+            "suspiciousSpan": {
+              "offset": 2470,
+              "length": 1076
+            },
+            "sourceSpan": {
+              "offset": 29407,
+              "length": 1076
+            }
+          }
+        ]
+      },
+      {
+        "id": "copy-os",
+        "arm": "direct-copy",
+        "suspiciousReference": "SYNTH_COPY_OS",
+        "sourceReference": "Online_Sketch_Query_Optimization_2021",
+        "cases": [
+          {
+            "suspiciousReference": "SYNTH_COPY_OS",
+            "sourceReference": "Online_Sketch_Query_Optimization_2021",
+            "suspiciousSpan": {
+              "offset": 150,
+              "length": 777
+            },
+            "sourceSpan": {
+              "offset": 9948,
+              "length": 777
+            }
+          },
+          {
+            "suspiciousReference": "SYNTH_COPY_OS",
+            "sourceReference": "Online_Sketch_Query_Optimization_2021",
+            "suspiciousSpan": {
+              "offset": 1053,
+              "length": 1144
+            },
+            "sourceSpan": {
+              "offset": 12516,
+              "length": 1144
+            }
+          }
+        ]
+      },
+      {
+        "id": "para-r4r",
+        "arm": "paraphrase",
+        "suspiciousReference": "SYNTH_PARA_R4R",
+        "sourceReference": "Review4Repair_2020",
+        "cases": [
+          {
+            "suspiciousReference": "SYNTH_PARA_R4R",
+            "sourceReference": "Review4Repair_2020",
+            "suspiciousSpan": {
+              "offset": 124,
+              "length": 1366
+            },
+            "sourceSpan": {
+              "offset": 815,
+              "length": 2171
+            }
+          },
+          {
+            "suspiciousReference": "SYNTH_PARA_R4R",
+            "sourceReference": "Review4Repair_2020",
+            "suspiciousSpan": {
+              "offset": 1649,
+              "length": 1102
+            },
+            "sourceSpan": {
+              "offset": 29407,
+              "length": 1076
+            }
+          }
+        ]
+      },
+      {
+        "id": "para-os",
+        "arm": "paraphrase",
+        "suspiciousReference": "SYNTH_PARA_OS",
+        "sourceReference": "Online_Sketch_Query_Optimization_2021",
+        "cases": [
+          {
+            "suspiciousReference": "SYNTH_PARA_OS",
+            "sourceReference": "Online_Sketch_Query_Optimization_2021",
+            "suspiciousSpan": {
+              "offset": 157,
+              "length": 842
+            },
+            "sourceSpan": {
+              "offset": 9948,
+              "length": 777
+            }
+          },
+          {
+            "suspiciousReference": "SYNTH_PARA_OS",
+            "sourceReference": "Online_Sketch_Query_Optimization_2021",
+            "suspiciousSpan": {
+              "offset": 1148,
+              "length": 1140
+            },
+            "sourceSpan": {
+              "offset": 12516,
+              "length": 1144
+            }
+          }
+        ]
+      },
+      {
+        "id": "neg-r4r-vs-os",
+        "arm": "negative-control",
+        "suspiciousReference": "SYNTH_COPY_R4R",
+        "sourceReference": "Online_Sketch_Query_Optimization_2021",
+        "cases": []
+      },
+      {
+        "id": "neg-os-vs-r4r",
+        "arm": "negative-control",
+        "suspiciousReference": "SYNTH_COPY_OS",
+        "sourceReference": "Review4Repair_2020",
+        "cases": []
+      }
+    ]
+  },
+  "results": [
+    {
+      "id": "copy-r4r",
+      "arm": "direct-copy",
+      "suspiciousReference": "SYNTH_COPY_R4R",
+      "sourceReference": "Review4Repair_2020",
+      "groundTruthCases": 2,
+      "methods": {
+        "lexical": {
+          "detections": [
+            {
+              "suspiciousReference": "SYNTH_COPY_R4R",
+              "sourceReference": "Review4Repair_2020",
+              "suspiciousSpan": {
+                "offset": 0,
+                "length": 2403
+              },
+              "sourceSpan": {
+                "offset": 913,
+                "length": 1896
+              },
+              "lexical": 0.8776494569616314,
+              "semantic": 0,
+              "score": 0.8776494569616314,
+              "evidenceWindows": 4,
+              "suspiciousExcerpt": "Field notes for the controlled experiment log. The survey team recorded water temperature and salinity at each station before collecting samples. Abstract Context: Learning-based automatic program repair techniques are showing promise to provide quality fix suggestions for detected bugs in the sourc",
+              "sourceExcerpt": "techniques are showing promise to provide quality fix suggestions for detected bugs in the source code of the soft- ware. These tools mostly exploit historical data of buggy and fixed code changes and are heavily dependent on bug localizers while applying to a new piece of code. With the increasing "
+            },
+            {
+              "suspiciousReference": "SYNTH_COPY_R4R",
+              "sourceReference": "Review4Repair_2020",
+              "suspiciousSpan": {
+                "offset": 2216,
+                "length": 1487
+              },
+              "sourceSpan": {
+                "offset": 29114,
+                "length": 1520
+              },
+              "lexical": 1,
+              "semantic": 0,
+              "score": 1,
+              "evidenceWindows": 4,
+              "suspiciousExcerpt": "stylistics and non-code errors unaddressed by prior techniques All sampling equipment was rinsed with distilled water and calibrated each morning. Measurements were repeated three times to reduce observer error. We mark focus with two special tokens, i.e., <|startfocus|> and <|endfocus|>. We call th",
+              "sourceExcerpt": "code change. After deciding on the relevancy of code change and review comments, we explicitly concentrate on the code change. We term the buggy source code as 10 code before change, and the lines changed there as focus. We mark focus with two special tokens, i.e., <|startfocus|> and <|endfocus|>. W"
+            }
+          ],
+          "metrics": {
+            "precision": 0.8308487066659147,
+            "recall": 0.9683325656379549,
+            "f1": 0.8943377436922328,
+            "granularity": 1,
+            "plagdet": 0.8943377436922328,
+            "cases": 2,
+            "detections": 2,
+            "detectedCases": 2,
+            "missedCases": 0,
+            "falsePositiveDetections": 0
+          },
+          "elapsedSeconds": 0.0009238999999979569,
+          "queryPassages": 8,
+          "sourcePassages": 194
+        },
+        "semantic": {
+          "detections": [
+            {
+              "suspiciousReference": "SYNTH_COPY_R4R",
+              "sourceReference": "Review4Repair_2020",
+              "suspiciousSpan": {
+                "offset": 147,
+                "length": 2171
+              },
+              "sourceSpan": {
+                "offset": 815,
+                "length": 2172
+              },
+              "lexical": 1,
+              "semantic": 1,
+              "score": 1,
+              "evidenceWindows": 21,
+              "suspiciousExcerpt": "Abstract Context: Learning-based automatic program repair techniques are showing promise to provide quality fix suggestions for detected bugs in the source code of the soft- ware. These tools mostly exploit historical data of buggy and fixed code changes and are heavily dependent on bug localizers w",
+              "sourceExcerpt": "Abstract Context: Learning-based automatic program repair techniques are showing promise to provide quality fix suggestions for detected bugs in the source code of the soft- ware. These tools mostly exploit historical data of buggy and fixed code changes and are heavily dependent on bug localizers w"
+            },
+            {
+              "suspiciousReference": "SYNTH_COPY_R4R",
+              "sourceReference": "Review4Repair_2020",
+              "suspiciousSpan": {
+                "offset": 2489,
+                "length": 1057
+              },
+              "sourceSpan": {
+                "offset": 29407,
+                "length": 1077
+              },
+              "lexical": 1,
+              "semantic": 1,
+              "score": 1,
+              "evidenceWindows": 21,
+              "suspiciousExcerpt": "two special tokens, i.e., <|startfocus|> and <|endfocus|>. We call the fixed code as code after change and changed portion within the focus as the target. We elaborate on the terms in an example presented in Figure 6. Observing the data, the model learns to change the content of the focus into the t",
+              "sourceExcerpt": "We mark focus with two special tokens, i.e., <|startfocus|> and <|endfocus|>. We call the fixed code as code after change and changed portion within the focus as the target. We elaborate on the terms in an example presented in Figure 6. Observing the data, the model learns to change the content of t"
+            }
+          ],
+          "metrics": {
+            "precision": 0.9996505704274574,
+            "recall": 0.9955855018587361,
+            "f1": 0.9976138950836256,
+            "granularity": 1,
+            "plagdet": 0.9976138950836256,
+            "cases": 2,
+            "detections": 2,
+            "detectedCases": 2,
+            "missedCases": 0,
+            "falsePositiveDetections": 0
+          },
+          "elapsedSeconds": 0.0012714999999989232,
+          "queryPassages": 53,
+          "sourcePassages": 1100
+        },
+        "hybrid": {
+          "detections": [
+            {
+              "suspiciousReference": "SYNTH_COPY_R4R",
+              "sourceReference": "Review4Repair_2020",
+              "suspiciousSpan": {
+                "offset": 147,
+                "length": 2171
+              },
+              "sourceSpan": {
+                "offset": 815,
+                "length": 2172
+              },
+              "lexical": 1,
+              "semantic": 0.9954151765797286,
+              "score": 1,
+              "evidenceWindows": 21,
+              "suspiciousExcerpt": "Abstract Context: Learning-based automatic program repair techniques are showing promise to provide quality fix suggestions for detected bugs in the source code of the soft- ware. These tools mostly exploit historical data of buggy and fixed code changes and are heavily dependent on bug localizers w",
+              "sourceExcerpt": "Abstract Context: Learning-based automatic program repair techniques are showing promise to provide quality fix suggestions for detected bugs in the source code of the soft- ware. These tools mostly exploit historical data of buggy and fixed code changes and are heavily dependent on bug localizers w"
+            },
+            {
+              "suspiciousReference": "SYNTH_COPY_R4R",
+              "sourceReference": "Review4Repair_2020",
+              "suspiciousSpan": {
+                "offset": 2489,
+                "length": 1057
+              },
+              "sourceSpan": {
+                "offset": 29407,
+                "length": 1077
+              },
+              "lexical": 1,
+              "semantic": 0.9999999999999987,
+              "score": 1,
+              "evidenceWindows": 21,
+              "suspiciousExcerpt": "two special tokens, i.e., <|startfocus|> and <|endfocus|>. We call the fixed code as code after change and changed portion within the focus as the target. We elaborate on the terms in an example presented in Figure 6. Observing the data, the model learns to change the content of the focus into the t",
+              "sourceExcerpt": "We mark focus with two special tokens, i.e., <|startfocus|> and <|endfocus|>. We call the fixed code as code after change and changed portion within the focus as the target. We elaborate on the terms in an example presented in Figure 6. Observing the data, the model learns to change the content of t"
+            }
+          ],
+          "metrics": {
+            "precision": 0.9996505704274574,
+            "recall": 0.9955855018587361,
+            "f1": 0.9976138950836256,
+            "granularity": 1,
+            "plagdet": 0.9976138950836256,
+            "cases": 2,
+            "detections": 2,
+            "detectedCases": 2,
+            "missedCases": 0,
+            "falsePositiveDetections": 0
+          },
+          "elapsedSeconds": 0.00031859999999869613,
+          "queryPassages": 53,
+          "sourcePassages": 1100
+        }
+      }
+    },
+    {
+      "id": "copy-os",
+      "arm": "direct-copy",
+      "suspiciousReference": "SYNTH_COPY_OS",
+      "sourceReference": "Online_Sketch_Query_Optimization_2021",
+      "groundTruthCases": 2,
+      "methods": {
+        "lexical": {
+          "detections": [
+            {
+              "suspiciousReference": "SYNTH_COPY_OS",
+              "sourceReference": "Online_Sketch_Query_Optimization_2021",
+              "suspiciousSpan": {
+                "offset": 0,
+                "length": 1157
+              },
+              "sourceSpan": {
+                "offset": 10057,
+                "length": 824
+              },
+              "lexical": 0.9037894253707494,
+              "semantic": 0,
+              "score": 0.9037894253707494,
+              "evidenceWindows": 3,
+              "suspiciousExcerpt": "All sampling equipment was rinsed with distilled water and calibrated each morning. Measurements were repeated three times to reduce observer error. We investigate how to design a lightweight – yet effective – query optimizer for modern in-memory databases. We have two design principles. First, we a",
+              "sourceExcerpt": "We have two design principles. First, we aim to capitalize on the highly-parallel execution engine in the query optimization process. Since query execution is already fast, it is challenging to minimize the overhead incurred by the additional optimization. Second, the type and number of synopses inc"
+            },
+            {
+              "suspiciousReference": "SYNTH_COPY_OS",
+              "sourceReference": "Online_Sketch_Query_Optimization_2021",
+              "suspiciousSpan": {
+                "offset": 1011,
+                "length": 1186
+              },
+              "sourceSpan": {
+                "offset": 12592,
+                "length": 899
+              },
+              "lexical": 0.7895775497985036,
+              "semantic": 0,
+              "score": 0.7895775497985036,
+              "evidenceWindows": 3,
+              "suspiciousExcerpt": "specimen counts appears in the appendix. We introduce two novel strategies to extend Fast-AGMS sketches to multi-way join cardinality estimation. The first strategy – sketch partitioning – is a theoretically sound estimator for a given multi-way join. Since it does not support composition, sketch pa",
+              "sourceExcerpt": "join cardinality estimation. The first strategy – sketch partitioning – is a theoretically sound estimator for a given multi-way join. Since it does not support composition, sketch partitioning is not scalable for join order enumeration. The second strategy – sketch merging – addresses scalability b"
+            }
+          ],
+          "metrics": {
+            "precision": 0.8546428480638004,
+            "recall": 0.9113890051390051,
+            "f1": 0.8821042424953194,
+            "granularity": 1,
+            "plagdet": 0.8821042424953194,
+            "cases": 2,
+            "detections": 2,
+            "detectedCases": 2,
+            "missedCases": 0,
+            "falsePositiveDetections": 0
+          },
+          "elapsedSeconds": 0.00003919999999925494,
+          "queryPassages": 7,
+          "sourcePassages": 370
+        },
+        "semantic": {
+          "detections": [
+            {
+              "suspiciousReference": "SYNTH_COPY_OS",
+              "sourceReference": "Online_Sketch_Query_Optimization_2021",
+              "suspiciousSpan": {
+                "offset": 150,
+                "length": 777
+              },
+              "sourceSpan": {
+                "offset": 9948,
+                "length": 778
+              },
+              "lexical": 1,
+              "semantic": 1,
+              "score": 1,
+              "evidenceWindows": 13,
+              "suspiciousExcerpt": "We investigate how to design a lightweight – yet effective – query optimizer for modern in-memory databases. We have two design principles. First, we aim to capitalize on the highly-parallel execution engine in the query optimization process. Since query execution is already fast, it is challenging ",
+              "sourceExcerpt": "We investigate how to design a lightweight – yet effective – query optimizer for modern in-memory databases. We have two design principles. First, we aim to capitalize on the highly-parallel execution engine in the query optimization process. Since query execution is already fast, it is challenging "
+            },
+            {
+              "suspiciousReference": "SYNTH_COPY_OS",
+              "sourceReference": "Online_Sketch_Query_Optimization_2021",
+              "suspiciousSpan": {
+                "offset": 1053,
+                "length": 212
+              },
+              "sourceSpan": {
+                "offset": 84253,
+                "length": 202
+              },
+              "lexical": 0.913464715622976,
+              "semantic": 0.9990431742071652,
+              "score": 0.9990431742071652,
+              "evidenceWindows": 1,
+              "suspiciousExcerpt": "We introduce two novel strategies to extend Fast-AGMS sketches to multi-way join cardinality estimation. The first strategy – sketch partitioning – is a theoretically sound estimator for a given multi-way join.",
+              "sourceExcerpt": "We present two strategies to extend Fast-AGMS sketches to multi-way join cardinality estimation. The first strategy – sketch partitioning – is a theoretically sound estimator for a given multi-way join."
+            },
+            {
+              "suspiciousReference": "SYNTH_COPY_OS",
+              "sourceReference": "Online_Sketch_Query_Optimization_2021",
+              "suspiciousSpan": {
+                "offset": 1053,
+                "length": 1144
+              },
+              "sourceSpan": {
+                "offset": 12514,
+                "length": 1147
+              },
+              "lexical": 1,
+              "semantic": 1,
+              "score": 1,
+              "evidenceWindows": 16,
+              "suspiciousExcerpt": "We introduce two novel strategies to extend Fast-AGMS sketches to multi-way join cardinality estimation. The first strategy – sketch partitioning – is a theoretically sound estimator for a given multi-way join. Since it does not support composition, sketch partitioning is not scalable for join order",
+              "sourceExcerpt": "• We introduce two novel strategies to extend Fast-AGMS sketches to multi-way join cardinality estimation. The first strategy – sketch partitioning – is a theoretically sound estimator for a given multi-way join. Since it does not support composition, sketch partitioning is not scalable for join ord"
+            }
+          ],
+          "metrics": {
+            "precision": 0.6660158137789748,
+            "recall": 1,
+            "f1": 0.7995312028500746,
+            "granularity": 1,
+            "plagdet": 0.7995312028500746,
+            "cases": 2,
+            "detections": 3,
+            "detectedCases": 2,
+            "missedCases": 0,
+            "falsePositiveDetections": 1
+          },
+          "elapsedSeconds": 0.0003161999999974796,
+          "queryPassages": 41,
+          "sourcePassages": 1903
+        },
+        "hybrid": {
+          "detections": [
+            {
+              "suspiciousReference": "SYNTH_COPY_OS",
+              "sourceReference": "Online_Sketch_Query_Optimization_2021",
+              "suspiciousSpan": {
+                "offset": 150,
+                "length": 777
+              },
+              "sourceSpan": {
+                "offset": 9948,
+                "length": 778
+              },
+              "lexical": 1,
+              "semantic": 1,
+              "score": 1,
+              "evidenceWindows": 13,
+              "suspiciousExcerpt": "We investigate how to design a lightweight – yet effective – query optimizer for modern in-memory databases. We have two design principles. First, we aim to capitalize on the highly-parallel execution engine in the query optimization process. Since query execution is already fast, it is challenging ",
+              "sourceExcerpt": "We investigate how to design a lightweight – yet effective – query optimizer for modern in-memory databases. We have two design principles. First, we aim to capitalize on the highly-parallel execution engine in the query optimization process. Since query execution is already fast, it is challenging "
+            },
+            {
+              "suspiciousReference": "SYNTH_COPY_OS",
+              "sourceReference": "Online_Sketch_Query_Optimization_2021",
+              "suspiciousSpan": {
+                "offset": 1053,
+                "length": 1144
+              },
+              "sourceSpan": {
+                "offset": 12514,
+                "length": 1147
+              },
+              "lexical": 1,
+              "semantic": 0.9892209635360704,
+              "score": 1,
+              "evidenceWindows": 17,
+              "suspiciousExcerpt": "We introduce two novel strategies to extend Fast-AGMS sketches to multi-way join cardinality estimation. The first strategy – sketch partitioning – is a theoretically sound estimator for a given multi-way join. Since it does not support composition, sketch partitioning is not scalable for join order",
+              "sourceExcerpt": "• We introduce two novel strategies to extend Fast-AGMS sketches to multi-way join cardinality estimation. The first strategy – sketch partitioning – is a theoretically sound estimator for a given multi-way join. Since it does not support composition, sketch partitioning is not scalable for join ord"
+            }
+          ],
+          "metrics": {
+            "precision": 0.9990237206684622,
+            "recall": 1,
+            "f1": 0.999511621937527,
+            "granularity": 1,
+            "plagdet": 0.999511621937527,
+            "cases": 2,
+            "detections": 2,
+            "detectedCases": 2,
+            "missedCases": 0,
+            "falsePositiveDetections": 0
+          },
+          "elapsedSeconds": 0.00023070000000006985,
+          "queryPassages": 41,
+          "sourcePassages": 1903
+        }
+      }
+    },
+    {
+      "id": "para-r4r",
+      "arm": "paraphrase",
+      "suspiciousReference": "SYNTH_PARA_R4R",
+      "sourceReference": "Review4Repair_2020",
+      "groundTruthCases": 2,
+      "methods": {
+        "lexical": {
+          "detections": [
+            {
+              "suspiciousReference": "SYNTH_PARA_R4R",
+              "sourceReference": "Review4Repair_2020",
+              "suspiciousSpan": {
+                "offset": 0,
+                "length": 538
+              },
+              "sourceSpan": {
+                "offset": 78922,
+                "length": 515
+              },
+              "lexical": 0.31689424795624016,
+              "semantic": 0,
+              "score": 0.31689424795624016,
+              "evidenceWindows": 1,
+              "suspiciousExcerpt": "Preliminary observations are summarized in this section. A complete tabulation of specimen counts appears in the appendix. Abstract. Background: machine-learning methods for automated program repair show potential for recommending high-quality patches for faults found in software source code. Most s",
+              "sourceExcerpt": "summarized node information and the sub-tree difference 28 before and after the change are used to learn the code transformation. Additionally, they also deploy a classification model to re-rank the generated patches. Although there has been plenty of noticeable works in Machine Learning-based progr"
+            },
+            {
+              "suspiciousReference": "SYNTH_PARA_R4R",
+              "sourceReference": "Review4Repair_2020",
+              "suspiciousSpan": {
+                "offset": 406,
+                "length": 1241
+              },
+              "sourceSpan": {
+                "offset": 1476,
+                "length": 2062
+              },
+              "lexical": 0.5130464961516467,
+              "semantic": 0,
+              "score": 0.5130464961516467,
+              "evidenceWindows": 3,
+              "suspiciousExcerpt": "localization when applied to unseen code. As code review becomes more widespread, the need for a separate fault localizer decreases. Moreover, localizing faults through code review is more reliable because it reflects the knowledge and experience of human reviewers. Objective: review comments writte",
+              "sourceExcerpt": "reduced. Besides, the code review-based bug localization is more trustworthy since reviewers’ expertise and experience are reflected in these suggestions. Objective: The natural language instructions scripted on the review comments are enormous sources of information about the bug’s nature and expec"
+            },
+            {
+              "suspiciousReference": "SYNTH_PARA_R4R",
+              "sourceReference": "Review4Repair_2020",
+              "suspiciousSpan": {
+                "offset": 1529,
+                "length": 1079
+              },
+              "sourceSpan": {
+                "offset": 29114,
+                "length": 1243
+              },
+              "lexical": 0.6323451259522689,
+              "semantic": 0,
+              "score": 0.6323451259522689,
+              "evidenceWindows": 3,
+              "suspiciousExcerpt": "to several open questions for the next field season. A broader comparison across coastal sites is left to future work. We mark the boundaries of the focus with two dedicated tokens, namely <|startfocus|> and <|endfocus|>. The corrected program is referred to as the code after change, and the edited ",
+              "sourceExcerpt": "code change. After deciding on the relevancy of code change and review comments, we explicitly concentrate on the code change. We term the buggy source code as 10 code before change, and the lines changed there as focus. We mark focus with two special tokens, i.e., <|startfocus|> and <|endfocus|>. W"
+            }
+          ],
+          "metrics": {
+            "precision": 0.5358275813781379,
+            "recall": 0.8049410365510297,
+            "f1": 0.6433766467972858,
+            "granularity": 1,
+            "plagdet": 0.6433766467972858,
+            "cases": 2,
+            "detections": 3,
+            "detectedCases": 2,
+            "missedCases": 0,
+            "falsePositiveDetections": 1
+          },
+          "elapsedSeconds": 0.00011339999999836436,
+          "queryPassages": 8,
+          "sourcePassages": 194
+        },
+        "semantic": {
+          "detections": [
+            {
+              "suspiciousReference": "SYNTH_PARA_R4R",
+              "sourceReference": "Review4Repair_2020",
+              "suspiciousSpan": {
+                "offset": 124,
+                "length": 170
+              },
+              "sourceSpan": {
+                "offset": 74425,
+                "length": 315
+              },
+              "lexical": 0.22971238021066037,
+              "semantic": 0.8012982534435876,
+              "score": 0.8012982534435876,
+              "evidenceWindows": 1,
+              "suspiciousExcerpt": "Abstract. Background: machine-learning methods for automated program repair show potential for recommending high-quality patches for faults found in software source code.",
+              "sourceExcerpt": "Along with classic approaches of dynamic and static analysis based repair, Machine Learning based techniques are also showing immense promise. Classic Automatic Program Repair (APR): Researchers have been trying to automatically repair software systems by generating an actual fix for more than two d"
+            },
+            {
+              "suspiciousReference": "SYNTH_PARA_R4R",
+              "sourceReference": "Review4Repair_2020",
+              "suspiciousSpan": {
+                "offset": 134,
+                "length": 160
+              },
+              "sourceSpan": {
+                "offset": 75814,
+                "length": 216
+              },
+              "lexical": 0.22587964364550733,
+              "semantic": 0.7950033041379778,
+              "score": 0.7950033041379778,
+              "evidenceWindows": 1,
+              "suspiciousExcerpt": "Background: machine-learning methods for automated program repair show potential for recommending high-quality patches for faults found in software source code.",
+              "sourceExcerpt": "Machine Learning-based Automatic Program Repair: Applying a Deep learning-based approach to detect and fix bugs has shown promising results in recent years, mainly due to the availability of large datasets. Pu et al."
+            },
+            {
+              "suspiciousReference": "SYNTH_PARA_R4R",
+              "sourceReference": "Review4Repair_2020",
+              "suspiciousSpan": {
+                "offset": 134,
+                "length": 891
+              },
+              "sourceSpan": {
+                "offset": 815,
+                "length": 1451
+              },
+              "lexical": 0.5471631457130478,
+              "semantic": 0.8882754246266183,
+              "score": 0.8882754246266183,
+              "evidenceWindows": 11,
+              "suspiciousExcerpt": "Background: machine-learning methods for automated program repair show potential for recommending high-quality patches for faults found in software source code. Most such tools learn from historical records of defective and corrected code edits and rely strongly on fault localization when applied to",
+              "sourceExcerpt": "Abstract Context: Learning-based automatic program repair techniques are showing promise to provide quality fix suggestions for detected bugs in the source code of the soft- ware. These tools mostly exploit historical data of buggy and fixed code changes and are heavily dependent on bug localizers w"
+            },
+            {
+              "suspiciousReference": "SYNTH_PARA_R4R",
+              "sourceReference": "Review4Repair_2020",
+              "suspiciousSpan": {
+                "offset": 936,
+                "length": 89
+              },
+              "sourceSpan": {
+                "offset": 56111,
+                "length": 96
+              },
+              "lexical": 0.5395119934871614,
+              "semantic": 0.8634240307624462,
+              "score": 0.8634240307624462,
+              "evidenceWindows": 1,
+              "suspiciousExcerpt": "In this work we study how much repair quality improves when code review remarks are used.",
+              "sourceExcerpt": "In this study, we aim to show whether code review can improve automatic code repair performance."
+            },
+            {
+              "suspiciousReference": "SYNTH_PARA_R4R",
+              "sourceReference": "Review4Repair_2020",
+              "suspiciousSpan": {
+                "offset": 936,
+                "length": 554
+              },
+              "sourceSpan": {
+                "offset": 2120,
+                "length": 867
+              },
+              "lexical": 0.5686112747780894,
+              "semantic": 0.9683750471740054,
+              "score": 0.9683750471740054,
+              "evidenceWindows": 9,
+              "suspiciousExcerpt": "In this work we study how much repair quality improves when code review remarks are used. Method: we train an encoder-decoder model on 55,060 code reviews together with their corresponding code modifications. We additionally propose novel tokenization and preprocessing strategies that yield substant",
+              "sourceExcerpt": "In this study, we investigate the performance improvement of repair techniques using code review comments. Method: We train a sequence-to-sequence model on 55,060 code reviews and associated code changes. We also introduce new tokenization and preprocess- ing approaches that help to achieve signific"
+            },
+            {
+              "suspiciousReference": "SYNTH_PARA_R4R",
+              "sourceReference": "Review4Repair_2020",
+              "suspiciousSpan": {
+                "offset": 1649,
+                "length": 438
+              },
+              "sourceSpan": {
+                "offset": 29407,
+                "length": 391
+              },
+              "lexical": 0.6531364891268103,
+              "semantic": 0.9444892671041096,
+              "score": 0.9444892671041096,
+              "evidenceWindows": 6,
+              "suspiciousExcerpt": "We mark the boundaries of the focus with two dedicated tokens, namely <|startfocus|> and <|endfocus|>. The corrected program is referred to as the code after change, and the edited region inside the focus is referred to as the target. These concepts are illustrated with an example in Figure 6. From ",
+              "sourceExcerpt": "We mark focus with two special tokens, i.e., <|startfocus|> and <|endfocus|>. We call the fixed code as code after change and changed portion within the focus as the target. We elaborate on the terms in an example presented in Figure 6. Observing the data, the model learns to change the content of t"
+            },
+            {
+              "suspiciousReference": "SYNTH_PARA_R4R",
+              "sourceReference": "Review4Repair_2020",
+              "suspiciousSpan": {
+                "offset": 1944,
+                "length": 807
+              },
+              "sourceSpan": {
+                "offset": 29581,
+                "length": 903
+              },
+              "lexical": 0.6725653674277641,
+              "semantic": 0.8848139255197569,
+              "score": 0.8848139255197569,
+              "evidenceWindows": 12,
+              "suspiciousExcerpt": "From the data, the model learns to rewrite the content of the focus into the target, conditioned on the review remark and the neighboring code. We use distinct procedures to determine the focus and the target depending on whether an edit inserts, removes, or updates code. Figure 6 illustrates all th",
+              "sourceExcerpt": "We elaborate on the terms in an example presented in Figure 6. Observing the data, the model learns to change the content of the focus into the target using the code review comment and the surrounding code as context. We take different measures for identifying the focus and the target depending on w"
+            }
+          ],
+          "metrics": {
+            "precision": 0.571244496415799,
+            "recall": 0.9985863726321742,
+            "f1": 0.7267495891552805,
+            "granularity": 2,
+            "plagdet": 0.4585279391938991,
+            "cases": 2,
+            "detections": 7,
+            "detectedCases": 2,
+            "missedCases": 0,
+            "falsePositiveDetections": 3
+          },
+          "elapsedSeconds": 0.00038119999999980793,
+          "queryPassages": 57,
+          "sourcePassages": 1100
+        },
+        "hybrid": {
+          "detections": [
+            {
+              "suspiciousReference": "SYNTH_PARA_R4R",
+              "sourceReference": "Review4Repair_2020",
+              "suspiciousSpan": {
+                "offset": 295,
+                "length": 152
+              },
+              "sourceSpan": {
+                "offset": 5454,
+                "length": 105
+              },
+              "lexical": 0.3806372675582785,
+              "semantic": 0.5844317472002218,
+              "score": 0.3806372675582785,
+              "evidenceWindows": 1,
+              "suspiciousExcerpt": "Most such tools learn from historical records of defective and corrected code edits and rely strongly on fault localization when applied to unseen code.",
+              "sourceExcerpt": "Instead of relying on a test suite, these techniques rely on previous code fixes in similar code defects."
+            },
+            {
+              "suspiciousReference": "SYNTH_PARA_R4R",
+              "sourceReference": "Review4Repair_2020",
+              "suspiciousSpan": {
+                "offset": 539,
+                "length": 486
+              },
+              "sourceSpan": {
+                "offset": 1485,
+                "length": 781
+              },
+              "lexical": 0.5471631457130478,
+              "semantic": 0.8882754246266183,
+              "score": 0.5471631457130478,
+              "evidenceWindows": 6,
+              "suspiciousExcerpt": "Moreover, localizing faults through code review is more reliable because it reflects the knowledge and experience of human reviewers. Objective: review comments written in natural language contain rich information about the character of a defect and the remedy that is expected. Yet, to our knowledge",
+              "sourceExcerpt": "Besides, the code review-based bug localization is more trustworthy since reviewers’ expertise and experience are reflected in these suggestions. Objective: The natural language instructions scripted on the review comments are enormous sources of information about the bug’s nature and expected solut"
+            },
+            {
+              "suspiciousReference": "SYNTH_PARA_R4R",
+              "sourceReference": "Review4Repair_2020",
+              "suspiciousSpan": {
+                "offset": 936,
+                "length": 89
+              },
+              "sourceSpan": {
+                "offset": 56052,
+                "length": 155
+              },
+              "lexical": 0.5827723690038716,
+              "semantic": 0.8497787779530126,
+              "score": 0.5827723690038716,
+              "evidenceWindows": 1,
+              "suspiciousExcerpt": "In this work we study how much repair quality improves when code review remarks are used.",
+              "sourceExcerpt": "How effective is code review in automatic code repair? In this study, we aim to show whether code review can improve automatic code repair performance."
+            },
+            {
+              "suspiciousReference": "SYNTH_PARA_R4R",
+              "sourceReference": "Review4Repair_2020",
+              "suspiciousSpan": {
+                "offset": 936,
+                "length": 363
+              },
+              "sourceSpan": {
+                "offset": 2120,
+                "length": 324
+              },
+              "lexical": 0.7312569068347836,
+              "semantic": 0.7934439121605926,
+              "score": 0.7312569068347836,
+              "evidenceWindows": 3,
+              "suspiciousExcerpt": "In this work we study how much repair quality improves when code review remarks are used. Method: we train an encoder-decoder model on 55,060 code reviews together with their corresponding code modifications. We additionally propose novel tokenization and preprocessing strategies that yield substant",
+              "sourceExcerpt": "In this study, we investigate the performance improvement of repair techniques using code review comments. Method: We train a sequence-to-sequence model on 55,060 code reviews and associated code changes."
+            },
+            {
+              "suspiciousReference": "SYNTH_PARA_R4R",
+              "sourceReference": "Review4Repair_2020",
+              "suspiciousSpan": {
+                "offset": 1649,
+                "length": 1025
+              },
+              "sourceSpan": {
+                "offset": 29407,
+                "length": 950
+              },
+              "lexical": 0.7312738699371819,
+              "semantic": 0.8722981905536838,
+              "score": 0.7312738699371819,
+              "evidenceWindows": 18,
+              "suspiciousExcerpt": "We mark the boundaries of the focus with two dedicated tokens, namely <|startfocus|> and <|endfocus|>. The corrected program is referred to as the code after change, and the edited region inside the focus is referred to as the target. These concepts are illustrated with an example in Figure 6. From ",
+              "sourceExcerpt": "We mark focus with two special tokens, i.e., <|startfocus|> and <|endfocus|>. We call the fixed code as code after change and changed portion within the focus as the target. We elaborate on the terms in an example presented in Figure 6. Observing the data, the model learns to change the content of t"
+            }
+          ],
+          "metrics": {
+            "precision": 0.6,
+            "recall": 0.6964001570177837,
+            "f1": 0.6446159265698675,
+            "granularity": 1.5,
+            "plagdet": 0.48763312396715,
+            "cases": 2,
+            "detections": 5,
+            "detectedCases": 2,
+            "missedCases": 0,
+            "falsePositiveDetections": 2
+          },
+          "elapsedSeconds": 0.00038500000000203725,
+          "queryPassages": 57,
+          "sourcePassages": 1100
+        }
+      }
+    },
+    {
+      "id": "para-os",
+      "arm": "paraphrase",
+      "suspiciousReference": "SYNTH_PARA_OS",
+      "sourceReference": "Online_Sketch_Query_Optimization_2021",
+      "groundTruthCases": 2,
+      "methods": {
+        "lexical": {
+          "detections": [
+            {
+              "suspiciousReference": "SYNTH_PARA_OS",
+              "sourceReference": "Online_Sketch_Query_Optimization_2021",
+              "suspiciousSpan": {
+                "offset": 0,
+                "length": 1184
+              },
+              "sourceSpan": {
+                "offset": 9623,
+                "length": 1258
+              },
+              "lexical": 0.4360030645501772,
+              "semantic": 0,
+              "score": 0.4360030645501772,
+              "evidenceWindows": 3,
+              "suspiciousExcerpt": "In summary, the survey results point to several open questions for the next field season. A broader comparison across coastal sites is left to future work. Research question. We study how to build a query optimizer that is both lightweight and effective for contemporary main-memory database systems.",
+              "sourceExcerpt": "optimizers rely on crude formulas that assume uniformity, inclusion, and independence—which are likely to produce highly sub-optimal execution plans [28]. Since implementing and maintaining these many statistics requires considerable effort, it is completely understandable that only mature systems i"
+            },
+            {
+              "suspiciousReference": "SYNTH_PARA_OS",
+              "sourceReference": "Online_Sketch_Query_Optimization_2021",
+              "suspiciousSpan": {
+                "offset": 1043,
+                "length": 809
+              },
+              "sourceSpan": {
+                "offset": 84192,
+                "length": 508
+              },
+              "lexical": 0.5210547106439213,
+              "semantic": 0,
+              "score": 0.5210547106439213,
+              "evidenceWindows": 2,
+              "suspiciousExcerpt": "log. The survey team recorded water temperature and salinity at each station before collecting samples. Our contributions are the following. First, we present two new approaches for generalizing Fast-AGMS sketches to cardinality estimation over multi-way joins. The first approach, sketch partitionin",
+              "sourceExcerpt": "sketch. 5 FAST-AGMS SKETCH MULTI-WAY JOIN ESTIMATION We present two strategies to extend Fast-AGMS sketches to multi-way join cardinality estimation. The first strategy – sketch partitioning – is a theoretically sound estimator for a given multi-way join. Its limitation is that it cannot be composed"
+            },
+            {
+              "suspiciousReference": "SYNTH_PARA_OS",
+              "sourceReference": "Online_Sketch_Query_Optimization_2021",
+              "suspiciousSpan": {
+                "offset": 1696,
+                "length": 742
+              },
+              "sourceSpan": {
+                "offset": 12984,
+                "length": 507
+              },
+              "lexical": 0.48456728273346145,
+              "semantic": 0,
+              "score": 0.48456728273346145,
+              "evidenceWindows": 2,
+              "suspiciousExcerpt": "multi-way join, every multi-way join of the same size is affected identically. This characteristic ensures consistent estimates throughout plan enumeration. Second, we implement a prototype called COMPASS inside MapD and test it thoroughly on the full JOB benchmark of 113 queries. The measurements c",
+              "sourceExcerpt": "done heuristically for a certain multi-way join taken separately, all the multi-way joins with a given size are equally impacted. This property guarantees estimation consistency in plan enumeration. • We prototype COMPASS in MapD and perform extensive experiments over the complete JOB benchmark—113 "
+            }
+          ],
+          "metrics": {
+            "precision": 0.5142950287065579,
+            "recall": 0.7405866900175131,
+            "f1": 0.6070373762230274,
+            "granularity": 1,
+            "plagdet": 0.6070373762230274,
+            "cases": 2,
+            "detections": 3,
+            "detectedCases": 2,
+            "missedCases": 0,
+            "falsePositiveDetections": 1
+          },
+          "elapsedSeconds": 0.000029200000000855654,
+          "queryPassages": 7,
+          "sourcePassages": 370
+        },
+        "semantic": {
+          "detections": [
+            {
+              "suspiciousReference": "SYNTH_PARA_OS",
+              "sourceReference": "Online_Sketch_Query_Optimization_2021",
+              "suspiciousSpan": {
+                "offset": 157,
+                "length": 393
+              },
+              "sourceSpan": {
+                "offset": 9948,
+                "length": 365
+              },
+              "lexical": 0.3996773075380088,
+              "semantic": 0.9036045118823802,
+              "score": 0.9036045118823802,
+              "evidenceWindows": 4,
+              "suspiciousExcerpt": "Research question. We study how to build a query optimizer that is both lightweight and effective for contemporary main-memory database systems. Two design guidelines shape our work. First, the optimization process itself should exploit the highly parallel execution engine. Because query execution i",
+              "sourceExcerpt": "We investigate how to design a lightweight – yet effective – query optimizer for modern in-memory databases. We have two design principles. First, we aim to capitalize on the highly-parallel execution engine in the query optimization process. Since query execution is already fast, it is challenging "
+            },
+            {
+              "suspiciousReference": "SYNTH_PARA_OS",
+              "sourceReference": "Online_Sketch_Query_Optimization_2021",
+              "suspiciousSpan": {
+                "offset": 302,
+                "length": 248
+              },
+              "sourceSpan": {
+                "offset": 10057,
+                "length": 256
+              },
+              "lexical": 0.5248210589666559,
+              "semantic": 0.8600747668085679,
+              "score": 0.8600747668085679,
+              "evidenceWindows": 4,
+              "suspiciousExcerpt": "Two design guidelines shape our work. First, the optimization process itself should exploit the highly parallel execution engine. Because query execution is already quick, the extra cost introduced by optimization must be kept as small as possible.",
+              "sourceExcerpt": "We have two design principles. First, we aim to capitalize on the highly-parallel execution engine in the query optimization process. Since query execution is already fast, it is challenging to minimize the overhead incurred by the additional optimization."
+            },
+            {
+              "suspiciousReference": "SYNTH_PARA_OS",
+              "sourceReference": "Online_Sketch_Query_Optimization_2021",
+              "suspiciousSpan": {
+                "offset": 432,
+                "length": 567
+              },
+              "sourceSpan": {
+                "offset": 10314,
+                "length": 412
+              },
+              "lexical": 0.2916192490264608,
+              "semantic": 0.8595132601255966,
+              "score": 0.8595132601255966,
+              "evidenceWindows": 5,
+              "suspiciousExcerpt": "Because query execution is already quick, the extra cost introduced by optimization must be kept as small as possible. Second, the optimizer may rely on only a minimal set of statistics: our aim is to use just one kind of synopsis, constructed for individual attributes only, with no need for auxilia",
+              "sourceExcerpt": "Second, the type and number of synopses included in the optimizer has to be minimal. Our goal is to employ a single type of synopsis built exclusively for single-attributes and without the requirement of additional data structures such as indexes. The challenge is to design a composable – and consis"
+            },
+            {
+              "suspiciousReference": "SYNTH_PARA_OS",
+              "sourceReference": "Online_Sketch_Query_Optimization_2021",
+              "suspiciousSpan": {
+                "offset": 1148,
+                "length": 1022
+              },
+              "sourceSpan": {
+                "offset": 12514,
+                "length": 977
+              },
+              "lexical": 0.5182250682247237,
+              "semantic": 0.9683581870222735,
+              "score": 0.9683581870222735,
+              "evidenceWindows": 15,
+              "suspiciousExcerpt": "Our contributions are the following. First, we present two new approaches for generalizing Fast-AGMS sketches to cardinality estimation over multi-way joins. The first approach, sketch partitioning, is a theoretically justified estimator for a specific multi-way join. Because its sketches cannot be ",
+              "sourceExcerpt": "• We introduce two novel strategies to extend Fast-AGMS sketches to multi-way join cardinality estimation. The first strategy – sketch partitioning – is a theoretically sound estimator for a given multi-way join. Since it does not support composition, sketch partitioning is not scalable for join ord"
+            },
+            {
+              "suspiciousReference": "SYNTH_PARA_OS",
+              "sourceReference": "Online_Sketch_Query_Optimization_2021",
+              "suspiciousSpan": {
+                "offset": 1978,
+                "length": 310
+              },
+              "sourceSpan": {
+                "offset": 151596,
+                "length": 130
+              },
+              "lexical": 0.24787363333915197,
+              "semantic": 0.8783941075021044,
+              "score": 0.8783941075021044,
+              "evidenceWindows": 2,
+              "suspiciousExcerpt": "The measurements confirm that COMPASS adds little overhead, staying below 500 milliseconds, while producing plans of similar or higher quality than the four database systems shown in Figure 1. COMPASS surpasses the competing systems both in how many queries it wins outright and in total workload run",
+              "sourceExcerpt": "This overhead becomes negligible in the overall execution time. As a result, COMPASS largely outperforms the other four databases."
+            },
+            {
+              "suspiciousReference": "SYNTH_PARA_OS",
+              "sourceReference": "Online_Sketch_Query_Optimization_2021",
+              "suspiciousSpan": {
+                "offset": 2171,
+                "length": 117
+              },
+              "sourceSpan": {
+                "offset": 143628,
+                "length": 89
+              },
+              "lexical": 0.2818928429396557,
+              "semantic": 0.8398369529549938,
+              "score": 0.8398369529549938,
+              "evidenceWindows": 2,
+              "suspiciousExcerpt": "COMPASS surpasses the competing systems both in how many queries it wins outright and in total workload running time.",
+              "sourceExcerpt": "COMPASS achieves a slightly better performance both in the number of queries won – 88 vs."
+            }
+          ],
+          "metrics": {
+            "precision": 0.6663296748817037,
+            "recall": 0.9368627961088172,
+            "f1": 0.7787704765782212,
+            "granularity": 2,
+            "plagdet": 0.4913494648762236,
+            "cases": 2,
+            "detections": 6,
+            "detectedCases": 2,
+            "missedCases": 0,
+            "falsePositiveDetections": 2
+          },
+          "elapsedSeconds": 0.00029179999999905706,
+          "queryPassages": 45,
+          "sourcePassages": 1903
+        },
+        "hybrid": {
+          "detections": [
+            {
+              "suspiciousReference": "SYNTH_PARA_OS",
+              "sourceReference": "Online_Sketch_Query_Optimization_2021",
+              "suspiciousSpan": {
+                "offset": 157,
+                "length": 182
+              },
+              "sourceSpan": {
+                "offset": 9948,
+                "length": 108
+              },
+              "lexical": 0.5220800050779161,
+              "semantic": 0.8823429471434883,
+              "score": 0.5220800050779161,
+              "evidenceWindows": 3,
+              "suspiciousExcerpt": "Research question. We study how to build a query optimizer that is both lightweight and effective for contemporary main-memory database systems. Two design guidelines shape our work.",
+              "sourceExcerpt": "We investigate how to design a lightweight – yet effective – query optimizer for modern in-memory databases."
+            },
+            {
+              "suspiciousReference": "SYNTH_PARA_OS",
+              "sourceReference": "Online_Sketch_Query_Optimization_2021",
+              "suspiciousSpan": {
+                "offset": 302,
+                "length": 248
+              },
+              "sourceSpan": {
+                "offset": 10057,
+                "length": 133
+              },
+              "lexical": 0.6821669812485561,
+              "semantic": 0.7248376609057482,
+              "score": 0.6821669812485561,
+              "evidenceWindows": 4,
+              "suspiciousExcerpt": "Two design guidelines shape our work. First, the optimization process itself should exploit the highly parallel execution engine. Because query execution is already quick, the extra cost introduced by optimization must be kept as small as possible.",
+              "sourceExcerpt": "We have two design principles. First, we aim to capitalize on the highly-parallel execution engine in the query optimization process."
+            },
+            {
+              "suspiciousReference": "SYNTH_PARA_OS",
+              "sourceReference": "Online_Sketch_Query_Optimization_2021",
+              "suspiciousSpan": {
+                "offset": 432,
+                "length": 330
+              },
+              "sourceSpan": {
+                "offset": 148909,
+                "length": 104
+              },
+              "lexical": 0.4239138701426136,
+              "semantic": 0.5038501628151415,
+              "score": 0.4239138701426136,
+              "evidenceWindows": 2,
+              "suspiciousExcerpt": "Because query execution is already quick, the extra cost introduced by optimization must be kept as small as possible. Second, the optimizer may rely on only a minimal set of statistics: our aim is to use just one kind of synopsis, constructed for individual attributes only, with no need for auxilia",
+              "sourceExcerpt": "query runtime, as well as only the query execution time without optimization—these are the same in MapD."
+            },
+            {
+              "suspiciousReference": "SYNTH_PARA_OS",
+              "sourceReference": "Online_Sketch_Query_Optimization_2021",
+              "suspiciousSpan": {
+                "offset": 551,
+                "length": 448
+              },
+              "sourceSpan": {
+                "offset": 10562,
+                "length": 164
+              },
+              "lexical": 0.5081835753409302,
+              "semantic": 0.7953784134253513,
+              "score": 0.5081835753409302,
+              "evidenceWindows": 3,
+              "suspiciousExcerpt": "Second, the optimizer may rely on only a minimal set of statistics: our aim is to use just one kind of synopsis, constructed for individual attributes only, with no need for auxiliary structures such as indexes. The central challenge is to devise a synopsis that can be composed across plan fragments",
+              "sourceExcerpt": "The challenge is to design a composable – and consistent – synopsis that provides incremental cardinality estimates for the sub-plans generated in plan enumeration."
+            },
+            {
+              "suspiciousReference": "SYNTH_PARA_OS",
+              "sourceReference": "Online_Sketch_Query_Optimization_2021",
+              "suspiciousSpan": {
+                "offset": 1148,
+                "length": 268
+              },
+              "sourceSpan": {
+                "offset": 84253,
+                "length": 202
+              },
+              "lexical": 0.6067577947021616,
+              "semantic": 0.9608114637654849,
+              "score": 0.6067577947021616,
+              "evidenceWindows": 3,
+              "suspiciousExcerpt": "Our contributions are the following. First, we present two new approaches for generalizing Fast-AGMS sketches to cardinality estimation over multi-way joins. The first approach, sketch partitioning, is a theoretically justified estimator for a specific multi-way join.",
+              "sourceExcerpt": "We present two strategies to extend Fast-AGMS sketches to multi-way join cardinality estimation. The first strategy – sketch partitioning – is a theoretically sound estimator for a given multi-way join."
+            },
+            {
+              "suspiciousReference": "SYNTH_PARA_OS",
+              "sourceReference": "Online_Sketch_Query_Optimization_2021",
+              "suspiciousSpan": {
+                "offset": 1306,
+                "length": 341
+              },
+              "sourceSpan": {
+                "offset": 12621,
+                "length": 343
+              },
+              "lexical": 0.6311511242956179,
+              "semantic": 0.9312670227353692,
+              "score": 0.6311511242956179,
+              "evidenceWindows": 4,
+              "suspiciousExcerpt": "The first approach, sketch partitioning, is a theoretically justified estimator for a specific multi-way join. Because its sketches cannot be composed, sketch partitioning does not scale to join order enumeration. The second approach, sketch merging, achieves scalability by building multi-way sketch",
+              "sourceExcerpt": "The first strategy – sketch partitioning – is a theoretically sound estimator for a given multi-way join. Since it does not support composition, sketch partitioning is not scalable for join order enumeration. The second strategy – sketch merging – addresses scalability by incrementally creating mult"
+            },
+            {
+              "suspiciousReference": "SYNTH_PARA_OS",
+              "sourceReference": "Online_Sketch_Query_Optimization_2021",
+              "suspiciousSpan": {
+                "offset": 1520,
+                "length": 254
+              },
+              "sourceSpan": {
+                "offset": 12729,
+                "length": 235
+              },
+              "lexical": 0.6223699357247877,
+              "semantic": 0.9660082268533808,
+              "score": 0.6223699357247877,
+              "evidenceWindows": 2,
+              "suspiciousExcerpt": "The second approach, sketch merging, achieves scalability by building multi-way sketches incrementally out of two-way sketches. Even though merging is heuristic for any single multi-way join, every multi-way join of the same size is affected identically.",
+              "sourceExcerpt": "Since it does not support composition, sketch partitioning is not scalable for join order enumeration. The second strategy – sketch merging – addresses scalability by incrementally creating multi-way sketches from two-way sketches."
+            },
+            {
+              "suspiciousReference": "SYNTH_PARA_OS",
+              "sourceReference": "Online_Sketch_Query_Optimization_2021",
+              "suspiciousSpan": {
+                "offset": 1648,
+                "length": 204
+              },
+              "sourceSpan": {
+                "offset": 110485,
+                "length": 154
+              },
+              "lexical": 0.3584767966238677,
+              "semantic": 0.5421417497386883,
+              "score": 0.3584767966238677,
+              "evidenceWindows": 1,
+              "suspiciousExcerpt": "Even though merging is heuristic for any single multi-way join, every multi-way join of the same size is affected identically. This characteristic ensures consistent estimates throughout plan enumeration.",
+              "sourceExcerpt": "We illustrate how the plan enumeration algorithm works for query JOB 6a based on the join graph in Figure 1 and the join cardinality estimates in Table 1."
+            },
+            {
+              "suspiciousReference": "SYNTH_PARA_OS",
+              "sourceReference": "Online_Sketch_Query_Optimization_2021",
+              "suspiciousSpan": {
+                "offset": 1775,
+                "length": 202
+              },
+              "sourceSpan": {
+                "offset": 136445,
+                "length": 109
+              },
+              "lexical": 0.41467150206865966,
+              "semantic": 0.6734246120211365,
+              "score": 0.41467150206865966,
+              "evidenceWindows": 1,
+              "suspiciousExcerpt": "This characteristic ensures consistent estimates throughout plan enumeration. Second, we implement a prototype called COMPASS inside MapD and test it thoroughly on the full JOB benchmark of 113 queries.",
+              "sourceExcerpt": "Based on Figure 9a, COMPASS achieves the plan with the minimum cardinality for 63 out of the 113 JOB queries."
+            },
+            {
+              "suspiciousReference": "SYNTH_PARA_OS",
+              "sourceReference": "Online_Sketch_Query_Optimization_2021",
+              "suspiciousSpan": {
+                "offset": 1853,
+                "length": 435
+              },
+              "sourceSpan": {
+                "offset": 13185,
+                "length": 306
+              },
+              "lexical": 0.5516476519137342,
+              "semantic": 0.9239668382918588,
+              "score": 0.5516476519137342,
+              "evidenceWindows": 4,
+              "suspiciousExcerpt": "Second, we implement a prototype called COMPASS inside MapD and test it thoroughly on the full JOB benchmark of 113 queries. The measurements confirm that COMPASS adds little overhead, staying below 500 milliseconds, while producing plans of similar or higher quality than the four database systems s",
+              "sourceExcerpt": "• We prototype COMPASS in MapD and perform extensive experiments over the complete JOB benchmark—113 queries. The results prove the reduced overhead COMPASS incurs – below 500 milliseconds – while generating similar or better execution plans compared to the four databases systems included in Figure "
+            },
+            {
+              "suspiciousReference": "SYNTH_PARA_OS",
+              "sourceReference": "Online_Sketch_Query_Optimization_2021",
+              "suspiciousSpan": {
+                "offset": 2171,
+                "length": 117
+              },
+              "sourceSpan": {
+                "offset": 176782,
+                "length": 207
+              },
+              "lexical": 0.44871478683374155,
+              "semantic": 0.6084346324461489,
+              "score": 0.44871478683374155,
+              "evidenceWindows": 2,
+              "suspiciousExcerpt": "COMPASS surpasses the competing systems both in how many queries it wins outright and in total workload running time.",
+              "sourceExcerpt": "• COMPASS and MonetDB are the only databases that perform all the JOB queries without serious hiccups both in PostgreSQL and DBMS A. The other systems have several queries for which the runtime “explodes”."
+            }
+          ],
+          "metrics": {
+            "precision": 0.5453060011883542,
+            "recall": 0.7242514189533441,
+            "f1": 0.6221674401782622,
+            "granularity": 3,
+            "plagdet": 0.3110837200891311,
+            "cases": 2,
+            "detections": 11,
+            "detectedCases": 2,
+            "missedCases": 0,
+            "falsePositiveDetections": 5
+          },
+          "elapsedSeconds": 0.00028470000000015714,
+          "queryPassages": 45,
+          "sourcePassages": 1903
+        }
+      }
+    },
+    {
+      "id": "neg-r4r-vs-os",
+      "arm": "negative-control",
+      "suspiciousReference": "SYNTH_COPY_R4R",
+      "sourceReference": "Online_Sketch_Query_Optimization_2021",
+      "groundTruthCases": 0,
+      "methods": {
+        "lexical": {
+          "detections": [],
+          "metrics": {
+            "precision": 1,
+            "recall": 1,
+            "f1": 1,
+            "granularity": 1,
+            "plagdet": 1,
+            "cases": 0,
+            "detections": 0,
+            "detectedCases": 0,
+            "missedCases": 0,
+            "falsePositiveDetections": 0
+          },
+          "elapsedSeconds": 0.000010399999999208375,
+          "queryPassages": 8,
+          "sourcePassages": 370
+        },
+        "semantic": {
+          "detections": [],
+          "metrics": {
+            "precision": 1,
+            "recall": 1,
+            "f1": 1,
+            "granularity": 1,
+            "plagdet": 1,
+            "cases": 0,
+            "detections": 0,
+            "detectedCases": 0,
+            "missedCases": 0,
+            "falsePositiveDetections": 0
+          },
+          "elapsedSeconds": 0.000004099999998288695,
+          "queryPassages": 53,
+          "sourcePassages": 1903
+        },
+        "hybrid": {
+          "detections": [
+            {
+              "suspiciousReference": "SYNTH_COPY_R4R",
+              "sourceReference": "Online_Sketch_Query_Optimization_2021",
+              "suspiciousSpan": {
+                "offset": 685,
+                "length": 317
+              },
+              "sourceSpan": {
+                "offset": 152195,
+                "length": 121
+              },
+              "lexical": 0.3749018648846289,
+              "semantic": 0.2677599955091426,
+              "score": 0.3749018648846289,
+              "evidenceWindows": 2,
+              "suspiciousExcerpt": "With the increasing popularity of code review, dependency on bug localizers can be reduced. Besides, the code review-based bug localization is more trustworthy since reviewers’ expertise and experience are reflected in these suggestions.",
+              "sourceExcerpt": "Given that this is only a prototype, we believe that the sketch overhead can be further reduced with more optimized code."
+            }
+          ],
+          "metrics": {
+            "precision": 0,
+            "recall": 0,
+            "f1": 0,
+            "granularity": 1,
+            "plagdet": 0,
+            "cases": 0,
+            "detections": 1,
+            "detectedCases": 0,
+            "missedCases": 0,
+            "falsePositiveDetections": 1
+          },
+          "elapsedSeconds": 0.0001245999999991909,
+          "queryPassages": 53,
+          "sourcePassages": 1903
+        }
+      }
+    },
+    {
+      "id": "neg-os-vs-r4r",
+      "arm": "negative-control",
+      "suspiciousReference": "SYNTH_COPY_OS",
+      "sourceReference": "Review4Repair_2020",
+      "groundTruthCases": 0,
+      "methods": {
+        "lexical": {
+          "detections": [],
+          "metrics": {
+            "precision": 1,
+            "recall": 1,
+            "f1": 1,
+            "granularity": 1,
+            "plagdet": 1,
+            "cases": 0,
+            "detections": 0,
+            "detectedCases": 0,
+            "missedCases": 0,
+            "falsePositiveDetections": 0
+          },
+          "elapsedSeconds": 0.000009200000000419095,
+          "queryPassages": 7,
+          "sourcePassages": 194
+        },
+        "semantic": {
+          "detections": [],
+          "metrics": {
+            "precision": 1,
+            "recall": 1,
+            "f1": 1,
+            "granularity": 1,
+            "plagdet": 1,
+            "cases": 0,
+            "detections": 0,
+            "detectedCases": 0,
+            "missedCases": 0,
+            "falsePositiveDetections": 0
+          },
+          "elapsedSeconds": 0.000004400000001623994,
+          "queryPassages": 41,
+          "sourcePassages": 1100
+        },
+        "hybrid": {
+          "detections": [],
+          "metrics": {
+            "precision": 1,
+            "recall": 1,
+            "f1": 1,
+            "granularity": 1,
+            "plagdet": 1,
+            "cases": 0,
+            "detections": 0,
+            "detectedCases": 0,
+            "missedCases": 0,
+            "falsePositiveDetections": 0
+          },
+          "elapsedSeconds": 0.0000012000000024272595,
+          "queryPassages": 41,
+          "sourcePassages": 1100
+        }
+      }
+    }
+  ]
+}

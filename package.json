@@ -20,6 +20,7 @@
     "typecheck": "tsc --noEmit",
     "report:research": "bun scripts/research-report.ts",
     "external-eval:body-only": "bun scripts/external-evaluation-body-only.ts",
+    "validate:research-papers": "bun scripts/research-paper-validation.ts",
     "reproduce": "bun run validate:dataset && bun run prepare:splits && bun scripts/provider.ts && bun run benchmark && bun run report:research"
   },
   "dependencies": {
