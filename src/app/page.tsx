@@ -1,6 +1,7 @@
 'use client';
 
 import type { AnalysisResult } from '@/lib/application/analysis';
+import { analysisReport } from '@/lib/application/report';
 import type { CorpusDocumentMetadata, CorpusStats } from '@/lib/corpus/types';
 import type { DetectionConfig, Method } from '@/lib/detection/detector';
 import ResetCorpusButton from '@/components/ResetCorpusButton';
@@ -78,6 +79,18 @@ export default function Home() {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
   const [result, setResult] = useState<AnalysisResult | null>(null);
+  const [analyses, setAnalyses] = useState<AnalysisResult[]>([]);
+  const [runningMethod, setRunningMethod] = useState('');
+  const [pdfLinks, setPdfLinks] = useState<Record<string, string>>({});
+  const [analysisTarget, setAnalysisTarget] = useState('');
+  useEffect(
+    () => () => {
+      Object.values(pdfLinks)
+        .filter((url) => url.startsWith('blob:'))
+        .forEach((url) => URL.revokeObjectURL(url));
+    },
+    [pdfLinks],
+  );
   const [active, setActive] = useState(0);
   const [elapsed, setElapsed] = useState(0);
 
@@ -160,8 +173,10 @@ export default function Home() {
     }
   }, [active, result]);
 
-  const reviewingLead = active === -1;
-  const chosen = reviewingLead ? result?.semanticReviewLead : result?.detections[active];
+  const reviewingLead = active < 0;
+  const chosen = reviewingLead
+    ? result?.semanticReviewLeads[-active - 1]
+    : result?.detections[active];
   const selectedSource = chosen
     ? result?.sources.find((s) => s.reference === chosen.sourceReference)
     : result?.sources[0];
@@ -181,6 +196,7 @@ export default function Home() {
     setBusy(true);
     setElapsed(0);
     setResult(null);
+    setAnalyses([]);
     const data = new FormData();
     data.set('method', method);
     data.set('queryText', queryText);
@@ -191,11 +207,38 @@ export default function Home() {
       for (const file of sourceFiles) data.append('sourceFiles', file);
     }
     try {
-      const response = await fetch('/api/analyze', { method: 'POST', body: data });
-      const body = await response.json();
-      if (!response.ok) throw new Error(body.error ?? 'Analysis failed');
-      setResult(body);
-      setActive(0);
+      const completed: AnalysisResult[] = [];
+      for (const entry of METHODS) {
+        setRunningMethod(entry.name);
+        data.set('method', entry.id);
+        const response = await fetch('/api/analyze', { method: 'POST', body: data });
+        const body = await response.json();
+        if (!response.ok) throw new Error(body.error ?? 'Analysis failed');
+        completed.push(body);
+      }
+      const links: Record<string, string> = {};
+      if (queryFile && completed[0].query.format === 'pdf')
+        links.query = URL.createObjectURL(queryFile);
+      for (const [index, source] of completed[0].sources.entries()) {
+        if (source.format !== 'pdf') continue;
+        if (compareTarget === 'corpus')
+          links[source.reference] =
+            '/api/corpus/pdf?reference=' + encodeURIComponent(source.reference);
+        else {
+          const file = sourceFiles[index - (sourceText.trim() ? 1 : 0)];
+          if (file) links[source.reference] = URL.createObjectURL(file);
+        }
+      }
+      setPdfLinks(links);
+      setAnalysisTarget(
+        compareTarget === 'corpus' ? 'Persistent user corpus' : 'Uploaded and pasted sources',
+      );
+      setAnalyses(completed);
+      const selected = completed.find((r) => r.method === method)!;
+      setResult(selected);
+      setActive(
+        selected.detections.length === 0 && selected.semanticReviewLeads.length > 0 ? -1 : 0,
+      );
     } catch (e) {
       setError(e instanceof Error ? e.message : 'Unable to analyze these documents');
     } finally {
@@ -307,13 +350,13 @@ export default function Home() {
   function download() {
     if (!result) return;
     const url = URL.createObjectURL(
-      new Blob([JSON.stringify(result, null, 2)], { type: 'application/json' }),
+      new Blob([analysisReport(analyses, analysisTarget)], { type: 'text/html;charset=utf-8' }),
     );
     const anchor = document.createElement('a');
     anchor.href = url;
-    anchor.download = 'passage-review.json';
+    anchor.download = 'research-paper-analysis.html';
     anchor.click();
-    URL.revokeObjectURL(url);
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
   }
 
   return (
@@ -561,8 +604,10 @@ export default function Home() {
                 <div className="section-heading">
                   <span className="step">01</span>
                   <div>
-                    <h2>Choose a method</h2>
-                    <p>Three approaches. The same evidence standard.</p>
+                    <h2>Choose the initial results view</h2>
+                    <p>
+                      Each analysis runs all three methods. Choose which results to inspect first.
+                    </p>
                   </div>
                 </div>
                 <div className="method-options" role="radiogroup" aria-label="Detection method">
@@ -861,6 +906,11 @@ export default function Home() {
           </div>
         )}
 
+        {busy && (
+          <p role="status">
+            Analysing with {runningMethod} · {elapsed} seconds
+          </p>
+        )}
         {/* Results Section */}
         {result && activeTab === 'analyze' && (
           <section
@@ -869,23 +919,46 @@ export default function Home() {
             aria-label="Analysis results"
             aria-live="polite"
           >
-            <div
-              className={`result-heading result-banner ${result.detections.length ? 'result-positive' : 'result-neutral'}`}
-            >
+            <h2>Analysis summary</h2>
+            <p>
+              {analysisTarget} · {result.passages.query} query passages · {result.passages.sources}{' '}
+              source passages searched · {new Set(result.sources.map((s) => s.reference)).size}{' '}
+              unique source documents ·{' '}
+              {analyses.reduce((sum, r) => sum + r.elapsedSeconds, 0).toFixed(2)} seconds total
+            </p>
+            <div className="method-options" aria-label="Results by detection method">
+              {analyses.map((analysis) => (
+                <button
+                  key={analysis.method}
+                  type="button"
+                  className="secondary-button"
+                  aria-pressed={analysis.method === result.method}
+                  onClick={() => {
+                    setResult(analysis);
+                    setActive(analysis.detections.length ? 0 : -1);
+                  }}
+                >
+                  {METHODS.find((m) => m.id === analysis.method)?.name} ·{' '}
+                  {analysis.detections.length} similarity alerts ·{' '}
+                  {analysis.semanticReviewLeads.length} review recommendations
+                </button>
+              ))}
+            </div>
+            <div className="result-heading result-banner result-neutral">
               <div>
                 <p className="eyebrow">REVIEW THE EVIDENCE</p>
                 <h2>
                   {result.detections.length
                     ? 'Potential textual similarity detected'
-                    : result.semanticReviewLead
-                      ? 'Semantic review lead found'
+                    : result.semanticReviewLeads.length
+                      ? 'Semantic review leads'
                       : 'No matching passages found above the selected threshold.'}
                 </h2>
                 <p>
                   {result.detections.length
                     ? 'Matching passages were identified. Review the highlighted evidence and possible source before drawing conclusions.'
-                    : result.semanticReviewLead
-                      ? 'MiniLM found a potentially related passage below the calibrated detection threshold. Inspect the evidence without treating it as a confirmed detection.'
+                    : result.semanticReviewLeads.length
+                      ? 'MiniLM ranked potentially related passages for manual review.'
                       : 'This does not establish originality. Other sources or paraphrases may have been missed.'}
                 </p>
                 <dl className="result-metrics">
@@ -987,53 +1060,44 @@ export default function Home() {
                 )}
               </div>
               <button type="button" className="secondary-button" onClick={download}>
-                Export evidence ↓
+                Download analysis report ↓
               </button>
             </div>
             <p className="evidence-warning">
               Similarity scores are uncalibrated evidence for human review, not probabilities or
               proof of plagiarism or misconduct.
             </p>
-            {result.semanticReviewLead && (
-              <article className="review-lead" aria-labelledby="review-lead-title">
+            {result.semanticReviewLeads.map((lead, index) => (
+              <article
+                className="review-lead"
+                key={lead.suspiciousSpan.offset}
+                aria-labelledby={`review-lead-title-${index}`}
+              >
                 <div>
-                  <p className="review-lead-label">REVIEW LEAD — NOT A CONFIRMED DETECTION</p>
-                  <h3 id="review-lead-title">
-                    {result.sources.find(
-                      (s) => s.reference === result.semanticReviewLead?.sourceReference,
-                    )?.title ?? 'Possible source'}
+                  <p className="review-lead-label">
+                    Potential semantic match — requires human review
+                  </p>
+                  <h3 id={`review-lead-title-${index}`}>
+                    {result.sources.find((s) => s.reference === lead.sourceReference)?.title ??
+                      'Possible source'}
                   </h3>
                   <p>
-                    The highest-ranked semantic candidate scored{' '}
-                    <strong>{result.semanticReviewLead.semantic.toFixed(3)}</strong>, below the{' '}
-                    <strong>{result.semanticReviewThreshold.toFixed(2)}</strong> MiniLM threshold.
-                    It is evidence for inspection, not a confirmed match.
+                    MiniLM context similarity <strong>{lead.semantic.toFixed(3)}</strong>
                   </p>
                   <dl>
                     <div>
                       <dt>Document characters</dt>
                       <dd>
-                        {result.semanticReviewLead.suspiciousSpan.offset}–
-                        {result.semanticReviewLead.suspiciousSpan.offset +
-                          result.semanticReviewLead.suspiciousSpan.length}
-                        {(() => {
-                          const page = getQueryPage(
-                            result.query.pages,
-                            result.semanticReviewLead.suspiciousSpan.offset,
-                          );
-                          return page ? ` (Page ${page})` : '';
-                        })()}
+                        {lead.suspiciousSpan.offset}–
+                        {lead.suspiciousSpan.offset + lead.suspiciousSpan.length}
+                        {lead.suspiciousPage ? ` (Page ${lead.suspiciousPage})` : ''}
                       </dd>
                     </div>
                     <div>
                       <dt>Source characters</dt>
                       <dd>
-                        {result.semanticReviewLead.sourceSpan.offset}–
-                        {result.semanticReviewLead.sourceSpan.offset +
-                          result.semanticReviewLead.sourceSpan.length}
-                        {result.semanticReviewLead.sourcePage
-                          ? ` (Page ${result.semanticReviewLead.sourcePage})`
-                          : ''}
+                        {lead.sourceSpan.offset}–{lead.sourceSpan.offset + lead.sourceSpan.length}
+                        {lead.sourcePage ? ` (Page ${lead.sourcePage})` : ''}
                       </dd>
                     </div>
                   </dl>
@@ -1041,14 +1105,17 @@ export default function Home() {
                 <a
                   className="secondary-button"
                   href="#evidence-comparison"
-                  onClick={() => setActive(-1)}
+                  onClick={() => setActive(-index - 1)}
                 >
                   Inspect evidence ↓
                 </a>
               </article>
-            )}
+            ))}
             {result.detections.length > 0 && (
               <div className="match-list" role="list" aria-label="Matching passages">
+                <h2>
+                  Confirmed similarity alerts · {METHODS.find((m) => m.id === result.method)?.name}
+                </h2>
                 {result.detections.map((d, i) => {
                   const page = getQueryPage(result.query.pages, d.suspiciousSpan.offset);
                   const src = result.sources.find((s) => s.reference === d.sourceReference);
@@ -1102,6 +1169,48 @@ export default function Home() {
             )}
             {chosen && (
               <div className="evidence-stats">
+                <button
+                  type="button"
+                  className="secondary-button"
+                  disabled={reviewingLead ? active === -1 : active === 0}
+                  onClick={() => setActive(reviewingLead ? active + 1 : active - 1)}
+                >
+                  Previous
+                </button>
+                <button
+                  type="button"
+                  className="secondary-button"
+                  disabled={
+                    reviewingLead
+                      ? -active >= result.semanticReviewLeads.length
+                      : active + 1 >= result.detections.length
+                  }
+                  onClick={() => setActive(reviewingLead ? active - 1 : active + 1)}
+                >
+                  Next
+                </button>
+                {pdfLinks.query && (
+                  <a
+                    href={
+                      pdfLinks.query +
+                      '#page=' +
+                      (getQueryPage(result.query.pages, chosen.suspiciousSpan.offset) ?? 1)
+                    }
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    Open query PDF page
+                  </a>
+                )}
+                {pdfLinks[chosen.sourceReference] && (
+                  <a
+                    href={pdfLinks[chosen.sourceReference] + '#page=' + (chosen.sourcePage ?? 1)}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    Open source PDF page
+                  </a>
+                )}
                 <span>
                   Source paper <b>{selectedSource?.title ?? chosen.sourceReference}</b>
                 </span>
@@ -1112,12 +1221,16 @@ export default function Home() {
                   Semantic similarity{' '}
                   <b>{chosen.semantic !== null ? chosen.semantic.toFixed(3) : 'Not computed'}</b>
                 </span>
-                <span>
-                  Combined similarity <b>{chosen.score.toFixed(3)}</b>
-                </span>
-                <span>
-                  Applied threshold <b>{result.config.threshold.toFixed(2)}</b>
-                </span>
+                {!reviewingLead && (
+                  <>
+                    <span>
+                      Combined similarity <b>{chosen.score.toFixed(3)}</b>
+                    </span>
+                    <span>
+                      Applied threshold <b>{result.config.threshold.toFixed(2)}</b>
+                    </span>
+                  </>
+                )}
                 <span>
                   Query characters{' '}
                   <b>
@@ -1145,7 +1258,8 @@ export default function Home() {
             {chosen && (
               <div className="excerpt-comparison-wrapper">
                 <div className="excerpt-comparison-title">
-                  Passage Excerpts · Detection {reviewingLead ? 'Review Lead' : `#${active + 1}`}
+                  Passage Excerpts ·{' '}
+                  {reviewingLead ? `Review lead #${-active}` : `Detection #${active + 1}`}
                 </div>
                 <div className="excerpt-comparison-grid">
                   <div className="excerpt-block">

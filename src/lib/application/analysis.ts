@@ -6,17 +6,17 @@ import {
   detect,
   retrieveCandidates,
   scoreKey,
-  selectSemanticReviewLead,
+  type Candidate,
   type DetectionConfig,
   type Method,
 } from '../detection/detector';
 import { filterInformativeEvidence } from '../detection/informative-evidence';
 import { segmentParagraphs } from '../detection/segmentation';
+import { contextualReviewLeads } from '../detection/semantic-review';
 import { stripCanonicalReferences, type StripResult } from '../detection/strip-references';
 import { Tfidf } from '../detection/tfidf';
 import { digest } from '../digest';
 import type { ExtractedDocument } from '../documents/extract';
-import { overlaps } from '../evaluation/pan';
 import {
   applicationDevice,
   embeddingProvider,
@@ -130,19 +130,6 @@ export async function analyzeDocuments(
   // --- Reference stripping ---
   const { strippedDoc: strippedQuery, stripResult: queryStripResult } = stripDocument(query);
 
-  // Adjust query page ranges to account for offset shift from reference stripping
-  const adjustedQueryPages = strippedQuery.pages
-    ?.map((range) => {
-      const { page, start, end } = range;
-      // After stripping at referenceOffset, clamp all offsets to [0, referenceOffset)
-      return {
-        page,
-        start: Math.min(start, queryStripResult.referenceOffset ?? Infinity),
-        end: Math.min(end, queryStripResult.referenceOffset ?? Infinity),
-      };
-    })
-    .filter(({ start, end }) => start < end); // Remove empty ranges
-
   // --- Segmentation of Query ---
   const queries = attachPassagePages(
     split(
@@ -151,7 +138,7 @@ export async function analyzeDocuments(
       { countTokens },
       strippedQuery.paragraphBreaks,
     ),
-    adjustedQueryPages,
+    strippedQuery.pages,
   );
 
   const mergeGap = config.mergeGap;
@@ -181,20 +168,7 @@ export async function analyzeDocuments(
         const { strippedDoc, stripResult } = stripDocument(src);
         sourceStripResults.push({ reference: src.reference, stripResult });
 
-        // Adjust source page ranges to account for offset shift from reference stripping
-        const adjustedPages = strippedDoc.pages
-          ?.map((range) => {
-            const { page, start, end } = range;
-            // After stripping at referenceOffset, clamp all offsets
-            return {
-              page,
-              start: Math.min(start, stripResult.referenceOffset ?? Infinity),
-              end: Math.min(end, stripResult.referenceOffset ?? Infinity),
-            };
-          })
-          .filter(({ start, end }) => start < end); // Remove empty ranges
-
-        return { ...strippedDoc, pages: adjustedPages };
+        return strippedDoc;
       });
 
       sourcePassages = strippedSources.flatMap((source) =>
@@ -241,7 +215,7 @@ export async function analyzeDocuments(
       config,
       mergeGap,
       detections,
-      semanticReviewLead: null,
+      semanticReviewLeads: [],
       semanticReviewThreshold,
       queryPassageCount: queries.length,
       sourcePassageCount: sourcePassages.length,
@@ -276,20 +250,7 @@ export async function analyzeDocuments(
         const { strippedDoc, stripResult } = stripDocument(src);
         sourceStripResults.push({ reference: src.reference, stripResult });
 
-        // Adjust source page ranges to account for offset shift from reference stripping
-        const adjustedPages = strippedDoc.pages
-          ?.map((range) => {
-            const { page, start, end } = range;
-            // After stripping at referenceOffset, clamp all offsets
-            return {
-              page,
-              start: Math.min(start, stripResult.referenceOffset ?? Infinity),
-              end: Math.min(end, stripResult.referenceOffset ?? Infinity),
-            };
-          })
-          .filter(({ start, end }) => start < end); // Remove empty ranges
-
-        return { ...strippedDoc, pages: adjustedPages };
+        return strippedDoc;
       });
 
       sourcePassages = strippedSources.flatMap((source) =>
@@ -327,7 +288,7 @@ export async function analyzeDocuments(
       queryVectors,
       sourceVectors,
       [config.alpha],
-      5,
+      0,
       lexicalVectors,
     );
 
@@ -346,16 +307,24 @@ export async function analyzeDocuments(
       : mergedDetections;
 
     const semanticReviewThreshold = configs.semantic.threshold;
-    const semanticReviewLead = !rows.semanticAlternatives
-      ? null
-      : selectSemanticReviewLead(
-          rows.semanticAlternatives.filter(
-            (candidate) =>
-              candidate.semantic < semanticReviewThreshold &&
-              !detections.some((detection) => overlaps(candidate, detection)),
-          ),
-          semanticReviewThreshold,
-        );
+    const reviewDocuments = new Map(allDocsForFilter);
+    const seenReferences = new Set([query.reference]);
+    for (const source of effectiveSources) {
+      // An ambiguous source reference cannot reliably identify highlighted text.
+      if (seenReferences.has(source.reference)) reviewDocuments.delete(source.reference);
+      seenReferences.add(source.reference);
+    }
+    const semanticReviewLeads = contextualReviewLeads(
+      queries,
+      sourcePassages,
+      queryVectors,
+      sourceVectors,
+      reviewDocuments,
+      tfidf,
+      12,
+      5,
+      detections,
+    );
 
     return buildResult({
       query,
@@ -364,7 +333,7 @@ export async function analyzeDocuments(
       config,
       mergeGap,
       detections,
-      semanticReviewLead,
+      semanticReviewLeads,
       semanticReviewThreshold,
       queryPassageCount: queries.length,
       sourcePassageCount: sourcePassages.length,
@@ -388,7 +357,7 @@ function buildResult({
   config,
   mergeGap,
   detections,
-  semanticReviewLead,
+  semanticReviewLeads,
   semanticReviewThreshold,
   queryPassageCount,
   sourcePassageCount,
@@ -404,7 +373,7 @@ function buildResult({
   config: { threshold: number; alpha: number; mergeGap: number; method: Method };
   mergeGap: number;
   detections: ReturnType<typeof detect>;
-  semanticReviewLead: ReturnType<typeof selectSemanticReviewLead>;
+  semanticReviewLeads: Candidate[];
   semanticReviewThreshold: number;
   queryPassageCount: number;
   sourcePassageCount: number;
@@ -423,7 +392,8 @@ function buildResult({
       ...d,
       semantic: method === 'lexical' ? null : d.semantic,
     })),
-    semanticReviewLead,
+    semanticReviewLeads,
+    semanticReviewLead: semanticReviewLeads[0] ?? null,
     semanticReviewThreshold,
     passages: { query: queryPassageCount, sources: sourcePassageCount },
     elapsedSeconds,
