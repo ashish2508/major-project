@@ -1,14 +1,17 @@
 import { describe, expect, it } from 'vitest';
-import { stripReferences, stripCanonicalReferences } from '../../src/lib/detection/strip-references';
+import {
+  stripReferences,
+  stripCanonicalReferences,
+} from '../../src/lib/detection/strip-references';
 import { pageAtOffset, attachPassagePages } from '../../src/lib/corpus/service';
 import type { Passage } from '../../src/lib/detection/segmentation';
 
 /**
  * INVARIANT AUDIT: Page-Offset Mapping Through Reference Stripping
- * 
+ *
  * This suite validates that reference stripping preserves the original text prefix
  * and that page-range clamping maintains valid offsets in the stripped coordinate system.
- * 
+ *
  * Key invariants:
  * 1. After stripping at referenceOffset, body = original[0, referenceOffset)
  * 2. Page ranges are clamped to [0, referenceOffset) to maintain valid passages
@@ -96,7 +99,8 @@ describe('Page-offset mapping through reference stripping', () => {
 
     it('handles two-column PDF layout with large whitespace gap', () => {
       // Simulates Poppler flattening where left column heading meets right column content
-      const text = 'Left column text.\nReferences                                    2017. Citation entry';
+      const text =
+        'Left column text.\nReferences                                    2017. Citation entry';
 
       const result = stripReferences(text);
 
@@ -574,15 +578,18 @@ References
 
       // Step 1: Strip references
       const stripResult = stripReferences(extractedText);
-      expect(stripResult.body).toBe(extractedText.slice(0, stripResult.referenceOffset ?? extractedText.length));
+      expect(stripResult.body).toBe(
+        extractedText.slice(0, stripResult.referenceOffset ?? extractedText.length),
+      );
 
       // Step 2: Adjust pages
       if (stripResult.referenceOffset !== null) {
+        const refOffset = stripResult.referenceOffset;
         const adjustedPages = pages
           .map(({ page, start, end }) => ({
             page,
-            start: Math.min(start, stripResult.referenceOffset),
-            end: Math.min(end, stripResult.referenceOffset),
+            start: Math.min(start, refOffset),
+            end: Math.min(end, refOffset),
           }))
           .filter(({ start, end }) => start < end);
 
@@ -597,7 +604,10 @@ References
         const testPassageOffset = adjustedPages[0].start + 10;
         const testPassageLength = 20;
         if (testPassageOffset + testPassageLength <= stripResult.body.length) {
-          const passageText = stripResult.body.slice(testPassageOffset, testPassageOffset + testPassageLength);
+          const passageText = stripResult.body.slice(
+            testPassageOffset,
+            testPassageOffset + testPassageLength,
+          );
           expect(passageText.length).toBe(testPassageLength);
         }
       }
@@ -628,10 +638,10 @@ References
 
       // Both should have stripped text as prefixes
       expect(queryStrip.body).toBe(
-        queryText.slice(0, queryStrip.referenceOffset ?? queryText.length)
+        queryText.slice(0, queryStrip.referenceOffset ?? queryText.length),
       );
       expect(sourceStrip.body).toBe(
-        sourceText.slice(0, sourceStrip.referenceOffset ?? sourceText.length)
+        sourceText.slice(0, sourceStrip.referenceOffset ?? sourceText.length),
       );
 
       // Character offsets should be stable within each stripped text
