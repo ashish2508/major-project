@@ -1,3 +1,5 @@
+import { rm } from 'node:fs/promises';
+import { resolve } from 'node:path';
 import { digest } from '../digest';
 import { segmentParagraphs, type Passage } from '../detection/segmentation';
 import { stripReferences } from '../detection/strip-references';
@@ -5,10 +7,16 @@ import { extractFile, MAX_FILE_BYTES, type ExtractedDocument } from '../document
 import { applicationDevice, embedTexts, tokenCounter } from '../embeddings/model';
 import {
   addDocumentToLexicalIndex,
+  clearLexicalIndex,
   ensureLexicalIndex,
   removeDocumentFromLexicalIndex,
+  resetLexicalIndexCache,
 } from './lexical-index';
-import { removeDocumentVectors, saveDocumentVectors } from './semantic-index';
+import {
+  removeDocumentVectors,
+  resetSemanticIndexCache,
+  saveDocumentVectors,
+} from './semantic-index';
 import {
   deleteDocumentRecord,
   ensureCorpusDirectories,
@@ -17,7 +25,9 @@ import {
   getDocumentMetadata,
   getDocumentPassages,
   getDocumentRawBytes,
+  getCorpusDir,
   loadCatalog,
+  saveCatalog,
   saveDocumentRecord,
   updateDocumentStatus,
   updateDocumentMetadata,
@@ -247,6 +257,27 @@ export async function deleteCorpusDocument(id: string): Promise<boolean> {
     await updateSemanticManifest();
   }
   return deleted;
+}
+
+/** Empty user corpus storage and both indexes without touching benchmark or demo data. */
+export async function resetCorpus(): Promise<{ removedDocuments: number }> {
+  const catalog = await loadCatalog();
+  const removedDocuments = Object.keys(catalog.documents).length;
+  const corpusDirectory = getCorpusDir();
+
+  await rm(resolve(corpusDirectory, 'documents'), { recursive: true, force: true });
+  await rm(resolve(corpusDirectory, 'indexes'), { recursive: true, force: true });
+  catalog.documents = {};
+  await saveCatalog(catalog);
+  await ensureCorpusDirectories();
+
+  resetLexicalIndexCache();
+  resetSemanticIndexCache();
+  await clearLexicalIndex();
+  const { updateSemanticManifest } = await import('./semantic-index');
+  await updateSemanticManifest();
+
+  return { removedDocuments };
 }
 
 export async function getAllReadyPassages(): Promise<{

@@ -86,6 +86,7 @@ export default function Home() {
   const [corpusLoading, setCorpusLoading] = useState(false);
   const [ingestFiles, setIngestFiles] = useState<File[]>([]);
   const [ingestBusy, setIngestBusy] = useState(false);
+  const [resetBusy, setResetBusy] = useState(false);
   const [ingestMessage, setIngestMessage] = useState<string | null>(null);
   const [ingestError, setIngestError] = useState<string | null>(null);
 
@@ -104,7 +105,7 @@ export default function Home() {
 
   const refreshCorpus = () => {
     setCorpusLoading(true);
-    fetch('/api/corpus')
+    fetch('/api/corpus', { cache: 'no-store' })
       .then((r) => r.json())
       .then((data) => {
         if (data.documents) setCorpusDocs(data.documents);
@@ -116,9 +117,15 @@ export default function Home() {
 
   useEffect(() => {
     const loadInitialData = async () => {
+      const currentUrl = new URL(window.location.href);
+      if (currentUrl.searchParams.has('_corpus_reset')) {
+        setActiveTab('corpus');
+        currentUrl.searchParams.delete('_corpus_reset');
+        window.history.replaceState(null, '', currentUrl.toString());
+      }
       refreshCorpus();
       try {
-        const r = await fetch('/api/status');
+        const r = await fetch('/api/status', { cache: 'no-store' });
         const data = await r.json();
         setStatus(data);
       } catch {
@@ -165,7 +172,7 @@ export default function Home() {
     compareTarget === 'corpus'
       ? hasCorpusReady
       : Boolean(sourceText.trim()) || sourceFiles.length > 0;
-  const canSubmit = !busy && status?.ready !== false && hasQuery && hasSource;
+  const canSubmit = !busy && !resetBusy && status?.ready !== false && hasQuery && hasSource;
 
   async function submit(event: FormEvent) {
     event.preventDefault();
@@ -263,6 +270,39 @@ export default function Home() {
     }
   }
 
+  async function handleCorpusReset() {
+    if (busy || ingestBusy || resetBusy) return;
+    const confirmed = window.confirm(
+      'Reset the local corpus? This permanently removes every imported paper and its indexes, then clears all analysis inputs and results. This cannot be undone.',
+    );
+    if (!confirmed) return;
+
+    setResetBusy(true);
+    setIngestError(null);
+    try {
+      const response = await fetch('/api/corpus?all=true', {
+        method: 'DELETE',
+        cache: 'no-store',
+      });
+      const body = await response.json();
+      if (!response.ok) throw new Error(body.error ?? 'Corpus reset failed');
+      if (
+        body.stats?.totalDocuments !== 0 ||
+        body.stats?.readyDocuments !== 0 ||
+        body.stats?.totalPassages !== 0
+      ) {
+        throw new Error('Corpus reset did not produce an empty corpus');
+      }
+
+      const resetUrl = new URL(window.location.href);
+      resetUrl.searchParams.set('_corpus_reset', String(Date.now()));
+      window.location.replace(resetUrl.toString());
+    } catch (e) {
+      setIngestError(e instanceof Error ? e.message : 'Corpus reset failed');
+      setResetBusy(false);
+    }
+  }
+
   function download() {
     if (!result) return;
     const url = URL.createObjectURL(
@@ -328,7 +368,7 @@ export default function Home() {
         {activeTab === 'corpus' ? (
           /* Corpus Management Tab */
           <div className="corpus-manager-panel">
-            <div className="section-heading">
+            <div className="section-heading corpus-heading">
               <div>
                 <h2>Corpus Management</h2>
                 <p>
@@ -337,6 +377,20 @@ export default function Home() {
                   and semantic embeddings.
                 </p>
               </div>
+              <button
+                type="button"
+                className="corpus-reset-button"
+                onClick={handleCorpusReset}
+                disabled={busy || ingestBusy || resetBusy}
+              >
+                {resetBusy ? (
+                  <>
+                    Clearing corpus <span className="spinner" aria-hidden="true" />
+                  </>
+                ) : (
+                  'Reset corpus'
+                )}
+              </button>
             </div>
 
             <div className="corpus-stats-grid">
@@ -375,7 +429,7 @@ export default function Home() {
                   type="file"
                   accept=".pdf,.txt"
                   multiple
-                  disabled={ingestBusy}
+                  disabled={ingestBusy || resetBusy}
                   onChange={(e) => setIngestFiles(Array.from(e.target.files ?? []))}
                 />
                 <label className="secondary-button" htmlFor="corpus-files">
@@ -384,7 +438,7 @@ export default function Home() {
                 <button
                   type="submit"
                   className="corpus-upload-btn"
-                  disabled={ingestBusy || ingestFiles.length === 0}
+                  disabled={ingestBusy || resetBusy || ingestFiles.length === 0}
                 >
                   {ingestBusy ? (
                     <>
@@ -511,7 +565,7 @@ export default function Home() {
           /* Plagiarism Analysis Tab */
           <div className="review-layout">
             <form onSubmit={submit} className="workspace" aria-label="Document comparison">
-              <fieldset disabled={busy} className="form-fieldset">
+              <fieldset disabled={busy || resetBusy} className="form-fieldset">
                 <div className="section-heading">
                   <span className="step">01</span>
                   <div>

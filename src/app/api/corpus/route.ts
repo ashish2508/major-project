@@ -2,6 +2,7 @@ import {
   deleteCorpusDocument,
   ingestBatchDocuments,
   ingestDocumentFile,
+  resetCorpus,
 } from '@/lib/corpus/service';
 import { getCorpusStats, loadCatalog } from '@/lib/corpus/store';
 import { boundedFormData, RequestError } from '@/lib/application/request';
@@ -70,6 +71,15 @@ export async function POST(request: Request) {
 export async function DELETE(request: Request) {
   try {
     const url = new URL(request.url);
+    if (url.searchParams.get('all') === 'true') {
+      const reset = await resetCorpus();
+      const stats = await getCorpusStats();
+      return Response.json(
+        { success: true, ...reset, stats },
+        { headers: { 'Cache-Control': 'no-store' } },
+      );
+    }
+
     let id = url.searchParams.get('id');
 
     if (!id && request.headers.get('content-type')?.includes('application/json')) {

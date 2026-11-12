@@ -1001,6 +1001,43 @@ textarea:disabled {
   gap: 24px;
 }
 
+.corpus-heading {
+  align-items: flex-start;
+}
+
+.corpus-reset-button {
+  margin-left: auto;
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 38px;
+  padding: 8px 13px;
+  border: 1px solid #e4b8b2;
+  border-radius: 6px;
+  background: #fff8f7;
+  color: #8f302b;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background 140ms ease,
+    border-color 140ms ease;
+}
+
+.corpus-reset-button:hover:not(:disabled) {
+  background: #ffefed;
+  border-color: #cf8e86;
+}
+
+.corpus-reset-button:disabled {
+  opacity: 0.58;
+  cursor: not-allowed;
+}
+
 .corpus-stats-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -1458,6 +1495,14 @@ footer {
 
   .workspace {
     padding: 20px 16px;
+  }
+
+  .corpus-heading {
+    flex-wrap: wrap;
+  }
+
+  .corpus-reset-button {
+    margin-left: 0;
   }
 
   .method-option {

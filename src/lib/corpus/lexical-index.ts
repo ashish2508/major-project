@@ -180,6 +180,11 @@ export async function getIndexedPassageVectors(
   return vectors;
 }
 
+export async function clearLexicalIndex(): Promise<void> {
+  cachedTfidfSha256 = undefined;
+  await saveLexicalIndex(new Map(), undefined);
+}
+
 export async function removeDocumentFromLexicalIndex(documentId: string): Promise<void> {
   const postingsMap = await loadLexicalPostings();
   let modified = false;
