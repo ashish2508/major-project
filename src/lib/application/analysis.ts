@@ -234,7 +234,7 @@ const BACKGROUND_DIR = resolve('src/lib/detection/background');
  * @returns A Tfidf instance fitted on the supplied passages.
  */
 async function fitResearchTfidf(allPassages: string[], documentCount: number): Promise<Tfidf> {
-  let backgroundPassages: string[] = [];
+  const backgroundPassages: string[] = [];
   let useBackground = false;
 
   if (existsSync(BACKGROUND_DIR)) {

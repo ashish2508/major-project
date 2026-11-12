@@ -4,7 +4,7 @@
  * Tests for maskBoilerplate() and isSuppressedPair() from boilerplate.ts.
  */
 
-import { describe, it, expect } from 'bun:test';
+import { describe, it, expect } from 'vitest';
 import {
   maskBoilerplate,
   isSuppressedPair,
