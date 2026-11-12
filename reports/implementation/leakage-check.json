@@ -1,4 +1,5 @@
 {
+  "splitManifestSha256": "203a88a979bdfda36d75612c902b699b0a8fd7b2ee82e688d494a036b01f3908",
   "algorithm": "all-selected-document normalized 5-word shingle cross-partition containment",
   "minimumSharedShingles": 20,
   "maximumAllowedContainment": 0.2,

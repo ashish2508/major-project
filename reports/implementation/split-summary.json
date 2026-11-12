@@ -1,8 +1,14 @@
 {
   "seed": "pan-pc11-v1-20261110",
   "reserved": {
-    "validation": ["suspicious-document04065.txt", "suspicious-document06289.txt"],
-    "test": ["suspicious-document02098.txt", "suspicious-document01870.txt"]
+    "validation": [
+      "suspicious-document04065.txt",
+      "suspicious-document06289.txt"
+    ],
+    "test": [
+      "suspicious-document02098.txt",
+      "suspicious-document01870.txt"
+    ]
   },
   "config": {
     "maxQueryCharacters": 50000,
