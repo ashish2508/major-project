@@ -1,0 +1,52 @@
+[
+  {
+    "name": "creative_commons",
+    "pattern": "creative commons|CC[- ]?BY|open access article distributed|permits unrestricted use",
+    "description": "CC license boilerplate"
+  },
+  {
+    "name": "how_to_cite",
+    "pattern": "how to cite this article|cite this article as",
+    "description": "Citation instruction"
+  },
+  {
+    "name": "received_dates",
+    "pattern": "\\b(received|accepted|published|revised)\\s*:?\\s*\\d{1,2}\\s+\\w+\\s+\\d{4}",
+    "description": "Manuscript dates"
+  },
+  {
+    "name": "correspondence",
+    "pattern": "correspondence\\s*:|e-?mail\\s*:|\\bcorresponding author\\b|ORCID",
+    "description": "Correspondence/ORCID block"
+  },
+  {
+    "name": "copyright",
+    "pattern": "copyright\\s*(©|\\(c\\))|all rights reserved|published by (wolters kluwer|elsevier|springer|wiley|taylor|sage|mdpi|frontiers)",
+    "description": "Copyright line"
+  },
+  {
+    "name": "no_conflict",
+    "pattern": "no (conflicts?|competing) (of )?interests?|declared no potential conflicts|declare that they have no",
+    "description": "No-conflict statement"
+  },
+  {
+    "name": "data_sharing",
+    "pattern": "data sharing (is )?not applicable|no datasets were generated",
+    "description": "Data sharing statement"
+  },
+  {
+    "name": "ethical_approval",
+    "pattern": "ethical approval (is|was|would be) (not )?(required|necessary|unnecessary)",
+    "description": "Ethical approval waiver"
+  },
+  {
+    "name": "credit_roles",
+    "pattern": "^(conceptuali[sz]ation|methodology|project administration|supervision|writing[\\s\\u2013\\-]+(original draft|review[\\s&]+editing)|formal analysis|investigation|resources|software|validation|visuali[sz]ation|funding acquisition|data curation)\\s*:",
+    "description": "CRediT author contribution line"
+  },
+  {
+    "name": "affiliation_line",
+    "pattern": "Department|University|Hospital|Institute|School of",
+    "description": "Affiliation line"
+  }
+]

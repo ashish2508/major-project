@@ -12,6 +12,11 @@ import {
   type Method,
 } from '../detection/detector';
 import { filterInformativeEvidence } from '../detection/informative-evidence';
+import {
+  maskBoilerplate,
+  isSuppressedPair,
+  type SuppressedItem,
+} from '../detection/boilerplate';
 import { segmentParagraphs } from '../detection/segmentation';
 import { contextualReviewLeads } from '../detection/semantic-review';
 import { stripCanonicalReferences, type StripResult } from '../detection/strip-references';
@@ -156,13 +161,20 @@ async function fitResearchTfidf(allPassages: string[], documentCount: number): P
 function stripDocument(doc: ExtractedDocument): {
   strippedDoc: ExtractedDocument;
   stripResult: StripResult;
+  suppressedItems: SuppressedItem[];
 } {
   const stripResult = stripCanonicalReferences(doc.reference, doc.text);
+  // Apply boilerplate masking after reference stripping.
+  // maskBoilerplate is offset-preserving (spaces replace characters in-place),
+  // so detection span offsets remain valid against the stripped body.
+  const { maskedText, suppressedItems } = maskBoilerplate(stripResult.body, {
+    pages: doc.pages,
+  });
   const strippedDoc: ExtractedDocument = {
     ...doc,
-    text: stripResult.body,
+    text: maskedText,
   };
-  return { strippedDoc, stripResult };
+  return { strippedDoc, stripResult, suppressedItems };
 }
 
 // ---------------------------------------------------------------------------
@@ -184,8 +196,12 @@ export async function analyzeDocuments(
   // The active validation calibration fitted every method on paragraph-bounded windows.
   const split = segmentParagraphs;
 
-  // --- Reference stripping ---
-  const { strippedDoc: strippedQuery, stripResult: queryStripResult } = stripDocument(query);
+  // --- Reference stripping + boilerplate masking ---
+  const {
+    strippedDoc: strippedQuery,
+    stripResult: queryStripResult,
+    suppressedItems: querySuppressedItems,
+  } = stripDocument(query);
 
   // --- Segmentation of Query ---
   const queries = attachPassagePages(
@@ -205,6 +221,7 @@ export async function analyzeDocuments(
   let provider = 'TF-IDF on CPU';
   let effectiveSources: ExtractedDocument[] = [];
   const sourceStripResults: Array<{ reference: string; stripResult: StripResult }> = [];
+  const allSuppressedItems: SuppressedItem[] = [...querySuppressedItems];
 
   if (method === 'lexical') {
     let sourcePassages;
@@ -226,8 +243,9 @@ export async function analyzeDocuments(
     } else {
       effectiveSources = sources;
       const strippedSources: ExtractedDocument[] = effectiveSources.map((src) => {
-        const { strippedDoc, stripResult } = stripDocument(src);
+        const { strippedDoc, stripResult, suppressedItems } = stripDocument(src);
         sourceStripResults.push({ reference: src.reference, stripResult });
+        allSuppressedItems.push(...suppressedItems);
         return strippedDoc;
       });
 
@@ -269,7 +287,34 @@ export async function analyzeDocuments(
     const allDocsForFilter = new Map(
       [strippedQuery, ...effectiveSources].map(({ reference, text }) => [reference, text]),
     );
-    const detections = filterInformativeEvidence(mergedDetections, allDocsForFilter, 12);
+    const filteredDetections = filterInformativeEvidence(mergedDetections, allDocsForFilter, 12);
+
+    // Apply pair-level boilerplate filter: if both sides of a detection match
+    // a boilerplate pattern, suppress the detection.
+    const suppressedDetections: typeof filteredDetections = [];
+    const detections = filteredDetections.filter((d) => {
+      const qText = strippedQuery.text.slice(
+        d.suspiciousSpan.offset,
+        d.suspiciousSpan.offset + d.suspiciousSpan.length,
+      );
+      const srcDoc = effectiveSources.find((s) => s.reference === d.sourceReference);
+      const sText = srcDoc?.text.slice(
+        d.sourceSpan.offset,
+        d.sourceSpan.offset + d.sourceSpan.length,
+      ) ?? '';
+      if (isSuppressedPair(qText, sText)) {
+        suppressedDetections.push(d);
+        allSuppressedItems.push({
+          name: 'suppressed_pair',
+          matchedText: qText.slice(0, 100),
+          startOffset: d.suspiciousSpan.offset,
+          endOffset: d.suspiciousSpan.offset + d.suspiciousSpan.length,
+          reason: 'Both query and source spans match a boilerplate pattern',
+        });
+        return false;
+      }
+      return true;
+    });
 
     const semanticReviewThreshold = configs.semantic.threshold;
 
@@ -290,6 +335,7 @@ export async function analyzeDocuments(
       sourceStripResults,
       query_ref: query.reference,
       researchMode: !useCorpus,
+      suppressedItems: allSuppressedItems,
     });
   } else {
     await verifyModel();
@@ -315,8 +361,9 @@ export async function analyzeDocuments(
     } else {
       effectiveSources = sources;
       const strippedSources: ExtractedDocument[] = effectiveSources.map((src) => {
-        const { strippedDoc, stripResult } = stripDocument(src);
+        const { strippedDoc, stripResult, suppressedItems } = stripDocument(src);
         sourceStripResults.push({ reference: src.reference, stripResult });
+        allSuppressedItems.push(...suppressedItems);
         return strippedDoc;
       });
 
@@ -373,9 +420,36 @@ export async function analyzeDocuments(
     const allDocsForFilter = new Map(
       [strippedQuery, ...effectiveSources].map(({ reference, text }) => [reference, text]),
     );
-    const detections = alignSemantically
+    const filteredDetections = alignSemantically
       ? filterInformativeEvidence(mergedDetections, allDocsForFilter, 12)
       : mergedDetections;
+
+    // Apply pair-level boilerplate filter: if both sides of a detection match
+    // a boilerplate pattern, suppress the detection.
+    const suppressedDetections: typeof filteredDetections = [];
+    const detections = filteredDetections.filter((d) => {
+      const qText = strippedQuery.text.slice(
+        d.suspiciousSpan.offset,
+        d.suspiciousSpan.offset + d.suspiciousSpan.length,
+      );
+      const srcDoc = effectiveSources.find((s) => s.reference === d.sourceReference);
+      const sText = srcDoc?.text.slice(
+        d.sourceSpan.offset,
+        d.sourceSpan.offset + d.sourceSpan.length,
+      ) ?? '';
+      if (isSuppressedPair(qText, sText)) {
+        suppressedDetections.push(d);
+        allSuppressedItems.push({
+          name: 'suppressed_pair',
+          matchedText: qText.slice(0, 100),
+          startOffset: d.suspiciousSpan.offset,
+          endOffset: d.suspiciousSpan.offset + d.suspiciousSpan.length,
+          reason: 'Both query and source spans match a boilerplate pattern',
+        });
+        return false;
+      }
+      return true;
+    });
 
     const semanticReviewThreshold = configs.semantic.threshold;
     const reviewDocuments = new Map(allDocsForFilter);
@@ -414,6 +488,7 @@ export async function analyzeDocuments(
       sourceStripResults,
       query_ref: query.reference,
       researchMode: !useCorpus,
+      suppressedItems: allSuppressedItems,
     });
   }
 }
@@ -439,6 +514,7 @@ function buildResult({
   sourceStripResults,
   query_ref,
   researchMode,
+  suppressedItems,
 }: {
   query: ExtractedDocument;
   sources: ExtractedDocument[];
@@ -456,6 +532,7 @@ function buildResult({
   sourceStripResults: Array<{ reference: string; stripResult: StripResult }>;
   query_ref: string;
   researchMode: boolean;
+  suppressedItems: SuppressedItem[];
 }) {
   return {
     query,
@@ -474,6 +551,7 @@ function buildResult({
     provider,
     model: method === 'lexical' ? null : MODEL_CONFIG.model,
     researchMode,
+    suppressedItems,
     stripping: {
       query: {
         reference: query_ref,
