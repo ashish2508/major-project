@@ -1,6 +1,7 @@
 import { mkdir, readFile, rm, writeFile } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 import { MODEL_CONFIG } from '../embeddings/model';
+import type { ExtractedDocument } from '../documents/extract';
 import { getCorpusDir } from './store';
 import type { CorpusPassage } from './types';
 
@@ -161,32 +162,48 @@ export async function loadReadyCorpusVectors(): Promise<Map<string, DocumentVect
 export async function getCorpusPassagesAndVectors(): Promise<{
   passages: CorpusPassage[];
   vectors: number[][];
-  documents: Array<{ reference: string; title: string; text: string; format: 'text' | 'pdf' }>;
+  documents: ExtractedDocument[];
 }> {
   const docMap = await loadReadyCorpusVectors();
   const passages: CorpusPassage[] = [];
   const vectors: number[][] = [];
-  const documents: Array<{
-    reference: string;
-    title: string;
-    text: string;
-    format: 'text' | 'pdf';
-  }> = [];
-  const { getDocumentBody, getDocumentMetadata } = await import('./store');
+  const documents: ExtractedDocument[] = [];
+  const { getDocumentBody, getDocumentMetadata, getDocumentRawBytes, updateDocumentMetadata } =
+    await import('./store');
+  const { extractFile } = await import('../documents/extract');
 
   for (const doc of docMap.values()) {
     const meta = await getDocumentMetadata(doc.documentId);
     const body = (await getDocumentBody(doc.documentId)) ?? '';
+    let pageRanges = meta?.pageRanges;
+    if (!pageRanges && meta?.format === 'pdf') {
+      const rawBytes = await getDocumentRawBytes(doc.documentId);
+      if (rawBytes) {
+        const file = new File([rawBytes as unknown as BlobPart], meta.filename, {
+          type: 'application/pdf',
+        });
+        pageRanges = (await extractFile(file, doc.documentReference)).pages;
+        if (pageRanges) await updateDocumentMetadata(doc.documentId, { pageRanges });
+      }
+    }
     documents.push({
       reference: doc.documentReference,
       title: meta?.title ?? doc.documentReference.replaceAll('_', ' '),
       text: body,
       format: meta?.format ?? 'text',
+      pages: pageRanges,
     });
 
     const dim = MODEL_CONFIG.dimensions;
     for (let i = 0; i < doc.passages.length; i++) {
-      passages.push(doc.passages[i]);
+      const passage = doc.passages[i];
+      passages.push({
+        ...passage,
+        page:
+          passage.page ??
+          pageRanges?.find((range) => passage.offset >= range.start && passage.offset < range.end)
+            ?.page,
+      });
       const slice = Array.from(doc.vectors.subarray(i * dim, (i + 1) * dim));
       vectors.push(slice);
     }

@@ -21,6 +21,24 @@ it('retrieves the source without annotation-known pairs and abstains on OOV', ()
     detect(retrieveCandidates(segment('unknown', 'q'), sources, tfidf).lexical, 0.2),
   ).toHaveLength(0);
 });
+it('uses persistent lexical vectors without changing candidate scores or source attribution', () => {
+  const sources = [
+      ...segment('alpha beta gamma', 'sourceA').map((p) => ({ ...p, id: 'a' })),
+      ...segment('delta epsilon zeta', 'sourceB').map((p) => ({ ...p, id: 'b' })),
+    ],
+    queries = segment('alpha beta gamma', 'query'),
+    tfidf = Tfidf.fit(sources.map((source) => source.text)),
+    indexed = new Map(sources.map((source) => [source.id, tfidf.transform(source.text)]));
+  expect(
+    retrieveCandidates(queries, sources, tfidf, undefined, undefined, undefined, 0, indexed),
+  ).toEqual(retrieveCandidates(queries, sources, tfidf));
+});
+it('preserves exact query and source page attribution on retrieved evidence', () => {
+  const query = segment('alpha beta gamma', 'query').map((p) => ({ ...p, page: 3 }));
+  const source = segment('alpha beta gamma', 'source').map((p) => ({ ...p, page: 8 }));
+  const result = retrieveCandidates(query, source, Tfidf.fit(['alpha beta gamma']));
+  expect(result.lexical[0]).toMatchObject({ suspiciousPage: 3, sourcePage: 8 });
+});
 it('semantic retrieval is independent of lexical ranking; hybrid combines the same pair scores', () => {
   const s = [...segment('alpha', 'A'), ...segment('beta', 'B')],
     q = segment('alpha', 'q'),

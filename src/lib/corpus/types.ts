@@ -23,6 +23,7 @@ export interface CorpusDocumentMetadata {
   updatedAt: string;
   stripping: CorpusDocumentStripping;
   pageCount?: number;
+  pageRanges?: { page: number; start: number; end: number }[];
 }
 
 export interface CorpusPassage {
@@ -33,6 +34,7 @@ export interface CorpusPassage {
   offset: number;
   length: number;
   text: string;
+  page?: number;
 }
 
 export interface CorpusCatalog {

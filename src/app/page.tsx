@@ -263,20 +263,6 @@ export default function Home() {
     }
   }
 
-  function example() {
-    setCompareTarget('manual');
-    setQueryFile(null);
-    setSourceFiles([]);
-    setQueryText(
-      'Researchers compare documents to identify passages with similar wording. The resulting evidence requires careful human review before any conclusion is reached.',
-    );
-    setSourceText(
-      'Researchers compare documents to identify passages with similar wording. The resulting evidence requires careful human review before any conclusion is reached. The method searches only the source documents supplied by the user.',
-    );
-    setResult(null);
-    setError('');
-  }
-
   function download() {
     if (!result) return;
     const url = URL.createObjectURL(
@@ -579,9 +565,6 @@ export default function Home() {
                     <h2>Target & Documents</h2>
                     <p>Search against your persistent corpus or provide specific sources.</p>
                   </div>
-                  <button className="text-button" type="button" onClick={example}>
-                    Try an example ↗
-                  </button>
                 </div>
 
                 {/* Target Selection: Corpus vs. Manual Sources */}
@@ -1001,6 +984,9 @@ export default function Home() {
                         {result.semanticReviewLead.sourceSpan.offset}–
                         {result.semanticReviewLead.sourceSpan.offset +
                           result.semanticReviewLead.sourceSpan.length}
+                        {result.semanticReviewLead.sourcePage
+                          ? ` (Page ${result.semanticReviewLead.sourcePage})`
+                          : ''}
                       </dd>
                     </div>
                   </dl>
@@ -1045,6 +1031,7 @@ export default function Home() {
                         <span>
                           Source characters {d.sourceSpan.offset}–
                           {d.sourceSpan.offset + d.sourceSpan.length}
+                          {d.sourcePage ? ` (Page ${d.sourcePage})` : ''}
                         </span>
                         <span className="match-scores-sub">
                           Lexical: <b>{d.lexical.toFixed(3)}</b> · Semantic:{' '}
@@ -1099,6 +1086,7 @@ export default function Home() {
                   Source characters{' '}
                   <b>
                     {chosen.sourceSpan.offset}–{chosen.sourceSpan.offset + chosen.sourceSpan.length}
+                    {chosen.sourcePage ? ` (Page ${chosen.sourcePage})` : ''}
                   </b>
                 </span>
                 <span>
@@ -1143,6 +1131,7 @@ export default function Home() {
                       <span className="excerpt-block-meta">
                         Chars {chosen.sourceSpan.offset}–
                         {chosen.sourceSpan.offset + chosen.sourceSpan.length}
+                        {chosen.sourcePage ? ` · Page ${chosen.sourcePage}` : ''}
                       </span>
                     </div>
                     <p className="excerpt-block-text">
@@ -1196,6 +1185,7 @@ export default function Home() {
                       <p className="panel-span-meta">
                         Characters {chosen.sourceSpan.offset}–
                         {chosen.sourceSpan.offset + chosen.sourceSpan.length}
+                        {chosen.sourcePage ? ` (Page ${chosen.sourcePage})` : ''}
                       </p>
                     )}
                   </div>

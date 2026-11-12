@@ -1,4 +1,4 @@
-import { mkdtemp, rm } from 'node:fs/promises';
+import { mkdtemp, readFile, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { resolve } from 'node:path';
 import { afterAll, beforeAll, beforeEach, describe, expect, it, vi } from 'vitest';
@@ -121,6 +121,27 @@ describe('General-Purpose Corpus Management & Independent Indexing', () => {
       expect(res.document.format).toBe('pdf');
       expect(res.document.pageCount).toBe(1);
       expect(res.document.passageCount).toBeGreaterThan(0);
+      expect(res.document.pageRanges).toHaveLength(1);
+      expect((await getDocumentPassages(res.document.id))[0].page).toBe(1);
+    });
+
+    it('uses extracted MIME-aware file type when a PDF filename has no extension', async () => {
+      const file = new File(
+        [
+          textPdf(
+            'A database query planner compares estimated execution costs across alternative operators.',
+          ),
+        ],
+        'uploaded-paper',
+        { type: 'application/pdf' },
+      );
+      vi.spyOn(model, 'embedTexts').mockImplementation(async (texts) =>
+        texts.map(() => mockUnitVector(3)),
+      );
+      const result = await ingestDocumentFile(file);
+      expect(result.document.format).toBe('pdf');
+      expect(result.document.pageCount).toBe(1);
+      expect(result.document.status).toBe('ready');
     });
 
     it('ingests multiple research papers in a batch', async () => {
@@ -216,6 +237,10 @@ describe('General-Purpose Corpus Management & Independent Indexing', () => {
 
       vectors = await loadReadyCorpusVectors();
       expect(vectors.has(docId)).toBe(false);
+      const semanticManifest = JSON.parse(
+        await readFile(resolve(getCorpusDir(), 'indexes/semantic/manifest.json'), 'utf8'),
+      );
+      expect(semanticManifest.documentIds).not.toContain(docId);
     });
   });
 

@@ -30,6 +30,8 @@ export interface Candidate extends PassagePair {
   lexical: number;
   semantic: number;
   score: number;
+  suspiciousPage?: number;
+  sourcePage?: number;
 }
 export interface Detection extends Candidate {
   evidenceWindows: number;
@@ -49,6 +51,7 @@ export function retrieveCandidates(
   sourceEmbeddings?: number[][],
   alphas: readonly number[] = ALPHAS,
   semanticAlternatives = 0,
+  indexedSourceVectors?: ReadonlyMap<string, ReadonlyMap<string, number>>,
 ): Record<string, Candidate[]> {
   if (!sources.length) throw new Error('At least one source passage is required');
   if (!Number.isSafeInteger(semanticAlternatives) || semanticAlternatives < 0)
@@ -77,7 +80,8 @@ export function retrieveCandidates(
   const sourceNorms = sourceEmbeddings && embeddingNorms(sourceEmbeddings);
   const postings = new Map<string, { index: number; weight: number }[]>();
   for (const [index, source] of sources.entries()) {
-    for (const [term, weight] of tfidf.transform(source.text)) {
+    const vector = indexedSourceVectors?.get(source.id) ?? tfidf.transform(source.text);
+    for (const [term, weight] of vector) {
       const posting = postings.get(term);
       if (posting) posting.push({ index, weight });
       else postings.set(term, [{ index, weight }]);
@@ -130,6 +134,8 @@ export function retrieveCandidates(
         sourceReference: source.documentReference,
         suspiciousSpan: { offset: query.offset, length: query.length },
         sourceSpan: { offset: source.offset, length: source.length },
+        suspiciousPage: query.page,
+        sourcePage: source.page,
         lexical: lexicalScores[sourceIndex],
         semantic: semanticScores[sourceIndex],
         score: bestScores[index],
@@ -148,6 +154,8 @@ export function retrieveCandidates(
           sourceReference: source.documentReference,
           suspiciousSpan: { offset: query.offset, length: query.length },
           sourceSpan: { offset: source.offset, length: source.length },
+          suspiciousPage: query.page,
+          sourcePage: source.page,
           lexical: lexicalScores[index],
           semantic: semanticScores[index],
           score: semanticScores[index],

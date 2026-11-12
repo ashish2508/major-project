@@ -157,6 +157,21 @@ export async function updateDocumentStatus(
   return existing;
 }
 
+export async function updateDocumentMetadata(
+  id: string,
+  updates: Partial<CorpusDocumentMetadata>,
+): Promise<void> {
+  const catalog = await loadCatalog();
+  const existing = catalog.documents[id];
+  if (!existing) return;
+  Object.assign(existing, updates, { updatedAt: new Date().toISOString() });
+  await atomicWrite(
+    resolve(getDocumentDir(id), 'metadata.json'),
+    JSON.stringify(existing, null, 2),
+  );
+  await saveCatalog(catalog);
+}
+
 export async function deleteDocumentRecord(id: string): Promise<boolean> {
   const catalog = await loadCatalog();
   if (!catalog.documents[id]) return false;

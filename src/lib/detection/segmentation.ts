@@ -4,6 +4,8 @@ export interface Passage {
   offset: number;
   length: number;
   text: string;
+  /** One-based PDF page number when the source preserves page ranges. */
+  page?: number;
 }
 export interface SegmentOptions {
   words?: number;

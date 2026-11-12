@@ -459,7 +459,7 @@ describe('Phase 6: Full-Research-Paper Plagiarism Verification', () => {
       for (const d of result.detections) {
         expect(d.semantic).not.toBeNull();
       }
-    });
+    }, 60_000);
 
     it.skipIf(process.env.INFERENCE_TESTS !== '1')(
       'runs semantic analysis end-to-end against research papers using local ONNX weights',

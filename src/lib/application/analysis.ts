@@ -1,7 +1,7 @@
 import { readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { z } from 'zod';
-import alignmentCalibration from '../../../reports/implementation/alignment-fusion/frozen-parameters.json';
+import calibration from '../../../reports/implementation/alignment-fusion/frozen-parameters.json';
 import {
   detect,
   retrieveCandidates,
@@ -11,7 +11,7 @@ import {
   type Method,
 } from '../detection/detector';
 import { filterInformativeEvidence } from '../detection/informative-evidence';
-import { segment, segmentParagraphs } from '../detection/segmentation';
+import { segmentParagraphs } from '../detection/segmentation';
 import { stripCanonicalReferences, type StripResult } from '../detection/strip-references';
 import { Tfidf } from '../detection/tfidf';
 import { digest } from '../digest';
@@ -25,7 +25,8 @@ import {
   MODEL_DIRECTORY,
   tokenCounter,
 } from '../embeddings/model';
-import { getAllReadyPassages } from '../corpus/service';
+import { attachPassagePages, getAllReadyPassages } from '../corpus/service';
+import { ensureLexicalIndex, getIndexedPassageVectors } from '../corpus/lexical-index';
 import { getCorpusPassagesAndVectors } from '../corpus/semantic-index';
 
 const configSchema = z.object({
@@ -34,16 +35,19 @@ const configSchema = z.object({
   alpha: z.number().min(0).max(1),
   mergeGap: z.number().int().min(0).max(1000),
 });
-let artifactsPromise: Promise<{ tfidf: Tfidf; configs: Record<Method, DetectionConfig> }> | null =
-  null;
+let artifactsPromise: Promise<{
+  tfidf: Tfidf;
+  configs: Record<Method, DetectionConfig>;
+  tfidfSha256: string;
+}> | null = null;
 let modelVerified: Promise<void> | null = null;
 export async function getArtifacts() {
   if (!artifactsPromise)
     artifactsPromise = (async () => {
-      const raw = await readFile(resolve('.cache/research/tfidf.json')),
-        frozen = JSON.parse(
-          await readFile(resolve('reports/implementation/frozen-parameters.json'), 'utf8'),
-        );
+      const raw = await readFile(
+          resolve('reports/implementation/alignment-fusion/cache/tfidf.json'),
+        ),
+        frozen = calibration;
       if (digest(raw) !== frozen.tfidfSha256)
         throw new Error(
           'Training vocabulary checksum differs from the calibrated experiment. Run bun run reproduce.',
@@ -56,10 +60,14 @@ export async function getArtifacts() {
         .parse(JSON.parse(raw.toString('utf8')));
       const configs = z
         .object({ lexical: configSchema, semantic: configSchema, hybrid: configSchema })
-        .parse({ ...frozen.methods, semantic: alignmentCalibration.methods.semantic });
+        .parse(frozen.methods);
       for (const key of ['lexical', 'semantic', 'hybrid'] as const)
         if (configs[key].method !== key) throw new Error('Invalid calibrated method mapping');
-      return { tfidf: new Tfidf(record.idf, record.trainingPassages), configs };
+      return {
+        tfidf: new Tfidf(record.idf, record.trainingPassages),
+        configs,
+        tfidfSha256: frozen.tfidfSha256,
+      };
     })().catch((e) => {
       artifactsPromise = null;
       throw new Error(
@@ -112,21 +120,25 @@ export async function analyzeDocuments(
 ) {
   const useCorpus = options?.useCorpus ?? options?.useCanonicalCorpus ?? false;
   const start = performance.now(),
-    { tfidf, configs } = await getArtifacts(),
+    { tfidf, configs, tfidfSha256 } = await getArtifacts(),
     config = configs[method];
   const countTokens = await tokenCounter();
   const alignSemantically = method === 'semantic' || (method === 'hybrid' && config.alpha < 1);
-  const split = alignSemantically ? segmentParagraphs : segment;
+  // The active validation calibration fitted every method on paragraph-bounded windows.
+  const split = segmentParagraphs;
 
   // --- Reference stripping ---
   const { strippedDoc: strippedQuery, stripResult: queryStripResult } = stripDocument(query);
 
   // --- Segmentation of Query ---
-  const queries = split(
-    strippedQuery.text,
-    strippedQuery.reference,
-    { countTokens },
-    strippedQuery.paragraphBreaks,
+  const queries = attachPassagePages(
+    split(
+      strippedQuery.text,
+      strippedQuery.reference,
+      { countTokens },
+      strippedQuery.paragraphBreaks,
+    ),
+    strippedQuery.pages,
   );
 
   const mergeGap = config.mergeGap;
@@ -141,6 +153,7 @@ export async function analyzeDocuments(
     let sourcePassages;
 
     if (useCorpus) {
+      await ensureLexicalIndex(tfidf, tfidfSha256);
       const corpusData = await getAllReadyPassages();
       if (!corpusData.passages.length) {
         throw new Error(
@@ -158,13 +171,26 @@ export async function analyzeDocuments(
       });
 
       sourcePassages = strippedSources.flatMap((source) =>
-        split(source.text, source.reference, { countTokens }, source.paragraphBreaks),
+        attachPassagePages(
+          split(source.text, source.reference, { countTokens }, source.paragraphBreaks),
+          source.pages,
+        ),
       );
     }
 
     if (!sourcePassages.length) throw new Error('Documents need extractable words');
 
-    rows = retrieveCandidates(queries, sourcePassages, tfidf);
+    const lexicalVectors = useCorpus ? await getIndexedPassageVectors(sourcePassages) : undefined;
+    rows = retrieveCandidates(
+      queries,
+      sourcePassages,
+      tfidf,
+      undefined,
+      undefined,
+      undefined,
+      0,
+      lexicalVectors,
+    );
 
     const mergedDetections = detect(
       rows[scoreKey(method, config.alpha)],
@@ -200,6 +226,7 @@ export async function analyzeDocuments(
     let sourceVectors: number[][];
 
     if (useCorpus) {
+      await ensureLexicalIndex(tfidf, tfidfSha256);
       // Load pre-indexed passages and persistent vectors from disk
       const corpusData = await getCorpusPassagesAndVectors();
       if (!corpusData.passages.length) {
@@ -219,7 +246,10 @@ export async function analyzeDocuments(
       });
 
       sourcePassages = strippedSources.flatMap((source) =>
-        split(source.text, source.reference, { countTokens }, source.paragraphBreaks),
+        attachPassagePages(
+          split(source.text, source.reference, { countTokens }, source.paragraphBreaks),
+          source.pages,
+        ),
       );
       sourceVectors = [];
     }
@@ -242,6 +272,7 @@ export async function analyzeDocuments(
 
     provider = await embeddingProvider(device);
 
+    const lexicalVectors = useCorpus ? await getIndexedPassageVectors(sourcePassages) : undefined;
     rows = retrieveCandidates(
       queries,
       sourcePassages,
@@ -250,6 +281,7 @@ export async function analyzeDocuments(
       sourceVectors,
       [config.alpha],
       5,
+      lexicalVectors,
     );
 
     const mergedDetections = detect(

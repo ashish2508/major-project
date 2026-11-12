@@ -1,26 +1,14 @@
 import { digest } from '../digest';
 import { segmentParagraphs, type Passage } from '../detection/segmentation';
-import { stripReferences, type StripResult } from '../detection/strip-references';
-import {
-  extractFile,
-  MAX_DOCUMENT_CHARACTERS,
-  MAX_FILE_BYTES,
-  validateText,
-  type ExtractedDocument,
-} from '../documents/extract';
+import { stripReferences } from '../detection/strip-references';
+import { extractFile, MAX_FILE_BYTES, type ExtractedDocument } from '../documents/extract';
 import { applicationDevice, embedTexts, tokenCounter } from '../embeddings/model';
 import {
   addDocumentToLexicalIndex,
-  loadLexicalPostings,
+  ensureLexicalIndex,
   removeDocumentFromLexicalIndex,
-  type LexicalIndexEntry,
 } from './lexical-index';
-import {
-  loadReadyCorpusVectors,
-  removeDocumentVectors,
-  saveDocumentVectors,
-  type DocumentVectors,
-} from './semantic-index';
+import { removeDocumentVectors, saveDocumentVectors } from './semantic-index';
 import {
   deleteDocumentRecord,
   ensureCorpusDirectories,
@@ -32,8 +20,9 @@ import {
   loadCatalog,
   saveDocumentRecord,
   updateDocumentStatus,
+  updateDocumentMetadata,
 } from './store';
-import type { CorpusDocumentMetadata, CorpusPassage, DocumentStatus } from './types';
+import type { CorpusDocumentMetadata, CorpusPassage } from './types';
 
 export interface IngestOptions {
   title?: string;
@@ -44,6 +33,20 @@ export interface IngestResult {
   document: CorpusDocumentMetadata;
   isDuplicate: boolean;
   message: string;
+}
+
+export function pageAtOffset(
+  ranges: { page: number; start: number; end: number }[] | undefined,
+  offset: number,
+): number | undefined {
+  return ranges?.find((range) => offset >= range.start && offset < range.end)?.page;
+}
+
+export function attachPassagePages<T extends Passage>(
+  passages: T[],
+  ranges: { page: number; start: number; end: number }[] | undefined,
+): T[] {
+  return passages.map((passage) => ({ ...passage, page: pageAtOffset(ranges, passage.offset) }));
 }
 
 function sanitizeReference(filename: string): string {
@@ -111,6 +114,7 @@ export async function ingestDocumentFile(
   // Extract, strip references, segment, index
   try {
     const extracted = await extractFile(file, reference);
+    initialMetadata.format = extracted.format;
     const stripResult = stripReferences(extracted.text);
     const countTokens = await tokenCounter();
 
@@ -133,11 +137,13 @@ export async function ingestDocumentFile(
       offset: p.offset,
       length: p.length,
       text: p.text,
+      page: pageAtOffset(extracted.pages, p.offset),
     }));
 
     initialMetadata.characterCount = stripResult.body.length;
     initialMetadata.passageCount = corpusPassages.length;
     initialMetadata.pageCount = extracted.pages?.length;
+    initialMetadata.pageRanges = extracted.pages;
     initialMetadata.stripping = {
       confident: stripResult.confident,
       detectedHeading: stripResult.detectedHeading,
@@ -155,7 +161,8 @@ export async function ingestDocumentFile(
 
     // 1. Lexical Indexing
     const { getArtifacts } = await import('../application/analysis');
-    const { tfidf } = await getArtifacts();
+    const { tfidf, tfidfSha256 } = await getArtifacts();
+    await ensureLexicalIndex(tfidf, tfidfSha256);
     await addDocumentToLexicalIndex(docId, corpusPassages, tfidf);
 
     // 2. Semantic Indexing (embed only this document's passages)
@@ -234,7 +241,12 @@ export async function retryDocumentIngestion(id: string): Promise<IngestResult> 
 export async function deleteCorpusDocument(id: string): Promise<boolean> {
   await removeDocumentFromLexicalIndex(id);
   await removeDocumentVectors(id);
-  return deleteDocumentRecord(id);
+  const deleted = await deleteDocumentRecord(id);
+  if (deleted) {
+    const { updateSemanticManifest } = await import('./semantic-index');
+    await updateSemanticManifest();
+  }
+  return deleted;
 }
 
 export async function getAllReadyPassages(): Promise<{
@@ -251,11 +263,23 @@ export async function getAllReadyPassages(): Promise<{
     const body = await getDocumentBody(meta.id);
     if (!body) continue;
 
+    let pageRanges = meta.pageRanges;
+    if (!pageRanges && meta.format === 'pdf') {
+      const rawBytes = await getDocumentRawBytes(meta.id);
+      if (rawBytes) {
+        const file = new File([rawBytes as unknown as BlobPart], meta.filename, {
+          type: 'application/pdf',
+        });
+        pageRanges = (await extractFile(file, meta.reference)).pages;
+        if (pageRanges) await updateDocumentMetadata(meta.id, { pageRanges });
+      }
+    }
     documents.push({
       reference: meta.reference,
       title: meta.title,
       text: body,
       format: meta.format,
+      pages: pageRanges,
     });
 
     const docPassages = await getDocumentPassages(meta.id);
@@ -266,6 +290,7 @@ export async function getAllReadyPassages(): Promise<{
         offset: dp.offset,
         length: dp.length,
         text: dp.text,
+        page: dp.page ?? pageAtOffset(pageRanges, dp.offset),
       });
     }
   }
