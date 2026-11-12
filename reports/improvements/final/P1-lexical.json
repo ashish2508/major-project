@@ -1,0 +1,137 @@
+{
+  "method": "lexical",
+  "activeConfigSource": "research-paper-parameters.json",
+  "config": {
+    "method": "lexical",
+    "threshold": 0.5,
+    "alpha": 1,
+    "mergeGap": 120
+  },
+  "queryRole": "Document under review (query)",
+  "sourceRole": "Possible source (original)",
+  "symmetryNote": "Matching is symmetric; direction of copying cannot be determined from similarity alone. Use publication dates and provenance to establish direction.",
+  "queryFile": "qiu-2020-e22022.pdf",
+  "sourceFiles": ["liu-2020-e21808.pdf"],
+  "passages": {
+    "query": 187,
+    "sources": 291
+  },
+  "coverage": {
+    "coveredChars": 770,
+    "eligibleChars": 10461,
+    "totalChars": 12837,
+    "ratio": 0.07360672975814932
+  },
+  "detectionCount": 4,
+  "semanticReviewLeadsCount": 0,
+  "sharedIdentifiers": [
+    {
+      "sourceReference": "liu-2020-e21808",
+      "matches": [
+        {
+          "type": "PROSPERO",
+          "value": "CRD42020164164",
+          "offset": 1721
+        },
+        {
+          "type": "accession",
+          "value": "CRD42020164164",
+          "offset": 1721
+        }
+      ]
+    }
+  ],
+  "suppressedItemsCount": 55,
+  "elapsedSeconds": 0.13686220000000002,
+  "provider": "TF-IDF on CPU",
+  "model": null,
+  "researchMode": true,
+  "segmentationType": "paragraph windows (segmentParagraphs)",
+  "warning": "Similarity scores are uncalibrated evidence for human review, not probabilities or proof of plagiarism or misconduct. Only searched sources were evaluated. PAN-PC-11 calibration is book-based and does not establish CS-paper performance.",
+  "top20Detections": [
+    {
+      "score": 0.9684,
+      "sourceReference": "liu-2020-e21808",
+      "suspiciousSpan": {
+        "offset": 11247,
+        "length": 323
+      },
+      "sourceSpan": {
+        "offset": 14586,
+        "length": 316
+      },
+      "suspiciousPage": 3,
+      "sourcePage": 3,
+      "querySnippet": "The statistical signi fi cance will be assessed for P < .05, and moderate to high levels of heterogeneity will be considered for I 2 > 50%. [18] A fi ",
+      "sourceSnippet": "If I 2 < 50% or P > .1, which indicates that there is no statistical heterogeneity, and then a fi xed effects model will be adopted. While, If I 2 ≥ 5"
+    },
+    {
+      "score": 0.8453,
+      "sourceReference": "liu-2020-e21808",
+      "suspiciousSpan": {
+        "offset": 4937,
+        "length": 214
+      },
+      "sourceSpan": {
+        "offset": 4376,
+        "length": 159
+      },
+      "suspiciousPage": 1,
+      "sourcePage": 1,
+      "querySnippet": "Tanreqing injection on viral pneumonia: A protocol for systematic review and meta-analysis. Medicine 2020;99:37(e22022). Received: 21 July 2020 / Acce",
+      "sourceSnippet": "systematic review and meta-analysis. Medicine 2020;99:35(e21808). Received: 16 July 2020 / Accepted: 20 July 2020 http://dx.doi.org/10.1097/MD.0000000"
+    },
+    {
+      "score": 0.6019,
+      "sourceReference": "liu-2020-e21808",
+      "suspiciousSpan": {
+        "offset": 12043,
+        "length": 141
+      },
+      "sourceSpan": {
+        "offset": 588,
+        "length": 177
+      },
+      "suspiciousPage": 3,
+      "sourcePage": 1,
+      "querySnippet": "This systematic review and meta-analysis will evaluate the ef fi cacy and safety of Tanreqing Injection for the treatment of viral pneumonia.",
+      "sourceSnippet": "Thus, this protocol describes a plan of performing a systematic review and meta-analysis to evaluate the ef fi cacy and safety of TRQ injection on pat"
+    },
+    {
+      "score": 0.5783,
+      "sourceReference": "liu-2020-e21808",
+      "suspiciousSpan": {
+        "offset": 8677,
+        "length": 140
+      },
+      "sourceSpan": {
+        "offset": 12797,
+        "length": 161
+      },
+      "suspiciousPage": 2,
+      "sourcePage": 3,
+      "querySnippet": "The data will be extracted out by two independent reviewers in accordance with the Cochrane Handbook of Systematic Reviews of Interventions.",
+      "sourceSnippet": "The risk of bias of each included article will be evaluated by 2 independent reviewers according to the Cochrane Handbook of Systematic Reviews of Int"
+    }
+  ],
+  "stripping": {
+    "query": {
+      "reference": "qiu-2020-e22022",
+      "confident": true,
+      "detectedHeading": "References",
+      "offsetStripped": 12837,
+      "charsRemoved": 3629,
+      "offsetNote": "offsets in stripped body; source-file offsets beyond the reference section differ"
+    },
+    "sources": [
+      {
+        "reference": "liu-2020-e21808",
+        "confident": true,
+        "detectedHeading": "References",
+        "offsetStripped": 18345,
+        "charsRemoved": 3747,
+        "offsetNote": "offsets in stripped body; source-file offsets beyond the reference section differ"
+      }
+    ]
+  }
+}

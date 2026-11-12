@@ -1,0 +1,393 @@
+{
+  "method": "hybrid",
+  "activeConfigSource": "research-paper-parameters.json",
+  "config": {
+    "method": "hybrid",
+    "threshold": 0.5,
+    "alpha": 0.25,
+    "mergeGap": 120
+  },
+  "queryRole": "Document under review (query)",
+  "sourceRole": "Possible source (original)",
+  "symmetryNote": "Matching is symmetric; direction of copying cannot be determined from similarity alone. Use publication dates and provenance to establish direction.",
+  "queryFile": "qiu-2020-e22022.pdf",
+  "sourceFiles": ["liu-2020-e21808.pdf"],
+  "passages": {
+    "query": 187,
+    "sources": 291
+  },
+  "coverage": {
+    "coveredChars": 7424,
+    "eligibleChars": 10461,
+    "totalChars": 12837,
+    "ratio": 0.7096835866551955
+  },
+  "detectionCount": 187,
+  "semanticReviewLeadsCount": 2,
+  "sharedIdentifiers": [
+    {
+      "sourceReference": "liu-2020-e21808",
+      "matches": [
+        {
+          "type": "PROSPERO",
+          "value": "CRD42020164164",
+          "offset": 1721
+        },
+        {
+          "type": "accession",
+          "value": "CRD42020164164",
+          "offset": 1721
+        }
+      ]
+    }
+  ],
+  "suppressedItemsCount": 55,
+  "elapsedSeconds": 2.7414892,
+  "provider": "CPUExecutionProvider",
+  "model": "onnx-community/all-MiniLM-L6-v2-ONNX",
+  "researchMode": true,
+  "segmentationType": "paragraph windows (segmentParagraphs)",
+  "warning": "Similarity scores are uncalibrated evidence for human review, not probabilities or proof of plagiarism or misconduct. Only searched sources were evaluated. PAN-PC-11 calibration is book-based and does not establish CS-paper performance.",
+  "top20Detections": [
+    {
+      "score": 1,
+      "sourceReference": "liu-2020-e21808",
+      "suspiciousSpan": {
+        "offset": 11946,
+        "length": 358
+      },
+      "sourceSpan": {
+        "offset": 16887,
+        "length": 430
+      },
+      "suspiciousPage": 3,
+      "sourcePage": 4,
+      "querySnippet": "4. Discussion It is not clear how Tanreqing Injection affects the treatment of viral pneumonia. This systematic review and meta-analysis will evaluate",
+      "sourceSnippet": "Discussion As a traditional Chinese herbal medicine injection, TRQ injection has been approved by the China Food and Drug Administration and widely us"
+    },
+    {
+      "score": 1,
+      "sourceReference": "liu-2020-e21808",
+      "suspiciousSpan": {
+        "offset": 5375,
+        "length": 711
+      },
+      "sourceSpan": {
+        "offset": 7202,
+        "length": 327
+      },
+      "suspiciousPage": 2,
+      "sourcePage": 2,
+      "querySnippet": "In the past fi ve years, more studies on the effect of using Tanreqing Injection on viral pneumonia on patient mortality, length of hospital stay, and",
+      "sourceSnippet": "Therefore, the aim of this systematic review is to assess the ef fi cacy and safety of TRQ injection on Viral Pneumonia. 2. Objectives The objective o"
+    },
+    {
+      "score": 1,
+      "sourceReference": "liu-2020-e21808",
+      "suspiciousSpan": {
+        "offset": 6079,
+        "length": 431
+      },
+      "sourceSpan": {
+        "offset": 7519,
+        "length": 209
+      },
+      "suspiciousPage": 2,
+      "sourcePage": 2,
+      "querySnippet": "Methods The protocol of our MAs followed the guideline of the Preferred Reporting Items for Systematic Review and Meta-Analysis Protocols (PRISMA-P) r",
+      "sourceSnippet": "3. Methods The methodology of this systematic review will be guided by the Preferred Reporting Items for Systematic Reviews and Meta- Analyses stateme"
+    },
+    {
+      "score": 1,
+      "sourceReference": "liu-2020-e21808",
+      "suspiciousSpan": {
+        "offset": 5982,
+        "length": 104
+      },
+      "sourceSpan": {
+        "offset": 7400,
+        "length": 129
+      },
+      "suspiciousPage": 2,
+      "sourcePage": 2,
+      "querySnippet": "A better understanding of Tanreqing Injection, guide the treatment of viral pneumonia. 3. Methods",
+      "sourceSnippet": "controlled trials (RCTs) and provide evidence for the effective- ness and safety of TRQ injection on viral pneumonia. 3. Methods"
+    },
+    {
+      "score": 0.954,
+      "sourceReference": "liu-2020-e21808",
+      "suspiciousSpan": {
+        "offset": 11413,
+        "length": 283
+      },
+      "sourceSpan": {
+        "offset": 14732,
+        "length": 407
+      },
+      "suspiciousPage": 3,
+      "sourcePage": 3,
+      "querySnippet": "[18] A fi xed effects model will be used if no statistical heterogeneity across the studies; otherwise, the random effects model will be considered. 3",
+      "sourceSnippet": "While, If I 2 ≥ 50% or P < .1, indicating the heterogeneity among studies are statistically signi fi cant, and a random-effect model will be employed."
+    },
+    {
+      "score": 0.7929,
+      "sourceReference": "liu-2020-e21808",
+      "suspiciousSpan": {
+        "offset": 8640,
+        "length": 505
+      },
+      "sourceSpan": {
+        "offset": 12756,
+        "length": 207
+      },
+      "suspiciousPage": 2,
+      "sourcePage": 3,
+      "querySnippet": "3.4. Data extraction and management The data will be extracted out by two independent reviewers in accordance with the Cochrane Handbook of Systematic",
+      "sourceSnippet": "3.3.3. Assessment of the risk of bias. The risk of bias of each included article will be evaluated by 2 independent reviewers according to the Cochran"
+    },
+    {
+      "score": 0.7732,
+      "sourceReference": "liu-2020-e21808",
+      "suspiciousSpan": {
+        "offset": 9271,
+        "length": 446
+      },
+      "sourceSpan": {
+        "offset": 12237,
+        "length": 525
+      },
+      "suspiciousPage": 2,
+      "sourcePage": 3,
+      "querySnippet": "included studies using a modi fi ed version of Cochrane tool [16] in which we will to check for allocation concealment, blinding, incomplete outcome d",
+      "sourceSnippet": "Disagreements will be solved by a third investigator through discussion. Data in detail will be extracted from each study as follows: title, the autho"
+    },
+    {
+      "score": 0.766,
+      "sourceReference": "liu-2020-e21808",
+      "suspiciousSpan": {
+        "offset": 1338,
+        "length": 203
+      },
+      "sourceSpan": {
+        "offset": 16788,
+        "length": 94
+      },
+      "suspiciousPage": 1,
+      "sourcePage": 4,
+      "querySnippet": "Results: The results will be published in a peer-reviewed journal. Conclusion: The results of this review will be widely disseminated through peer-rev",
+      "sourceSnippet": "The results of this review will be published in related conferences or peer-reviewed journals."
+    },
+    {
+      "score": 0.7511,
+      "sourceReference": "liu-2020-e21808",
+      "suspiciousSpan": {
+        "offset": 11247,
+        "length": 317
+      },
+      "sourceSpan": {
+        "offset": 14586,
+        "length": 308
+      },
+      "suspiciousPage": 3,
+      "sourcePage": 3,
+      "querySnippet": "The statistical signi fi cance will be assessed for P < .05, and moderate to high levels of heterogeneity will be considered for I 2 > 50%. [18] A fi ",
+      "sourceSnippet": "If I 2 < 50% or P > .1, which indicates that there is no statistical heterogeneity, and then a fi xed effects model will be adopted. While, If I 2 ≥ 5"
+    },
+    {
+      "score": 0.7495,
+      "sourceReference": "liu-2020-e21808",
+      "suspiciousSpan": {
+        "offset": 11949,
+        "length": 476
+      },
+      "sourceSpan": {
+        "offset": 16884,
+        "length": 896
+      },
+      "suspiciousPage": 3,
+      "sourcePage": 4,
+      "querySnippet": "Discussion It is not clear how Tanreqing Injection affects the treatment of viral pneumonia. This systematic review and meta-analysis will evaluate th",
+      "sourceSnippet": "4. Discussion As a traditional Chinese herbal medicine injection, TRQ injection has been approved by the China Food and Drug Administration and widely"
+    },
+    {
+      "score": 0.7461,
+      "sourceReference": "liu-2020-e21808",
+      "suspiciousSpan": {
+        "offset": 11961,
+        "length": 343
+      },
+      "sourceSpan": {
+        "offset": 445,
+        "length": 702
+      },
+      "suspiciousPage": 3,
+      "sourcePage": 1,
+      "querySnippet": "It is not clear how Tanreqing Injection affects the treatment of viral pneumonia. This systematic review and meta-analysis will evaluate the ef fi cac",
+      "sourceSnippet": "However, the ef fi ciency and safety of TRQ injection for viral pneumonia have not been scienti fi cally and methodically evaluated up to now. Thus, t"
+    },
+    {
+      "score": 0.739,
+      "sourceReference": "liu-2020-e21808",
+      "suspiciousSpan": {
+        "offset": 11247,
+        "length": 317
+      },
+      "sourceSpan": {
+        "offset": 14452,
+        "length": 442
+      },
+      "suspiciousPage": 3,
+      "sourcePage": 3,
+      "querySnippet": "The statistical signi fi cance will be assessed for P < .05, and moderate to high levels of heterogeneity will be considered for I 2 > 50%. [18] A fi ",
+      "sourceSnippet": "neity between the included studies by Chi-squared test ( x 2 test) and I 2 test according to the guidelines in Cochrane Handbook. If I 2 < 50% or P > "
+    },
+    {
+      "score": 0.739,
+      "sourceReference": "liu-2020-e21808",
+      "suspiciousSpan": {
+        "offset": 11413,
+        "length": 388
+      },
+      "sourceSpan": {
+        "offset": 14452,
+        "length": 692
+      },
+      "suspiciousPage": 3,
+      "sourcePage": 3,
+      "querySnippet": "[18] A fi xed effects model will be used if no statistical heterogeneity across the studies; otherwise, the random effects model will be considered. 3",
+      "sourceSnippet": "neity between the included studies by Chi-squared test ( x 2 test) and I 2 test according to the guidelines in Cochrane Handbook. If I 2 < 50% or P > "
+    },
+    {
+      "score": 0.7371,
+      "sourceReference": "liu-2020-e21808",
+      "suspiciousSpan": {
+        "offset": 11961,
+        "length": 464
+      },
+      "sourceSpan": {
+        "offset": 7052,
+        "length": 465
+      },
+      "suspiciousPage": 3,
+      "sourcePage": 2,
+      "querySnippet": "It is not clear how Tanreqing Injection affects the treatment of viral pneumonia. This systematic review and meta-analysis will evaluate the ef fi cac",
+      "sourceSnippet": "Besides, according to clinical reports, TRQ has some side effects in clinical applications, so that whether it is safe enough is still controversial. "
+    },
+    {
+      "score": 0.7296,
+      "sourceReference": "liu-2020-e21808",
+      "suspiciousSpan": {
+        "offset": 11961,
+        "length": 223
+      },
+      "sourceSpan": {
+        "offset": 445,
+        "length": 320
+      },
+      "suspiciousPage": 3,
+      "sourcePage": 1,
+      "querySnippet": "It is not clear how Tanreqing Injection affects the treatment of viral pneumonia. This systematic review and meta-analysis will evaluate the ef fi cac",
+      "sourceSnippet": "However, the ef fi ciency and safety of TRQ injection for viral pneumonia have not been scienti fi cally and methodically evaluated up to now. Thus, t"
+    },
+    {
+      "score": 0.7266,
+      "sourceReference": "liu-2020-e21808",
+      "suspiciousSpan": {
+        "offset": 191,
+        "length": 605
+      },
+      "sourceSpan": {
+        "offset": 7052,
+        "length": 465
+      },
+      "suspiciousPage": 1,
+      "sourcePage": 2,
+      "querySnippet": "Background: In fl uenza-related viral pneumonia is a severe threat to human health, which has caused high morbidity and mortality each year. The objec",
+      "sourceSnippet": "Besides, according to clinical reports, TRQ has some side effects in clinical applications, so that whether it is safe enough is still controversial. "
+    },
+    {
+      "score": 0.7255,
+      "sourceReference": "liu-2020-e21808",
+      "suspiciousSpan": {
+        "offset": 2737,
+        "length": 517
+      },
+      "sourceSpan": {
+        "offset": 254,
+        "length": 333
+      },
+      "suspiciousPage": 1,
+      "sourcePage": 1,
+      "querySnippet": "[6,7] In recent years, Chinese medical workers in China have used Tanreqing Injection with the function of promoting blood circulation and removing bl",
+      "sourceSnippet": "Background: Viral pneumonia is a common respiratory disease that leads to high mortality around the world. Tanreqing (TRQ) injection has been widely u"
+    },
+    {
+      "score": 0.7249,
+      "sourceReference": "liu-2020-e21808",
+      "suspiciousSpan": {
+        "offset": 11413,
+        "length": 157
+      },
+      "sourceSpan": {
+        "offset": 15211,
+        "length": 310
+      },
+      "suspiciousPage": 3,
+      "sourcePage": 3,
+      "querySnippet": "[18] A fi xed effects model will be used if no statistical heterogeneity across the studies; otherwise, the random effects model will be considered. 3",
+      "sourceSnippet": "Review Manager (V.5.3) statistical software provided by Cochrane Collaboration. We will carry out the fi xed effect model to meta-analysis if there is"
+    },
+    {
+      "score": 0.7248,
+      "sourceReference": "liu-2020-e21808",
+      "suspiciousSpan": {
+        "offset": 11247,
+        "length": 317
+      },
+      "sourceSpan": {
+        "offset": 15211,
+        "length": 302
+      },
+      "suspiciousPage": 3,
+      "sourcePage": 3,
+      "querySnippet": "The statistical signi fi cance will be assessed for P < .05, and moderate to high levels of heterogeneity will be considered for I 2 > 50%. [18] A fi ",
+      "sourceSnippet": "Review Manager (V.5.3) statistical software provided by Cochrane Collaboration. We will carry out the fi xed effect model to meta-analysis if there is"
+    },
+    {
+      "score": 0.7151,
+      "sourceReference": "liu-2020-e21808",
+      "suspiciousSpan": {
+        "offset": 5820,
+        "length": 254
+      },
+      "sourceSpan": {
+        "offset": 254,
+        "length": 333
+      },
+      "suspiciousPage": 2,
+      "sourcePage": 1,
+      "querySnippet": "The aim of our study is to objective provide helpful evidence of whether Tanreqing Injection would reduce the mortality and incidence of viral pneumon",
+      "sourceSnippet": "Background: Viral pneumonia is a common respiratory disease that leads to high mortality around the world. Tanreqing (TRQ) injection has been widely u"
+    }
+  ],
+  "stripping": {
+    "query": {
+      "reference": "qiu-2020-e22022",
+      "confident": true,
+      "detectedHeading": "References",
+      "offsetStripped": 12837,
+      "charsRemoved": 3629,
+      "offsetNote": "offsets in stripped body; source-file offsets beyond the reference section differ"
+    },
+    "sources": [
+      {
+        "reference": "liu-2020-e21808",
+        "confident": true,
+        "detectedHeading": "References",
+        "offsetStripped": 18345,
+        "charsRemoved": 3747,
+        "offsetNote": "offsets in stripped body; source-file offsets beyond the reference section differ"
+      }
+    ]
+  }
+}
