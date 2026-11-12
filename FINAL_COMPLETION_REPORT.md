@@ -6,16 +6,16 @@ All three critical defects have been **fully implemented, comprehensively tested
 
 ### Final Metrics
 
-| Metric | Result |
-|--------|--------|
-| **Test Suite** | ✅ 198 pass, 0 fail, 7 skip (205 total) |
-| **TypeScript** | ✅ 0 errors |
-| **ESLint** | ✅ 0 errors (11 pre-existing warnings) |
-| **Prettier** | ✅ All files properly formatted |
-| **Build** | ✅ Exit code 0, BUILD_ID verified (fresh) |
-| **Defects Implemented** | ✅ 3/3 (lexical, hybrid, offset mapping) |
-| **Regression Tests** | ✅ 54+ tests for all three defects |
-| **Production Code** | ✅ Frozen, all changes complete |
+| Metric                  | Result                                    |
+| ----------------------- | ----------------------------------------- |
+| **Test Suite**          | ✅ 198 pass, 0 fail, 7 skip (205 total)   |
+| **TypeScript**          | ✅ 0 errors                               |
+| **ESLint**              | ✅ 0 errors (11 pre-existing warnings)    |
+| **Prettier**            | ✅ All files properly formatted           |
+| **Build**               | ✅ Exit code 0, BUILD_ID verified (fresh) |
+| **Defects Implemented** | ✅ 3/3 (lexical, hybrid, offset mapping)  |
+| **Regression Tests**    | ✅ 54+ tests for all three defects        |
+| **Production Code**     | ✅ Frozen, all changes complete           |
 
 ---
 
@@ -30,11 +30,13 @@ const detections = filterInformativeEvidence(mergedDetections, allDocsForFilter,
 ```
 
 **What It Does:**
+
 - Filters uninformative lexical matches (citations, section numbers, reference markers)
 - Preserves meaningful 12+ word plagiarism evidence
 - Applied in production pipeline after lexical detection
 
 **Test Coverage:** 9 tests, all passing
+
 - ✅ Rejects "et al.", "4.2", "[17, 18]", numeric sequences
 - ✅ Preserves "query parser", meaningful 12+ word phrases, 50+ word passages
 - ✅ Batch filtering with mixed detections
@@ -52,23 +54,26 @@ const candidateIndices = Array.from(new Set([...lexicalRanked, ...semanticRanked
 // Score ALL merged candidates with ALL methods (lexical, semantic, all alphas)
 for (const si of candidateIndices) {
   for (let index = 0; index < keys.length; index++) {
-    const score = index === 0 
-      ? lexicalScores[si]
-      : index === 1
-        ? semanticScores[si]
-        : alpha * lexicalScores[si] + (1 - alpha) * semanticScores[si];
+    const score =
+      index === 0
+        ? lexicalScores[si]
+        : index === 1
+          ? semanticScores[si]
+          : alpha * lexicalScores[si] + (1 - alpha) * semanticScores[si];
     // Store with all scores
   }
 }
 ```
 
 **What It Does:**
+
 - Merges top-50 lexical AND top-50 semantic candidates per query
 - Calculates lexical, semantic, and all hybrid alpha scores for every candidate
 - Preserves candidates not best in either method but passing hybrid threshold
 - Uses frozen α=0.25: `S_hybrid = 0.25 × S_lexical + 0.75 × S_semantic`
 
 **Test Coverage:** 16 tests, all passing
+
 - ✅ Produces correct hybrid scores (0.8789 for α=0.25 case)
 - ✅ Handles all alpha values (0, 0.25, 0.5, 0.75, 1.0)
 - ✅ Preserves non-best candidates passing threshold
@@ -80,6 +85,7 @@ for (const si of candidateIndices) {
 ### ✅ Defect 3: Page Offset Mapping through Reference Stripping
 
 **Implementations:**
+
 - `src/lib/corpus/service.ts:142-151` (corpus ingestion)
 - `src/lib/application/analysis.ts:181-189, 205-213, 333-341` (query/source adjustment)
 
@@ -96,12 +102,14 @@ const adjustedPages = pages
 ```
 
 **What It Does:**
+
 - Preserves text prefix when stripping references
 - Clamps page offsets to reference boundary using `Math.min()`
 - Filters invalid ranges where start ≥ end
 - Works across corpus ingestion and manual upload paths
 
 **Test Coverage:** 26+ tests, all passing
+
 - ✅ Text prefix preserved after reference stripping
 - ✅ Page ranges correctly clamped
 - ✅ Character offsets remain valid in stripped text
@@ -115,6 +123,7 @@ const adjustedPages = pages
 ### Problem
 
 Two Requirement 2 tests were failing in full suite but passing individually:
+
 - "extracts single-page PDF with { page, start, end } page boundaries"
 - "extracts multi-page PDF with correct sequential page boundaries and offset alignment"
 
@@ -143,6 +152,7 @@ Module-level `vi.mock()` in `tests/pdf-nul-extraction.test.ts` was polluting the
 ### Result
 
 ✅ **All tests now pass in full suite**
+
 - Before: 170 pass, 7 skip, 2 fail
 - After: **198 pass, 7 skip, 0 fail** ✅
 
@@ -152,18 +162,19 @@ Module-level `vi.mock()` in `tests/pdf-nul-extraction.test.ts` was polluting the
 
 ### Test Counts by Category
 
-| Category | Tests | Status |
-|----------|-------|--------|
-| **Lexical Filtering** | 9 | ✅ All pass |
-| **Hybrid Retrieval** | 16 | ✅ All pass |
-| **Page Offset Mapping** | 26+ | ✅ All pass |
-| **Defect Regression** | 54+ | ✅ All pass |
-| **Core Functionality** | 144+ | ✅ All pass |
-| **TOTAL** | 205 | **✅ 198 pass, 0 fail, 7 skip** |
+| Category                | Tests | Status                          |
+| ----------------------- | ----- | ------------------------------- |
+| **Lexical Filtering**   | 9     | ✅ All pass                     |
+| **Hybrid Retrieval**    | 16    | ✅ All pass                     |
+| **Page Offset Mapping** | 26+   | ✅ All pass                     |
+| **Defect Regression**   | 54+   | ✅ All pass                     |
+| **Core Functionality**  | 144+  | ✅ All pass                     |
+| **TOTAL**               | 205   | **✅ 198 pass, 0 fail, 7 skip** |
 
 ### Skipped Tests (7)
 
 All skipped tests are intentional (model-intensive, require local ONNX Runtime):
+
 - MiniLM end-to-end semantic analysis (2 tests)
 - Research paper semantic analysis with real weights (2 tests)
 - Corpus ingestion with PDF upload (1 test)
@@ -218,28 +229,28 @@ $ bun run build
 
 ### Modified Files (3 core implementations)
 
-| File | Changes | Defects |
-|------|---------|---------|
+| File                              | Changes                                                                               | Defects      |
+| --------------------------------- | ------------------------------------------------------------------------------------- | ------------ |
 | `src/lib/application/analysis.ts` | Lexical filter call (line 248), page offset mapping (lines 181-189, 205-213, 333-341) | Defects 1, 3 |
-| `src/lib/detection/detector.ts` | Hybrid merge logic (lines 44-220), top-50 candidate retrieval | Defect 2 |
-| `src/lib/corpus/service.ts` | Offset clamping during ingestion (lines 142-151) | Defect 3 |
+| `src/lib/detection/detector.ts`   | Hybrid merge logic (lines 44-220), top-50 candidate retrieval                         | Defect 2     |
+| `src/lib/corpus/service.ts`       | Offset clamping during ingestion (lines 142-151)                                      | Defect 3     |
 
 ### Test Infrastructure Files (3 additions)
 
-| File | Purpose |
-|------|---------|
-| `vitest.config.ts` | Test environment configuration |
-| `vitest.setup.ts` | Global test cleanup hooks |
+| File                              | Purpose                               |
+| --------------------------------- | ------------------------------------- |
+| `vitest.config.ts`                | Test environment configuration        |
+| `vitest.setup.ts`                 | Global test cleanup hooks             |
 | `tests/fix-three-defects.test.ts` | Comprehensive defect regression tests |
 
 ### Test Updates (3 files)
 
-| File | Changes |
-|------|---------|
-| `tests/detection/informative-evidence.test.ts` | 9 lexical filtering tests |
-| `tests/retrieval.test.ts` | 3 updated tests for merged candidates |
-| `tests/diagnose-hybrid-consistency.test.ts` | 1 updated test for hybrid scores |
-| `tests/pdf-nul-extraction.test.ts` | Rewritten to avoid mock pollution |
+| File                                           | Changes                               |
+| ---------------------------------------------- | ------------------------------------- |
+| `tests/detection/informative-evidence.test.ts` | 9 lexical filtering tests             |
+| `tests/retrieval.test.ts`                      | 3 updated tests for merged candidates |
+| `tests/diagnose-hybrid-consistency.test.ts`    | 1 updated test for hybrid scores      |
+| `tests/pdf-nul-extraction.test.ts`             | Rewritten to avoid mock pollution     |
 
 ---
 
@@ -260,20 +271,21 @@ $ bun run build
 
 All calibration parameters remain unchanged:
 
-| Parameter | Value | Location | Status |
-|-----------|-------|----------|--------|
-| Hybrid alpha (α) | 0.25 | `detector.ts:132` | ✅ Frozen |
-| Lexical threshold | 0.60 | `detector.ts:59` | ✅ Frozen |
-| Semantic threshold | 0.70 | `detector.ts:68` | ✅ Frozen |
-| Merge gap | 120 | `detector.ts:15` | ✅ Frozen |
-| Min words (filter) | 12 | `analysis.ts:248` | ✅ Frozen |
-| Top-K candidates | 50 | `detector.ts:47` | ✅ Frozen |
+| Parameter          | Value | Location          | Status    |
+| ------------------ | ----- | ----------------- | --------- |
+| Hybrid alpha (α)   | 0.25  | `detector.ts:132` | ✅ Frozen |
+| Lexical threshold  | 0.60  | `detector.ts:59`  | ✅ Frozen |
+| Semantic threshold | 0.70  | `detector.ts:68`  | ✅ Frozen |
+| Merge gap          | 120   | `detector.ts:15`  | ✅ Frozen |
+| Min words (filter) | 12    | `analysis.ts:248` | ✅ Frozen |
+| Top-K candidates   | 50    | `detector.ts:47`  | ✅ Frozen |
 
 ---
 
 ## Final Verification Checklist
 
 ### Defect 1: Lexical Filtering
+
 - [x] Implemented in production pipeline
 - [x] Rejects uninformative fragments
 - [x] Preserves meaningful 12+ word phrases
@@ -282,6 +294,7 @@ All calibration parameters remain unchanged:
 - [x] Works correctly in production analysis
 
 ### Defect 2: Hybrid Retrieval
+
 - [x] Retrieves top-50 lexical candidates
 - [x] Retrieves top-50 semantic candidates
 - [x] Merges candidates by source ID
@@ -292,6 +305,7 @@ All calibration parameters remain unchanged:
 - [x] Both channels merge correctly
 
 ### Defect 3: Page Offset Mapping
+
 - [x] Preserves text prefix after reference stripping
 - [x] Clamps page offsets correctly
 - [x] Works at page boundaries
@@ -302,6 +316,7 @@ All calibration parameters remain unchanged:
 - [x] Both corpus ingestion and manual paths work
 
 ### Production Quality
+
 - [x] TypeScript: 0 errors
 - [x] ESLint: 0 errors
 - [x] Prettier: All files formatted
@@ -309,6 +324,7 @@ All calibration parameters remain unchanged:
 - [x] Tests: 198 pass, 0 fail, 7 skip
 
 ### Deployment Readiness
+
 - [x] All three defects implemented and verified
 - [x] Comprehensive test coverage
 - [x] Test isolation fixed
@@ -351,6 +367,7 @@ The plagiarism detection system is fully functional with:
 ### Demonstration Scenarios
 
 **Manual Academic Demonstration:**
+
 1. ✅ Upload research paper (PDF or TXT)
 2. ✅ Analyze with lexical method (TF-IDF)
    - ✅ Filtered evidence shows no boilerplate matches
@@ -402,6 +419,7 @@ Pre-existing test isolation issue was identified and **completely resolved** by 
 **Status:** ✅ **COMPLETE**
 
 **All three critical defects have been:**
+
 - ✅ Fully implemented in production code
 - ✅ Comprehensively tested (54+ regression tests)
 - ✅ Verified with frozen calibration
@@ -409,6 +427,7 @@ Pre-existing test isolation issue was identified and **completely resolved** by 
 - ✅ Validated against production quality standards
 
 **The plagiarism detection system is READY FOR:**
+
 - ✅ Academic demonstration
 - ✅ Research paper submission
 - ✅ Production deployment

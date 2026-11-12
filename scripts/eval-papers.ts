@@ -99,10 +99,7 @@ async function loadPdf(filename: string, reference: string): Promise<ExtractedDo
       for (const item of content.items) {
         if (!('str' in item)) continue;
         const y = (item as { transform: number[] }).transform[5];
-        if (
-          previous &&
-          Math.abs(y - previous.y) > Math.max(previous.height, item.height) * 1.6
-        ) {
+        if (previous && Math.abs(y - previous.y) > Math.max(previous.height, item.height) * 1.6) {
           paragraphBreaks.push(text.length + part.length);
         }
         part +=
@@ -451,7 +448,8 @@ async function main(): Promise<void> {
   mdLines.push('| Pair | Query (suspect) | Source (original) | Type |');
   mdLines.push('|------|-----------------|-------------------|------|');
   for (const p of PAIRS) {
-    const type = p.type === 'positive' ? 'Positive' : p.type === 'negative' ? 'Negative' : 'Control';
+    const type =
+      p.type === 'positive' ? 'Positive' : p.type === 'negative' ? 'Negative' : 'Control';
     const optional = p.optional ? ' *(optional)*' : '';
     mdLines.push(`| ${p.id} | ${p.queryFile} | ${p.sourceFile} | ${type}${optional} |`);
   }
@@ -490,7 +488,9 @@ async function main(): Promise<void> {
   );
   mdLines.push('```');
   mdLines.push('');
-  mdLines.push('**C2 rule:** replace exactly 1 in every 10 words scanning left-to-right; pick the first');
+  mdLines.push(
+    '**C2 rule:** replace exactly 1 in every 10 words scanning left-to-right; pick the first',
+  );
   mdLines.push('replaceable word in each window. Case of first letter is preserved.');
   mdLines.push('');
   mdLines.push('**C4-light rule:** replace every 3rd replaceable word (deterministic, seed 42).');
@@ -529,8 +529,12 @@ async function main(): Promise<void> {
     mdLines.push(`**Query:** \`${r.queryFile}\` (QUERY)  `);
     mdLines.push(`**Source:** \`${r.sourceFile}\` (SOURCE)`);
     mdLines.push('');
-    mdLines.push('| Rank | Score | Query offset | Source offset | Query snippet | Source snippet |');
-    mdLines.push('|------|------:|-------------:|--------------:|---------------|----------------|');
+    mdLines.push(
+      '| Rank | Score | Query offset | Source offset | Query snippet | Source snippet |',
+    );
+    mdLines.push(
+      '|------|------:|-------------:|--------------:|---------------|----------------|',
+    );
     for (let i = 0; i < r.top10Alerts.length; i++) {
       const a = r.top10Alerts[i];
       const qSnip = a.querySnippet.replace(/\|/g, '\\|').slice(0, 80);

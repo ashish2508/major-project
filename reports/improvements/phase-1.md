@@ -12,12 +12,12 @@ Repairs are applied **per page** inside `extractFile()` so `pages[]` boundaries 
 
 ## Files changed
 
-| File | Change |
-|------|--------|
-| `src/lib/documents/repair.ts` | New — `repairText()`, `mapOffset()`, types |
-| `src/lib/documents/ligature-words.txt` | New — 46 deduplicated, alphabetically sorted words |
-| `src/lib/documents/extract.ts` | Import `repairText`; apply per-page; propagate `offsetMap` |
-| `tests/repair.test.ts` | New — 13 tests covering all specified cases |
+| File                                   | Change                                                     |
+| -------------------------------------- | ---------------------------------------------------------- |
+| `src/lib/documents/repair.ts`          | New — `repairText()`, `mapOffset()`, types                 |
+| `src/lib/documents/ligature-words.txt` | New — 46 deduplicated, alphabetically sorted words         |
+| `src/lib/documents/extract.ts`         | Import `repairText`; apply per-page; propagate `offsetMap` |
+| `tests/repair.test.ts`                 | New — 13 tests covering all specified cases                |
 
 ## Test results
 
@@ -49,23 +49,23 @@ The evaluation set uses one PDF source (`liu-2020-e21808.pdf`) and one PDF query
 
 The primary effect of Phase 1 is **improved human-readable snippet display** (joined words instead of split fragments) and **correct tokenisation for the Phase 2 IDF refit** (joined words will now be counted as single vocabulary items).
 
-| pair | method | before_informativeAlerts | after_informativeAlerts | change |
-|------|--------|-------------------------:|------------------------:|--------|
-| P1 | lexical | 8 | 8 | 0 |
-| P1 | semantic | 97 | 97 | 0 |
-| P1 | hybrid | 36 | 36 | 0 |
-| C1 | lexical | 4 | 4 | 0 |
-| C1 | semantic | 273 | 273 | 0 |
-| C1 | hybrid | 162 | 162 | 0 |
-| C2 | lexical | 4 | 4 | 0 |
-| C2 | semantic | 262 | 262 | 0 |
-| C2 | hybrid | 142 | 142 | 0 |
-| C3 | lexical | 67 | 67 | 0 |
-| C3 | semantic | 367 | 367 | 0 |
-| C3 | hybrid | 202 | 202 | 0 |
-| C4-light | lexical | 4 | 4 | 0 |
-| C4-light | semantic | 267 | 267 | 0 |
-| C4-light | hybrid | 156 | 156 | 0 |
+| pair     | method   | before_informativeAlerts | after_informativeAlerts | change |
+| -------- | -------- | -----------------------: | ----------------------: | ------ |
+| P1       | lexical  |                        8 |                       8 | 0      |
+| P1       | semantic |                       97 |                      97 | 0      |
+| P1       | hybrid   |                       36 |                      36 | 0      |
+| C1       | lexical  |                        4 |                       4 | 0      |
+| C1       | semantic |                      273 |                     273 | 0      |
+| C1       | hybrid   |                      162 |                     162 | 0      |
+| C2       | lexical  |                        4 |                       4 | 0      |
+| C2       | semantic |                      262 |                     262 | 0      |
+| C2       | hybrid   |                      142 |                     142 | 0      |
+| C3       | lexical  |                       67 |                      67 | 0      |
+| C3       | semantic |                      367 |                     367 | 0      |
+| C3       | hybrid   |                      202 |                     202 | 0      |
+| C4-light | lexical  |                        4 |                       4 | 0      |
+| C4-light | semantic |                      267 |                     267 | 0      |
+| C4-light | hybrid   |                      156 |                     156 | 0      |
 
 ## Offset map behaviour
 

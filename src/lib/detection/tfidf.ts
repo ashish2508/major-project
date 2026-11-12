@@ -7,7 +7,19 @@ export function lexicalTokens(text: string): string[] {
       .match(/[\p{L}\p{N}]+/gu) ?? []
   );
 }
+
+/** Metadata describing how a research-mode Tfidf was fitted. */
+export interface TfidfFitMetadata {
+  passages: number;
+  documents: number;
+  backgroundPassages: number;
+  source: string;
+}
+
 export class Tfidf {
+  /** Set by fitOnPassages() to describe how this instance was created. */
+  fittedOn?: TfidfFitMetadata;
+
   constructor(
     readonly idf: Record<string, number>,
     readonly trainingPassages: number,
@@ -23,6 +35,51 @@ export class Tfidf {
       ),
       texts.length,
     );
+  }
+
+  /**
+   * Fit IDF on the supplied passages (and optional background passages).
+   *
+   * All terms that appear in any passage are included in the vocabulary — no
+   * OOV dropping at fit time. This is the correct approach for research-paper
+   * mode where the PAN book vocabulary would leave domain-specific terms as
+   * out-of-vocabulary (silently scoring zero).
+   *
+   * Formula: IDF(t) = log((1 + N) / (1 + df(t))) + 1
+   *   where N  = total number of passages (supplied + background)
+   *         df = number of passages containing term t
+   *
+   * @param passages          Query and source passages from the documents being analysed.
+   * @param backgroundPassages Optional additional passages used only for IDF estimation.
+   * @param documents         Number of distinct source documents (for metadata only).
+   * @returns A new Tfidf instance fitted on these passages.
+   */
+  static fitOnPassages(
+    passages: string[],
+    backgroundPassages?: string[],
+    documents?: number,
+  ): Tfidf {
+    const bg = backgroundPassages ?? [];
+    const allPassages = [...passages, ...bg];
+    const N = allPassages.length;
+    if (N === 0) throw new Error('Cannot fit TF-IDF without passages');
+
+    const df = new Map<string, number>();
+    for (const t of allPassages)
+      for (const word of new Set(lexicalTokens(t))) df.set(word, (df.get(word) ?? 0) + 1);
+
+    const idf = Object.fromEntries(
+      [...df].map(([word, n]) => [word, Math.log((1 + N) / (1 + n)) + 1]),
+    );
+
+    const instance = new Tfidf(idf, N);
+    instance.fittedOn = {
+      passages: passages.length,
+      documents: documents ?? 0,
+      backgroundPassages: bg.length,
+      source: 'fitOnPassages',
+    };
+    return instance;
   }
   transform(text: string): SparseVector {
     const counts = new Map<string, number>();

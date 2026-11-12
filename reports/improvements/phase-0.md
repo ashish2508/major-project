@@ -4,15 +4,15 @@
 
 ## Role Assignments
 
-| Pair | Query (suspect) | Source (original) | Type |
-|------|-----------------|-------------------|------|
-| P1 | qiu-2020-e22022.pdf | liu-2020-e21808.pdf | Positive |
-| C1 | c1-exact-copy.txt | liu-2020-e21808.pdf | Control |
-| C2 | c2-synonym-replace.txt | liu-2020-e21808.pdf | Control |
-| C3 | c3-sentence-shuffle.txt | liu-2020-e21808.pdf | Control |
-| C4-light | c4-light-auto-paraphrase.txt | liu-2020-e21808.pdf | Control |
-| N1 | zhu-2020-e22356.pdf | liu-2020-e21808.pdf | Negative *(optional)* |
-| N2 | tanreqing-2020-pmc7458256.pdf | liu-2020-e21808.pdf | Negative *(optional)* |
+| Pair     | Query (suspect)               | Source (original)   | Type                  |
+| -------- | ----------------------------- | ------------------- | --------------------- |
+| P1       | qiu-2020-e22022.pdf           | liu-2020-e21808.pdf | Positive              |
+| C1       | c1-exact-copy.txt             | liu-2020-e21808.pdf | Control               |
+| C2       | c2-synonym-replace.txt        | liu-2020-e21808.pdf | Control               |
+| C3       | c3-sentence-shuffle.txt       | liu-2020-e21808.pdf | Control               |
+| C4-light | c4-light-auto-paraphrase.txt  | liu-2020-e21808.pdf | Control               |
+| N1       | zhu-2020-e22356.pdf           | liu-2020-e21808.pdf | Negative _(optional)_ |
+| N2       | tanreqing-2020-pmc7458256.pdf | liu-2020-e21808.pdf | Negative _(optional)_ |
 
 ## Synonym Map (C2 and C4-light)
 
@@ -48,29 +48,29 @@ replaceable word in each window. Case of first letter is preserved.
 
 ## Baseline Results
 
-| Pair | Query (QUERY) | Method | Total Alerts | Informative Alerts | Query Coverage | Skipped |
-|------|--------------|--------|-------------:|-------------------:|---------------:|---------|
-| P1 | qiu-2020-e22022.pdf | lexical | 8 | 8 | 14.0% | |
-| P1 | qiu-2020-e22022.pdf | semantic | 97 | 97 | 43.3% | |
-| P1 | qiu-2020-e22022.pdf | hybrid | 36 | 36 | 23.6% | |
-| C1 | c1-exact-copy.txt | lexical | 4 | 4 | 81.8% | |
-| C1 | c1-exact-copy.txt | semantic | 273 | 273 | 81.8% | |
-| C1 | c1-exact-copy.txt | hybrid | 162 | 162 | 81.2% | |
-| C2 | c2-synonym-replace.txt | lexical | 4 | 4 | 79.7% | |
-| C2 | c2-synonym-replace.txt | semantic | 262 | 262 | 80.4% | |
-| C2 | c2-synonym-replace.txt | hybrid | 142 | 142 | 79.1% | |
-| C3 | c3-sentence-shuffle.txt | lexical | 67 | 67 | 83.6% | |
-| C3 | c3-sentence-shuffle.txt | semantic | 367 | 367 | 86.6% | |
-| C3 | c3-sentence-shuffle.txt | hybrid | 202 | 202 | 83.0% | |
-| C4-light | c4-light-auto-paraphrase.txt | lexical | 4 | 4 | 79.7% | |
-| C4-light | c4-light-auto-paraphrase.txt | semantic | 267 | 267 | 79.7% | |
-| C4-light | c4-light-auto-paraphrase.txt | hybrid | 156 | 156 | 79.1% | |
-| N1 | zhu-2020-e22356.pdf | lexical | — | — | — | ✗ zhu-2020-e22356.pdf not found |
-| N1 | zhu-2020-e22356.pdf | semantic | — | — | — | ✗ zhu-2020-e22356.pdf not found |
-| N1 | zhu-2020-e22356.pdf | hybrid | — | — | — | ✗ zhu-2020-e22356.pdf not found |
-| N2 | tanreqing-2020-pmc7458256.pdf | lexical | — | — | — | ✗ tanreqing-2020-pmc7458256.pdf not found |
-| N2 | tanreqing-2020-pmc7458256.pdf | semantic | — | — | — | ✗ tanreqing-2020-pmc7458256.pdf not found |
-| N2 | tanreqing-2020-pmc7458256.pdf | hybrid | — | — | — | ✗ tanreqing-2020-pmc7458256.pdf not found |
+| Pair     | Query (QUERY)                 | Method   | Total Alerts | Informative Alerts | Query Coverage | Skipped                                   |
+| -------- | ----------------------------- | -------- | -----------: | -----------------: | -------------: | ----------------------------------------- |
+| P1       | qiu-2020-e22022.pdf           | lexical  |            3 |                  3 |           8.3% |                                           |
+| P1       | qiu-2020-e22022.pdf           | semantic |           97 |                 97 |          43.3% |                                           |
+| P1       | qiu-2020-e22022.pdf           | hybrid   |           25 |                 25 |          24.4% |                                           |
+| C1       | c1-exact-copy.txt             | lexical  |            3 |                  3 |          82.6% |                                           |
+| C1       | c1-exact-copy.txt             | semantic |          274 |                274 |          81.8% |                                           |
+| C1       | c1-exact-copy.txt             | hybrid   |          161 |                161 |          81.2% |                                           |
+| C2       | c2-synonym-replace.txt        | lexical  |            3 |                  3 |          80.5% |                                           |
+| C2       | c2-synonym-replace.txt        | semantic |          265 |                265 |          80.4% |                                           |
+| C2       | c2-synonym-replace.txt        | hybrid   |          140 |                140 |          79.1% |                                           |
+| C3       | c3-sentence-shuffle.txt       | lexical  |           62 |                 62 |          82.3% |                                           |
+| C3       | c3-sentence-shuffle.txt       | semantic |          366 |                366 |          87.2% |                                           |
+| C3       | c3-sentence-shuffle.txt       | hybrid   |          193 |                193 |          83.0% |                                           |
+| C4-light | c4-light-auto-paraphrase.txt  | lexical  |            3 |                  3 |          80.5% |                                           |
+| C4-light | c4-light-auto-paraphrase.txt  | semantic |          269 |                269 |          79.7% |                                           |
+| C4-light | c4-light-auto-paraphrase.txt  | hybrid   |          149 |                149 |          79.1% |                                           |
+| N1       | zhu-2020-e22356.pdf           | lexical  |            — |                  — |              — | ✗ zhu-2020-e22356.pdf not found           |
+| N1       | zhu-2020-e22356.pdf           | semantic |            — |                  — |              — | ✗ zhu-2020-e22356.pdf not found           |
+| N1       | zhu-2020-e22356.pdf           | hybrid   |            — |                  — |              — | ✗ zhu-2020-e22356.pdf not found           |
+| N2       | tanreqing-2020-pmc7458256.pdf | lexical  |            — |                  — |              — | ✗ tanreqing-2020-pmc7458256.pdf not found |
+| N2       | tanreqing-2020-pmc7458256.pdf | semantic |            — |                  — |              — | ✗ tanreqing-2020-pmc7458256.pdf not found |
+| N2       | tanreqing-2020-pmc7458256.pdf | hybrid   |            — |                  — |              — | ✗ tanreqing-2020-pmc7458256.pdf not found |
 
 ## Top-10 Alerts Per Pair × Method
 
@@ -79,250 +79,242 @@ replaceable word in each window. Case of first letter is preserved.
 **Query:** `qiu-2020-e22022.pdf` (QUERY)  
 **Source:** `liu-2020-e21808.pdf` (SOURCE)
 
-| Rank | Score | Query offset | Source offset | Query snippet | Source snippet |
-|------|------:|-------------:|--------------:|---------------|----------------|
-| 1 | 1.0000 | 3920 | 3028 | Data sharing not applicable to this article as no datasets were generated or ana | Data sharing not applicable to this article as no datasets were generated or ana |
-| 2 | 1.0000 | 4552 | 3915 | Copyright © 2020 the Author(s). Published by Wolters Kluwer Health, Inc. This is | Copyright © 2020 the Author(s). Published by Wolters Kluwer Health, Inc. This is |
-| 3 | 1.0000 | 6076 | 7519 | 3. Methods The protocol of our MAs followed the guideline of the Preferred Repor | 3. Methods The methodology of this systematic review will be guided by the Prefe |
-| 4 | 1.0000 | 1542 | 1861 | This evidence may also provide helpful evidence of whether Tanreqing Injection t | Conclusion: Our study will provide comprehensive evidence to decide whether TRQ  |
-| 5 | 0.7834 | 11961 | 7202 | It is not clear how Tanreqing Injection affects the treatment of viral pneumonia | Therefore, the aim of this systematic review is to assess the ef fi cacy and saf |
-| 6 | 0.6737 | 334 | 445 | The objective of this study was to assess the ef fi cacy and safety of Tanreqing | However, the ef fi ciency and safety of TRQ injection for viral pneumonia have n |
-| 7 | 0.6115 | 1338 | 16788 | Results: The results will be published in a peer-reviewed journal. Conclusion: T | The results of this review will be published in related conferences or peer-revi |
-| 8 | 0.6105 | 3643 | 3430 | This protocol is funded by Department of General Internal Medicine, The Third Af | ∗ Correspondence: Yu Hao, Department of Immunology and Microbiology, School of L |
+| Rank |  Score | Query offset | Source offset | Query snippet                                                                    | Source snippet                                                                   |
+| ---- | -----: | -----------: | ------------: | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| 1    | 1.0000 |         4552 |          3915 | Copyright © 2020 the Author(s). Published by Wolters Kluwer Health, Inc. This is | Copyright © 2020 the Author(s). Published by Wolters Kluwer Health, Inc. This is |
+| 2    | 1.0000 |         3920 |          3028 | Data sharing not applicable to this article as no datasets were generated or ana | Data sharing not applicable to this article as no datasets were generated or ana |
+| 3    | 0.6104 |        12043 |          4299 | This systematic review and meta-analysis will evaluate the ef fi cacy and safety | Effects and safety of tanreqing injection on viral pneumonia: A protocol for sys |
 
 ### P1 — semantic
 
 **Query:** `qiu-2020-e22022.pdf` (QUERY)  
 **Source:** `liu-2020-e21808.pdf` (SOURCE)
 
-| Rank | Score | Query offset | Source offset | Query snippet | Source snippet |
-|------|------:|-------------:|--------------:|---------------|----------------|
-| 1 | 1.0000 | 4552 | 3915 | Copyright © 2020 the Author(s). Published by Wolters Kluwer Health, Inc. This is | Copyright © 2020 the Author(s). Published by Wolters Kluwer Health, Inc. This is |
-| 2 | 1.0000 | 4588 | 3915 | Published by Wolters Kluwer Health, Inc. This is an open access article distribu | Copyright © 2020 the Author(s). Published by Wolters Kluwer Health, Inc. This is |
-| 3 | 1.0000 | 6079 | 7519 | Methods The protocol of our MAs followed the guideline of the Preferred Reportin | 3. Methods The methodology of this systematic review will be guided by the Prefe |
-| 4 | 1.0000 | 3786 | 2971 | The author(s) declared no potential con fl icts of interest with respect to the  | The authors have no con fl icts of interest to disclose. Data sharing not applic |
-| 5 | 0.9995 | 4915 | 4218 | Effects and safety of Tanreqing injection on viral pneumonia: A protocol for sys | How to cite this article: Liu H, Ding XF, Guo R, Zhao MF, Deng D, Hao Y, Wang Y. |
-| 6 | 0.9650 | 1542 | 1861 | This evidence may also provide helpful evidence of whether Tanreqing Injection t | Conclusion: Our study will provide comprehensive evidence to decide whether TRQ  |
-| 7 | 0.9560 | 51 | 51 | pneumonia A protocol for systematic review and meta-analysis Yue Qiu a , Xue Pan | pneumonia A protocol for systematic review and meta-analysis Hui Liu, PhD a , Xu |
-| 8 | 0.9492 | 11247 | 14586 | The statistical signi fi cance will be assessed for P < .05, and moderate to hig | If I 2 < 50% or P > .1, which indicates that there is no statistical heterogenei |
-| 9 | 0.9352 | 3255 | 4218 | [10] Three systematic reviews of Tanreqing Injection in the treatment of viral p | How to cite this article: Liu H, Ding XF, Guo R, Zhao MF, Deng D, Hao Y, Wang Y. |
-| 10 | 0.9339 | 12185 | 4218 | The results of this review will be widely disseminated through peer-reviewed pub | How to cite this article: Liu H, Ding XF, Guo R, Zhao MF, Deng D, Hao Y, Wang Y. |
+| Rank |  Score | Query offset | Source offset | Query snippet                                                                    | Source snippet                                                                   |
+| ---- | -----: | -----------: | ------------: | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| 1    | 1.0000 |         4552 |          3915 | Copyright © 2020 the Author(s). Published by Wolters Kluwer Health, Inc. This is | Copyright © 2020 the Author(s). Published by Wolters Kluwer Health, Inc. This is |
+| 2    | 1.0000 |         4588 |          3915 | Published by Wolters Kluwer Health, Inc. This is an open access article distribu | Copyright © 2020 the Author(s). Published by Wolters Kluwer Health, Inc. This is |
+| 3    | 1.0000 |         6079 |          7519 | Methods The protocol of our MAs followed the guideline of the Preferred Reportin | 3. Methods The methodology of this systematic review will be guided by the Prefe |
+| 4    | 1.0000 |         3786 |          2971 | The author(s) declared no potential con fl icts of interest with respect to the  | The authors have no con fl icts of interest to disclose. Data sharing not applic |
+| 5    | 0.9995 |         4915 |          4218 | Effects and safety of Tanreqing injection on viral pneumonia: A protocol for sys | How to cite this article: Liu H, Ding XF, Guo R, Zhao MF, Deng D, Hao Y, Wang Y. |
+| 6    | 0.9650 |         1542 |          1861 | This evidence may also provide helpful evidence of whether Tanreqing Injection t | Conclusion: Our study will provide comprehensive evidence to decide whether TRQ  |
+| 7    | 0.9560 |           51 |            51 | pneumonia A protocol for systematic review and meta-analysis Yue Qiu a , Xue Pan | pneumonia A protocol for systematic review and meta-analysis Hui Liu, PhD a , Xu |
+| 8    | 0.9492 |        11247 |         14586 | The statistical signi fi cance will be assessed for P < .05, and moderate to hig | If I 2 < 50% or P > .1, which indicates that there is no statistical heterogenei |
+| 9    | 0.9352 |         3255 |          4218 | [10] Three systematic reviews of Tanreqing Injection in the treatment of viral p | How to cite this article: Liu H, Ding XF, Guo R, Zhao MF, Deng D, Hao Y, Wang Y. |
+| 10   | 0.9339 |        12185 |          4218 | The results of this review will be widely disseminated through peer-reviewed pub | How to cite this article: Liu H, Ding XF, Guo R, Zhao MF, Deng D, Hao Y, Wang Y. |
 
 ### P1 — hybrid
 
 **Query:** `qiu-2020-e22022.pdf` (QUERY)  
 **Source:** `liu-2020-e21808.pdf` (SOURCE)
 
-| Rank | Score | Query offset | Source offset | Query snippet | Source snippet |
-|------|------:|-------------:|--------------:|---------------|----------------|
-| 1 | 1.0000 | 4588 | 3915 | Published by Wolters Kluwer Health, Inc. This is an open access article distribu | Copyright © 2020 the Author(s). Published by Wolters Kluwer Health, Inc. This is |
-| 2 | 1.0000 | 3786 | 2971 | The author(s) declared no potential con fl icts of interest with respect to the  | The authors have no con fl icts of interest to disclose. Data sharing not applic |
-| 3 | 1.0000 | 4588 | 3992 | Published by Wolters Kluwer Health, Inc. This is an open access article distribu | This is an open access article distributed under the Creative Commons Attributio |
-| 4 | 1.0000 | 4629 | 3951 | This is an open access article distributed under the Creative Commons Attributio | Published by Wolters Kluwer Health, Inc. This is an open access article distribu |
-| 5 | 0.9537 | 11247 | 14586 | The statistical signi fi cance will be assessed for P < .05, and moderate to hig | If I 2 < 50% or P > .1, which indicates that there is no statistical heterogenei |
-| 6 | 0.8488 | 11961 | 4218 | It is not clear how Tanreqing Injection affects the treatment of viral pneumonia | How to cite this article: Liu H, Ding XF, Guo R, Zhao MF, Deng D, Hao Y, Wang Y. |
-| 7 | 0.8437 | 51 | 51 | pneumonia A protocol for systematic review and meta-analysis Yue Qiu a , Xue Pan | pneumonia A protocol for systematic review and meta-analysis Hui Liu, PhD a , Xu |
-| 8 | 0.8299 | 12043 | 4218 | This systematic review and meta-analysis will evaluate the ef fi cacy and safety | How to cite this article: Liu H, Ding XF, Guo R, Zhao MF, Deng D, Hao Y, Wang Y. |
-| 9 | 0.8057 | 6079 | 7519 | Methods The protocol of our MAs followed the guideline of the Preferred Reportin | 3. Methods The methodology of this systematic review will be guided by the Prefe |
-| 10 | 0.7964 | 2995 | 4299 | [8,9] In the diagnosis and treatment of new type of coronavirus pneumonia in Chi | Effects and safety of tanreqing injection on viral pneumonia: A protocol for sys |
+| Rank |  Score | Query offset | Source offset | Query snippet                                                                    | Source snippet                                                                   |
+| ---- | -----: | -----------: | ------------: | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| 1    | 1.0000 |         4588 |          3915 | Published by Wolters Kluwer Health, Inc. This is an open access article distribu | Copyright © 2020 the Author(s). Published by Wolters Kluwer Health, Inc. This is |
+| 2    | 1.0000 |         3786 |          2971 | The author(s) declared no potential con fl icts of interest with respect to the  | The authors have no con fl icts of interest to disclose. Data sharing not applic |
+| 3    | 0.9539 |        11247 |         14586 | The statistical signi fi cance will be assessed for P < .05, and moderate to hig | If I 2 < 50% or P > .1, which indicates that there is no statistical heterogenei |
+| 4    | 0.9440 |         4915 |          4218 | Effects and safety of Tanreqing injection on viral pneumonia: A protocol for sys | How to cite this article: Liu H, Ding XF, Guo R, Zhao MF, Deng D, Hao Y, Wang Y. |
+| 5    | 0.8119 |        11961 |          4218 | It is not clear how Tanreqing Injection affects the treatment of viral pneumonia | How to cite this article: Liu H, Ding XF, Guo R, Zhao MF, Deng D, Hao Y, Wang Y. |
+| 6    | 0.8002 |         8640 |         12756 | 3.4. Data extraction and management The data will be extracted out by two indepe | 3.3.3. Assessment of the risk of bias. The risk of bias of each included article |
+| 7    | 0.7935 |        12043 |          4299 | This systematic review and meta-analysis will evaluate the ef fi cacy and safety | Effects and safety of tanreqing injection on viral pneumonia: A protocol for sys |
+| 8    | 0.7935 |           51 |            51 | pneumonia A protocol for systematic review and meta-analysis Yue Qiu a , Xue Pan | pneumonia A protocol for systematic review and meta-analysis Hui Liu, PhD a , Xu |
+| 9    | 0.7654 |         1338 |         16788 | Results: The results will be published in a peer-reviewed journal. Conclusion: T | The results of this review will be published in related conferences or peer-revi |
+| 10   | 0.7553 |         3255 |          4299 | [10] Three systematic reviews of Tanreqing Injection in the treatment of viral p | Effects and safety of tanreqing injection on viral pneumonia: A protocol for sys |
 
 ### C1 — lexical
 
 **Query:** `c1-exact-copy.txt` (QUERY)  
 **Source:** `liu-2020-e21808.pdf` (SOURCE)
 
-| Rank | Score | Query offset | Source offset | Query snippet | Source snippet |
-|------|------:|-------------:|--------------:|---------------|----------------|
-| 1 | 1.0000 | 51 | 51 | pneumonia A protocol for systematic review and meta-analysis Hui Liu, PhD a , Xu | pneumonia A protocol for systematic review and meta-analysis Hui Liu, PhD a , Xu |
-| 2 | 1.0000 | 4654 | 4654 | viruses, in fl uenza viruses, parain fl uenza viruses, adenoviruses, human metap | viruses, in fl uenza viruses, parain fl uenza viruses, adenoviruses, human metap |
-| 3 | 1.0000 | 15522 | 15766 | Subgroup analysis. If a suf fi cient number of random trials and the evident het | and the elderly; (2) The ef fi cacy of TRQ alone versus western medicine or comb |
-| 4 | 1.0000 | 16311 | 16430 | Grading the quality of evidence. The Grading of Recommendations Assessment, Deve | Liu et al. Medicine (2020) 99:35 www.md-journal.com 3 guidelines will be used to |
+| Rank |  Score | Query offset | Source offset | Query snippet                                                                    | Source snippet                                                                   |
+| ---- | -----: | -----------: | ------------: | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| 1    | 1.0000 |           51 |            51 | pneumonia A protocol for systematic review and meta-analysis Hui Liu, PhD a , Xu | pneumonia A protocol for systematic review and meta-analysis Hui Liu, PhD a , Xu |
+| 2    | 1.0000 |        15522 |         15766 | Subgroup analysis. If a suf fi cient number of random trials and the evident het | and the elderly; (2) The ef fi cacy of TRQ alone versus western medicine or comb |
+| 3    | 1.0000 |        16354 |         16430 | The Grading of Recommendations Assessment, Development, and Evaluation Liu et al | Liu et al. Medicine (2020) 99:35 www.md-journal.com 3 guidelines will be used to |
 
 ### C1 — semantic
 
 **Query:** `c1-exact-copy.txt` (QUERY)  
 **Source:** `liu-2020-e21808.pdf` (SOURCE)
 
-| Rank | Score | Query offset | Source offset | Query snippet | Source snippet |
-|------|------:|-------------:|--------------:|---------------|----------------|
-| 1 | 1.0000 | 2453 | 2525 | [1,2] In the recent prospective pneumonia etiology studies, respiratory viruses  | viruses were more commonly detected than bacteria in both adults and children, a |
-| 2 | 1.0000 | 2780 | 2780 | This study was supported by the National Natural Science Foundation of China (No | This study was supported by the National Natural Science Foundation of China (No |
-| 3 | 1.0000 | 3804 | 3808 | No. 16, Nanxiao Road, Dongzhimen, Dongcheng District, Beijing 100700, China (e-m | 16, Nanxiao Road, Dongzhimen, Dongcheng District, Beijing 100700, China (e-mail: |
-| 4 | 1.0000 | 3808 | 3804 | 16, Nanxiao Road, Dongzhimen, Dongcheng District, Beijing 100700, China (e-mail: | No. 16, Nanxiao Road, Dongzhimen, Dongcheng District, Beijing 100700, China (e-m |
-| 5 | 1.0000 | 4796 | 4919 | [4] The primary symptoms of viral pneumonia are fever, cough with or without phl | If uncontrolled well, respiratory distress syndrome, and shock may be caused sec |
-| 6 | 1.0000 | 5810 | 5603 | [6 – 10] Tanreqing (TRQ) injection is one of the important TCM injection, which  | Traditional Chinese Medicine (TCM) has been shown its unique advantages in treat |
-| 7 | 1.0000 | 6271 | 6140 | [12] Except for those functions in TCM theory, modern pharmacologic studies con  | Hard-wicke ), [11] has marked effects of clearing heat, reducing in fl ammation, |
-| 8 | 1.0000 | 8099 | 8189 | Participants with critical organ dysfunction or severe mental disorders will be  | Additionally, patients with atopy will be excluded. The speci fi c criteria are  |
-| 9 | 1.0000 | 8189 | 8099 | Additionally, patients with atopy will be excluded. The speci fi c criteria are  | Participants with critical organ dysfunction or severe mental disorders will be  |
-| 10 | 1.0000 | 8431 | 8351 | (3) Informed consents were got from patients themselves or their families. 3.1.2 | (2) The age, race, gender, severity, and duration of disease are not limited. (3 |
+| Rank |  Score | Query offset | Source offset | Query snippet                                                                    | Source snippet                                                                   |
+| ---- | -----: | -----------: | ------------: | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| 1    | 1.0000 |         2453 |          2525 | [1,2] In the recent prospective pneumonia etiology studies, respiratory viruses  | viruses were more commonly detected than bacteria in both adults and children, a |
+| 2    | 1.0000 |         2780 |          2780 | This study was supported by the National Natural Science Foundation of China (No | This study was supported by the National Natural Science Foundation of China (No |
+| 3    | 1.0000 |         3804 |          3808 | No. 16, Nanxiao Road, Dongzhimen, Dongcheng District, Beijing 100700, China (e-m | 16, Nanxiao Road, Dongzhimen, Dongcheng District, Beijing 100700, China (e-mail: |
+| 4    | 1.0000 |         3808 |          3804 | 16, Nanxiao Road, Dongzhimen, Dongcheng District, Beijing 100700, China (e-mail: | No. 16, Nanxiao Road, Dongzhimen, Dongcheng District, Beijing 100700, China (e-m |
+| 5    | 1.0000 |         4796 |          4919 | [4] The primary symptoms of viral pneumonia are fever, cough with or without phl | If uncontrolled well, respiratory distress syndrome, and shock may be caused sec |
+| 6    | 1.0000 |         5810 |          5603 | [6 – 10] Tanreqing (TRQ) injection is one of the important TCM injection, which  | Traditional Chinese Medicine (TCM) has been shown its unique advantages in treat |
+| 7    | 1.0000 |         6271 |          6140 | [12] Except for those functions in TCM theory, modern pharmacologic studies con  | Hard-wicke ), [11] has marked effects of clearing heat, reducing in fl ammation, |
+| 8    | 1.0000 |         8099 |          8189 | Participants with critical organ dysfunction or severe mental disorders will be  | Additionally, patients with atopy will be excluded. The speci fi c criteria are  |
+| 9    | 1.0000 |         8189 |          8099 | Additionally, patients with atopy will be excluded. The speci fi c criteria are  | Participants with critical organ dysfunction or severe mental disorders will be  |
+| 10   | 1.0000 |         8431 |          8351 | (3) Informed consents were got from patients themselves or their families. 3.1.2 | (2) The age, race, gender, severity, and duration of disease are not limited. (3 |
 
 ### C1 — hybrid
 
 **Query:** `c1-exact-copy.txt` (QUERY)  
 **Source:** `liu-2020-e21808.pdf` (SOURCE)
 
-| Rank | Score | Query offset | Source offset | Query snippet | Source snippet |
-|------|------:|-------------:|--------------:|---------------|----------------|
-| 1 | 1.0000 | 2453 | 2525 | [1,2] In the recent prospective pneumonia etiology studies, respiratory viruses  | viruses were more commonly detected than bacteria in both adults and children, a |
-| 2 | 1.0000 | 3804 | 3808 | No. 16, Nanxiao Road, Dongzhimen, Dongcheng District, Beijing 100700, China (e-m | 16, Nanxiao Road, Dongzhimen, Dongcheng District, Beijing 100700, China (e-mail: |
-| 3 | 1.0000 | 3808 | 3804 | 16, Nanxiao Road, Dongzhimen, Dongcheng District, Beijing 100700, China (e-mail: | No. 16, Nanxiao Road, Dongzhimen, Dongcheng District, Beijing 100700, China (e-m |
-| 4 | 1.0000 | 3951 | 3992 | Published by Wolters Kluwer Health, Inc. This is an open access article distribu | This is an open access article distributed under the Creative Commons Attributio |
-| 5 | 1.0000 | 4796 | 4919 | [4] The primary symptoms of viral pneumonia are fever, cough with or without phl | If uncontrolled well, respiratory distress syndrome, and shock may be caused sec |
-| 6 | 1.0000 | 5810 | 5603 | [6 – 10] Tanreqing (TRQ) injection is one of the important TCM injection, which  | Traditional Chinese Medicine (TCM) has been shown its unique advantages in treat |
-| 7 | 1.0000 | 6271 | 6140 | [12] Except for those functions in TCM theory, modern pharmacologic studies con  | Hard-wicke ), [11] has marked effects of clearing heat, reducing in fl ammation, |
-| 8 | 1.0000 | 8099 | 8189 | Participants with critical organ dysfunction or severe mental disorders will be  | Additionally, patients with atopy will be excluded. The speci fi c criteria are  |
-| 9 | 1.0000 | 8677 | 8600 | (2) Severe mental disorders or any other diseases in fl uence compliance. (3) Al | dysfunction, hepatic or kidney failure, or serious uncon- trolled infection. (2) |
-| 10 | 1.0000 | 8983 | 9127 | In the treatment group, the intervention will be TRQ injection or TRQ injection  | Under normal conditions, patients in control group will be treated with western  |
+| Rank |  Score | Query offset | Source offset | Query snippet                                                                    | Source snippet                                                                   |
+| ---- | -----: | -----------: | ------------: | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| 1    | 1.0000 |         2780 |          2780 | This study was supported by the National Natural Science Foundation of China (No | This study was supported by the National Natural Science Foundation of China (No |
+| 2    | 1.0000 |         3804 |          3808 | No. 16, Nanxiao Road, Dongzhimen, Dongcheng District, Beijing 100700, China (e-m | 16, Nanxiao Road, Dongzhimen, Dongcheng District, Beijing 100700, China (e-mail: |
+| 3    | 1.0000 |         4218 |          4218 | How to cite this article: Liu H, Ding XF, Guo R, Zhao MF, Deng D, Hao Y, Wang Y. | How to cite this article: Liu H, Ding XF, Guo R, Zhao MF, Deng D, Hao Y, Wang Y. |
+| 4    | 1.0000 |         4796 |          4919 | [4] The primary symptoms of viral pneumonia are fever, cough with or without phl | If uncontrolled well, respiratory distress syndrome, and shock may be caused sec |
+| 5    | 1.0000 |         5810 |          5603 | [6 – 10] Tanreqing (TRQ) injection is one of the important TCM injection, which  | Traditional Chinese Medicine (TCM) has been shown its unique advantages in treat |
+| 6    | 1.0000 |         8099 |          8189 | Participants with critical organ dysfunction or severe mental disorders will be  | Additionally, patients with atopy will be excluded. The speci fi c criteria are  |
+| 7    | 1.0000 |         8099 |          8099 | Participants with critical organ dysfunction or severe mental disorders will be  | Participants with critical organ dysfunction or severe mental disorders will be  |
+| 8    | 1.0000 |         8677 |          8600 | (2) Severe mental disorders or any other diseases in fl uence compliance. (3) Al | dysfunction, hepatic or kidney failure, or serious uncon- trolled infection. (2) |
+| 9    | 1.0000 |         8983 |          9127 | In the treatment group, the intervention will be TRQ injection or TRQ injection  | Under normal conditions, patients in control group will be treated with western  |
+| 10   | 1.0000 |         9127 |          8983 | Under normal conditions, patients in control group will be treated with western  | In the treatment group, the intervention will be TRQ injection or TRQ injection  |
 
 ### C2 — lexical
 
 **Query:** `c2-synonym-replace.txt` (QUERY)  
 **Source:** `liu-2020-e21808.pdf` (SOURCE)
 
-| Rank | Score | Query offset | Source offset | Query snippet | Source snippet |
-|------|------:|-------------:|--------------:|---------------|----------------|
-| 1 | 1.0000 | 710 | 254 | pneumonia A protocol for systematic assessment and meta-analysis Hui Liu, PhD a  | Background: Viral pneumonia is a common respiratory disease that leads to high m |
-| 2 | 1.0000 | 5434 | 4654 | viruses, in fl uenza viruses, parain fl uenza viruses, adenoviruses, human metap | viruses, in fl uenza viruses, parain fl uenza viruses, adenoviruses, human metap |
-| 3 | 1.0000 | 17282 | 16430 | Grading the quality of evidence. The Grading of Recommendations Assessment, Deve | Liu et al. Medicine (2020) 99:35 www.md-journal.com 3 guidelines will be used to |
-| 4 | 0.8787 | 16460 | 15766 | Subgroup examination. If a suf fi cient number of random trials and the evident  | and the elderly; (2) The ef fi cacy of TRQ alone versus western medicine or comb |
+| Rank |  Score | Query offset | Source offset | Query snippet                                                                    | Source snippet                                                                   |
+| ---- | -----: | -----------: | ------------: | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| 1    | 1.0000 |          710 |            51 | pneumonia A protocol for systematic assessment and meta-analysis Hui Liu, PhD a  | pneumonia A protocol for systematic review and meta-analysis Hui Liu, PhD a , Xu |
+| 2    | 1.0000 |        17325 |         16430 | The Grading of Recommendations Assessment, Development, and Evaluation Liu et al | Liu et al. Medicine (2020) 99:35 www.md-journal.com 3 guidelines will be used to |
+| 3    | 0.8322 |        16460 |         15766 | Subgroup examination. If a suf fi cient number of random trials and the evident  | and the elderly; (2) The ef fi cacy of TRQ alone versus western medicine or comb |
 
 ### C2 — semantic
 
 **Query:** `c2-synonym-replace.txt` (QUERY)  
 **Source:** `liu-2020-e21808.pdf` (SOURCE)
 
-| Rank | Score | Query offset | Source offset | Query snippet | Source snippet |
-|------|------:|-------------:|--------------:|---------------|----------------|
-| 1 | 1.0000 | 3175 | 2525 | [1,2] In the recent prospective pneumonia etiology studies, respiratory viruses  | viruses were more commonly detected than bacteria in both adults and children, a |
-| 2 | 1.0000 | 3522 | 2780 | This investigation was supported by the National Natural Science Foundation of C | This study was supported by the National Natural Science Foundation of China (No |
-| 3 | 1.0000 | 4569 | 3808 | No. 16, Nanxiao Road, Dongzhimen, Dongcheng District, Beijing 100700, China (e-m | 16, Nanxiao Road, Dongzhimen, Dongcheng District, Beijing 100700, China (e-mail: |
-| 4 | 1.0000 | 4573 | 3804 | 16, Nanxiao Road, Dongzhimen, Dongcheng District, Beijing 100700, China (e-mail: | No. 16, Nanxiao Road, Dongzhimen, Dongcheng District, Beijing 100700, China (e-m |
-| 5 | 1.0000 | 6585 | 5603 | [6 – 10] Tanreqing (TRQ) injection is one of the important TCM injection, which  | Traditional Chinese Medicine (TCM) has been shown its unique advantages in treat |
-| 6 | 1.0000 | 7046 | 6140 | [12] Except for those functions in TCM theory, modern pharmacologic studies con  | Hard-wicke ), [11] has marked effects of clearing heat, reducing in fl ammation, |
-| 7 | 1.0000 | 8889 | 8189 | Participants with critical organ dysfunction or severe mental disorders will be  | Additionally, patients with atopy will be excluded. The speci fi c criteria are  |
-| 8 | 1.0000 | 9465 | 8600 | (2) Severe mental disorders or any other diseases in fl uence compliance. (3) Al | dysfunction, hepatic or kidney failure, or serious uncon- trolled infection. (2) |
-| 9 | 1.0000 | 10733 | 10029 | All documented side effects and adverse events will be included as safety endpoi | The common side effects of TRQ injection, such as anaphylaxis, drug eruption, na |
-| 10 | 1.0000 | 12335 | 11696 | Two investigators will indepen- dently screen the titles and abstracts of all in | Then, they will read the full text of potentially eligible studies to con fi rm  |
+| Rank |  Score | Query offset | Source offset | Query snippet                                                                    | Source snippet                                                                   |
+| ---- | -----: | -----------: | ------------: | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| 1    | 1.0000 |         3175 |          2525 | [1,2] In the recent prospective pneumonia etiology studies, respiratory viruses  | viruses were more commonly detected than bacteria in both adults and children, a |
+| 2    | 1.0000 |         3522 |          2780 | This investigation was supported by the National Natural Science Foundation of C | This study was supported by the National Natural Science Foundation of China (No |
+| 3    | 1.0000 |         4569 |          3808 | No. 16, Nanxiao Road, Dongzhimen, Dongcheng District, Beijing 100700, China (e-m | 16, Nanxiao Road, Dongzhimen, Dongcheng District, Beijing 100700, China (e-mail: |
+| 4    | 1.0000 |         4573 |          3804 | 16, Nanxiao Road, Dongzhimen, Dongcheng District, Beijing 100700, China (e-mail: | No. 16, Nanxiao Road, Dongzhimen, Dongcheng District, Beijing 100700, China (e-m |
+| 5    | 1.0000 |         6585 |          5603 | [6 – 10] Tanreqing (TRQ) injection is one of the important TCM injection, which  | Traditional Chinese Medicine (TCM) has been shown its unique advantages in treat |
+| 6    | 1.0000 |         7046 |          6140 | [12] Except for those functions in TCM theory, modern pharmacologic studies con  | Hard-wicke ), [11] has marked effects of clearing heat, reducing in fl ammation, |
+| 7    | 1.0000 |         8889 |          8189 | Participants with critical organ dysfunction or severe mental disorders will be  | Additionally, patients with atopy will be excluded. The speci fi c criteria are  |
+| 8    | 1.0000 |         9465 |          8600 | (2) Severe mental disorders or any other diseases in fl uence compliance. (3) Al | dysfunction, hepatic or kidney failure, or serious uncon- trolled infection. (2) |
+| 9    | 1.0000 |        10733 |         10029 | All documented side effects and adverse events will be included as safety endpoi | The common side effects of TRQ injection, such as anaphylaxis, drug eruption, na |
+| 10   | 1.0000 |        12335 |         11696 | Two investigators will indepen- dently screen the titles and abstracts of all in | Then, they will read the full text of potentially eligible studies to con fi rm  |
 
 ### C2 — hybrid
 
 **Query:** `c2-synonym-replace.txt` (QUERY)  
 **Source:** `liu-2020-e21808.pdf` (SOURCE)
 
-| Rank | Score | Query offset | Source offset | Query snippet | Source snippet |
-|------|------:|-------------:|--------------:|---------------|----------------|
-| 1 | 1.0000 | 3175 | 2525 | [1,2] In the recent prospective pneumonia etiology studies, respiratory viruses  | viruses were more commonly detected than bacteria in both adults and children, a |
-| 2 | 1.0000 | 3700 | 2971 | y2017001, GH2018001. The authors have no con fl icts of interest to disclose. In | The authors have no con fl icts of interest to disclose. Data sharing not applic |
-| 3 | 1.0000 | 4569 | 3808 | No. 16, Nanxiao Road, Dongzhimen, Dongcheng District, Beijing 100700, China (e-m | 16, Nanxiao Road, Dongzhimen, Dongcheng District, Beijing 100700, China (e-mail: |
-| 4 | 1.0000 | 4573 | 3804 | 16, Nanxiao Road, Dongzhimen, Dongcheng District, Beijing 100700, China (e-mail: | No. 16, Nanxiao Road, Dongzhimen, Dongcheng District, Beijing 100700, China (e-m |
-| 5 | 1.0000 | 4716 | 3992 | Published by Wolters Kluwer Health, Inc. This is an open access article distribu | This is an open access article distributed under the Creative Commons Attributio |
-| 6 | 1.0000 | 6585 | 5603 | [6 – 10] Tanreqing (TRQ) injection is one of the important TCM injection, which  | Traditional Chinese Medicine (TCM) has been shown its unique advantages in treat |
-| 7 | 1.0000 | 7046 | 6140 | [12] Except for those functions in TCM theory, modern pharmacologic studies con  | Hard-wicke ), [11] has marked effects of clearing heat, reducing in fl ammation, |
-| 8 | 1.0000 | 8889 | 8099 | Participants with critical organ dysfunction or severe mental disorders will be  | Participants with critical organ dysfunction or severe mental disorders will be  |
-| 9 | 1.0000 | 9465 | 8600 | (2) Severe mental disorders or any other diseases in fl uence compliance. (3) Al | dysfunction, hepatic or kidney failure, or serious uncon- trolled infection. (2) |
-| 10 | 1.0000 | 9769 | 8854 | In the therapy group, the intervention will be TRQ injection or TRQ injection pl | control group undergo basic symptomatic treatment such as pyretolysis, alleviati |
+| Rank |  Score | Query offset | Source offset | Query snippet                                                                    | Source snippet                                                                   |
+| ---- | -----: | -----------: | ------------: | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| 1    | 1.0000 |         3175 |          2525 | [1,2] In the recent prospective pneumonia etiology studies, respiratory viruses  | viruses were more commonly detected than bacteria in both adults and children, a |
+| 2    | 1.0000 |         3522 |          2780 | This investigation was supported by the National Natural Science Foundation of C | This study was supported by the National Natural Science Foundation of China (No |
+| 3    | 1.0000 |         4569 |          3808 | No. 16, Nanxiao Road, Dongzhimen, Dongcheng District, Beijing 100700, China (e-m | 16, Nanxiao Road, Dongzhimen, Dongcheng District, Beijing 100700, China (e-mail: |
+| 4    | 1.0000 |         4983 |          4218 | How to cite this article: Liu H, Ding XF, Guo R, Zhao MF, Deng D, Hao Y, Wang Y. | How to cite this article: Liu H, Ding XF, Guo R, Zhao MF, Deng D, Hao Y, Wang Y. |
+| 5    | 1.0000 |         6585 |          5603 | [6 – 10] Tanreqing (TRQ) injection is one of the important TCM injection, which  | Traditional Chinese Medicine (TCM) has been shown its unique advantages in treat |
+| 6    | 1.0000 |         7046 |          6140 | [12] Except for those functions in TCM theory, modern pharmacologic studies con  | Hard-wicke ), [11] has marked effects of clearing heat, reducing in fl ammation, |
+| 7    | 1.0000 |         8889 |          8189 | Participants with critical organ dysfunction or severe mental disorders will be  | Additionally, patients with atopy will be excluded. The speci fi c criteria are  |
+| 8    | 1.0000 |         9465 |          8600 | (2) Severe mental disorders or any other diseases in fl uence compliance. (3) Al | dysfunction, hepatic or kidney failure, or serious uncon- trolled infection. (2) |
+| 9    | 1.0000 |        10733 |         10029 | All documented side effects and adverse events will be included as safety endpoi | The common side effects of TRQ injection, such as anaphylaxis, drug eruption, na |
+| 10   | 1.0000 |        12335 |         11696 | Two investigators will indepen- dently screen the titles and abstracts of all in | Then, they will read the full text of potentially eligible studies to con fi rm  |
 
 ### C3 — lexical
 
 **Query:** `c3-sentence-shuffle.txt` (QUERY)  
 **Source:** `liu-2020-e21808.pdf` (SOURCE)
 
-| Rank | Score | Query offset | Source offset | Query snippet | Source snippet |
-|------|------:|-------------:|--------------:|---------------|----------------|
-| 1 | 1.0000 | 125 | 3028 | Data sharing not applicable to this article as no datasets were generated or ana | Data sharing not applicable to this article as no datasets were generated or ana |
-| 2 | 1.0000 | 527 | 1603 | ∗ Correspondence: Yu Hao, Department of Immunology and Microbiology, School of L | After that, data synthesis and subgroup analysis will be conducted with the Revi |
-| 3 | 1.0000 | 917 | 2780 | This study was supported by the National Natural Science Foundation of China (No | This study was supported by the National Natural Science Foundation of China (No |
-| 4 | 1.0000 | 999 | 4299 | 81573723) and the Kaibao Pharm. Effects and safety of tanreqing injection on vir | Effects and safety of tanreqing injection on viral pneumonia: A protocol for sys |
-| 5 | 1.0000 | 1271 | 1148 | y2017001, GH2018001. The total effective rate of clinical ef fi cacy will be use | The total effective rate of clinical ef fi cacy will be used as primary outcome. |
-| 6 | 1.0000 | 1292 | 1439 | The total effective rate of clinical ef fi cacy will be used as primary outcome. | Study inclusion, data extraction, and quality assessment will be performed indep |
-| 7 | 1.0000 | 1537 | 3992 | Received: 16 July 2020 / Accepted: 20 July 2020 http://dx.doi.org/10.1097/MD.000 | This is an open access article distributed under the Creative Commons Attributio |
-| 8 | 1.0000 | 1996 | 1229 | Time to relieve symptoms, incidence of adverse reactions, and the laboratory par | Time to relieve symptoms, incidence of adverse reactions, and the laboratory par |
-| 9 | 1.0000 | 2298 | 3804 | No. 16, Nanxiao Road, Dongzhimen, Dongcheng District, Beijing 100700, China (e-m | No. 16, Nanxiao Road, Dongzhimen, Dongcheng District, Beijing 100700, China (e-m |
-| 10 | 1.0000 | 2478 | 767 | Prospero registration number: PROSPERO CRD42020164164 Abbreviations: RCTs = rand | Methods: Only randomized controlled trials will be enrolled in our study, and we |
+| Rank |  Score | Query offset | Source offset | Query snippet                                                                    | Source snippet                                                                   |
+| ---- | -----: | -----------: | ------------: | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| 1    | 1.0000 |          125 |          3028 | Data sharing not applicable to this article as no datasets were generated or ana | Data sharing not applicable to this article as no datasets were generated or ana |
+| 2    | 1.0000 |          661 |          1603 | After that, data synthesis and subgroup analysis will be conducted with the Revi | After that, data synthesis and subgroup analysis will be conducted with the Revi |
+| 3    | 1.0000 |          917 |          2780 | This study was supported by the National Natural Science Foundation of China (No | This study was supported by the National Natural Science Foundation of China (No |
+| 4    | 1.0000 |          999 |          4299 | 81573723) and the Kaibao Pharm. Effects and safety of tanreqing injection on vir | Effects and safety of tanreqing injection on viral pneumonia: A protocol for sys |
+| 5    | 1.0000 |         1292 |          1439 | The total effective rate of clinical ef fi cacy will be used as primary outcome. | Study inclusion, data extraction, and quality assessment will be performed indep |
+| 6    | 1.0000 |         1537 |          3992 | Received: 16 July 2020 / Accepted: 20 July 2020 http://dx.doi.org/10.1097/MD.000 | This is an open access article distributed under the Creative Commons Attributio |
+| 7    | 1.0000 |         1996 |           588 | Time to relieve symptoms, incidence of adverse reactions, and the laboratory par | Thus, this protocol describes a plan of performing a systematic review and meta- |
+| 8    | 1.0000 |         2298 |          3804 | No. 16, Nanxiao Road, Dongzhimen, Dongcheng District, Beijing 100700, China (e-m | No. 16, Nanxiao Road, Dongzhimen, Dongcheng District, Beijing 100700, China (e-m |
+| 9    | 1.0000 |         2478 |           767 | Prospero registration number: PROSPERO CRD42020164164 Abbreviations: RCTs = rand | Methods: Only randomized controlled trials will be enrolled in our study, and we |
+| 10   | 1.0000 |         3563 |          3564 | Conclusion: Our study will provide comprehensive evidence to decide whether TRQ  | The northeast corner of the intersection of Sunshine South Street and Baiyang Ea |
 
 ### C3 — semantic
 
 **Query:** `c3-sentence-shuffle.txt` (QUERY)  
 **Source:** `liu-2020-e21808.pdf` (SOURCE)
 
-| Rank | Score | Query offset | Source offset | Query snippet | Source snippet |
-|------|------:|-------------:|--------------:|---------------|----------------|
-| 1 | 1.0000 | 2298 | 3804 | No. 16, Nanxiao Road, Dongzhimen, Dongcheng District, Beijing 100700, China (e-m | No. 16, Nanxiao Road, Dongzhimen, Dongcheng District, Beijing 100700, China (e-m |
-| 2 | 1.0000 | 2298 | 3808 | No. 16, Nanxiao Road, Dongzhimen, Dongcheng District, Beijing 100700, China (e-m | 16, Nanxiao Road, Dongzhimen, Dongcheng District, Beijing 100700, China (e-mail: |
-| 3 | 1.0000 | 3707 | 3564 | The northeast corner of the intersection of Sunshine South Street and Baiyang Ea | The northeast corner of the intersection of Sunshine South Street and Baiyang Ea |
-| 4 | 1.0000 | 4033 | 4218 | How to cite this article: Liu H, Ding XF, Guo R, Zhao MF, Deng D, Hao Y, Wang Y. | How to cite this article: Liu H, Ding XF, Guo R, Zhao MF, Deng D, Hao Y, Wang Y. |
-| 5 | 1.0000 | 4961 | 9314 | Patients in both treatment and control group undergo basic symptomatic treatment | The primary outcome will be the total effective rate of clinical ef fi cacy (num |
-| 6 | 1.0000 | 5811 | 5603 | [6 – 10] Tanreqing (TRQ) injection is one of the important TCM injection, which  | Traditional Chinese Medicine (TCM) has been shown its unique advantages in treat |
-| 7 | 1.0000 | 6272 | 6140 | [12] Except for those functions in TCM theory, modern pharmacologic studies con  | Hard-wicke ), [11] has marked effects of clearing heat, reducing in fl ammation, |
-| 8 | 1.0000 | 7176 | 9127 | Secondary outcomes. Under normal conditions, patients in control group will be t | Under normal conditions, patients in control group will be treated with western  |
-| 9 | 1.0000 | 7573 | 4919 | We will include studies on patients of any age, race, gender, severity, and dura | If uncontrolled well, respiratory distress syndrome, and shock may be caused sec |
-| 10 | 1.0000 | 10282 | 8507 | Exclusion criteria. (1) Critical organ dysfunction, such as severe cardiopulmona | 3.1.2.2. Exclusion criteria. (1) Critical organ dysfunction, such as severe card |
+| Rank |  Score | Query offset | Source offset | Query snippet                                                                    | Source snippet                                                                   |
+| ---- | -----: | -----------: | ------------: | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| 1    | 1.0000 |         2298 |          3804 | No. 16, Nanxiao Road, Dongzhimen, Dongcheng District, Beijing 100700, China (e-m | No. 16, Nanxiao Road, Dongzhimen, Dongcheng District, Beijing 100700, China (e-m |
+| 2    | 1.0000 |         2298 |          3808 | No. 16, Nanxiao Road, Dongzhimen, Dongcheng District, Beijing 100700, China (e-m | 16, Nanxiao Road, Dongzhimen, Dongcheng District, Beijing 100700, China (e-mail: |
+| 3    | 1.0000 |         3707 |          3564 | The northeast corner of the intersection of Sunshine South Street and Baiyang Ea | The northeast corner of the intersection of Sunshine South Street and Baiyang Ea |
+| 4    | 1.0000 |         4033 |          4218 | How to cite this article: Liu H, Ding XF, Guo R, Zhao MF, Deng D, Hao Y, Wang Y. | How to cite this article: Liu H, Ding XF, Guo R, Zhao MF, Deng D, Hao Y, Wang Y. |
+| 5    | 1.0000 |         4961 |          9314 | Patients in both treatment and control group undergo basic symptomatic treatment | The primary outcome will be the total effective rate of clinical ef fi cacy (num |
+| 6    | 1.0000 |         5811 |          5603 | [6 – 10] Tanreqing (TRQ) injection is one of the important TCM injection, which  | Traditional Chinese Medicine (TCM) has been shown its unique advantages in treat |
+| 7    | 1.0000 |         6272 |          6140 | [12] Except for those functions in TCM theory, modern pharmacologic studies con  | Hard-wicke ), [11] has marked effects of clearing heat, reducing in fl ammation, |
+| 8    | 1.0000 |         7176 |          9127 | Secondary outcomes. Under normal conditions, patients in control group will be t | Under normal conditions, patients in control group will be treated with western  |
+| 9    | 1.0000 |         7573 |          4919 | We will include studies on patients of any age, race, gender, severity, and dura | If uncontrolled well, respiratory distress syndrome, and shock may be caused sec |
+| 10   | 1.0000 |        10282 |          8507 | Exclusion criteria. (1) Critical organ dysfunction, such as severe cardiopulmona | 3.1.2.2. Exclusion criteria. (1) Critical organ dysfunction, such as severe card |
 
 ### C3 — hybrid
 
 **Query:** `c3-sentence-shuffle.txt` (QUERY)  
 **Source:** `liu-2020-e21808.pdf` (SOURCE)
 
-| Rank | Score | Query offset | Source offset | Query snippet | Source snippet |
-|------|------:|-------------:|--------------:|---------------|----------------|
-| 1 | 1.0000 | 2298 | 3804 | No. 16, Nanxiao Road, Dongzhimen, Dongcheng District, Beijing 100700, China (e-m | No. 16, Nanxiao Road, Dongzhimen, Dongcheng District, Beijing 100700, China (e-m |
-| 2 | 1.0000 | 2298 | 3808 | No. 16, Nanxiao Road, Dongzhimen, Dongcheng District, Beijing 100700, China (e-m | 16, Nanxiao Road, Dongzhimen, Dongcheng District, Beijing 100700, China (e-mail: |
-| 3 | 1.0000 | 3707 | 3564 | The northeast corner of the intersection of Sunshine South Street and Baiyang Ea | The northeast corner of the intersection of Sunshine South Street and Baiyang Ea |
-| 4 | 1.0000 | 4033 | 4218 | How to cite this article: Liu H, Ding XF, Guo R, Zhao MF, Deng D, Hao Y, Wang Y. | How to cite this article: Liu H, Ding XF, Guo R, Zhao MF, Deng D, Hao Y, Wang Y. |
-| 5 | 1.0000 | 4961 | 9314 | Patients in both treatment and control group undergo basic symptomatic treatment | The primary outcome will be the total effective rate of clinical ef fi cacy (num |
-| 6 | 1.0000 | 5811 | 5603 | [6 – 10] Tanreqing (TRQ) injection is one of the important TCM injection, which  | Traditional Chinese Medicine (TCM) has been shown its unique advantages in treat |
-| 7 | 1.0000 | 6272 | 6140 | [12] Except for those functions in TCM theory, modern pharmacologic studies con  | Hard-wicke ), [11] has marked effects of clearing heat, reducing in fl ammation, |
-| 8 | 1.0000 | 7176 | 9127 | Secondary outcomes. Under normal conditions, patients in control group will be t | Under normal conditions, patients in control group will be treated with western  |
-| 9 | 1.0000 | 7573 | 4919 | We will include studies on patients of any age, race, gender, severity, and dura | If uncontrolled well, respiratory distress syndrome, and shock may be caused sec |
-| 10 | 1.0000 | 10282 | 8507 | Exclusion criteria. (1) Critical organ dysfunction, such as severe cardiopulmona | 3.1.2.2. Exclusion criteria. (1) Critical organ dysfunction, such as severe card |
+| Rank |  Score | Query offset | Source offset | Query snippet                                                                    | Source snippet                                                                   |
+| ---- | -----: | -----------: | ------------: | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| 1    | 1.0000 |         2298 |          3804 | No. 16, Nanxiao Road, Dongzhimen, Dongcheng District, Beijing 100700, China (e-m | No. 16, Nanxiao Road, Dongzhimen, Dongcheng District, Beijing 100700, China (e-m |
+| 2    | 1.0000 |         2298 |          3808 | No. 16, Nanxiao Road, Dongzhimen, Dongcheng District, Beijing 100700, China (e-m | 16, Nanxiao Road, Dongzhimen, Dongcheng District, Beijing 100700, China (e-mail: |
+| 3    | 1.0000 |         3707 |          3564 | The northeast corner of the intersection of Sunshine South Street and Baiyang Ea | The northeast corner of the intersection of Sunshine South Street and Baiyang Ea |
+| 4    | 1.0000 |         4033 |          4218 | How to cite this article: Liu H, Ding XF, Guo R, Zhao MF, Deng D, Hao Y, Wang Y. | How to cite this article: Liu H, Ding XF, Guo R, Zhao MF, Deng D, Hao Y, Wang Y. |
+| 5    | 1.0000 |         4961 |          9314 | Patients in both treatment and control group undergo basic symptomatic treatment | The primary outcome will be the total effective rate of clinical ef fi cacy (num |
+| 6    | 1.0000 |         5811 |          5603 | [6 – 10] Tanreqing (TRQ) injection is one of the important TCM injection, which  | Traditional Chinese Medicine (TCM) has been shown its unique advantages in treat |
+| 7    | 1.0000 |         6272 |          6140 | [12] Except for those functions in TCM theory, modern pharmacologic studies con  | Hard-wicke ), [11] has marked effects of clearing heat, reducing in fl ammation, |
+| 8    | 1.0000 |         7176 |          8983 | Secondary outcomes. Under normal conditions, patients in control group will be t | In the treatment group, the intervention will be TRQ injection or TRQ injection  |
+| 9    | 1.0000 |         7573 |          4919 | We will include studies on patients of any age, race, gender, severity, and dura | If uncontrolled well, respiratory distress syndrome, and shock may be caused sec |
+| 10   | 1.0000 |        10443 |          8600 | (2) Severe mental disorders or any other diseases in fl uence compliance. (3) Al | dysfunction, hepatic or kidney failure, or serious uncon- trolled infection. (2) |
 
 ### C4-light — lexical
 
 **Query:** `c4-light-auto-paraphrase.txt` (QUERY)  
 **Source:** `liu-2020-e21808.pdf` (SOURCE)
 
-| Rank | Score | Query offset | Source offset | Query snippet | Source snippet |
-|------|------:|-------------:|--------------:|---------------|----------------|
-| 1 | 1.0000 | 653 | 51 | pneumonia A protocol for systematic review and meta-analysis Hui Liu, PhD a , Xu | pneumonia A protocol for systematic review and meta-analysis Hui Liu, PhD a , Xu |
-| 2 | 1.0000 | 5291 | 4654 | viruses, in fl uenza viruses, parain fl uenza viruses, adenoviruses, human metap | viruses, in fl uenza viruses, parain fl uenza viruses, adenoviruses, human metap |
-| 3 | 1.0000 | 17030 | 16430 | Grading the quality of evidence. The Grading of Recommendations Assessment, Deve | Liu et al. Medicine (2020) 99:35 www.md-journal.com 3 guidelines will be used to |
-| 4 | 0.9268 | 16222 | 15766 | Subgroup analysis. If a suf fi cient number of random trials and the evident het | and the elderly; (2) The ef fi cacy of TRQ alone versus western medicine or comb |
+| Rank |  Score | Query offset | Source offset | Query snippet                                                                    | Source snippet                                                                   |
+| ---- | -----: | -----------: | ------------: | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| 1    | 1.0000 |          653 |            51 | pneumonia A protocol for systematic review and meta-analysis Hui Liu, PhD a , Xu | pneumonia A protocol for systematic review and meta-analysis Hui Liu, PhD a , Xu |
+| 2    | 1.0000 |        17073 |         16430 | The Grading of Recommendations Assessment, Development, and Evaluation Liu et al | Liu et al. Medicine (2020) 99:35 www.md-journal.com 3 guidelines will be used to |
+| 3    | 0.9354 |        16222 |         15766 | Subgroup analysis. If a suf fi cient number of random trials and the evident het | and the elderly; (2) The ef fi cacy of TRQ alone versus western medicine or comb |
 
 ### C4-light — semantic
 
 **Query:** `c4-light-auto-paraphrase.txt` (QUERY)  
 **Source:** `liu-2020-e21808.pdf` (SOURCE)
 
-| Rank | Score | Query offset | Source offset | Query snippet | Source snippet |
-|------|------:|-------------:|--------------:|---------------|----------------|
-| 1 | 1.0000 | 3070 | 2525 | [1,2] In the recent prospective pneumonia etiology studies, respiratory viruses  | viruses were more commonly detected than bacteria in both adults and children, a |
-| 2 | 1.0000 | 3407 | 2780 | This study was supported by the National Natural Science Foundation of China (No | This study was supported by the National Natural Science Foundation of China (No |
-| 3 | 1.0000 | 4438 | 3808 | No. 16, Nanxiao Road, Dongzhimen, Dongcheng District, Beijing 100700, China (e-m | 16, Nanxiao Road, Dongzhimen, Dongcheng District, Beijing 100700, China (e-mail: |
-| 4 | 1.0000 | 4442 | 3804 | 16, Nanxiao Road, Dongzhimen, Dongcheng District, Beijing 100700, China (e-mail: | No. 16, Nanxiao Road, Dongzhimen, Dongcheng District, Beijing 100700, China (e-m |
-| 5 | 1.0000 | 6444 | 5603 | [6 – 10] Tanreqing (TRQ) injection is one of the important TCM injection, which  | Traditional Chinese Medicine (TCM) has been shown its unique advantages in treat |
-| 6 | 1.0000 | 6905 | 6140 | [12] Except for those functions in TCM theory, modern pharmacologic studies con  | Hard-wicke ), [11] has marked effects of clearing heat, reducing in fl ammation, |
-| 7 | 1.0000 | 8731 | 8189 | Participants with critical organ dysfunction or severe mental disorders will be  | Additionally, patients with atopy will be excluded. The speci fi c criteria are  |
-| 8 | 1.0000 | 8983 | 8431 | (2) The age, race, gender, severity, and duration of disease are not limited. (3 | (3) Informed consents were got from patients themselves or their families. 3.1.2 |
-| 9 | 1.0000 | 9309 | 8600 | (2) Severe mental disorders or any other diseases in fl uence compliance. (3) Al | dysfunction, hepatic or kidney failure, or serious uncon- trolled infection. (2) |
-| 10 | 1.0000 | 9613 | 8983 | In the treatment group, the intervention will be TRQ injection or TRQ injection  | In the treatment group, the intervention will be TRQ injection or TRQ injection  |
+| Rank |  Score | Query offset | Source offset | Query snippet                                                                    | Source snippet                                                                   |
+| ---- | -----: | -----------: | ------------: | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| 1    | 1.0000 |         3070 |          2525 | [1,2] In the recent prospective pneumonia etiology studies, respiratory viruses  | viruses were more commonly detected than bacteria in both adults and children, a |
+| 2    | 1.0000 |         3407 |          2780 | This study was supported by the National Natural Science Foundation of China (No | This study was supported by the National Natural Science Foundation of China (No |
+| 3    | 1.0000 |         4438 |          3808 | No. 16, Nanxiao Road, Dongzhimen, Dongcheng District, Beijing 100700, China (e-m | 16, Nanxiao Road, Dongzhimen, Dongcheng District, Beijing 100700, China (e-mail: |
+| 4    | 1.0000 |         4442 |          3804 | 16, Nanxiao Road, Dongzhimen, Dongcheng District, Beijing 100700, China (e-mail: | No. 16, Nanxiao Road, Dongzhimen, Dongcheng District, Beijing 100700, China (e-m |
+| 5    | 1.0000 |         6444 |          5603 | [6 – 10] Tanreqing (TRQ) injection is one of the important TCM injection, which  | Traditional Chinese Medicine (TCM) has been shown its unique advantages in treat |
+| 6    | 1.0000 |         6905 |          6140 | [12] Except for those functions in TCM theory, modern pharmacologic studies con  | Hard-wicke ), [11] has marked effects of clearing heat, reducing in fl ammation, |
+| 7    | 1.0000 |         8731 |          8189 | Participants with critical organ dysfunction or severe mental disorders will be  | Additionally, patients with atopy will be excluded. The speci fi c criteria are  |
+| 8    | 1.0000 |         8983 |          8431 | (2) The age, race, gender, severity, and duration of disease are not limited. (3 | (3) Informed consents were got from patients themselves or their families. 3.1.2 |
+| 9    | 1.0000 |         9309 |          8600 | (2) Severe mental disorders or any other diseases in fl uence compliance. (3) Al | dysfunction, hepatic or kidney failure, or serious uncon- trolled infection. (2) |
+| 10   | 1.0000 |         9613 |          8983 | In the treatment group, the intervention will be TRQ injection or TRQ injection  | In the treatment group, the intervention will be TRQ injection or TRQ injection  |
 
 ### C4-light — hybrid
 
 **Query:** `c4-light-auto-paraphrase.txt` (QUERY)  
 **Source:** `liu-2020-e21808.pdf` (SOURCE)
 
-| Rank | Score | Query offset | Source offset | Query snippet | Source snippet |
-|------|------:|-------------:|--------------:|---------------|----------------|
-| 1 | 1.0000 | 3407 | 2780 | This study was supported by the National Natural Science Foundation of China (No | This study was supported by the National Natural Science Foundation of China (No |
-| 2 | 1.0000 | 4438 | 3808 | No. 16, Nanxiao Road, Dongzhimen, Dongcheng District, Beijing 100700, China (e-m | 16, Nanxiao Road, Dongzhimen, Dongcheng District, Beijing 100700, China (e-mail: |
-| 3 | 1.0000 | 4442 | 3804 | 16, Nanxiao Road, Dongzhimen, Dongcheng District, Beijing 100700, China (e-mail: | No. 16, Nanxiao Road, Dongzhimen, Dongcheng District, Beijing 100700, China (e-m |
-| 4 | 1.0000 | 4585 | 3992 | Published by Wolters Kluwer Health, Inc. This is an open access article distribu | This is an open access article distributed under the Creative Commons Attributio |
-| 5 | 1.0000 | 6444 | 5603 | [6 – 10] Tanreqing (TRQ) injection is one of the important TCM injection, which  | Traditional Chinese Medicine (TCM) has been shown its unique advantages in treat |
-| 6 | 1.0000 | 6905 | 6140 | [12] Except for those functions in TCM theory, modern pharmacologic studies con  | Hard-wicke ), [11] has marked effects of clearing heat, reducing in fl ammation, |
-| 7 | 1.0000 | 8731 | 8189 | Participants with critical organ dysfunction or severe mental disorders will be  | Additionally, patients with atopy will be excluded. The speci fi c criteria are  |
-| 8 | 1.0000 | 8821 | 8099 | Additionally, patients with atopy will be excluded. The speci fi c criteria are  | Participants with critical organ dysfunction or severe mental disorders will be  |
-| 9 | 1.0000 | 9309 | 8600 | (2) Severe mental disorders or any other diseases in fl uence compliance. (3) Al | dysfunction, hepatic or kidney failure, or serious uncon- trolled infection. (2) |
-| 10 | 1.0000 | 9613 | 9127 | In the treatment group, the intervention will be TRQ injection or TRQ injection  | Under normal conditions, patients in control group will be treated with western  |
+| Rank |  Score | Query offset | Source offset | Query snippet                                                                    | Source snippet                                                                   |
+| ---- | -----: | -----------: | ------------: | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| 1    | 1.0000 |         3070 |          2525 | [1,2] In the recent prospective pneumonia etiology studies, respiratory viruses  | viruses were more commonly detected than bacteria in both adults and children, a |
+| 2    | 1.0000 |         3407 |          2780 | This study was supported by the National Natural Science Foundation of China (No | This study was supported by the National Natural Science Foundation of China (No |
+| 3    | 1.0000 |         4438 |          3808 | No. 16, Nanxiao Road, Dongzhimen, Dongcheng District, Beijing 100700, China (e-m | 16, Nanxiao Road, Dongzhimen, Dongcheng District, Beijing 100700, China (e-mail: |
+| 4    | 1.0000 |         4852 |          4218 | How to cite this article: Liu H, Ding XF, Guo R, Zhao MF, Deng D, Hao Y, Wang Y. | How to cite this article: Liu H, Ding XF, Guo R, Zhao MF, Deng D, Hao Y, Wang Y. |
+| 5    | 1.0000 |         6444 |          5603 | [6 – 10] Tanreqing (TRQ) injection is one of the important TCM injection, which  | Traditional Chinese Medicine (TCM) has been shown its unique advantages in treat |
+| 6    | 1.0000 |         6905 |          6140 | [12] Except for those functions in TCM theory, modern pharmacologic studies con  | Hard-wicke ), [11] has marked effects of clearing heat, reducing in fl ammation, |
+| 7    | 1.0000 |         8731 |          8189 | Participants with critical organ dysfunction or severe mental disorders will be  | Additionally, patients with atopy will be excluded. The speci fi c criteria are  |
+| 8    | 1.0000 |         8821 |          8099 | Additionally, patients with atopy will be excluded. The speci fi c criteria are  | Participants with critical organ dysfunction or severe mental disorders will be  |
+| 9    | 1.0000 |         9309 |          8600 | (2) Severe mental disorders or any other diseases in fl uence compliance. (3) Al | dysfunction, hepatic or kidney failure, or serious uncon- trolled infection. (2) |
+| 10   | 1.0000 |         9613 |          9127 | In the treatment group, the intervention will be TRQ injection or TRQ injection  | Under normal conditions, patients in control group will be treated with western  |
 
 ## Missing Files
 
@@ -330,6 +322,7 @@ N1 (`zhu-2020-e22356.pdf`) and N2 (`tanreqing-2020-pmc7458256.pdf`) are optional
 negative-pair PDFs. They were absent at evaluation time and were skipped.
 
 PMC links for future addition:
+
 - N1: <https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7505387/>
 - N2: <https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7458256/>
 

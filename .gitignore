@@ -48,5 +48,7 @@ next-env.d.ts
 /data/derived/
 /test-results/
 /playwright-report/
+# Background corpus files (populated by bun run fetch:background)
+src/lib/detection/background/*.txt
 /reports/implementation/paragraph-experiment/cache/
 /reports/implementation/paragraph-experiment/split-manifest.json

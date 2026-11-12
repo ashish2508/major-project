@@ -1,5 +1,6 @@
-import { readFile } from 'node:fs/promises';
-import { resolve } from 'node:path';
+import { readFile, readdir } from 'node:fs/promises';
+import { existsSync } from 'node:fs';
+import { resolve, join } from 'node:path';
 import { z } from 'zod';
 import calibration from '../../../reports/implementation/alignment-fusion/frozen-parameters.json';
 import {
@@ -93,8 +94,64 @@ async function verifyModel() {
 }
 
 // ---------------------------------------------------------------------------
-// Reference stripping helper
+// Background corpus directory (populated by bun run fetch:background)
 // ---------------------------------------------------------------------------
+
+const BACKGROUND_DIR = resolve('src/lib/detection/background');
+
+/**
+ * Fit a fresh TF-IDF vocabulary on research-paper passages.
+ *
+ * Uses the passages extracted from the query and source documents, optionally
+ * augmented by pre-fetched background corpus files from BACKGROUND_DIR.
+ * This avoids the OOV problem caused by using the PAN book vocabulary for
+ * research-paper-specific terminology.
+ *
+ * @param allPassages  Passage texts from query + source documents.
+ * @param documentCount Number of distinct source documents (for logging/metadata).
+ * @returns A Tfidf instance fitted on the supplied passages.
+ */
+async function fitResearchTfidf(allPassages: string[], documentCount: number): Promise<Tfidf> {
+  let backgroundPassages: string[] = [];
+  let useBackground = false;
+
+  if (existsSync(BACKGROUND_DIR)) {
+    let txtFiles: string[] = [];
+    try {
+      const entries = await readdir(BACKGROUND_DIR);
+      txtFiles = entries.filter((f) => f.endsWith('.txt'));
+    } catch {
+      // directory unreadable — treat as empty
+    }
+
+    if (txtFiles.length > 0) {
+      useBackground = true;
+      for (const fname of txtFiles) {
+        try {
+          const content = await readFile(join(BACKGROUND_DIR, fname), 'utf8');
+          const lines = content.split('\n').filter((l) => l.trim().length > 0);
+          backgroundPassages.push(...lines);
+        } catch {
+          // skip unreadable file
+        }
+      }
+    }
+  }
+
+  if (!useBackground) {
+    console.warn(
+      'IDF is document-local (no background corpus). Run bun run fetch:background to populate one.',
+    );
+  }
+
+  const tfidf = Tfidf.fitOnPassages(allPassages, backgroundPassages, documentCount);
+
+  console.log(
+    `IDF fitted on ${allPassages.length} passages from ${documentCount} documents (background: ${backgroundPassages.length} passages)`,
+  );
+
+  return tfidf;
+}
 
 function stripDocument(doc: ExtractedDocument): {
   strippedDoc: ExtractedDocument;
@@ -120,7 +177,7 @@ export async function analyzeDocuments(
 ) {
   const useCorpus = options?.useCorpus ?? options?.useCanonicalCorpus ?? false;
   const start = performance.now(),
-    { tfidf, configs, tfidfSha256 } = await getArtifacts(),
+    { tfidf: panTfidf, configs, tfidfSha256 } = await getArtifacts(),
     config = configs[method];
   const countTokens = await tokenCounter();
   const alignSemantically = method === 'semantic' || (method === 'hybrid' && config.alpha < 1);
@@ -151,9 +208,11 @@ export async function analyzeDocuments(
 
   if (method === 'lexical') {
     let sourcePassages;
+    // tfidf used for lexical scoring; corpus mode keeps PAN vocabulary for the index
+    let tfidf: Tfidf;
 
     if (useCorpus) {
-      await ensureLexicalIndex(tfidf, tfidfSha256);
+      await ensureLexicalIndex(panTfidf, tfidfSha256);
       const corpusData = await getAllReadyPassages();
       if (!corpusData.passages.length) {
         throw new Error(
@@ -162,12 +221,13 @@ export async function analyzeDocuments(
       }
       sourcePassages = corpusData.passages;
       effectiveSources = corpusData.documents;
+      // Corpus mode: the index was built with PAN vocabulary; keep it for compatibility
+      tfidf = panTfidf;
     } else {
       effectiveSources = sources;
       const strippedSources: ExtractedDocument[] = effectiveSources.map((src) => {
         const { strippedDoc, stripResult } = stripDocument(src);
         sourceStripResults.push({ reference: src.reference, stripResult });
-
         return strippedDoc;
       });
 
@@ -177,6 +237,11 @@ export async function analyzeDocuments(
           source.pages,
         ),
       );
+
+      // Research-paper mode: fit IDF on the actual documents being analysed so
+      // domain-specific terms are not out-of-vocabulary.
+      const allPassageTexts = [...queries.map((p) => p.text), ...sourcePassages.map((p) => p.text)];
+      tfidf = await fitResearchTfidf(allPassageTexts, effectiveSources.length);
     }
 
     if (!sourcePassages.length) throw new Error('Documents need extractable words');
@@ -224,6 +289,7 @@ export async function analyzeDocuments(
       queryStripResult,
       sourceStripResults,
       query_ref: query.reference,
+      researchMode: !useCorpus,
     });
   } else {
     await verifyModel();
@@ -231,9 +297,10 @@ export async function analyzeDocuments(
 
     let sourcePassages;
     let sourceVectors: number[][];
+    let tfidf: Tfidf;
 
     if (useCorpus) {
-      await ensureLexicalIndex(tfidf, tfidfSha256);
+      await ensureLexicalIndex(panTfidf, tfidfSha256);
       // Load pre-indexed passages and persistent vectors from disk
       const corpusData = await getCorpusPassagesAndVectors();
       if (!corpusData.passages.length) {
@@ -244,12 +311,12 @@ export async function analyzeDocuments(
       sourcePassages = corpusData.passages;
       sourceVectors = corpusData.vectors;
       effectiveSources = corpusData.documents;
+      tfidf = panTfidf;
     } else {
       effectiveSources = sources;
       const strippedSources: ExtractedDocument[] = effectiveSources.map((src) => {
         const { strippedDoc, stripResult } = stripDocument(src);
         sourceStripResults.push({ reference: src.reference, stripResult });
-
         return strippedDoc;
       });
 
@@ -260,6 +327,10 @@ export async function analyzeDocuments(
         ),
       );
       sourceVectors = [];
+
+      // Research-paper mode: fit IDF on the actual documents being analysed.
+      const allPassageTexts = [...queries.map((p) => p.text), ...sourcePassages.map((p) => p.text)];
+      tfidf = await fitResearchTfidf(allPassageTexts, effectiveSources.length);
     }
 
     if (!sourcePassages.length) throw new Error('Documents need extractable words');
@@ -342,6 +413,7 @@ export async function analyzeDocuments(
       queryStripResult,
       sourceStripResults,
       query_ref: query.reference,
+      researchMode: !useCorpus,
     });
   }
 }
@@ -366,6 +438,7 @@ function buildResult({
   queryStripResult,
   sourceStripResults,
   query_ref,
+  researchMode,
 }: {
   query: ExtractedDocument;
   sources: ExtractedDocument[];
@@ -382,6 +455,7 @@ function buildResult({
   queryStripResult: StripResult;
   sourceStripResults: Array<{ reference: string; stripResult: StripResult }>;
   query_ref: string;
+  researchMode: boolean;
 }) {
   return {
     query,
@@ -399,6 +473,7 @@ function buildResult({
     elapsedSeconds,
     provider,
     model: method === 'lexical' ? null : MODEL_CONFIG.model,
+    researchMode,
     stripping: {
       query: {
         reference: query_ref,

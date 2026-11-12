@@ -6,19 +6,12 @@
     "sourceFile": "liu-2020-e21808.pdf",
     "queryRole": "QUERY",
     "sourceRole": "SOURCE",
-    "totalAlerts": 8,
-    "informativeAlerts": 8,
-    "queryCharCoverage": 0.14,
-    "coveredQueryChars": 2305,
+    "totalAlerts": 3,
+    "informativeAlerts": 3,
+    "queryCharCoverage": 0.0833,
+    "coveredQueryChars": 1371,
     "totalQueryChars": 16466,
     "top10Alerts": [
-      {
-        "queryOffset": 3920,
-        "sourceOffset": 3028,
-        "score": 1,
-        "querySnippet": "Data sharing not applicable to this article as no datasets were generated or analyzed during the current study. a Depart…",
-        "sourceSnippet": "Data sharing not applicable to this article as no datasets were generated or analyzed during the current study. a Depart…"
-      },
       {
         "queryOffset": 4552,
         "sourceOffset": 3915,
@@ -27,46 +20,18 @@
         "sourceSnippet": "Copyright © 2020 the Author(s). Published by Wolters Kluwer Health, Inc. This is an open access article distributed unde…"
       },
       {
-        "queryOffset": 6076,
-        "sourceOffset": 7519,
+        "queryOffset": 3920,
+        "sourceOffset": 3028,
         "score": 1,
-        "querySnippet": "3. Methods The protocol of our MAs followed the guideline of the Preferred Reporting Items for Systematic Review and Met…",
-        "sourceSnippet": "3. Methods The methodology of this systematic review will be guided by the Preferred Reporting Items for Systematic Revi…"
+        "querySnippet": "Data sharing not applicable to this article as no datasets were generated or analyzed during the current study. a Depart…",
+        "sourceSnippet": "Data sharing not applicable to this article as no datasets were generated or analyzed during the current study. a Depart…"
       },
       {
-        "queryOffset": 1542,
-        "sourceOffset": 1861,
-        "score": 1,
-        "querySnippet": "This evidence may also provide helpful evidence of whether Tanreqing Injection therapy was ef fi cient and safe in patie…",
-        "sourceSnippet": "Conclusion: Our study will provide comprehensive evidence to decide whether TRQ injection is effective and safe for vira…"
-      },
-      {
-        "queryOffset": 11961,
-        "sourceOffset": 7202,
-        "score": 0.7834,
-        "querySnippet": "It is not clear how Tanreqing Injection affects the treatment of viral pneumonia. This systematic review and meta-analys…",
-        "sourceSnippet": "Therefore, the aim of this systematic review is to assess the ef fi cacy and safety of TRQ injection on Viral Pneumonia."
-      },
-      {
-        "queryOffset": 334,
-        "sourceOffset": 445,
-        "score": 0.6737,
-        "querySnippet": "The objective of this study was to assess the ef fi cacy and safety of Tanreqing Injection therapy in patients with vira…",
-        "sourceSnippet": "However, the ef fi ciency and safety of TRQ injection for viral pneumonia have not been scienti fi cally and methodicall…"
-      },
-      {
-        "queryOffset": 1338,
-        "sourceOffset": 16788,
-        "score": 0.6115,
-        "querySnippet": "Results: The results will be published in a peer-reviewed journal. Conclusion: The results of this review will be widely…",
-        "sourceSnippet": "The results of this review will be published in related conferences or peer-reviewed journals."
-      },
-      {
-        "queryOffset": 3643,
-        "sourceOffset": 3430,
-        "score": 0.6105,
-        "querySnippet": "This protocol is funded by Department of General Internal Medicine, The Third Af fi liated Hospital of Beijing Universit…",
-        "sourceSnippet": "∗ Correspondence: Yu Hao, Department of Immunology and Microbiology, School of Life Science, Beijing University of Chine…"
+        "queryOffset": 12043,
+        "sourceOffset": 4299,
+        "score": 0.6104,
+        "querySnippet": "This systematic review and meta-analysis will evaluate the ef fi cacy and safety of Tanreqing Injection for the treatmen…",
+        "sourceSnippet": "Effects and safety of tanreqing injection on viral pneumonia: A protocol for systematic review and meta-analysis."
       }
     ],
     "skipped": false
@@ -164,10 +129,10 @@
     "sourceFile": "liu-2020-e21808.pdf",
     "queryRole": "QUERY",
     "sourceRole": "SOURCE",
-    "totalAlerts": 36,
-    "informativeAlerts": 36,
-    "queryCharCoverage": 0.2365,
-    "coveredQueryChars": 3894,
+    "totalAlerts": 25,
+    "informativeAlerts": 25,
+    "queryCharCoverage": 0.2441,
+    "coveredQueryChars": 4019,
     "totalQueryChars": 16466,
     "top10Alerts": [
       {
@@ -185,59 +150,59 @@
         "sourceSnippet": "The authors have no con fl icts of interest to disclose. Data sharing not applicable to this article as no datasets were…"
       },
       {
-        "queryOffset": 4588,
-        "sourceOffset": 3992,
-        "score": 1,
-        "querySnippet": "Published by Wolters Kluwer Health, Inc. This is an open access article distributed under the Creative Commons Attributi…",
-        "sourceSnippet": "This is an open access article distributed under the Creative Commons Attribution License 4.0 (CCBY), which permits unre…"
-      },
-      {
-        "queryOffset": 4629,
-        "sourceOffset": 3951,
-        "score": 1,
-        "querySnippet": "This is an open access article distributed under the Creative Commons Attribution License 4.0 (CCBY), which permits unre…",
-        "sourceSnippet": "Published by Wolters Kluwer Health, Inc. This is an open access article distributed under the Creative Commons Attributi…"
-      },
-      {
         "queryOffset": 11247,
         "sourceOffset": 14586,
-        "score": 0.9537,
+        "score": 0.9539,
         "querySnippet": "The statistical signi fi cance will be assessed for P < .05, and moderate to high levels of heterogeneity will be consid…",
         "sourceSnippet": "If I 2 < 50% or P > .1, which indicates that there is no statistical heterogeneity, and then a fi xed effects model will…"
       },
       {
+        "queryOffset": 4915,
+        "sourceOffset": 4218,
+        "score": 0.944,
+        "querySnippet": "Effects and safety of Tanreqing injection on viral pneumonia: A protocol for systematic review and meta-analysis. Medici…",
+        "sourceSnippet": "How to cite this article: Liu H, Ding XF, Guo R, Zhao MF, Deng D, Hao Y, Wang Y. Effects and safety of tanreqing injecti…"
+      },
+      {
         "queryOffset": 11961,
         "sourceOffset": 4218,
-        "score": 0.8488,
+        "score": 0.8119,
         "querySnippet": "It is not clear how Tanreqing Injection affects the treatment of viral pneumonia. This systematic review and meta-analys…",
         "sourceSnippet": "How to cite this article: Liu H, Ding XF, Guo R, Zhao MF, Deng D, Hao Y, Wang Y. Effects and safety of tanreqing injecti…"
       },
       {
+        "queryOffset": 8640,
+        "sourceOffset": 12756,
+        "score": 0.8002,
+        "querySnippet": "3.4. Data extraction and management The data will be extracted out by two independent reviewers in accordance with the C…",
+        "sourceSnippet": "3.3.3. Assessment of the risk of bias. The risk of bias of each included article will be evaluated by 2 independent revi…"
+      },
+      {
+        "queryOffset": 12043,
+        "sourceOffset": 4299,
+        "score": 0.7935,
+        "querySnippet": "This systematic review and meta-analysis will evaluate the ef fi cacy and safety of Tanreqing Injection for the treatmen…",
+        "sourceSnippet": "Effects and safety of tanreqing injection on viral pneumonia: A protocol for systematic review and meta-analysis. Medici…"
+      },
+      {
         "queryOffset": 51,
         "sourceOffset": 51,
-        "score": 0.8437,
+        "score": 0.7935,
         "querySnippet": "pneumonia A protocol for systematic review and meta-analysis Yue Qiu a , Xue Pan b , Lin Su, MD c , Hui Lui a , Ya-Dong …",
         "sourceSnippet": "pneumonia A protocol for systematic review and meta-analysis Hui Liu, PhD a , Xue-Fei Ding, MM b , Rui Guo, PhD a , Meng…"
       },
       {
-        "queryOffset": 12043,
-        "sourceOffset": 4218,
-        "score": 0.8299,
-        "querySnippet": "This systematic review and meta-analysis will evaluate the ef fi cacy and safety of Tanreqing Injection for the treatmen…",
-        "sourceSnippet": "How to cite this article: Liu H, Ding XF, Guo R, Zhao MF, Deng D, Hao Y, Wang Y. Effects and safety of tanreqing injecti…"
+        "queryOffset": 1338,
+        "sourceOffset": 16788,
+        "score": 0.7654,
+        "querySnippet": "Results: The results will be published in a peer-reviewed journal. Conclusion: The results of this review will be widely…",
+        "sourceSnippet": "The results of this review will be published in related conferences or peer-reviewed journals."
       },
       {
-        "queryOffset": 6079,
-        "sourceOffset": 7519,
-        "score": 0.8057,
-        "querySnippet": "Methods The protocol of our MAs followed the guideline of the Preferred Reporting Items for Systematic Review and Meta-A…",
-        "sourceSnippet": "3. Methods The methodology of this systematic review will be guided by the Preferred Reporting Items for Systematic Revi…"
-      },
-      {
-        "queryOffset": 2995,
+        "queryOffset": 3255,
         "sourceOffset": 4299,
-        "score": 0.7964,
-        "querySnippet": "[8,9] In the diagnosis and treatment of new type of coronavirus pneumonia in China, it has been recommended to use Tanre…",
+        "score": 0.7553,
+        "querySnippet": "[10] Three systematic reviews of Tanreqing Injection in the treatment of viral pneumonia were published in 2012, 2014 an…",
         "sourceSnippet": "Effects and safety of tanreqing injection on viral pneumonia: A protocol for systematic review and meta-analysis. Medici…"
       }
     ],
@@ -250,10 +215,10 @@
     "sourceFile": "liu-2020-e21808.pdf",
     "queryRole": "QUERY",
     "sourceRole": "SOURCE",
-    "totalAlerts": 4,
-    "informativeAlerts": 4,
-    "queryCharCoverage": 0.8183,
-    "coveredQueryChars": 18078,
+    "totalAlerts": 3,
+    "informativeAlerts": 3,
+    "queryCharCoverage": 0.826,
+    "coveredQueryChars": 18248,
     "totalQueryChars": 22092,
     "top10Alerts": [
       {
@@ -264,13 +229,6 @@
         "sourceSnippet": "pneumonia A protocol for systematic review and meta-analysis Hui Liu, PhD a , Xue-Fei Ding, MM b , Rui Guo, PhD a , Meng…"
       },
       {
-        "queryOffset": 4654,
-        "sourceOffset": 4654,
-        "score": 1,
-        "querySnippet": "viruses, in fl uenza viruses, parain fl uenza viruses, adenoviruses, human metapneumovirus, coronaviruses, and respirato…",
-        "sourceSnippet": "viruses, in fl uenza viruses, parain fl uenza viruses, adenoviruses, human metapneumovirus, coronaviruses, and respirato…"
-      },
-      {
         "queryOffset": 15522,
         "sourceOffset": 15766,
         "score": 1,
@@ -278,10 +236,10 @@
         "sourceSnippet": "and the elderly; (2) The ef fi cacy of TRQ alone versus western medicine or combined with western medicine vs western me…"
       },
       {
-        "queryOffset": 16311,
+        "queryOffset": 16354,
         "sourceOffset": 16430,
         "score": 1,
-        "querySnippet": "Grading the quality of evidence. The Grading of Recommendations Assessment, Development, and Evaluation Liu et al. Medic…",
+        "querySnippet": "The Grading of Recommendations Assessment, Development, and Evaluation Liu et al. Medicine (2020) 99:35 www.md-journal.c…",
         "sourceSnippet": "Liu et al. Medicine (2020) 99:35 www.md-journal.com 3 guidelines will be used to evaluate the quality of evidence. [21] …"
       }
     ],
@@ -294,8 +252,8 @@
     "sourceFile": "liu-2020-e21808.pdf",
     "queryRole": "QUERY",
     "sourceRole": "SOURCE",
-    "totalAlerts": 273,
-    "informativeAlerts": 273,
+    "totalAlerts": 274,
+    "informativeAlerts": 274,
     "queryCharCoverage": 0.8183,
     "coveredQueryChars": 18078,
     "totalQueryChars": 22092,
@@ -380,18 +338,18 @@
     "sourceFile": "liu-2020-e21808.pdf",
     "queryRole": "QUERY",
     "sourceRole": "SOURCE",
-    "totalAlerts": 162,
-    "informativeAlerts": 162,
+    "totalAlerts": 161,
+    "informativeAlerts": 161,
     "queryCharCoverage": 0.8124,
     "coveredQueryChars": 17948,
     "totalQueryChars": 22092,
     "top10Alerts": [
       {
-        "queryOffset": 2453,
-        "sourceOffset": 2525,
+        "queryOffset": 2780,
+        "sourceOffset": 2780,
         "score": 1,
-        "querySnippet": "[1,2] In the recent prospective pneumonia etiology studies, respiratory viruses were more commonly detected than bacteri…",
-        "sourceSnippet": "viruses were more commonly detected than bacteria in both adults and children, accounting for greater than 25% of detect…"
+        "querySnippet": "This study was supported by the National Natural Science Foundation of China (No. 81573723) and the Kaibao Pharm. Compan…",
+        "sourceSnippet": "This study was supported by the National Natural Science Foundation of China (No. 81573723) and the Kaibao Pharm. Compan…"
       },
       {
         "queryOffset": 3804,
@@ -401,18 +359,11 @@
         "sourceSnippet": "16, Nanxiao Road, Dongzhimen, Dongcheng District, Beijing 100700, China (e-mail: prof.wangyi@foxmail.com). Copyright © 2…"
       },
       {
-        "queryOffset": 3808,
-        "sourceOffset": 3804,
+        "queryOffset": 4218,
+        "sourceOffset": 4218,
         "score": 1,
-        "querySnippet": "16, Nanxiao Road, Dongzhimen, Dongcheng District, Beijing 100700, China (e-mail: prof.wangyi@foxmail.com). Copyright © 2…",
-        "sourceSnippet": "No. 16, Nanxiao Road, Dongzhimen, Dongcheng District, Beijing 100700, China (e-mail: prof.wangyi@foxmail.com). Copyright…"
-      },
-      {
-        "queryOffset": 3951,
-        "sourceOffset": 3992,
-        "score": 1,
-        "querySnippet": "Published by Wolters Kluwer Health, Inc. This is an open access article distributed under the Creative Commons Attributi…",
-        "sourceSnippet": "This is an open access article distributed under the Creative Commons Attribution License 4.0 (CCBY), which permits unre…"
+        "querySnippet": "How to cite this article: Liu H, Ding XF, Guo R, Zhao MF, Deng D, Hao Y, Wang Y. Effects and safety of tanreqing injecti…",
+        "sourceSnippet": "How to cite this article: Liu H, Ding XF, Guo R, Zhao MF, Deng D, Hao Y, Wang Y. Effects and safety of tanreqing injecti…"
       },
       {
         "queryOffset": 4796,
@@ -429,18 +380,18 @@
         "sourceSnippet": "Traditional Chinese Medicine (TCM) has been shown its unique advantages in treating respiratory diseases for thousands o…"
       },
       {
-        "queryOffset": 6271,
-        "sourceOffset": 6140,
-        "score": 1,
-        "querySnippet": "[12] Except for those functions in TCM theory, modern pharmacologic studies con fi rmed that TRQ injection can protect a…",
-        "sourceSnippet": "Hard-wicke ), [11] has marked effects of clearing heat, reducing in fl ammation, detoxi fi cation and allevi- ating coug…"
-      },
-      {
         "queryOffset": 8099,
         "sourceOffset": 8189,
         "score": 1,
         "querySnippet": "Participants with critical organ dysfunction or severe mental disorders will be excluded. Additionally, patients with at…",
         "sourceSnippet": "Additionally, patients with atopy will be excluded. The speci fi c criteria are as follows: 3.1.2.1. Inclusion criteria.…"
+      },
+      {
+        "queryOffset": 8099,
+        "sourceOffset": 8099,
+        "score": 1,
+        "querySnippet": "Participants with critical organ dysfunction or severe mental disorders will be excluded. Additionally, patients with at…",
+        "sourceSnippet": "Participants with critical organ dysfunction or severe mental disorders will be excluded. Additionally, patients with at…"
       },
       {
         "queryOffset": 8677,
@@ -455,6 +406,13 @@
         "score": 1,
         "querySnippet": "In the treatment group, the intervention will be TRQ injection or TRQ injection plus western medicine (antibiotics or an…",
         "sourceSnippet": "Under normal conditions, patients in control group will be treated with western medicine (antibiotics or antiviral drugs…"
+      },
+      {
+        "queryOffset": 9127,
+        "sourceOffset": 8983,
+        "score": 1,
+        "querySnippet": "Under normal conditions, patients in control group will be treated with western medicine (antibiotics or antiviral drugs…",
+        "sourceSnippet": "In the treatment group, the intervention will be TRQ injection or TRQ injection plus western medicine (antibiotics or an…"
       }
     ],
     "skipped": false
@@ -466,37 +424,30 @@
     "sourceFile": "liu-2020-e21808.pdf",
     "queryRole": "QUERY",
     "sourceRole": "SOURCE",
-    "totalAlerts": 4,
-    "informativeAlerts": 4,
-    "queryCharCoverage": 0.797,
-    "coveredQueryChars": 18407,
+    "totalAlerts": 3,
+    "informativeAlerts": 3,
+    "queryCharCoverage": 0.8047,
+    "coveredQueryChars": 18585,
     "totalQueryChars": 23095,
     "top10Alerts": [
       {
         "queryOffset": 710,
-        "sourceOffset": 254,
+        "sourceOffset": 51,
         "score": 1,
         "querySnippet": "pneumonia A protocol for systematic assessment and meta-analysis Hui Liu, PhD a , Xue-Fei Ding, MM b , Rui Guo, PhD a , …",
-        "sourceSnippet": "Background: Viral pneumonia is a common respiratory disease that leads to high mortality around the world. Tanreqing (TR…"
+        "sourceSnippet": "pneumonia A protocol for systematic review and meta-analysis Hui Liu, PhD a , Xue-Fei Ding, MM b , Rui Guo, PhD a , Meng…"
       },
       {
-        "queryOffset": 5434,
-        "sourceOffset": 4654,
-        "score": 1,
-        "querySnippet": "viruses, in fl uenza viruses, parain fl uenza viruses, adenoviruses, human metapneumovirus, coronaviruses, and respirato…",
-        "sourceSnippet": "viruses, in fl uenza viruses, parain fl uenza viruses, adenoviruses, human metapneumovirus, coronaviruses, and respirato…"
-      },
-      {
-        "queryOffset": 17282,
+        "queryOffset": 17325,
         "sourceOffset": 16430,
         "score": 1,
-        "querySnippet": "Grading the quality of evidence. The Grading of Recommendations Assessment, Development, and Evaluation Liu et al. Medic…",
+        "querySnippet": "The Grading of Recommendations Assessment, Development, and Evaluation Liu et al. Medicine (2020) 99:35 www.md-journal.c…",
         "sourceSnippet": "Liu et al. Medicine (2020) 99:35 www.md-journal.com 3 guidelines will be used to evaluate the quality of evidence. [21] …"
       },
       {
         "queryOffset": 16460,
         "sourceOffset": 15766,
-        "score": 0.8787,
+        "score": 0.8322,
         "querySnippet": "Subgroup examination. If a suf fi cient number of random trials and the evident heterogeneity are identi fi ed, we will …",
         "sourceSnippet": "and the elderly; (2) The ef fi cacy of TRQ alone versus western medicine or combined with western medicine vs western me…"
       }
@@ -510,8 +461,8 @@
     "sourceFile": "liu-2020-e21808.pdf",
     "queryRole": "QUERY",
     "sourceRole": "SOURCE",
-    "totalAlerts": 262,
-    "informativeAlerts": 262,
+    "totalAlerts": 265,
+    "informativeAlerts": 265,
     "queryCharCoverage": 0.8039,
     "coveredQueryChars": 18565,
     "totalQueryChars": 23095,
@@ -596,10 +547,10 @@
     "sourceFile": "liu-2020-e21808.pdf",
     "queryRole": "QUERY",
     "sourceRole": "SOURCE",
-    "totalAlerts": 142,
-    "informativeAlerts": 142,
-    "queryCharCoverage": 0.7914,
-    "coveredQueryChars": 18277,
+    "totalAlerts": 140,
+    "informativeAlerts": 140,
+    "queryCharCoverage": 0.7913,
+    "coveredQueryChars": 18274,
     "totalQueryChars": 23095,
     "top10Alerts": [
       {
@@ -610,11 +561,11 @@
         "sourceSnippet": "viruses were more commonly detected than bacteria in both adults and children, accounting for greater than 25% of detect…"
       },
       {
-        "queryOffset": 3700,
-        "sourceOffset": 2971,
+        "queryOffset": 3522,
+        "sourceOffset": 2780,
         "score": 1,
-        "querySnippet": "y2017001, GH2018001. The authors have no con fl icts of interest to disclose. Information sharing not applicable to this…",
-        "sourceSnippet": "The authors have no con fl icts of interest to disclose. Data sharing not applicable to this article as no datasets were…"
+        "querySnippet": "This investigation was supported by the National Natural Science Foundation of China (No. 81573723) and the Kaibao Pharm…",
+        "sourceSnippet": "This study was supported by the National Natural Science Foundation of China (No. 81573723) and the Kaibao Pharm. Compan…"
       },
       {
         "queryOffset": 4569,
@@ -624,18 +575,11 @@
         "sourceSnippet": "16, Nanxiao Road, Dongzhimen, Dongcheng District, Beijing 100700, China (e-mail: prof.wangyi@foxmail.com). Copyright © 2…"
       },
       {
-        "queryOffset": 4573,
-        "sourceOffset": 3804,
+        "queryOffset": 4983,
+        "sourceOffset": 4218,
         "score": 1,
-        "querySnippet": "16, Nanxiao Road, Dongzhimen, Dongcheng District, Beijing 100700, China (e-mail: prof.wangyi@foxmail.com). Copyright © 2…",
-        "sourceSnippet": "No. 16, Nanxiao Road, Dongzhimen, Dongcheng District, Beijing 100700, China (e-mail: prof.wangyi@foxmail.com). Copyright…"
-      },
-      {
-        "queryOffset": 4716,
-        "sourceOffset": 3992,
-        "score": 1,
-        "querySnippet": "Published by Wolters Kluwer Health, Inc. This is an open access article distributed under the Creative Commons Attributi…",
-        "sourceSnippet": "This is an open access article distributed under the Creative Commons Attribution License 4.0 (CCBY), which permits unre…"
+        "querySnippet": "How to cite this article: Liu H, Ding XF, Guo R, Zhao MF, Deng D, Hao Y, Wang Y. Effects and safety of tanreqing injecti…",
+        "sourceSnippet": "How to cite this article: Liu H, Ding XF, Guo R, Zhao MF, Deng D, Hao Y, Wang Y. Effects and safety of tanreqing injecti…"
       },
       {
         "queryOffset": 6585,
@@ -653,10 +597,10 @@
       },
       {
         "queryOffset": 8889,
-        "sourceOffset": 8099,
+        "sourceOffset": 8189,
         "score": 1,
         "querySnippet": "Participants with critical organ dysfunction or severe mental disorders will be excluded. Additionally, subjects with at…",
-        "sourceSnippet": "Participants with critical organ dysfunction or severe mental disorders will be excluded. Additionally, patients with at…"
+        "sourceSnippet": "Additionally, patients with atopy will be excluded. The speci fi c criteria are as follows: 3.1.2.1. Inclusion criteria.…"
       },
       {
         "queryOffset": 9465,
@@ -666,11 +610,18 @@
         "sourceSnippet": "dysfunction, hepatic or kidney failure, or serious uncon- trolled infection. (2) Severe mental disorders or any other di…"
       },
       {
-        "queryOffset": 9769,
-        "sourceOffset": 8854,
+        "queryOffset": 10733,
+        "sourceOffset": 10029,
         "score": 1,
-        "querySnippet": "In the therapy group, the intervention will be TRQ injection or TRQ injection plus western medicine (antibiotics or anti…",
-        "sourceSnippet": "control group undergo basic symptomatic treatment such as pyretolysis, alleviating cough, dissolving sputum, and antiast…"
+        "querySnippet": "All documented side effects and adverse events will be included as safety endpoints. The common side effects of TRQ inje…",
+        "sourceSnippet": "The common side effects of TRQ injection, such as anaphylaxis, drug eruption, nausea and vomiting, arrhythmia, haematuri…"
+      },
+      {
+        "queryOffset": 12335,
+        "sourceOffset": 11696,
+        "score": 1,
+        "querySnippet": "Two investigators will indepen- dently screen the titles and abstracts of all included studies according to the establis…",
+        "sourceSnippet": "Then, they will read the full text of potentially eligible studies to con fi rm the fi nal included studies. Any disagre…"
       }
     ],
     "skipped": false
@@ -682,10 +633,10 @@
     "sourceFile": "liu-2020-e21808.pdf",
     "queryRole": "QUERY",
     "sourceRole": "SOURCE",
-    "totalAlerts": 67,
-    "informativeAlerts": 67,
-    "queryCharCoverage": 0.8361,
-    "coveredQueryChars": 18527,
+    "totalAlerts": 62,
+    "informativeAlerts": 62,
+    "queryCharCoverage": 0.8232,
+    "coveredQueryChars": 18241,
     "totalQueryChars": 22158,
     "top10Alerts": [
       {
@@ -696,10 +647,10 @@
         "sourceSnippet": "Data sharing not applicable to this article as no datasets were generated or analyzed during the current study. a Depart…"
       },
       {
-        "queryOffset": 527,
+        "queryOffset": 661,
         "sourceOffset": 1603,
         "score": 1,
-        "querySnippet": "∗ Correspondence: Yu Hao, Department of Immunology and Microbiology, School of Life Science, Beijing University of Chine…",
+        "querySnippet": "After that, data synthesis and subgroup analysis will be conducted with the Review Manager V.5.3.3 software. Results: Th…",
         "sourceSnippet": "After that, data synthesis and subgroup analysis will be conducted with the Review Manager V.5.3.3 software. Results: Th…"
       },
       {
@@ -717,13 +668,6 @@
         "sourceSnippet": "Effects and safety of tanreqing injection on viral pneumonia: A protocol for systematic review and meta-analysis. Medici…"
       },
       {
-        "queryOffset": 1271,
-        "sourceOffset": 1148,
-        "score": 1,
-        "querySnippet": "y2017001, GH2018001. The total effective rate of clinical ef fi cacy will be used as primary outcome.",
-        "sourceSnippet": "The total effective rate of clinical ef fi cacy will be used as primary outcome."
-      },
-      {
         "queryOffset": 1292,
         "sourceOffset": 1439,
         "score": 1,
@@ -739,10 +683,10 @@
       },
       {
         "queryOffset": 1996,
-        "sourceOffset": 1229,
+        "sourceOffset": 588,
         "score": 1,
         "querySnippet": "Time to relieve symptoms, incidence of adverse reactions, and the laboratory parameters will be used as secondary outcom…",
-        "sourceSnippet": "Time to relieve symptoms, incidence of adverse reactions, and the laboratory parameters will be used as secondary outcom…"
+        "sourceSnippet": "Thus, this protocol describes a plan of performing a systematic review and meta-analysis to evaluate the ef fi cacy and …"
       },
       {
         "queryOffset": 2298,
@@ -757,6 +701,13 @@
         "score": 1,
         "querySnippet": "Prospero registration number: PROSPERO CRD42020164164 Abbreviations: RCTs = randomized controlled trials, TCM = traditio…",
         "sourceSnippet": "Methods: Only randomized controlled trials will be enrolled in our study, and we will search eligible studies in the fol…"
+      },
+      {
+        "queryOffset": 3563,
+        "sourceOffset": 3564,
+        "score": 1,
+        "querySnippet": "Conclusion: Our study will provide comprehensive evidence to decide whether TRQ injection is effective and safe for vira…",
+        "sourceSnippet": "The northeast corner of the intersection of Sunshine South Street and Baiyang East Road, Fangshan District, Beijing 1024…"
       }
     ],
     "skipped": false
@@ -768,10 +719,10 @@
     "sourceFile": "liu-2020-e21808.pdf",
     "queryRole": "QUERY",
     "sourceRole": "SOURCE",
-    "totalAlerts": 367,
-    "informativeAlerts": 367,
-    "queryCharCoverage": 0.8662,
-    "coveredQueryChars": 19193,
+    "totalAlerts": 366,
+    "informativeAlerts": 366,
+    "queryCharCoverage": 0.8715,
+    "coveredQueryChars": 19310,
     "totalQueryChars": 22158,
     "top10Alerts": [
       {
@@ -854,8 +805,8 @@
     "sourceFile": "liu-2020-e21808.pdf",
     "queryRole": "QUERY",
     "sourceRole": "SOURCE",
-    "totalAlerts": 202,
-    "informativeAlerts": 202,
+    "totalAlerts": 193,
+    "informativeAlerts": 193,
     "queryCharCoverage": 0.8296,
     "coveredQueryChars": 18383,
     "totalQueryChars": 22158,
@@ -911,10 +862,10 @@
       },
       {
         "queryOffset": 7176,
-        "sourceOffset": 9127,
+        "sourceOffset": 8983,
         "score": 1,
         "querySnippet": "Secondary outcomes. Under normal conditions, patients in control group will be treated with western medicine (antibiotic…",
-        "sourceSnippet": "Under normal conditions, patients in control group will be treated with western medicine (antibiotics or antiviral drugs…"
+        "sourceSnippet": "In the treatment group, the intervention will be TRQ injection or TRQ injection plus western medicine (antibiotics or an…"
       },
       {
         "queryOffset": 7573,
@@ -924,11 +875,11 @@
         "sourceSnippet": "If uncontrolled well, respiratory distress syndrome, and shock may be caused secondarily to these symptoms and even caus…"
       },
       {
-        "queryOffset": 10282,
-        "sourceOffset": 8507,
+        "queryOffset": 10443,
+        "sourceOffset": 8600,
         "score": 1,
-        "querySnippet": "Exclusion criteria. (1) Critical organ dysfunction, such as severe cardiopulmonary dysfunction, hepatic or kidney failur…",
-        "sourceSnippet": "3.1.2.2. Exclusion criteria. (1) Critical organ dysfunction, such as severe cardiopulmonary dysfunction, hepatic or kidn…"
+        "querySnippet": "(2) Severe mental disorders or any other diseases in fl uence compliance. (3) Allergic condition.",
+        "sourceSnippet": "dysfunction, hepatic or kidney failure, or serious uncon- trolled infection. (2) Severe mental disorders or any other di…"
       }
     ],
     "skipped": false
@@ -940,10 +891,10 @@
     "sourceFile": "liu-2020-e21808.pdf",
     "queryRole": "QUERY",
     "sourceRole": "SOURCE",
-    "totalAlerts": 4,
-    "informativeAlerts": 4,
-    "queryCharCoverage": 0.7972,
-    "coveredQueryChars": 18190,
+    "totalAlerts": 3,
+    "informativeAlerts": 3,
+    "queryCharCoverage": 0.8047,
+    "coveredQueryChars": 18360,
     "totalQueryChars": 22816,
     "top10Alerts": [
       {
@@ -954,23 +905,16 @@
         "sourceSnippet": "pneumonia A protocol for systematic review and meta-analysis Hui Liu, PhD a , Xue-Fei Ding, MM b , Rui Guo, PhD a , Meng…"
       },
       {
-        "queryOffset": 5291,
-        "sourceOffset": 4654,
-        "score": 1,
-        "querySnippet": "viruses, in fl uenza viruses, parain fl uenza viruses, adenoviruses, human metapneumovirus, coronaviruses, and respirato…",
-        "sourceSnippet": "viruses, in fl uenza viruses, parain fl uenza viruses, adenoviruses, human metapneumovirus, coronaviruses, and respirato…"
-      },
-      {
-        "queryOffset": 17030,
+        "queryOffset": 17073,
         "sourceOffset": 16430,
         "score": 1,
-        "querySnippet": "Grading the quality of evidence. The Grading of Recommendations Assessment, Development, and Evaluation Liu et al. Medic…",
+        "querySnippet": "The Grading of Recommendations Assessment, Development, and Evaluation Liu et al. Medicine (2020) 99:35 www.md-journal.c…",
         "sourceSnippet": "Liu et al. Medicine (2020) 99:35 www.md-journal.com 3 guidelines will be used to evaluate the quality of evidence. [21] …"
       },
       {
         "queryOffset": 16222,
         "sourceOffset": 15766,
-        "score": 0.9268,
+        "score": 0.9354,
         "querySnippet": "Subgroup analysis. If a suf fi cient number of random trials and the evident heterogeneity are identi fi ed, we will per…",
         "sourceSnippet": "and the elderly; (2) The ef fi cacy of TRQ alone versus western medicine or combined with western medicine vs western me…"
       }
@@ -984,8 +928,8 @@
     "sourceFile": "liu-2020-e21808.pdf",
     "queryRole": "QUERY",
     "sourceRole": "SOURCE",
-    "totalAlerts": 267,
-    "informativeAlerts": 267,
+    "totalAlerts": 269,
+    "informativeAlerts": 269,
     "queryCharCoverage": 0.7972,
     "coveredQueryChars": 18190,
     "totalQueryChars": 22816,
@@ -1070,12 +1014,19 @@
     "sourceFile": "liu-2020-e21808.pdf",
     "queryRole": "QUERY",
     "sourceRole": "SOURCE",
-    "totalAlerts": 156,
-    "informativeAlerts": 156,
-    "queryCharCoverage": 0.7914,
-    "coveredQueryChars": 18057,
+    "totalAlerts": 149,
+    "informativeAlerts": 149,
+    "queryCharCoverage": 0.7915,
+    "coveredQueryChars": 18060,
     "totalQueryChars": 22816,
     "top10Alerts": [
+      {
+        "queryOffset": 3070,
+        "sourceOffset": 2525,
+        "score": 1,
+        "querySnippet": "[1,2] In the recent prospective pneumonia etiology studies, respiratory viruses were more commonly detected than bacteri…",
+        "sourceSnippet": "viruses were more commonly detected than bacteria in both adults and children, accounting for greater than 25% of detect…"
+      },
       {
         "queryOffset": 3407,
         "sourceOffset": 2780,
@@ -1091,18 +1042,11 @@
         "sourceSnippet": "16, Nanxiao Road, Dongzhimen, Dongcheng District, Beijing 100700, China (e-mail: prof.wangyi@foxmail.com). Copyright © 2…"
       },
       {
-        "queryOffset": 4442,
-        "sourceOffset": 3804,
+        "queryOffset": 4852,
+        "sourceOffset": 4218,
         "score": 1,
-        "querySnippet": "16, Nanxiao Road, Dongzhimen, Dongcheng District, Beijing 100700, China (e-mail: prof.wangyi@foxmail.com). Copyright © 2…",
-        "sourceSnippet": "No. 16, Nanxiao Road, Dongzhimen, Dongcheng District, Beijing 100700, China (e-mail: prof.wangyi@foxmail.com). Copyright…"
-      },
-      {
-        "queryOffset": 4585,
-        "sourceOffset": 3992,
-        "score": 1,
-        "querySnippet": "Published by Wolters Kluwer Health, Inc. This is an open access article distributed under the Creative Commons Attributi…",
-        "sourceSnippet": "This is an open access article distributed under the Creative Commons Attribution License 4.0 (CCBY), which permits unre…"
+        "querySnippet": "How to cite this article: Liu H, Ding XF, Guo R, Zhao MF, Deng D, Hao Y, Wang Y. Effects and safety of tanreqing injecti…",
+        "sourceSnippet": "How to cite this article: Liu H, Ding XF, Guo R, Zhao MF, Deng D, Hao Y, Wang Y. Effects and safety of tanreqing injecti…"
       },
       {
         "queryOffset": 6444,

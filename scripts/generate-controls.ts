@@ -239,10 +239,7 @@ async function main(): Promise<void> {
       for (const item of content.items) {
         if (!('str' in item)) continue;
         const y = item.transform[5];
-        if (
-          previous &&
-          Math.abs(y - previous.y) > Math.max(previous.height, item.height) * 1.6
-        ) {
+        if (previous && Math.abs(y - previous.y) > Math.max(previous.height, item.height) * 1.6) {
           paragraphBreaks.push(extractedText.length + part.length);
         }
         part += item.str.replace(/\0/g, ' ') + (item.hasEOL ? '\n' : ' ');
@@ -290,11 +287,7 @@ async function main(): Promise<void> {
     `// Every 3rd replaceable word is replaced. Deterministic, seed 42.\n` +
     `// Synonym map: ${JSON.stringify(SYNONYM_MAP)}\n\n`;
   const c4Light = c4LightAutoParaphrase(extractedText);
-  await writeFile(
-    join(FIXTURES, 'c4-light-auto-paraphrase.txt'),
-    c4LightHeader + c4Light,
-    'utf8',
-  );
+  await writeFile(join(FIXTURES, 'c4-light-auto-paraphrase.txt'), c4LightHeader + c4Light, 'utf8');
   console.log('  Wrote c4-light-auto-paraphrase.txt');
 
   // --- C4-medium: placeholder ---

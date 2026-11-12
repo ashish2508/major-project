@@ -487,7 +487,7 @@ export default function Home() {
               {ingestFiles.length > 0 && (
                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', maxWidth: '600px' }}>
                   {ingestFiles.map((f, i) => (
-                    <span className="file-chip" key={i}>
+                    <span className="file-chip" key={`ingest-${f.name}-${f.size}-${i}`}>
                       {f.name} ({(f.size / 1024).toFixed(0)} KB)
                     </span>
                   ))}
@@ -1070,7 +1070,7 @@ export default function Home() {
             {result.semanticReviewLeads.map((lead, index) => (
               <article
                 className="review-lead"
-                key={lead.suspiciousSpan.offset}
+                key={`lead-${lead.sourceReference}-${lead.suspiciousSpan.offset}-${lead.sourceSpan.offset}`}
                 aria-labelledby={`review-lead-title-${index}`}
               >
                 <div>
@@ -1129,7 +1129,7 @@ export default function Home() {
                     <button
                       type="button"
                       className={`match-card ${active === i ? 'active' : ''}`}
-                      key={`${d.sourceReference}-${d.suspiciousSpan.offset}`}
+                      key={`detection-${i}-${d.sourceReference}-${d.suspiciousSpan.offset}-${d.sourceSpan.offset}`}
                       aria-pressed={active === i}
                       onClick={() => setActive(i)}
                     >
