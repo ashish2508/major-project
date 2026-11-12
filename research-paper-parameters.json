@@ -3,7 +3,7 @@
   "_note": "These parameters are NOT used by the PAN-PC-11 benchmark pipeline. The benchmark uses reports/implementation/alignment-fusion/frozen-parameters.json.",
   "configSource": "research-paper-parameters.json",
   "segmentation": "paragraph windows (segmentParagraphs)",
-  "calibration": "tuned on 7 pairs (P1, C1, C2, C3, C4-light, N1 skipped, N2 skipped); not a validated accuracy claim",
+  "calibration": "tuned on Phase-6 sweep data (P1, C1, C4-light); N1 and N2 PDFs not available during sweep — conservative thresholds chosen to maximise recall in the absence of negative-pair data",
   "methods": {
     "lexical": {
       "method": "lexical",
@@ -29,33 +29,347 @@
     "mutualBestMatchK": 1
   },
   "thresholdSweepTable": {
-    "description": "Sweep of lexical/semantic/hybrid thresholds on the Phase-0 evaluation set. For each threshold, we report C1 recall (should be 1.0), C2 recall (target >= 0.9), and non-boilerplate alerts on P1. N1 and N2 were not available; sweep was based on control pairs only.",
+    "description": "Phase-6 real sweep of lexical/semantic/hybrid thresholds on the Phase-0 evaluation fixtures. Run via bun run scripts/threshold-sweep.ts on branch improvements/research-paper-quality. N1 (zhu-2020-e22356.pdf) and N2 (tanreqing-2020-pmc7458256.pdf) were NOT available during this sweep; all columns show n/a for negative-pair metrics.",
+    "metrics_key": "c1Alerts = exact-copy control alert count (must stay at max); p1Alerts = real retracted-paper positive-pair alerts (higher is better for recall); c4LightAlerts = light-paraphrase control alerts (higher is better for recall); n1Alerts / n2Alerts = negative-pair alerts (lower is better for precision — unavailable)",
     "lexical": [
-      { "threshold": 0.3, "C1_informative": 5, "C2_informative": 5, "P1_informative": 2, "note": "below baseline PAN threshold" },
-      { "threshold": 0.4, "C1_informative": 5, "C2_informative": 5, "P1_informative": 2, "note": "below baseline PAN threshold" },
-      { "threshold": 0.5, "C1_informative": 5, "C2_informative": 5, "P1_informative": 2, "note": "CHOSEN: matches Phase-4 informative count; C1 recall maintained" },
-      { "threshold": 0.6, "C1_informative": 5, "C2_informative": 5, "P1_informative": 2, "note": "PAN frozen threshold — same result as 0.5 for these pairs" },
-      { "threshold": 0.7, "C1_informative": 5, "C2_informative": 5, "P1_informative": 2, "note": "no change on these small pairs" },
-      { "threshold": 0.8, "C1_informative": 4, "C2_informative": 4, "P1_informative": 1, "note": "recall drops" }
+      {
+        "threshold": 0.3,
+        "c1Alerts": 5,
+        "p1Alerts": 16,
+        "c4LightAlerts": 5,
+        "n1Alerts": null,
+        "n2Alerts": null,
+        "note": "P1 inflated — 16 alerts on positive pair but many may be topic-similarity false positives; no N1/N2 to verify"
+      },
+      {
+        "threshold": 0.4,
+        "c1Alerts": 5,
+        "p1Alerts": 10,
+        "c4LightAlerts": 5,
+        "n1Alerts": null,
+        "n2Alerts": null,
+        "note": "P1 reduced to 10 alerts; still above baseline level"
+      },
+      {
+        "threshold": 0.5,
+        "c1Alerts": 5,
+        "p1Alerts": 4,
+        "c4LightAlerts": 5,
+        "n1Alerts": null,
+        "n2Alerts": null,
+        "note": "CHOSEN: C1 recall maintained at 5; P1 gives 4 informative alerts; C4-light maintained at 5"
+      },
+      {
+        "threshold": 0.55,
+        "c1Alerts": 5,
+        "p1Alerts": 3,
+        "c4LightAlerts": 5,
+        "n1Alerts": null,
+        "n2Alerts": null,
+        "note": "One fewer P1 alert than 0.5; still acceptable but slightly less recall"
+      },
+      {
+        "threshold": 0.6,
+        "c1Alerts": 5,
+        "p1Alerts": 2,
+        "c4LightAlerts": 5,
+        "n1Alerts": null,
+        "n2Alerts": null,
+        "note": "P1 drops to 2; PAN frozen threshold — conservative but reduces P1 coverage"
+      },
+      {
+        "threshold": 0.65,
+        "c1Alerts": 6,
+        "p1Alerts": 0,
+        "c4LightAlerts": 6,
+        "n1Alerts": null,
+        "n2Alerts": null,
+        "note": "P1 drops to ZERO — unacceptable; C1 count increase is a merge-grouping artifact not a recall gain"
+      },
+      {
+        "threshold": 0.7,
+        "c1Alerts": 6,
+        "p1Alerts": 0,
+        "c4LightAlerts": 7,
+        "n1Alerts": null,
+        "n2Alerts": null,
+        "note": "P1 stays at zero; not chosen"
+      }
     ],
     "semantic": [
-      { "threshold": 0.5, "C1_informative": 264, "C2_informative": 253, "P1_informative": 69, "note": "lower threshold increases alerts heavily — not chosen" },
-      { "threshold": 0.6, "C1_informative": 264, "C2_informative": 253, "P1_informative": 69, "note": "CHOSEN: matches Phase-4 baseline; PAN frozen value is 0.7 but research papers benefit from lower threshold for paraphrase" },
-      { "threshold": 0.7, "C1_informative": 264, "C2_informative": 253, "P1_informative": 69, "note": "PAN frozen threshold" },
-      { "threshold": 0.75, "C1_informative": 230, "C2_informative": 215, "P1_informative": 60, "note": "recall starts to drop" }
+      {
+        "threshold": 0.5,
+        "c1Alerts": 796,
+        "p1Alerts": 468,
+        "c4LightAlerts": 793,
+        "n1Alerts": null,
+        "n2Alerts": null,
+        "note": "Very high alert counts — lower threshold increases noise substantially"
+      },
+      {
+        "threshold": 0.55,
+        "c1Alerts": 612,
+        "p1Alerts": 315,
+        "c4LightAlerts": 605,
+        "n1Alerts": null,
+        "n2Alerts": null,
+        "note": "Moderate reduction but still substantially above 0.6"
+      },
+      {
+        "threshold": 0.6,
+        "c1Alerts": 458,
+        "p1Alerts": 206,
+        "c4LightAlerts": 450,
+        "n1Alerts": null,
+        "n2Alerts": null,
+        "note": "CHOSEN: current baseline; maximises recall on positive pair and controls; conservative without N1/N2 negative-pair data"
+      },
+      {
+        "threshold": 0.65,
+        "c1Alerts": 341,
+        "p1Alerts": 125,
+        "c4LightAlerts": 338,
+        "n1Alerts": null,
+        "n2Alerts": null,
+        "note": "27% recall drop from 0.6 on C1; not justified without N1/N2 false-positive evidence"
+      },
+      {
+        "threshold": 0.7,
+        "c1Alerts": 264,
+        "p1Alerts": 69,
+        "c4LightAlerts": 259,
+        "n1Alerts": null,
+        "n2Alerts": null,
+        "note": "PAN frozen threshold — 42% recall drop from 0.6; book-text calibration not validated for research-paper mode"
+      },
+      {
+        "threshold": 0.75,
+        "c1Alerts": 211,
+        "p1Alerts": 39,
+        "c4LightAlerts": 209,
+        "n1Alerts": null,
+        "n2Alerts": null,
+        "note": "Further recall reduction; not chosen"
+      }
     ],
     "hybrid": [
-      { "threshold": 0.4, "alpha": 0.25, "C1_informative": 155, "C2_informative": 133, "P1_informative": 12, "note": "more alerts but no negative pair data to validate" },
-      { "threshold": 0.5, "alpha": 0.25, "C1_informative": 155, "C2_informative": 133, "P1_informative": 12, "note": "CHOSEN: same informative count as 0.4; lowest threshold that keeps C1 recall = 1.0" },
-      { "threshold": 0.6, "alpha": 0.25, "C1_informative": 155, "C2_informative": 133, "P1_informative": 12, "note": "Phase-4 baseline" },
-      { "threshold": 0.7, "alpha": 0.25, "C1_informative": 155, "C2_informative": 133, "P1_informative": 12, "note": "PAN frozen threshold — same result for these pairs" },
-      { "threshold": 0.8, "alpha": 0.25, "C1_informative": 120, "C2_informative": 110, "P1_informative": 8, "note": "recall drops" }
+      {
+        "threshold": 0.4,
+        "alpha": 0.15,
+        "c1Alerts": 1041,
+        "p1Alerts": 627,
+        "c4LightAlerts": 1035,
+        "n1Alerts": null,
+        "n2Alerts": null,
+        "note": "Very high counts; alpha=0.15 means 85% semantic weighting — produces near-semantic-level volumes"
+      },
+      {
+        "threshold": 0.45,
+        "alpha": 0.15,
+        "c1Alerts": 766,
+        "p1Alerts": 433,
+        "c4LightAlerts": 761,
+        "n1Alerts": null,
+        "n2Alerts": null,
+        "note": ""
+      },
+      {
+        "threshold": 0.5,
+        "alpha": 0.15,
+        "c1Alerts": 571,
+        "p1Alerts": 270,
+        "c4LightAlerts": 566,
+        "n1Alerts": null,
+        "n2Alerts": null,
+        "note": ""
+      },
+      {
+        "threshold": 0.55,
+        "alpha": 0.15,
+        "c1Alerts": 400,
+        "p1Alerts": 171,
+        "c4LightAlerts": 396,
+        "n1Alerts": null,
+        "n2Alerts": null,
+        "note": ""
+      },
+      {
+        "threshold": 0.6,
+        "alpha": 0.15,
+        "c1Alerts": 306,
+        "p1Alerts": 102,
+        "c4LightAlerts": 302,
+        "n1Alerts": null,
+        "n2Alerts": null,
+        "note": ""
+      },
+      {
+        "threshold": 0.65,
+        "alpha": 0.15,
+        "c1Alerts": 242,
+        "p1Alerts": 56,
+        "c4LightAlerts": 239,
+        "n1Alerts": null,
+        "n2Alerts": null,
+        "note": ""
+      },
+      {
+        "threshold": 0.7,
+        "alpha": 0.15,
+        "c1Alerts": 193,
+        "p1Alerts": 34,
+        "c4LightAlerts": 186,
+        "n1Alerts": null,
+        "n2Alerts": null,
+        "note": ""
+      },
+      {
+        "threshold": 0.4,
+        "alpha": 0.25,
+        "c1Alerts": 833,
+        "p1Alerts": 483,
+        "c4LightAlerts": 831,
+        "n1Alerts": null,
+        "n2Alerts": null,
+        "note": "alpha=0.25 (current) — still high at threshold 0.4"
+      },
+      {
+        "threshold": 0.45,
+        "alpha": 0.25,
+        "c1Alerts": 610,
+        "p1Alerts": 291,
+        "c4LightAlerts": 602,
+        "n1Alerts": null,
+        "n2Alerts": null,
+        "note": ""
+      },
+      {
+        "threshold": 0.5,
+        "alpha": 0.25,
+        "c1Alerts": 418,
+        "p1Alerts": 187,
+        "c4LightAlerts": 409,
+        "n1Alerts": null,
+        "n2Alerts": null,
+        "note": "CHOSEN (alpha=0.25): C1 at 418, P1 at 187; maximises recall without N1/N2 reference; consistent with lexical=0.5 baseline"
+      },
+      {
+        "threshold": 0.55,
+        "alpha": 0.25,
+        "c1Alerts": 302,
+        "p1Alerts": 110,
+        "c4LightAlerts": 299,
+        "n1Alerts": null,
+        "n2Alerts": null,
+        "note": ""
+      },
+      {
+        "threshold": 0.6,
+        "alpha": 0.25,
+        "c1Alerts": 248,
+        "p1Alerts": 59,
+        "c4LightAlerts": 245,
+        "n1Alerts": null,
+        "n2Alerts": null,
+        "note": ""
+      },
+      {
+        "threshold": 0.65,
+        "alpha": 0.25,
+        "c1Alerts": 191,
+        "p1Alerts": 36,
+        "c4LightAlerts": 187,
+        "n1Alerts": null,
+        "n2Alerts": null,
+        "note": ""
+      },
+      {
+        "threshold": 0.7,
+        "alpha": 0.25,
+        "c1Alerts": 155,
+        "p1Alerts": 12,
+        "c4LightAlerts": 142,
+        "n1Alerts": null,
+        "n2Alerts": null,
+        "note": ""
+      },
+      {
+        "threshold": 0.4,
+        "alpha": 0.35,
+        "c1Alerts": 646,
+        "p1Alerts": 319,
+        "c4LightAlerts": 633,
+        "n1Alerts": null,
+        "n2Alerts": null,
+        "note": "alpha=0.35 (more lexical weight) — lower volumes than 0.25"
+      },
+      {
+        "threshold": 0.45,
+        "alpha": 0.35,
+        "c1Alerts": 431,
+        "p1Alerts": 191,
+        "c4LightAlerts": 422,
+        "n1Alerts": null,
+        "n2Alerts": null,
+        "note": ""
+      },
+      {
+        "threshold": 0.5,
+        "alpha": 0.35,
+        "c1Alerts": 310,
+        "p1Alerts": 117,
+        "c4LightAlerts": 306,
+        "n1Alerts": null,
+        "n2Alerts": null,
+        "note": ""
+      },
+      {
+        "threshold": 0.55,
+        "alpha": 0.35,
+        "c1Alerts": 249,
+        "p1Alerts": 64,
+        "c4LightAlerts": 244,
+        "n1Alerts": null,
+        "n2Alerts": null,
+        "note": ""
+      },
+      {
+        "threshold": 0.6,
+        "alpha": 0.35,
+        "c1Alerts": 184,
+        "p1Alerts": 36,
+        "c4LightAlerts": 184,
+        "n1Alerts": null,
+        "n2Alerts": null,
+        "note": ""
+      },
+      {
+        "threshold": 0.65,
+        "alpha": 0.35,
+        "c1Alerts": 150,
+        "p1Alerts": 14,
+        "c4LightAlerts": 144,
+        "n1Alerts": null,
+        "n2Alerts": null,
+        "note": ""
+      },
+      {
+        "threshold": 0.7,
+        "alpha": 0.35,
+        "c1Alerts": 121,
+        "p1Alerts": 4,
+        "c4LightAlerts": 116,
+        "n1Alerts": null,
+        "n2Alerts": null,
+        "note": ""
+      }
     ]
   },
   "choiceRationale": {
-    "lexical_threshold": "0.5: lowest threshold where C1 informative alert count is unchanged from 0.6; N1/N2 not available to verify false-positive rate; conservative lower bound",
-    "semantic_threshold": "0.6: PAN calibration uses 0.7 for book text; research papers have denser technical vocabulary — 0.6 adds no extra noise on these pairs but would catch lighter paraphrase",
-    "hybrid_alpha": "0.25: retained from PAN calibration; validation selected lexical weight 1.0 on PAN but 0.25 retains semantic contribution for research-paper mode",
-    "hybrid_threshold": "0.5: same reasoning as lexical; no negative-pair data available to validate"
+    "lexical_threshold": "0.5: At this threshold C1 (exact copy) alerts = 5 and P1 (retracted paper) alerts = 4. Raising to 0.6 drops P1 to 2; raising to 0.65 drops P1 to 0 entirely. Without N1/N2 negative-pair PDFs, the conservative choice is to maximise recall on the positive pair rather than chase precision. The 0.5 threshold keeps both C1 and C4-light at their maximum alert counts.",
+    "semantic_threshold": "0.6: Maintains maximum recall on all positive and control pairs (C1=458, P1=206, C4-light=450). Raising to 0.65 drops C1 by 25% and P1 by 39%; raising to the PAN frozen 0.7 halves C1 and drops P1 by 66%. Without N1/N2 negative-pair data to validate that the extra alerts at 0.6 are false positives, it is not safe to raise the threshold. If N1/N2 become available and show high false-positive counts at 0.6, revisit to 0.65.",
+    "hybrid_alpha": "0.25: retained from PAN calibration. Increasing alpha toward 0.35 reduces alert volumes (C1 drops from 418 to 310 at threshold 0.5) which could hurt recall. Decreasing to 0.15 would make the method almost purely semantic, losing the lexical precision contribution. 0.25 is a balanced choice; alpha tuning should be revisited when N1/N2 data are available.",
+    "hybrid_threshold": "0.5: Same reasoning as lexical — maximises recall (C1=418, P1=187, C4-light=409) while there is no negative-pair baseline to justify raising the threshold. At 0.6, P1 drops to 59 (69% reduction); at 0.7, P1 drops to 12 (94% reduction). Conservative without N1/N2.",
+    "n1_n2_note": "N1 (zhu-2020-e22356.pdf, PMC7505387) and N2 (tanreqing-2020-pmc7458256.pdf, PMC7458256) PDFs were not available during the Phase-6 sweep. All N1/N2 columns in the sweep table are null. The chosen thresholds are therefore conservative (high sensitivity) pending negative-pair validation. When the PDFs are added to tests/fixtures/papers/, re-run bun run scripts/threshold-sweep.ts and update this file."
   }
 }

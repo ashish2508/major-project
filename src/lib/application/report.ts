@@ -87,9 +87,11 @@ export function analysisReport(results: AnalysisResult[], target: string): strin
   };
 
   const configLine = (r: AnalysisResult): string => {
-    const src = r.researchMode
-      ? 'research-paper-parameters (document-local IDF)'
-      : 'PAN frozen calibration';
+    // Use the activeConfigSource field (e.g. "research-paper-parameters.json" or
+    // "alignment-fusion/frozen-parameters.json (PAN calibration)") set by analyzeDocuments.
+    const src =
+      r.activeConfigSource ??
+      (r.researchMode ? 'research-paper-parameters.json' : 'PAN frozen calibration');
     return `Config: ${escape(src)} · Threshold ${r.config.threshold} · Alpha ${r.config.alpha} · Merge gap ${r.config.mergeGap} · ${escape(r.provider)} · ${escape(r.model ?? 'TF-IDF')}`;
   };
 

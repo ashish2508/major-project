@@ -1,0 +1,303 @@
+{
+  "lexicalRows": [
+    {
+      "threshold": 0.3,
+      "c1Alerts": 5,
+      "p1Alerts": 16,
+      "c4LightAlerts": 5,
+      "n1Alerts": null,
+      "n2Alerts": null
+    },
+    {
+      "threshold": 0.4,
+      "c1Alerts": 5,
+      "p1Alerts": 10,
+      "c4LightAlerts": 5,
+      "n1Alerts": null,
+      "n2Alerts": null
+    },
+    {
+      "threshold": 0.5,
+      "c1Alerts": 5,
+      "p1Alerts": 4,
+      "c4LightAlerts": 5,
+      "n1Alerts": null,
+      "n2Alerts": null
+    },
+    {
+      "threshold": 0.55,
+      "c1Alerts": 5,
+      "p1Alerts": 3,
+      "c4LightAlerts": 5,
+      "n1Alerts": null,
+      "n2Alerts": null
+    },
+    {
+      "threshold": 0.6,
+      "c1Alerts": 5,
+      "p1Alerts": 2,
+      "c4LightAlerts": 5,
+      "n1Alerts": null,
+      "n2Alerts": null
+    },
+    {
+      "threshold": 0.65,
+      "c1Alerts": 6,
+      "p1Alerts": 0,
+      "c4LightAlerts": 6,
+      "n1Alerts": null,
+      "n2Alerts": null
+    },
+    {
+      "threshold": 0.7,
+      "c1Alerts": 6,
+      "p1Alerts": 0,
+      "c4LightAlerts": 7,
+      "n1Alerts": null,
+      "n2Alerts": null
+    }
+  ],
+  "semanticRows": [
+    {
+      "threshold": 0.5,
+      "c1Alerts": 796,
+      "p1Alerts": 468,
+      "c4LightAlerts": 793,
+      "n1Alerts": null,
+      "n2Alerts": null
+    },
+    {
+      "threshold": 0.55,
+      "c1Alerts": 612,
+      "p1Alerts": 315,
+      "c4LightAlerts": 605,
+      "n1Alerts": null,
+      "n2Alerts": null
+    },
+    {
+      "threshold": 0.6,
+      "c1Alerts": 458,
+      "p1Alerts": 206,
+      "c4LightAlerts": 450,
+      "n1Alerts": null,
+      "n2Alerts": null
+    },
+    {
+      "threshold": 0.65,
+      "c1Alerts": 341,
+      "p1Alerts": 125,
+      "c4LightAlerts": 338,
+      "n1Alerts": null,
+      "n2Alerts": null
+    },
+    {
+      "threshold": 0.7,
+      "c1Alerts": 264,
+      "p1Alerts": 69,
+      "c4LightAlerts": 259,
+      "n1Alerts": null,
+      "n2Alerts": null
+    },
+    {
+      "threshold": 0.75,
+      "c1Alerts": 211,
+      "p1Alerts": 39,
+      "c4LightAlerts": 209,
+      "n1Alerts": null,
+      "n2Alerts": null
+    }
+  ],
+  "hybridRows": [
+    {
+      "threshold": 0.4,
+      "alpha": 0.15,
+      "c1Alerts": 1041,
+      "p1Alerts": 627,
+      "c4LightAlerts": 1035,
+      "n1Alerts": null,
+      "n2Alerts": null
+    },
+    {
+      "threshold": 0.45,
+      "alpha": 0.15,
+      "c1Alerts": 766,
+      "p1Alerts": 433,
+      "c4LightAlerts": 761,
+      "n1Alerts": null,
+      "n2Alerts": null
+    },
+    {
+      "threshold": 0.5,
+      "alpha": 0.15,
+      "c1Alerts": 571,
+      "p1Alerts": 270,
+      "c4LightAlerts": 566,
+      "n1Alerts": null,
+      "n2Alerts": null
+    },
+    {
+      "threshold": 0.55,
+      "alpha": 0.15,
+      "c1Alerts": 400,
+      "p1Alerts": 171,
+      "c4LightAlerts": 396,
+      "n1Alerts": null,
+      "n2Alerts": null
+    },
+    {
+      "threshold": 0.6,
+      "alpha": 0.15,
+      "c1Alerts": 306,
+      "p1Alerts": 102,
+      "c4LightAlerts": 302,
+      "n1Alerts": null,
+      "n2Alerts": null
+    },
+    {
+      "threshold": 0.65,
+      "alpha": 0.15,
+      "c1Alerts": 242,
+      "p1Alerts": 56,
+      "c4LightAlerts": 239,
+      "n1Alerts": null,
+      "n2Alerts": null
+    },
+    {
+      "threshold": 0.7,
+      "alpha": 0.15,
+      "c1Alerts": 193,
+      "p1Alerts": 34,
+      "c4LightAlerts": 186,
+      "n1Alerts": null,
+      "n2Alerts": null
+    },
+    {
+      "threshold": 0.4,
+      "alpha": 0.25,
+      "c1Alerts": 833,
+      "p1Alerts": 483,
+      "c4LightAlerts": 831,
+      "n1Alerts": null,
+      "n2Alerts": null
+    },
+    {
+      "threshold": 0.45,
+      "alpha": 0.25,
+      "c1Alerts": 610,
+      "p1Alerts": 291,
+      "c4LightAlerts": 602,
+      "n1Alerts": null,
+      "n2Alerts": null
+    },
+    {
+      "threshold": 0.5,
+      "alpha": 0.25,
+      "c1Alerts": 418,
+      "p1Alerts": 187,
+      "c4LightAlerts": 409,
+      "n1Alerts": null,
+      "n2Alerts": null
+    },
+    {
+      "threshold": 0.55,
+      "alpha": 0.25,
+      "c1Alerts": 302,
+      "p1Alerts": 110,
+      "c4LightAlerts": 299,
+      "n1Alerts": null,
+      "n2Alerts": null
+    },
+    {
+      "threshold": 0.6,
+      "alpha": 0.25,
+      "c1Alerts": 248,
+      "p1Alerts": 59,
+      "c4LightAlerts": 245,
+      "n1Alerts": null,
+      "n2Alerts": null
+    },
+    {
+      "threshold": 0.65,
+      "alpha": 0.25,
+      "c1Alerts": 191,
+      "p1Alerts": 36,
+      "c4LightAlerts": 187,
+      "n1Alerts": null,
+      "n2Alerts": null
+    },
+    {
+      "threshold": 0.7,
+      "alpha": 0.25,
+      "c1Alerts": 155,
+      "p1Alerts": 12,
+      "c4LightAlerts": 142,
+      "n1Alerts": null,
+      "n2Alerts": null
+    },
+    {
+      "threshold": 0.4,
+      "alpha": 0.35,
+      "c1Alerts": 646,
+      "p1Alerts": 319,
+      "c4LightAlerts": 633,
+      "n1Alerts": null,
+      "n2Alerts": null
+    },
+    {
+      "threshold": 0.45,
+      "alpha": 0.35,
+      "c1Alerts": 431,
+      "p1Alerts": 191,
+      "c4LightAlerts": 422,
+      "n1Alerts": null,
+      "n2Alerts": null
+    },
+    {
+      "threshold": 0.5,
+      "alpha": 0.35,
+      "c1Alerts": 310,
+      "p1Alerts": 117,
+      "c4LightAlerts": 306,
+      "n1Alerts": null,
+      "n2Alerts": null
+    },
+    {
+      "threshold": 0.55,
+      "alpha": 0.35,
+      "c1Alerts": 249,
+      "p1Alerts": 64,
+      "c4LightAlerts": 244,
+      "n1Alerts": null,
+      "n2Alerts": null
+    },
+    {
+      "threshold": 0.6,
+      "alpha": 0.35,
+      "c1Alerts": 184,
+      "p1Alerts": 36,
+      "c4LightAlerts": 184,
+      "n1Alerts": null,
+      "n2Alerts": null
+    },
+    {
+      "threshold": 0.65,
+      "alpha": 0.35,
+      "c1Alerts": 150,
+      "p1Alerts": 14,
+      "c4LightAlerts": 144,
+      "n1Alerts": null,
+      "n2Alerts": null
+    },
+    {
+      "threshold": 0.7,
+      "alpha": 0.35,
+      "c1Alerts": 121,
+      "p1Alerts": 4,
+      "c4LightAlerts": 116,
+      "n1Alerts": null,
+      "n2Alerts": null
+    }
+  ],
+  "n1Available": false,
+  "n2Available": false
+}
