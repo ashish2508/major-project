@@ -6,17 +6,14 @@ import calibration from '../../../reports/implementation/alignment-fusion/frozen
 import {
   detect,
   retrieveCandidates,
+  mutualBestMatchFilter,
   scoreKey,
   type Candidate,
   type DetectionConfig,
   type Method,
 } from '../detection/detector';
 import { filterInformativeEvidence } from '../detection/informative-evidence';
-import {
-  maskBoilerplate,
-  isSuppressedPair,
-  type SuppressedItem,
-} from '../detection/boilerplate';
+import { maskBoilerplate, isSuppressedPair, type SuppressedItem } from '../detection/boilerplate';
 import { segmentParagraphs } from '../detection/segmentation';
 import { contextualReviewLeads } from '../detection/semantic-review';
 import { stripCanonicalReferences, type StripResult } from '../detection/strip-references';
@@ -41,6 +38,18 @@ const configSchema = z.object({
   alpha: z.number().min(0).max(1),
   mergeGap: z.number().int().min(0).max(1000),
 });
+
+/**
+ * Research-paper-mode parameters.  These are NOT the PAN benchmark frozen parameters;
+ * they control the non-corpus analysis path (the interactive web tool).
+ * The UI shows "research-paper-parameters" as the active config source.
+ */
+const RESEARCH_PAPER_PARAMS = {
+  /** Top-K lexical candidates per query passage in research-paper mode. */
+  topKLexical: 10,
+  /** K for mutual-best-match filter: each side keeps its top-K counterparts. */
+  mutualBestMatchK: 1,
+} as const;
 let artifactsPromise: Promise<{
   tfidf: Tfidf;
   configs: Record<Method, DetectionConfig>;
@@ -274,10 +283,24 @@ export async function analyzeDocuments(
       undefined,
       0,
       lexicalVectors,
+      // Research-paper mode uses top-10 candidates per query; corpus mode keeps
+      // the legacy single-best to stay compatible with the PAN lexical index.
+      useCorpus ? 1 : RESEARCH_PAPER_PARAMS.topKLexical,
     );
 
+    // Apply mutual-best-match filter in research-paper mode (non-corpus) to reduce
+    // the false-positive pattern where one generic query passage matches many sources.
+    let lexicalCandidates = rows[scoreKey(method, config.alpha)];
+    if (!useCorpus) {
+      const { kept } = mutualBestMatchFilter(
+        lexicalCandidates,
+        RESEARCH_PAPER_PARAMS.mutualBestMatchK,
+      );
+      lexicalCandidates = kept;
+    }
+
     const mergedDetections = detect(
-      rows[scoreKey(method, config.alpha)],
+      lexicalCandidates,
       config.threshold,
       mergeGap,
       alignSemantically,
@@ -298,10 +321,8 @@ export async function analyzeDocuments(
         d.suspiciousSpan.offset + d.suspiciousSpan.length,
       );
       const srcDoc = effectiveSources.find((s) => s.reference === d.sourceReference);
-      const sText = srcDoc?.text.slice(
-        d.sourceSpan.offset,
-        d.sourceSpan.offset + d.sourceSpan.length,
-      ) ?? '';
+      const sText =
+        srcDoc?.text.slice(d.sourceSpan.offset, d.sourceSpan.offset + d.sourceSpan.length) ?? '';
       if (isSuppressedPair(qText, sText)) {
         suppressedDetections.push(d);
         allSuppressedItems.push({
@@ -315,6 +336,28 @@ export async function analyzeDocuments(
       }
       return true;
     });
+
+    // Populate otherCandidates: for each kept detection, attach candidates for the
+    // same query span that scored below top-1 (from the pre-mutual-filter pool).
+    if (!useCorpus) {
+      const allLexical = rows[scoreKey(method, config.alpha)];
+      for (const d of detections) {
+        const others = allLexical.filter(
+          (c) =>
+            c.suspiciousReference === d.suspiciousReference &&
+            c.suspiciousSpan.offset === d.suspiciousSpan.offset &&
+            c.suspiciousSpan.length === d.suspiciousSpan.length &&
+            !(
+              c.sourceReference === d.sourceReference &&
+              c.sourceSpan.offset === d.sourceSpan.offset &&
+              c.sourceSpan.length === d.sourceSpan.length
+            ),
+        );
+        if (others.length > 0) {
+          d.otherCandidates = others.sort((a, b) => b.score - a.score);
+        }
+      }
+    }
 
     const semanticReviewThreshold = configs.semantic.threshold;
 
@@ -433,10 +476,8 @@ export async function analyzeDocuments(
         d.suspiciousSpan.offset + d.suspiciousSpan.length,
       );
       const srcDoc = effectiveSources.find((s) => s.reference === d.sourceReference);
-      const sText = srcDoc?.text.slice(
-        d.sourceSpan.offset,
-        d.sourceSpan.offset + d.sourceSpan.length,
-      ) ?? '';
+      const sText =
+        srcDoc?.text.slice(d.sourceSpan.offset, d.sourceSpan.offset + d.sourceSpan.length) ?? '';
       if (isSuppressedPair(qText, sText)) {
         suppressedDetections.push(d);
         allSuppressedItems.push({

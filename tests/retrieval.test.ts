@@ -106,9 +106,24 @@ it('caps and orders each semantic shortlist without changing lexical-only scores
     '6',
   ]);
 
-  // Lexical-only result
-  const lexicalOnly = retrieveCandidates(query, sources, tfidf).lexical;
+  // Lexical-only result with legacy single-best mode (topKLexical=1, as used by PAN benchmark path)
+  const lexicalOnly = retrieveCandidates(
+    query,
+    sources,
+    tfidf,
+    undefined,
+    undefined,
+    undefined,
+    0,
+    undefined,
+    1,
+  ).lexical;
   expect(lexicalOnly).toHaveLength(1);
+
+  // Default lexical-only result (topKLexical=10, as used by research-paper mode)
+  const lexicalDefault = retrieveCandidates(query, sources, tfidf).lexical;
+  expect(lexicalDefault.length).toBeGreaterThan(1);
+  expect(lexicalDefault.length).toBeLessThanOrEqual(10);
 
   // Hybrid mode with alpha=1 returns merged candidates but they should have same score as lexical best
   expect(ranked.lexical.length).toBeGreaterThan(0);

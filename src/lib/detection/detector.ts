@@ -35,6 +35,8 @@ export interface Candidate extends PassagePair {
 }
 export interface Detection extends Candidate {
   evidenceWindows: number;
+  /** Candidates for the same query span that scored below the top-1 after mutual-best-match filtering. */
+  otherCandidates?: Candidate[];
 }
 export const ALPHAS = [0, 0.25, 0.5, 0.75, 1] as const;
 export const THRESHOLDS = [0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9] as const;
@@ -51,7 +53,8 @@ export function scoreKey(method: Method, alpha = 0.5): string {
  * - The union of source IDs from both
  * All candidates are scored with all available methods (lexical, semantic, hybrid alphas).
  *
- * For lexical-only, returns one best match per query (legacy behavior for performance).
+ * For lexical-only, returns top-K matches per query (default 10 for research mode;
+ * pass topKLexical=1 for the legacy single-best behaviour used by PAN benchmarks).
  */
 export function retrieveCandidates(
   queries: Passage[],
@@ -62,6 +65,7 @@ export function retrieveCandidates(
   alphas: readonly number[] = ALPHAS,
   semanticAlternatives = 0,
   indexedSourceVectors?: ReadonlyMap<string, ReadonlyMap<string, number>>,
+  topKLexical = 10,
 ): Record<string, Candidate[]> {
   if (!sources.length) throw new Error('At least one source passage is required');
   if (!Number.isSafeInteger(semanticAlternatives) || semanticAlternatives < 0)
@@ -136,28 +140,29 @@ export function retrieveCandidates(
       lexicalScores[si] = Math.min(1, lexicalScores[si]);
     }
 
-    // For lexical-only retrieval, return only the single best candidate
+    // For lexical-only retrieval, return top-K candidates (default 10).
+    // Pass topKLexical=1 for the legacy single-best behaviour (PAN benchmark path).
     if (!isHybridMethod) {
-      let bestIndex = 0;
-      let bestScore = lexicalScores[0];
-      for (let si = 1; si < sources.length; si++) {
-        if (lexicalScores[si] > bestScore) {
-          bestScore = lexicalScores[si];
-          bestIndex = si;
-        }
+      // Build an index array sorted by lexical score descending
+      const ranked = Array.from({ length: sources.length }, (_, si) => si).sort(
+        (a, b) => lexicalScores[b] - lexicalScores[a],
+      );
+      const limit = Math.min(topKLexical, sources.length);
+      for (let rank = 0; rank < limit; rank++) {
+        const si = ranked[rank];
+        const source = sources[si];
+        output.lexical.push({
+          suspiciousReference: query.documentReference,
+          sourceReference: source.documentReference,
+          suspiciousSpan: { offset: query.offset, length: query.length },
+          sourceSpan: { offset: source.offset, length: source.length },
+          suspiciousPage: query.page,
+          sourcePage: source.page,
+          lexical: lexicalScores[si],
+          semantic: semanticScores[si],
+          score: lexicalScores[si],
+        });
       }
-      const source = sources[bestIndex];
-      output.lexical.push({
-        suspiciousReference: query.documentReference,
-        sourceReference: source.documentReference,
-        suspiciousSpan: { offset: query.offset, length: query.length },
-        sourceSpan: { offset: source.offset, length: source.length },
-        suspiciousPage: query.page,
-        sourcePage: source.page,
-        lexical: lexicalScores[bestIndex],
-        semantic: semanticScores[bestIndex],
-        score: lexicalScores[bestIndex],
-      });
       continue;
     }
 
@@ -336,4 +341,74 @@ export function selectSemanticReviewLead(
     throw new Error('Invalid detection parameters');
   const lead = [...candidates].sort((a, b) => b.semantic - a.semantic || b.score - a.score)[0];
   return lead && lead.semantic < threshold ? lead : null;
+}
+
+/**
+ * Mutual-best-match filter: keeps a candidate (q, s) only when s is among the
+ * top-K source passages for q AND q is among the top-K query passages for s.
+ *
+ * This removes the "one query passage matches many unrelated source passages"
+ * false-positive pattern while preserving strong mutual matches.
+ *
+ * @param candidates  Flat list of scored candidates (any method).
+ * @param K           How many top counterparts each side may keep (default 1).
+ * @returns           `{ kept, removed }` where `removed` is the count of dropped candidates.
+ */
+export function mutualBestMatchFilter(
+  candidates: Candidate[],
+  K = 1,
+): { kept: Candidate[]; removed: number } {
+  if (!Number.isInteger(K) || K < 1) throw new Error('K must be a positive integer');
+
+  // For each query passage: rank source passages by score descending, keep top-K source ids.
+  // Key = suspiciousReference + '|' + JSON(suspiciousSpan)
+  const topSourcesForQuery = new Map<string, Set<string>>();
+  // For each source passage: rank query passages by score descending, keep top-K query ids.
+  const topQueriesForSource = new Map<string, Set<string>>();
+
+  const qKey = (c: Candidate) =>
+    `${c.suspiciousReference}\0${c.suspiciousSpan.offset}\0${c.suspiciousSpan.length}`;
+  const sKey = (c: Candidate) =>
+    `${c.sourceReference}\0${c.sourceSpan.offset}\0${c.sourceSpan.length}`;
+
+  // Group by query passage key, then pick top-K source keys
+  const byQuery = new Map<string, Candidate[]>();
+  const bySource = new Map<string, Candidate[]>();
+  for (const c of candidates) {
+    const qk = qKey(c);
+    const sk = sKey(c);
+    if (!byQuery.has(qk)) byQuery.set(qk, []);
+    byQuery.get(qk)!.push(c);
+    if (!bySource.has(sk)) bySource.set(sk, []);
+    bySource.get(sk)!.push(c);
+  }
+
+  for (const [qk, group] of byQuery) {
+    group.sort((a, b) => b.score - a.score);
+    const topSources = new Set(group.slice(0, K).map(sKey));
+    topSourcesForQuery.set(qk, topSources);
+  }
+
+  for (const [sk, group] of bySource) {
+    group.sort((a, b) => b.score - a.score);
+    const topQueries = new Set(group.slice(0, K).map(qKey));
+    topQueriesForSource.set(sk, topQueries);
+  }
+
+  const kept: Candidate[] = [];
+  let removed = 0;
+  for (const c of candidates) {
+    const qk = qKey(c);
+    const sk = sKey(c);
+    const isTopSourceForQ = topSourcesForQuery.get(qk)?.has(sk) ?? false;
+    const isTopQueryForS = topQueriesForSource.get(sk)?.has(qk) ?? false;
+    if (isTopSourceForQ && isTopQueryForS) {
+      kept.push(c);
+    } else {
+      removed++;
+    }
+  }
+
+  console.debug(`mutual-best-match filter: removed ${removed} candidates, kept ${kept.length}`);
+  return { kept, removed };
 }
