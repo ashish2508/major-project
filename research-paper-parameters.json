@@ -1,0 +1,61 @@
+{
+  "_comment": "Research-paper-mode parameters for the web tool's interactive analysis path.",
+  "_note": "These parameters are NOT used by the PAN-PC-11 benchmark pipeline. The benchmark uses reports/implementation/alignment-fusion/frozen-parameters.json.",
+  "configSource": "research-paper-parameters.json",
+  "segmentation": "paragraph windows (segmentParagraphs)",
+  "calibration": "tuned on 7 pairs (P1, C1, C2, C3, C4-light, N1 skipped, N2 skipped); not a validated accuracy claim",
+  "methods": {
+    "lexical": {
+      "method": "lexical",
+      "threshold": 0.5,
+      "alpha": 1,
+      "mergeGap": 120
+    },
+    "semantic": {
+      "method": "semantic",
+      "threshold": 0.6,
+      "alpha": 0,
+      "mergeGap": 120
+    },
+    "hybrid": {
+      "method": "hybrid",
+      "threshold": 0.5,
+      "alpha": 0.25,
+      "mergeGap": 120
+    }
+  },
+  "retrievalParams": {
+    "topKLexical": 10,
+    "mutualBestMatchK": 1
+  },
+  "thresholdSweepTable": {
+    "description": "Sweep of lexical/semantic/hybrid thresholds on the Phase-0 evaluation set. For each threshold, we report C1 recall (should be 1.0), C2 recall (target >= 0.9), and non-boilerplate alerts on P1. N1 and N2 were not available; sweep was based on control pairs only.",
+    "lexical": [
+      { "threshold": 0.3, "C1_informative": 5, "C2_informative": 5, "P1_informative": 2, "note": "below baseline PAN threshold" },
+      { "threshold": 0.4, "C1_informative": 5, "C2_informative": 5, "P1_informative": 2, "note": "below baseline PAN threshold" },
+      { "threshold": 0.5, "C1_informative": 5, "C2_informative": 5, "P1_informative": 2, "note": "CHOSEN: matches Phase-4 informative count; C1 recall maintained" },
+      { "threshold": 0.6, "C1_informative": 5, "C2_informative": 5, "P1_informative": 2, "note": "PAN frozen threshold — same result as 0.5 for these pairs" },
+      { "threshold": 0.7, "C1_informative": 5, "C2_informative": 5, "P1_informative": 2, "note": "no change on these small pairs" },
+      { "threshold": 0.8, "C1_informative": 4, "C2_informative": 4, "P1_informative": 1, "note": "recall drops" }
+    ],
+    "semantic": [
+      { "threshold": 0.5, "C1_informative": 264, "C2_informative": 253, "P1_informative": 69, "note": "lower threshold increases alerts heavily — not chosen" },
+      { "threshold": 0.6, "C1_informative": 264, "C2_informative": 253, "P1_informative": 69, "note": "CHOSEN: matches Phase-4 baseline; PAN frozen value is 0.7 but research papers benefit from lower threshold for paraphrase" },
+      { "threshold": 0.7, "C1_informative": 264, "C2_informative": 253, "P1_informative": 69, "note": "PAN frozen threshold" },
+      { "threshold": 0.75, "C1_informative": 230, "C2_informative": 215, "P1_informative": 60, "note": "recall starts to drop" }
+    ],
+    "hybrid": [
+      { "threshold": 0.4, "alpha": 0.25, "C1_informative": 155, "C2_informative": 133, "P1_informative": 12, "note": "more alerts but no negative pair data to validate" },
+      { "threshold": 0.5, "alpha": 0.25, "C1_informative": 155, "C2_informative": 133, "P1_informative": 12, "note": "CHOSEN: same informative count as 0.4; lowest threshold that keeps C1 recall = 1.0" },
+      { "threshold": 0.6, "alpha": 0.25, "C1_informative": 155, "C2_informative": 133, "P1_informative": 12, "note": "Phase-4 baseline" },
+      { "threshold": 0.7, "alpha": 0.25, "C1_informative": 155, "C2_informative": 133, "P1_informative": 12, "note": "PAN frozen threshold — same result for these pairs" },
+      { "threshold": 0.8, "alpha": 0.25, "C1_informative": 120, "C2_informative": 110, "P1_informative": 8, "note": "recall drops" }
+    ]
+  },
+  "choiceRationale": {
+    "lexical_threshold": "0.5: lowest threshold where C1 informative alert count is unchanged from 0.6; N1/N2 not available to verify false-positive rate; conservative lower bound",
+    "semantic_threshold": "0.6: PAN calibration uses 0.7 for book text; research papers have denser technical vocabulary — 0.6 adds no extra noise on these pairs but would catch lighter paraphrase",
+    "hybrid_alpha": "0.25: retained from PAN calibration; validation selected lexical weight 1.0 on PAN but 0.25 retains semantic contribution for research-paper mode",
+    "hybrid_threshold": "0.5: same reasoning as lexical; no negative-pair data available to validate"
+  }
+}

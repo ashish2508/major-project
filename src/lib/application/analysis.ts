@@ -120,6 +120,44 @@ const RESEARCH_PAPER_PARAMS = {
   /** K for mutual-best-match filter: each side keeps its top-K counterparts. */
   mutualBestMatchK: 1,
 } as const;
+
+// ---------------------------------------------------------------------------
+// Research-paper threshold config (non-corpus mode)
+// ---------------------------------------------------------------------------
+
+import researchPaperParameters from '../../../research-paper-parameters.json';
+
+const researchPaperConfigSchema = z.object({
+  configSource: z.string(),
+  segmentation: z.string(),
+  methods: z.object({
+    lexical: z.object({
+      method: z.literal('lexical'),
+      threshold: z.number().min(0).max(1),
+      alpha: z.number().min(0).max(1),
+      mergeGap: z.number().int().min(0),
+    }),
+    semantic: z.object({
+      method: z.literal('semantic'),
+      threshold: z.number().min(0).max(1),
+      alpha: z.number().min(0).max(1),
+      mergeGap: z.number().int().min(0),
+    }),
+    hybrid: z.object({
+      method: z.literal('hybrid'),
+      threshold: z.number().min(0).max(1),
+      alpha: z.number().min(0).max(1),
+      mergeGap: z.number().int().min(0),
+    }),
+  }),
+});
+
+const _rpp = researchPaperConfigSchema.parse(researchPaperParameters);
+export const RESEARCH_PAPER_CONFIG = {
+  source: _rpp.configSource,
+  segmentation: _rpp.segmentation,
+  methods: _rpp.methods as Record<Method, DetectionConfig>,
+} as const;
 let artifactsPromise: Promise<{
   tfidf: Tfidf;
   configs: Record<Method, DetectionConfig>;
@@ -268,8 +306,14 @@ export async function analyzeDocuments(
 ) {
   const useCorpus = options?.useCorpus ?? options?.useCanonicalCorpus ?? false;
   const start = performance.now(),
-    { tfidf: panTfidf, configs, tfidfSha256 } = await getArtifacts(),
-    config = configs[method];
+    { tfidf: panTfidf, configs, tfidfSha256 } = await getArtifacts();
+
+  // In non-corpus (research-paper) mode use the research-paper-parameters.json config.
+  // In corpus mode use the PAN frozen calibration to stay compatible with the PAN index.
+  const config = useCorpus ? configs[method] : RESEARCH_PAPER_CONFIG.methods[method];
+  const activeConfigSource = useCorpus
+    ? 'alignment-fusion/frozen-parameters.json (PAN calibration)'
+    : RESEARCH_PAPER_CONFIG.source;
   const countTokens = await tokenCounter();
   const alignSemantically = method === 'semantic' || (method === 'hybrid' && config.alpha < 1);
   // The active validation calibration fitted every method on paragraph-bounded windows.
@@ -450,6 +494,7 @@ export async function analyzeDocuments(
       researchMode: !useCorpus,
       suppressedItems: allSuppressedItems,
       strippedQueryText: strippedQuery.text,
+      activeConfigSource,
     });
   } else {
     await verifyModel();
@@ -602,6 +647,7 @@ export async function analyzeDocuments(
       researchMode: !useCorpus,
       suppressedItems: allSuppressedItems,
       strippedQueryText: strippedQuery.text,
+      activeConfigSource,
     });
   }
 }
@@ -629,6 +675,7 @@ function buildResult({
   researchMode,
   suppressedItems,
   strippedQueryText,
+  activeConfigSource,
 }: {
   query: ExtractedDocument;
   sources: ExtractedDocument[];
@@ -649,6 +696,8 @@ function buildResult({
   suppressedItems: SuppressedItem[];
   /** Masked query text (post-boilerplate, post-reference-strip) used for coverage computation. */
   strippedQueryText: string;
+  /** Name of the config file / source that provided thresholds and alpha. */
+  activeConfigSource: string;
 }) {
   const mappedDetections = detections.map((d) => ({
     ...d,
@@ -752,6 +801,10 @@ function buildResult({
       'Similarity scores are uncalibrated evidence for human review, not probabilities or proof of plagiarism or misconduct. Only searched sources were evaluated. PAN-PC-11 calibration is book-based and does not establish CS-paper performance.',
     symmetryNote:
       'Matching is symmetric; direction of copying cannot be determined from similarity alone. Use publication dates and provenance to establish direction.',
+    /** Config source name shown in the report header. */
+    activeConfigSource,
+    /** Segmentation type used (always paragraph windows for research-paper mode). */
+    segmentationType: RESEARCH_PAPER_CONFIG.segmentation,
   };
 }
 
