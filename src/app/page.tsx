@@ -7,6 +7,7 @@ import type { DetectionConfig, Method } from '@/lib/detection/detector';
 import ResetCorpusButton from '@/components/ResetCorpusButton';
 import Link from 'next/link';
 import { useEffect, useRef, useState, type FormEvent } from 'react';
+import Image from 'next/image';
 
 const METHODS: { id: Method; name: string; description: string }[] = [
   { id: 'lexical', name: 'TF-IDF', description: 'Shared wording' },
@@ -374,25 +375,18 @@ export default function Home() {
           </span>{' '}
           Passage Review<span className="brand-tag">RESEARCH WORKSPACE</span>
         </Link>
-        <span className="local-badge">
-          <span aria-hidden="true" />
-          Local processing
-        </span>
+        <div className="topbar-actions">
+          <a
+            href="https://github.com/ashish2508/major-project"
+            target="_blank"
+            rel="noreferrer"
+            className="repo-link"
+          >
+            <Image src="/cd.png" alt="GitHub" width={30} height={30} />
+          </a>
+        </div>
       </header>
       <main>
-        <section className="intro">
-          <p className="eyebrow">RESEARCH-PAPER PLAGIARISM DETECTION · HUMAN REVIEW</p>
-          <h1>
-            Follow the passage.
-            <br />
-            <span>Examine the evidence.</span>
-          </h1>
-          <p className="intro-copy">
-            Index arbitrary research papers into your local searchable corpus, or compare documents
-            directly using lexical overlap, semantic embeddings, and hybrid similarity.
-          </p>
-        </section>
-
         {/* Workspace Navigation Tabs */}
         <nav className="nav-tabs" aria-label="Workspace sections">
           <button
@@ -1092,40 +1086,6 @@ export default function Home() {
                 Download analysis report ↓
               </button>
             </div>
-            <p className="evidence-warning">
-              Similarity scores are uncalibrated evidence for human review, not probabilities or
-              proof of plagiarism or misconduct.
-            </p>
-            <p className="evidence-warning" style={{ fontStyle: 'italic' }}>
-              ⚠ Matching is symmetric. Direction of copying cannot be determined from similarity
-              alone. Use publication dates and provenance to establish direction.
-            </p>
-            {result.sharedIdentifiers && result.sharedIdentifiers.length > 0 && (
-              <div
-                className="stripping-summary-banner"
-                style={{ background: '#fff8e6', borderColor: '#d4a800' }}
-              >
-                <span className="stripping-summary-badge">Shared Identifiers</span>
-                <div className="stripping-summary-details">
-                  <p style={{ margin: 0, fontSize: '0.9em' }}>
-                    The following identifiers appear in both documents. Shared registration numbers,
-                    DOIs, or trial IDs are strong but non-conclusive evidence of a common origin.
-                  </p>
-                  <ul style={{ margin: '6px 0 0', paddingLeft: '18px', fontSize: '0.9em' }}>
-                    {result.sharedIdentifiers.flatMap((s) =>
-                      s.matches.map((m) => (
-                        <li key={`${m.type}-${m.value}-${s.sourceReference}`}>
-                          <strong>{m.type}</strong>: <code>{m.value}</code> (found in{' '}
-                          {result.sources.find((src) => src.reference === s.sourceReference)
-                            ?.title ?? s.sourceReference}
-                          )
-                        </li>
-                      )),
-                    )}
-                  </ul>
-                </div>
-              </div>
-            )}
             {result.semanticReviewLeads.map((lead, index) => (
               <article
                 className="review-lead"
@@ -1175,7 +1135,7 @@ export default function Home() {
                 <h2>
                   Confirmed similarity alerts · {METHODS.find((m) => m.id === result.method)?.name}
                 </h2>
-                {result.detections.map((d, i) => {
+                {/* {result.detections.map((d, i) => {
                   const page = getQueryPage(result.query.pages, d.suspiciousSpan.offset);
                   const src = result.sources.find((s) => s.reference === d.sourceReference);
                   const excerpt = result.query.text
@@ -1223,31 +1183,11 @@ export default function Home() {
                       </span>
                     </button>
                   );
-                })}
+                })} */}
               </div>
             )}
             {chosen && (
               <div className="evidence-stats">
-                <button
-                  type="button"
-                  className="secondary-button"
-                  disabled={reviewingLead ? active === -1 : active === 0}
-                  onClick={() => setActive(reviewingLead ? active + 1 : active - 1)}
-                >
-                  Previous
-                </button>
-                <button
-                  type="button"
-                  className="secondary-button"
-                  disabled={
-                    reviewingLead
-                      ? -active >= result.semanticReviewLeads.length
-                      : active + 1 >= result.detections.length
-                  }
-                  onClick={() => setActive(reviewingLead ? active - 1 : active + 1)}
-                >
-                  Next
-                </button>
                 {pdfLinks.query && (
                   <a
                     href={
@@ -1257,6 +1197,7 @@ export default function Home() {
                     }
                     target="_blank"
                     rel="noreferrer"
+                    id="open-query"
                   >
                     Open query PDF page
                   </a>
@@ -1266,6 +1207,7 @@ export default function Home() {
                     href={pdfLinks[chosen.sourceReference] + '#page=' + (chosen.sourcePage ?? 1)}
                     target="_blank"
                     rel="noreferrer"
+                    id="open-source"
                   >
                     Open source PDF page
                   </a>
@@ -1290,28 +1232,6 @@ export default function Home() {
                     </span>
                   </>
                 )}
-                <span>
-                  Query characters{' '}
-                  <b>
-                    {chosen.suspiciousSpan.offset}–
-                    {chosen.suspiciousSpan.offset + chosen.suspiciousSpan.length}
-                    {(() => {
-                      const page = getQueryPage(result.query.pages, chosen.suspiciousSpan.offset);
-                      return page ? ` (Page ${page})` : '';
-                    })()}
-                  </b>
-                </span>
-                <span>
-                  Source characters{' '}
-                  <b>
-                    {chosen.sourceSpan.offset}–{chosen.sourceSpan.offset + chosen.sourceSpan.length}
-                    {chosen.sourcePage ? ` (Page ${chosen.sourcePage})` : ''}
-                  </b>
-                </span>
-                <span>
-                  Similarity scores are uncalibrated evidence for human review, not probabilities or
-                  proof of plagiarism or misconduct.
-                </span>
               </div>
             )}
             {chosen && (
@@ -1428,11 +1348,6 @@ export default function Home() {
                 </article>
               )}
             </div>
-            <p className="small-copy">
-              Character ranges refer to extracted text. PDF reading order can differ from page
-              layout; highlights are shown in the extracted text, not overlaid on PDF pages. A
-              merged highlight may contain gaps between evidence windows.
-            </p>
           </section>
         )}
       </main>

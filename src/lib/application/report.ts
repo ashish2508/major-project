@@ -53,32 +53,6 @@ export function analysisReport(results: AnalysisResult[], target: string): strin
 </details>`;
   };
 
-  const identifierSection = (r: AnalysisResult): string => {
-    const sharedIds = r.sharedIdentifiers ?? [];
-    if (sharedIds.length === 0) return '';
-    const allMatches = sharedIds.flatMap((s) =>
-      s.matches.map((m) => ({
-        ...m,
-        sourceReference: s.sourceReference,
-      })),
-    );
-    if (allMatches.length === 0) return '';
-    const rows = allMatches
-      .map(
-        (m) =>
-          `<tr><td>${escape(m.type)}</td><td><code>${escape(m.value)}</code></td><td>${escape(m.sourceReference)}</td></tr>`,
-      )
-      .join('');
-    return `<div class="shared-identifiers">
-<h3>⚠ Shared identifiers</h3>
-<p class="identifier-note">The following identifiers appear in both the document under review and the possible source(s). Shared registration numbers, DOIs, or trial IDs are strong but non-conclusive evidence of a common origin. They may reflect legitimate citation. Verify with publication records.</p>
-<table>
-<thead><tr><th>Type</th><th>Value</th><th>Found in source</th></tr></thead>
-<tbody>${rows}</tbody>
-</table>
-</div>`;
-  };
-
   const coverageSection = (r: AnalysisResult): string => {
     const c = r.coverage;
     if (!c) return '';
@@ -113,14 +87,7 @@ export function analysisReport(results: AnalysisResult[], target: string): strin
     .role-header{background:#f0f5fc;border:1px solid #b8ccdf;padding:12px 16px;border-radius:4px;margin-bottom:16px}
     .role-header .role-query{color:#0a3d6b;font-weight:700}
     .role-header .role-source{color:#0a5a2f;font-weight:700}
-    .symmetry-note{font-size:0.9em;color:#555;font-style:italic;margin:4px 0 0}
     .coverage-line{background:#f5f9f5;border-left:3px solid #3a7a3a;padding:6px 10px;margin:8px 0;font-size:0.95em}
-    .shared-identifiers{background:#fff8e6;border:1px solid #d4a800;padding:12px 16px;border-radius:4px;margin:16px 0}
-    .shared-identifiers h3{margin:0 0 8px;color:#8a6000}
-    .identifier-note{font-size:0.9em;color:#6a5000;margin:0 0 8px}
-    .shared-identifiers table{width:100%;border-collapse:collapse;font-size:0.85em}
-    .shared-identifiers th,.shared-identifiers td{text-align:left;padding:4px 8px;border-bottom:1px solid #e8d880}
-    .shared-identifiers th{background:#fdf0b0}
     .config-line{font-size:0.85em;color:#555;margin:4px 0}
   </style>
   <h1>Research paper analysis</h1>
@@ -128,9 +95,7 @@ export function analysisReport(results: AnalysisResult[], target: string): strin
   <div class="role-header">
     <p><span class="role-query">Document under review (query):</span> ${escape(results[0]?.query.title ?? 'unknown')}</p>
     <p><span class="role-source">Possible source (original):</span> ${escape(results[0]?.sources.map((s) => s.title).join(', ') ?? 'unknown')}</p>
-    <p class="symmetry-note">⚠ Matching is symmetric; direction of copying cannot be determined from similarity alone. Use publication dates and provenance to establish direction.</p>
   </div>
-  <p>Algorithmic similarity requires human interpretation. It does not establish plagiarism. Review recommendations use uncalibrated context scores. PAN-PC-11 calibration uses book texts and does not establish research-paper accuracy. Only supplied sources were searched. PDF text reading order may differ from visual layout.</p>
   ${results
     .map(
       (r) => `<h2>${escape(r.method)}</h2>
@@ -138,7 +103,6 @@ export function analysisReport(results: AnalysisResult[], target: string): strin
   <p>${r.passages.query} query passages · ${r.passages.sources} source passages · ${r.sources.length} sources · ${r.detections.length} similarity alerts · ${r.semanticReviewLeads.length} review recommendations · ${r.elapsedSeconds.toFixed(2)} seconds</p>
   ${coverageSection(r)}
   <p>Sources: ${r.sources.map((s) => `<em>${escape(s.title)}</em> (<code>${escape(s.reference)}</code>)`).join(', ')}</p>
-  ${identifierSection(r)}
   <h3>Confirmed similarity alerts</h3>${evidence(r, r.detections) || '<p>None.</p>'}
   <h3>Potential semantic matches — require human review</h3>${evidence(r, r.semanticReviewLeads) || '<p>None.</p>'}
   ${suppressedSection(r)}`,

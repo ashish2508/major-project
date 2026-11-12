@@ -31,11 +31,6 @@ import {
 import { attachPassagePages, getAllReadyPassages } from '../corpus/service';
 import { ensureLexicalIndex, getIndexedPassageVectors } from '../corpus/lexical-index';
 import { getCorpusPassagesAndVectors } from '../corpus/semantic-index';
-import {
-  extractIdentifiers,
-  intersectIdentifiers,
-  type IdentifierMatch,
-} from '../detection/identifiers';
 
 // ---------------------------------------------------------------------------
 // Coverage computation helpers
@@ -707,32 +702,6 @@ function buildResult({
   // --- Coverage ---
   const coverage = computeCoverage(strippedQueryText, mappedDetections, suppressedItems);
 
-  // --- Shared identifiers ---
-  // Extract from the masked query and each source, excluding the reference sections.
-  // Pass the reference section text so identifiers that appear ONLY in references
-  // (e.g. cited DOIs) are not counted as shared evidence.
-  const queryRefSection =
-    queryStripResult.referenceOffset !== null && queryStripResult.confident
-      ? query.text.slice(queryStripResult.referenceOffset)
-      : undefined;
-  const queryIds = extractIdentifiers(strippedQueryText, queryRefSection);
-  const sharedIdentifiersBySource: Array<{
-    sourceReference: string;
-    matches: IdentifierMatch[];
-  }> = [];
-  for (const src of sources) {
-    const srcStripResult = sourceStripResults.find((s) => s.reference === src.reference);
-    const srcRefSection =
-      srcStripResult?.stripResult.referenceOffset !== null && srcStripResult?.stripResult.confident
-        ? src.text.slice(srcStripResult.stripResult.referenceOffset!)
-        : undefined;
-    const srcIds = extractIdentifiers(src.text, srcRefSection);
-    const shared = intersectIdentifiers(queryIds, srcIds);
-    if (shared.length > 0) {
-      sharedIdentifiersBySource.push({ sourceReference: src.reference, matches: shared });
-    }
-  }
-
   return {
     /** Role label: this is the document being examined for possible copying. */
     queryRole: 'Document under review (query)' as const,
@@ -749,8 +718,6 @@ function buildResult({
     passages: { query: queryPassageCount, sources: sourcePassageCount },
     /** Query character coverage after boilerplate masking. */
     coverage,
-    /** Shared identifiers (trial IDs, DOIs, etc.) found in both query and source(s). */
-    sharedIdentifiers: sharedIdentifiersBySource,
     elapsedSeconds,
     provider,
     model: method === 'lexical' ? null : MODEL_CONFIG.model,

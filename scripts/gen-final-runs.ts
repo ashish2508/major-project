@@ -132,7 +132,6 @@ function serialise(result: AnalysisResult): object {
     coverage: result.coverage,
     detectionCount: result.detections.length,
     semanticReviewLeadsCount: result.semanticReviewLeads.length,
-    sharedIdentifiers: result.sharedIdentifiers,
     suppressedItemsCount: result.suppressedItems.length,
     elapsedSeconds: result.elapsedSeconds,
     provider: result.provider,
