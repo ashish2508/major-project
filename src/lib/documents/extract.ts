@@ -27,7 +27,18 @@ export async function extractFile(file: File, reference: string): Promise<Extrac
   const title = file.name.replace(/[\r\n\0]/g, ' ').slice(0, 200),
     bytes = new Uint8Array(await file.arrayBuffer());
   const pdfHeader = Buffer.from(bytes.subarray(0, 5)).toString('ascii') === '%PDF-';
-  if (/\.pdf$/i.test(title)) {
+  const extensionIsPdf = /\.pdf$/i.test(title);
+  const extensionIsText = /\.txt$/i.test(title);
+  const mimeType = file.type.split(';', 1)[0].trim().toLowerCase();
+  const mimeIsPdf = mimeType === 'application/pdf' || mimeType === 'application/x-pdf';
+  const mimeIsText = mimeType === 'text/plain';
+  const isPdf = extensionIsPdf || mimeIsPdf;
+  const isText = extensionIsText || mimeIsText;
+
+  if ((extensionIsPdf || mimeIsPdf) && (extensionIsText || mimeIsText))
+    throw new Error('The uploaded file extension and MIME type disagree');
+
+  if (isPdf) {
     if (!pdfHeader) throw new Error('The uploaded PDF does not have a valid PDF signature');
     const { getDocument } = await import('pdfjs-dist/legacy/build/pdf.mjs');
     const task = getDocument({ data: bytes, useSystemFonts: true, disableFontFace: true });
@@ -48,7 +59,11 @@ export async function extractFile(file: File, reference: string): Promise<Extrac
           const y = item.transform[5];
           if (previous && Math.abs(y - previous.y) > Math.max(previous.height, item.height) * 1.6)
             paragraphBreaks.push(text.length + part.length);
-          part += item.str + (item.hasEOL ? '\n' : ' ');
+          // PDF.js can emit NUL for an unmapped glyph in an embedded font.
+          // That is an extraction placeholder, not evidence that this PDF's
+          // binary bytes were decoded as text. Replace one-for-one so passage
+          // and page offsets remain aligned; TXT input remains strictly validated.
+          part += item.str.replace(/\0/g, ' ') + (item.hasEOL ? '\n' : ' ');
           if (item.str.trim()) previous = { y, height: item.height };
         }
         const start = text.length;
@@ -68,7 +83,7 @@ export async function extractFile(file: File, reference: string): Promise<Extrac
       await task.destroy();
     }
   }
-  if (!/\.txt$/i.test(title) || pdfHeader)
+  if (!isText || pdfHeader)
     throw new Error('Supported uploads are UTF-8 .txt files and .pdf files');
   let text: string;
   try {

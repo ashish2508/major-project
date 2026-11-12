@@ -12,10 +12,13 @@
  * 5. Verify passages, offsets, page numbers, and source evidence
  */
 
-import { readFile } from 'node:fs/promises';
+import { mkdtemp, readFile, rm } from 'node:fs/promises';
+import { tmpdir } from 'node:os';
 import { resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { analyzeDocuments } from '../src/lib/application/analysis';
+import { resetLexicalIndexCache } from '../src/lib/corpus/lexical-index';
+import { resetSemanticIndexCache } from '../src/lib/corpus/semantic-index';
 import { extractFile } from '../src/lib/documents/extract';
 
 async function loadPdfAsFile(path: string): Promise<File> {
@@ -200,36 +203,51 @@ This paper evaluates scheduling algorithms and their impact on latency.
   }, 180_000);
 
   it('handles corpus option correctly without loading canonical papers', async () => {
-    // Verify default behavior: manual sources only
-    const queryFile = await loadPdfAsFile(resolve('.cache/quic-pdfs/QUIC_Delay_Control_2025.pdf'));
-    const queryDoc = await extractFile(queryFile, 'test-query');
+    const previousCorpusDirectory = process.env.CORPUS_DIRECTORY;
+    const emptyCorpusDirectory = await mkdtemp(resolve(tmpdir(), 'empty-application-corpus-'));
+    process.env.CORPUS_DIRECTORY = emptyCorpusDirectory;
+    resetLexicalIndexCache();
+    resetSemanticIndexCache();
 
-    const manualSources = [
-      {
-        reference: 'manual-source-1',
-        title: 'Manual Source',
-        text: 'This is a test source document.',
-        format: 'text' as const,
-      },
-    ];
+    try {
+      // Verify default behavior: manual sources only
+      const queryFile = await loadPdfAsFile(
+        resolve('.cache/quic-pdfs/QUIC_Delay_Control_2025.pdf'),
+      );
+      const queryDoc = await extractFile(queryFile, 'test-query');
 
-    // Default call: no useCorpus
-    const result1 = await analyzeDocuments(queryDoc, manualSources, 'lexical');
-    expect(result1.sources).toHaveLength(1);
-    expect(result1.sources[0].reference).toBe('manual-source-1');
+      const manualSources = [
+        {
+          reference: 'manual-source-1',
+          title: 'Manual Source',
+          text: 'This is a test source document.',
+          format: 'text' as const,
+        },
+      ];
 
-    // Explicit useCorpus: false
-    const result2 = await analyzeDocuments(queryDoc, manualSources, 'lexical', {
-      useCorpus: false,
-    });
-    expect(result2.sources).toHaveLength(1);
-    expect(result2.sources[0].reference).toBe('manual-source-1');
+      // Default call: no useCorpus
+      const result1 = await analyzeDocuments(queryDoc, manualSources, 'lexical');
+      expect(result1.sources).toHaveLength(1);
+      expect(result1.sources[0].reference).toBe('manual-source-1');
 
-    // Explicit useCorpus: true should fail (no corpus)
-    await expect(
-      analyzeDocuments(queryDoc, manualSources, 'lexical', { useCorpus: true }),
-    ).rejects.toThrow('Corpus contains no ready documents');
+      // Explicit useCorpus: false
+      const result2 = await analyzeDocuments(queryDoc, manualSources, 'lexical', {
+        useCorpus: false,
+      });
+      expect(result2.sources).toHaveLength(1);
+      expect(result2.sources[0].reference).toBe('manual-source-1');
 
-    console.log('✓ Corpus independence verified: manual sources default, no canonical auto-load');
+      // Explicit useCorpus: true should fail (no corpus)
+      await expect(
+        analyzeDocuments(queryDoc, manualSources, 'lexical', { useCorpus: true }),
+      ).rejects.toThrow('Corpus contains no ready documents');
+
+      console.log('✓ Corpus independence verified: manual sources default, no canonical auto-load');
+    } finally {
+      process.env.CORPUS_DIRECTORY = previousCorpusDirectory;
+      resetLexicalIndexCache();
+      resetSemanticIndexCache();
+      await rm(emptyCorpusDirectory, { recursive: true, force: true });
+    }
   }, 120_000);
 });

@@ -10,6 +10,21 @@ it('extracts real PDF text and records page-relative boundaries', async () => {
   expect(doc.pages).toHaveLength(1);
   expect(doc.pages![0].end).toBe(doc.text.length);
 }, 20000);
+it('accepts PDF files identified by extension or standard MIME type', async () => {
+  const bytes = textPdf('PDF metadata may provide the type even when an extension is absent.');
+  const byUppercaseExtension = await extractFile(
+    new File([bytes], 'PAPER.PDF', { type: 'application/octet-stream' }),
+    'uppercase-pdf',
+  );
+  const byMimeType = await extractFile(
+    new File([bytes], 'paper-upload', { type: 'application/pdf' }),
+    'mime-pdf',
+  );
+
+  expect(byUppercaseExtension.format).toBe('pdf');
+  expect(byMimeType.format).toBe('pdf');
+  expect(byMimeType.text).toContain('extension is absent');
+});
 it('preserves UTF-8 text/newlines after stripping an initial BOM', async () => {
   const d = await extractFile(new File(['\ufeffé\r\n😀 text '], 'paper.txt'), 's');
   expect(d.text).toBe('é\r\n😀 text ');

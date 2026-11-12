@@ -4,11 +4,33 @@
  * - Ensure canonical papers are not auto-loaded
  * - Verify user's own corpus option works independently
  */
-import { describe, expect, it } from 'vitest';
+import { afterAll, beforeAll, describe, expect, it } from 'vitest';
+import { mkdtemp, rm } from 'node:fs/promises';
+import { tmpdir } from 'node:os';
+import { resolve } from 'node:path';
 import { analyzeDocuments } from '../src/lib/application/analysis';
+import { resetLexicalIndexCache } from '../src/lib/corpus/lexical-index';
+import { resetSemanticIndexCache } from '../src/lib/corpus/semantic-index';
 import type { ExtractedDocument } from '../src/lib/documents/extract';
 
 describe('Production corpus independence', () => {
+  const previousCorpusDirectory = process.env.CORPUS_DIRECTORY;
+  let emptyCorpusDirectory: string;
+
+  beforeAll(async () => {
+    emptyCorpusDirectory = await mkdtemp(resolve(tmpdir(), 'empty-production-corpus-'));
+    process.env.CORPUS_DIRECTORY = emptyCorpusDirectory;
+    resetLexicalIndexCache();
+    resetSemanticIndexCache();
+  });
+
+  afterAll(async () => {
+    process.env.CORPUS_DIRECTORY = previousCorpusDirectory;
+    resetLexicalIndexCache();
+    resetSemanticIndexCache();
+    await rm(emptyCorpusDirectory, { recursive: true, force: true });
+  });
+
   const queryDoc: ExtractedDocument = {
     reference: 'test_query',
     title: 'Test Query',
