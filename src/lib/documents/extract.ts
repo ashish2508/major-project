@@ -1,4 +1,5 @@
 import { decodeCorpusText } from '../dataset/parser';
+import { repairText, type OffsetMapEntry } from './repair';
 export const MAX_FILE_BYTES = 15 * 1024 * 1024;
 export const MAX_DOCUMENT_CHARACTERS = 250000;
 export interface ExtractedDocument {
@@ -8,6 +9,10 @@ export interface ExtractedDocument {
   format: 'text' | 'pdf';
   pages?: { page: number; start: number; end: number }[];
   paragraphBreaks?: number[];
+  /** Offset map from repaired text positions back to original extracted text
+   *  positions, populated after PDF text repair.  May be absent for plain-text
+   *  documents or when no repairs were applied. */
+  offsetMap?: OffsetMapEntry[];
 }
 export function validateText(text: string): string {
   if (!text.trim())
@@ -48,6 +53,7 @@ export async function extractFile(file: File, reference: string): Promise<Extrac
       let text = '';
       const pages: { page: number; start: number; end: number }[] = [];
       const paragraphBreaks: number[] = [];
+      const globalOffsetMap: OffsetMapEntry[] = [];
       for (let number = 1; number <= pdf.numPages; number++) {
         const page = await pdf.getPage(number),
           content = await page.getTextContent();
@@ -66,8 +72,20 @@ export async function extractFile(file: File, reference: string): Promise<Extrac
           part += item.str.replace(/\0/g, ' ') + (item.hasEOL ? '\n' : ' ');
           if (item.str.trim()) previous = { y, height: item.height };
         }
+        // Apply text repair per-page so pages[] boundaries stay aligned with
+        // the repaired concatenated text.
+        const repairedPage = repairText(part);
+        // Shift any per-page offset-map entries by the current text offset.
+        const baseOffset = text.length;
+        for (const entry of repairedPage.offsetMap) {
+          globalOffsetMap.push({
+            repairedOffset: baseOffset + entry.repairedOffset,
+            originalOffset: baseOffset + entry.originalOffset,
+            delta: entry.delta,
+          });
+        }
         const start = text.length;
-        text += part;
+        text += repairedPage.text;
         pages.push({ page: number, start, end: text.length });
         if (number < pdf.numPages) text += '\n\n';
         if (text.length > MAX_DOCUMENT_CHARACTERS)
@@ -76,7 +94,15 @@ export async function extractFile(file: File, reference: string): Promise<Extrac
           );
         page.cleanup();
       }
-      return { reference, title, text: validateText(text), format: 'pdf', pages, paragraphBreaks };
+      return {
+        reference,
+        title,
+        text: validateText(text),
+        format: 'pdf',
+        pages,
+        paragraphBreaks,
+        ...(globalOffsetMap.length > 0 ? { offsetMap: globalOffsetMap } : {}),
+      };
     } catch (e) {
       throw new Error(`PDF extraction failed: ${e instanceof Error ? e.message : String(e)}`);
     } finally {
