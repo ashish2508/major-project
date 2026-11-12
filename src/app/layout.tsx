@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
 import { StateProviders } from '@/components/StateProviders';
-import './globals.css';
+import './critical.css';
 export const metadata: Metadata = {
   title: 'Passage Review | Local textual similarity',
   description:
@@ -10,8 +10,14 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
+      <head>
+        <link rel="preload" href="/styles/non-critical.css" as="style" />
+      </head>
       <body>
         <StateProviders>{children}</StateProviders>
+        <link rel="stylesheet" href="/styles/non-critical.css" media="print" onLoad={(e) => {
+          (e.currentTarget as HTMLLinkElement).media = 'screen';
+        }} />
       </body>
     </html>
   );
