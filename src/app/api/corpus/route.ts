@@ -5,7 +5,7 @@ import {
   resetCorpus,
 } from '@/lib/corpus/service';
 import { getCorpusStats, loadCatalog } from '@/lib/corpus/store';
-import { boundedFormData, RequestError } from '@/lib/application/request';
+import { assertSameOrigin, boundedFormData, RequestError } from '@/lib/application/request';
 
 export async function GET() {
   try {
@@ -23,6 +23,7 @@ export async function GET() {
 
 export async function POST(request: Request) {
   try {
+    assertSameOrigin(request);
     const form = await boundedFormData(request);
     const files = form
       .getAll('files')
@@ -70,6 +71,7 @@ export async function POST(request: Request) {
 
 export async function DELETE(request: Request) {
   try {
+    assertSameOrigin(request);
     const url = new URL(request.url);
     if (url.searchParams.get('all') === 'true') {
       const reset = await resetCorpus();

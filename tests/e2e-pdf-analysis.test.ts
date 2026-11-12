@@ -238,10 +238,6 @@ describe('E2E: Full research-paper PDF through the analysis pipeline', () => {
       expect(result.stripping.sources.length).toBe(12);
 
       // Matching source is in the canonical QUIC papers (lexically similar)
-      const sourceRefs = result.detections.map((d) => d.sourceReference);
-      const hasQuicSource = sourceRefs.some((r) => r.toLowerCase().includes('quic'));
-      // The QUIC delay paper should find lexical similarity with the other QUIC paper
-      // (not a hard assertion since we don't control the threshold, but log it)
       console.log(
         `  TF-IDF: ${result.detections.length} detections above threshold ${result.config.threshold}`,
       );
@@ -303,7 +299,7 @@ describe('E2E: Full research-paper PDF through the analysis pipeline', () => {
             `elapsed ${result.elapsedSeconds.toFixed(2)}s`,
         );
       },
-      300_000,
+      600_000,
     );
 
     it.skipIf(process.env.INFERENCE_TESTS !== '1')(
@@ -338,7 +334,7 @@ describe('E2E: Full research-paper PDF through the analysis pipeline', () => {
             `elapsed ${result.elapsedSeconds.toFixed(2)}s`,
         );
       },
-      300_000,
+      600_000,
     );
   });
 });

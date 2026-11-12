@@ -4,6 +4,8 @@
  * to understand missing content in QUIC papers
  */
 import { readFileSync, existsSync } from 'fs';
+import { mkdir, writeFile } from 'node:fs/promises';
+import { dirname } from 'node:path';
 import { getDocument } from 'pdfjs-dist/legacy/build/pdf.mjs';
 
 interface ExtractionAnalysis {
@@ -238,6 +240,8 @@ async function main() {
     method: 'PDF.js extraction vs canonical text sources',
     results,
   };
+  await mkdir(dirname(reportPath), { recursive: true });
+  await writeFile(reportPath, `${JSON.stringify(report, null, 2)}\n`, 'utf8');
 
   console.log(`\n✅ Full analysis saved to ${reportPath}`);
 }

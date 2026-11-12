@@ -9,6 +9,7 @@ import type {
 } from './types';
 
 export const DEFAULT_CORPUS_DIR = resolve('data/corpus');
+let catalogMutationQueue: Promise<void> = Promise.resolve();
 
 export function getCorpusDir(): string {
   return resolve(process.env.CORPUS_DIRECTORY ?? DEFAULT_CORPUS_DIR);
@@ -48,20 +49,49 @@ export async function loadCatalog(): Promise<CorpusCatalog> {
   const path = getCatalogPath();
   try {
     const raw = await readFile(path, 'utf8');
-    const catalog = JSON.parse(raw) as CorpusCatalog;
-    return catalog;
-  } catch {
-    return {
-      documents: {},
-      totalDocuments: 0,
-      readyDocuments: 0,
-      totalPassages: 0,
-      lastUpdated: new Date().toISOString(),
-    };
+    const value: unknown = JSON.parse(raw);
+    if (
+      !value ||
+      typeof value !== 'object' ||
+      !('documents' in value) ||
+      !value.documents ||
+      typeof value.documents !== 'object' ||
+      Array.isArray(value.documents)
+    )
+      throw new Error(`Invalid corpus catalog structure at ${path}`);
+    for (const [id, document] of Object.entries(value.documents)) {
+      if (
+        !document ||
+        typeof document !== 'object' ||
+        !('id' in document) ||
+        document.id !== id ||
+        !('status' in document) ||
+        !['pending', 'processing', 'ready', 'failed'].includes(String(document.status)) ||
+        !('passageCount' in document) ||
+        !Number.isSafeInteger(document.passageCount) ||
+        document.passageCount < 0
+      )
+        throw new Error(`Invalid corpus catalog entry "${id}" at ${path}`);
+    }
+    return value as CorpusCatalog;
+  } catch (error) {
+    if ((error as NodeJS.ErrnoException).code === 'ENOENT') {
+      return {
+        documents: {},
+        totalDocuments: 0,
+        readyDocuments: 0,
+        totalPassages: 0,
+        lastUpdated: new Date().toISOString(),
+      };
+    }
+    throw new Error(
+      `Unable to read corpus catalog at ${path}: ${error instanceof Error ? error.message : String(error)}`,
+      { cause: error },
+    );
   }
 }
 
-export async function saveCatalog(catalog: CorpusCatalog): Promise<void> {
+async function writeCatalog(catalog: CorpusCatalog): Promise<void> {
   catalog.totalDocuments = Object.keys(catalog.documents).length;
   catalog.readyDocuments = Object.values(catalog.documents).filter(
     (d) => d.status === 'ready',
@@ -72,6 +102,26 @@ export async function saveCatalog(catalog: CorpusCatalog): Promise<void> {
   );
   catalog.lastUpdated = new Date().toISOString();
   await atomicWrite(getCatalogPath(), JSON.stringify(catalog, null, 2));
+}
+
+async function serializeCatalogMutation<T>(operation: () => Promise<T>): Promise<T> {
+  const run = catalogMutationQueue.then(operation, operation);
+  catalogMutationQueue = run.then(
+    () => undefined,
+    () => undefined,
+  );
+  return run;
+}
+
+export async function updateCatalog(
+  update: (catalog: CorpusCatalog) => void | Promise<void>,
+): Promise<CorpusCatalog> {
+  return serializeCatalogMutation(async () => {
+    const catalog = await loadCatalog();
+    await update(catalog);
+    await writeCatalog(catalog);
+    return catalog;
+  });
 }
 
 export async function findDocumentBySha256(
@@ -129,9 +179,9 @@ export async function saveDocumentRecord(params: {
   await atomicWrite(resolve(dir, 'raw.bin'), params.rawBytes);
   await atomicWrite(resolve(dir, 'passages.json'), JSON.stringify(params.passages, null, 2));
 
-  const catalog = await loadCatalog();
-  catalog.documents[params.metadata.id] = params.metadata;
-  await saveCatalog(catalog);
+  await updateCatalog((catalog) => {
+    catalog.documents[params.metadata.id] = params.metadata;
+  });
 }
 
 export async function updateDocumentStatus(
@@ -140,48 +190,49 @@ export async function updateDocumentStatus(
   errorMessage: string | null = null,
   extraUpdates?: Partial<CorpusDocumentMetadata>,
 ): Promise<CorpusDocumentMetadata | null> {
-  const catalog = await loadCatalog();
-  const existing = catalog.documents[id];
-  if (!existing) return null;
+  return serializeCatalogMutation(async () => {
+    const catalog = await loadCatalog();
+    const existing = catalog.documents[id];
+    if (!existing) return null;
 
-  existing.status = status;
-  existing.errorMessage = errorMessage;
-  existing.updatedAt = new Date().toISOString();
-  if (extraUpdates) {
-    Object.assign(existing, extraUpdates);
-  }
+    existing.status = status;
+    existing.errorMessage = errorMessage;
+    existing.updatedAt = new Date().toISOString();
+    if (extraUpdates) Object.assign(existing, extraUpdates);
 
-  const metaPath = resolve(getDocumentDir(id), 'metadata.json');
-  await atomicWrite(metaPath, JSON.stringify(existing, null, 2)).catch(() => {});
-  await saveCatalog(catalog);
-  return existing;
+    const metaPath = resolve(getDocumentDir(id), 'metadata.json');
+    await atomicWrite(metaPath, JSON.stringify(existing, null, 2));
+    await writeCatalog(catalog);
+    return existing;
+  });
 }
 
 export async function updateDocumentMetadata(
   id: string,
   updates: Partial<CorpusDocumentMetadata>,
 ): Promise<void> {
-  const catalog = await loadCatalog();
-  const existing = catalog.documents[id];
-  if (!existing) return;
-  Object.assign(existing, updates, { updatedAt: new Date().toISOString() });
-  await atomicWrite(
-    resolve(getDocumentDir(id), 'metadata.json'),
-    JSON.stringify(existing, null, 2),
-  );
-  await saveCatalog(catalog);
+  await serializeCatalogMutation(async () => {
+    const catalog = await loadCatalog();
+    const existing = catalog.documents[id];
+    if (!existing) return;
+    Object.assign(existing, updates, { updatedAt: new Date().toISOString() });
+    await atomicWrite(
+      resolve(getDocumentDir(id), 'metadata.json'),
+      JSON.stringify(existing, null, 2),
+    );
+    await writeCatalog(catalog);
+  });
 }
 
 export async function deleteDocumentRecord(id: string): Promise<boolean> {
-  const catalog = await loadCatalog();
-  if (!catalog.documents[id]) return false;
-
-  delete catalog.documents[id];
-  await saveCatalog(catalog);
-
-  const dir = getDocumentDir(id);
-  await rm(dir, { recursive: true, force: true }).catch(() => {});
-  return true;
+  return serializeCatalogMutation(async () => {
+    const catalog = await loadCatalog();
+    if (!catalog.documents[id]) return false;
+    delete catalog.documents[id];
+    await writeCatalog(catalog);
+    await rm(getDocumentDir(id), { recursive: true, force: true });
+    return true;
+  });
 }
 
 export async function getCorpusStats(): Promise<CorpusStats> {

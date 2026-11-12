@@ -1,8 +1,9 @@
 import { retryDocumentIngestion } from '@/lib/corpus/service';
-import { RequestError } from '@/lib/application/request';
+import { assertSameOrigin, RequestError } from '@/lib/application/request';
 
 export async function POST(request: Request) {
   try {
+    assertSameOrigin(request);
     let id: string | null = null;
     const contentType = request.headers.get('content-type') ?? '';
 

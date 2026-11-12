@@ -14,6 +14,7 @@
     "validate:dataset": "bun scripts/dataset.ts",
     "prepare:splits": "bun scripts/prepare-split.ts && bun scripts/check-leakage.ts",
     "benchmark": "bun scripts/benchmark.ts",
+    "evaluate:saved": "bun scripts/evaluation-report.ts",
     "setup:model": "bun scripts/cache-model.ts",
     "test:inference": "INFERENCE_TESTS=1 vitest run tests/model.integration.test.ts",
     "test:app": "bun scripts/smoke-app.ts",

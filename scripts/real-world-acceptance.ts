@@ -244,7 +244,7 @@ async function testExtraction(): Promise<void> {
         passed: true,
         details: 'Successfully extracted document with path and MIME type preserved',
       });
-    } catch (err) {
+    } catch {
       log(`✓ PDF parsing attempted (expected: minimal PDF requires complete structure)`);
       results.push({
         name: 'PDF Extraction',

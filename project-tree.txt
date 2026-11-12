@@ -1,0 +1,232 @@
+﻿├── .agents
+│   ├── pipeline
+│   │   └── 2026-11-12_14-36-06
+│   └── tasks
+│       ├── improvements
+│       └── reset-button
+│           ├── review.json
+│           └── review.md
+├── .freebuff
+│   └── project-id
+├── .kiro
+│   └── settings
+├── .vscode
+│   ├── settings.json
+│   └── tasks.json
+├── demo
+│   ├── 01-direct-copy-source.txt
+│   ├── 01-direct-copy-suspicious.pdf
+│   ├── 02-paraphrase-source.txt
+│   ├── 02-paraphrase-suspicious.pdf
+│   ├── 03-negative-control-source.txt
+│   ├── 03-negative-control-suspicious.pdf
+│   ├── ground-truth.json
+│   └── README.md
+├── public
+│   ├── file.svg
+│   ├── globe.svg
+│   ├── next.svg
+│   ├── sunprint-icons.svg
+│   ├── vercel.svg
+│   └── window.svg
+├── research
+│   ├── article.md
+│   ├── decisions.md
+│   ├── methodology.md
+│   └── status.md
+├── scripts
+│   ├── acceptance-test.ts
+│   ├── analyze-extraction.ts
+│   ├── benchmark.ts
+│   ├── cache-model.ts
+│   ├── check-leakage.ts
+│   ├── dataset.ts
+│   ├── diagnose-demo.ts
+│   ├── diagnose-extraction.mjs
+│   ├── eval-papers.ts
+│   ├── evaluation-report.ts
+│   ├── external-evaluation.ts
+│   ├── external-evaluation-body-only.ts
+│   ├── fetch-background-corpus.ts
+│   ├── generate-controls.ts
+│   ├── gen-final-runs.ts
+│   ├── investigate-pdf-loss.mjs
+│   ├── measure-paraphrase-experiment.ts
+│   ├── prepare-split.ts
+│   ├── probe-pdf-extraction.mjs
+│   ├── provider.ts
+│   ├── real-world-acceptance.ts
+│   ├── research-paper-validation.ts
+│   ├── research-paths.ts
+│   ├── research-report.ts
+│   ├── smoke-app.ts
+│   ├── split-feasibility.ts
+│   ├── test-embeddings.ts
+│   ├── test-pdf-items.ts
+│   ├── threshold-sweep.ts
+│   └── verify-corpus-workflow.ts
+├── src
+│   ├── app
+│   │   ├── api
+│   │   │   ├── analyze
+│   │   │   │   └── route.ts
+│   │   │   ├── corpus
+│   │   │   │   ├── pdf
+│   │   │   │   │   └── route.ts
+│   │   │   │   ├── retry
+│   │   │   │   │   └── route.ts
+│   │   │   │   └── route.ts
+│   │   │   └── status
+│   │   │       └── route.ts
+│   │   ├── favicon.ico
+│   │   ├── globals.css
+│   │   ├── layout.tsx
+│   │   └── page.tsx
+│   ├── components
+│   │   └── ResetCorpusButton.tsx
+│   └── lib
+│       ├── application
+│       │   ├── analysis.ts
+│       │   ├── canonical-corpus.ts
+│       │   ├── report.ts
+│       │   └── request.ts
+│       ├── corpus
+│       │   ├── lexical-index.ts
+│       │   ├── semantic-index.ts
+│       │   ├── service.ts
+│       │   ├── store.ts
+│       │   └── types.ts
+│       ├── dataset
+│       │   ├── inventory.ts
+│       │   ├── parser.ts
+│       │   ├── split.ts
+│       │   └── types.ts
+│       ├── detection
+│       │   ├── background
+│       │   │   └── .gitkeep
+│       │   ├── boilerplate.ts
+│       │   ├── boilerplate-patterns.json
+│       │   ├── detector.ts
+│       │   ├── identifiers.ts
+│       │   ├── informative-evidence.ts
+│       │   ├── paraphrase-evidence.ts
+│       │   ├── quic-reference-ranges.json
+│       │   ├── segmentation.ts
+│       │   ├── semantic-review.ts
+│       │   ├── strip-references.ts
+│       │   └── tfidf.ts
+│       ├── documents
+│       │   ├── extract.ts
+│       │   ├── ligature-words.txt
+│       │   └── repair.ts
+│       ├── embeddings
+│       │   ├── model.ts
+│       │   └── similarity.ts
+│       ├── evaluation
+│       │   ├── pan.ts
+│       │   └── summary.ts
+│       ├── research-paper-validation
+│       │   └── ground-truth.ts
+│       └── digest.ts
+├── tests
+│   ├── detection
+│   │   ├── detector-hybrid.test.ts
+│   │   ├── informative-evidence.test.ts
+│   │   └── page-offset-mapping.test.ts
+│   ├── fixtures
+│   │   └── papers
+│   │       ├── c1-exact-copy.txt
+│   │       ├── c2-synonym-replace.txt
+│   │       ├── c3-sentence-shuffle.txt
+│   │       ├── c4-heavy.txt
+│   │       ├── c4-light-auto-paraphrase.txt
+│   │       ├── c4-medium.txt
+│   │       ├── liu-2020-e21808.pdf
+│   │       └── qiu-2020-e22022.pdf
+│   ├── application-level-integration.test.ts
+│   ├── boilerplate.test.ts
+│   ├── corpus-management.test.ts
+│   ├── corpus-reset.test.ts
+│   ├── dataset.test.ts
+│   ├── detection.test.ts
+│   ├── detector-filter.test.ts
+│   ├── diagnose-hybrid-consistency.test.ts
+│   ├── diagnose-passage-filtering.test.ts
+│   ├── e2e-pdf-analysis.test.ts
+│   ├── evaluation.test.ts
+│   ├── evaluation-summary.test.ts
+│   ├── extraction.test.ts
+│   ├── fix-three-defects.test.ts
+│   ├── informative-evidence.test.ts
+│   ├── model.integration.test.ts
+│   ├── paragraph-review.test.ts
+│   ├── paraphrase-evidence.test.ts
+│   ├── pdf-corpus-ingestion.test.ts
+│   ├── pdf-fixture.ts
+│   ├── pdf-nul-extraction.test.ts
+│   ├── phase5-coverage-identifiers.test.ts
+│   ├── production-calibration.test.ts
+│   ├── production-corpus-independence.test.ts
+│   ├── repair.test.ts
+│   ├── research-paper-integration.test.ts
+│   ├── research-paper-validation.test.ts
+│   ├── retrieval.test.ts
+│   ├── split.test.ts
+│   ├── strip-references.test.ts
+│   └── tfidf-research.test.ts
+├── .acceptance-test-results.json
+├── .gitattributes
+├── .gitignore
+├── .prettierignore
+├── .prettierrc.json
+├── .real-world-results.json
+├── ACCEPTANCE_CHECKS_FINAL.txt
+├── ACCEPTANCE_TEST_REPORT.md
+├── AGENTS.md
+├── AUDIT_REPORT_PAGE_OFFSET_MAPPING.md
+├── build-final.txt
+├── bun.lock
+├── COMPLETION_SUMMARY.md
+├── CONTEXT_SUMMARY_VERIFICATION.md
+├── DEFECT_FIX_COMPLETION_REPORT.md
+├── DEFECT_FIXES_REPORT.md
+├── eslint.config.mjs
+├── FINAL_AUDIT_REPORT.md
+├── FINAL_COMPLETION_REPORT.md
+├── FINAL_IMPLEMENTATION_REPORT.md
+├── FINAL_PROJECT_STATUS.md
+├── FINAL_TECHNICAL_VERIFICATION.md
+├── FINAL_VERIFICATION.md
+├── final-test-run.txt
+├── full-test-output.txt
+├── HYBRID_VERIFICATION_REPORT.md
+├── IMPLEMENTATION_CHECKLIST.md
+├── IMPLEMENTATION_COMPLETE.md
+├── IMPLEMENTATION_SUMMARY.md
+├── LEXICAL_FILTERING_TEST_REPORT.md
+├── LICENSE
+├── lint-final.txt
+├── lint-output.txt
+├── next.config.ts
+├── next-env.d.ts
+├── original.pdf
+├── package.json
+├── PAGE_OFFSET_MAPPING_VERIFICATION.md
+├── plag.pdf
+├── project-tree.txt
+├── README.md
+├── README_FINAL.md
+├── research-paper-parameters.json
+├── test-final.txt
+├── test-final-results.txt
+├── test-output.txt
+├── test-results.log
+├── test-results.txt
+├── test-simple.log
+├── THREE_DEFECTS_FIX_REPORT.md
+├── tsconfig.json
+├── tsconfig.tsbuildinfo
+├── VERIFICATION_CHECKLIST.md
+├── vitest.config.ts
+├── vitest.setup.ts
+└── WORKFLOW_COMPLETION_SUMMARY.md

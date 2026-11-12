@@ -40,7 +40,7 @@ describe('maskBoilerplate', () => {
 
   it('2. does NOT suppress genuine content (Methods paragraph)', () => {
     const input = 'Methods\nWe conducted a randomized trial.';
-    const { maskedText, suppressedItems } = maskBoilerplate(input);
+    const { maskedText } = maskBoilerplate(input);
 
     // No back-matter heading "Methods" is in the back-matter list (it is body content)
     // The sentence "We conducted a randomized trial." should NOT be masked

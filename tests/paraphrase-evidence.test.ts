@@ -12,7 +12,7 @@
  *   - isParaphraseExperimentEnabled (env flag)
  */
 
-import { describe, expect, it, afterEach, beforeEach } from 'vitest';
+import { describe, expect, it, afterEach } from 'vitest';
 import {
   computeIdfThreshold,
   hasSharedRareTokens,

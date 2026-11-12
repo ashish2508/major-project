@@ -1,0 +1,222 @@
+{
+  "version": 1,
+  "generatedAt": "2026-11-12T17:02:08.194Z",
+  "sourceRunCompletedAt": "2026-11-10T15:15:14.739Z",
+  "corpusFingerprint": "5408fc446e1eded99c9e5e361f4e735e168c199b392f9c64066456e17bc5c0e7",
+  "splitManifestSha256": "203a88a979bdfda36d75612c902b699b0a8fd7b2ee82e688d494a036b01f3908",
+  "experimentConfigSha256": "3269f532190e2cc2db8a20648438d7d5c1069a3bf9f2e9e7a7f0600e8b66ca1c",
+  "scope": "bounded English PAN-PC-11 external detection; reduced candidate collection; not full-corpus or CS performance",
+  "evaluation": {
+    "level": "character-span macro evaluation using PAN performance-measures semantics",
+    "truePositiveRule": "A prediction contributes overlap only when suspicious and source references both match and both half-open character spans overlap; coverage is based on the union of intersecting characters.",
+    "falsePositiveRule": "A predicted span pair is unmatched when no annotated pair overlaps on both documents. Query-level false-positive rate is separately defined over suspicious documents with no annotations.",
+    "split": {
+      "algorithm": "family-bundle-stratified-quarantine-v1",
+      "seed": "pan-pc11-v1-20261110",
+      "scope": "english-to-english",
+      "trainQueries": 80,
+      "validationQueries": 48,
+      "testQueries": 48,
+      "selectionPartition": "validation",
+      "thresholdsFrozenBeforeTest": true
+    }
+  },
+  "methods": {
+    "lexical": {
+      "displayName": "TF-IDF",
+      "configuration": {
+        "method": "lexical",
+        "threshold": 0.3,
+        "alpha": 1,
+        "mergeGap": 120
+      },
+      "validation": {
+        "precision": 0.7279930113529907,
+        "recall": 0.7541540072142081,
+        "f1": 0.7408426287785357,
+        "granularity": 1.271186440677966,
+        "plagdet": 0.6260045160082044,
+        "cases": 72,
+        "detections": 77,
+        "detectedCases": 59,
+        "missedCases": 13,
+        "falsePositiveDetections": 2
+      },
+      "heldOutTest": {
+        "precision": 0.7606831618159371,
+        "recall": 0.860139390998427,
+        "f1": 0.8073598808345993,
+        "granularity": 1.528301886792453,
+        "plagdet": 0.6033318961789037,
+        "cases": 57,
+        "detections": 87,
+        "detectedCases": 53,
+        "missedCases": 4,
+        "falsePositiveDetections": 6
+      },
+      "falsePositiveRate": {
+        "definition": "clean query documents with >=1 alert / all clean query documents",
+        "cleanQueries": 24,
+        "cleanQueriesWithAlerts": 3,
+        "rate": 0.125
+      },
+      "missedAnnotationIds": [
+        "suspicious-document01510.txt#4",
+        "suspicious-document03828.txt#3",
+        "suspicious-document07217.txt#2",
+        "suspicious-document10471.txt#2"
+      ],
+      "unmatchedDetectionCount": 6,
+      "runtimeSeconds": {
+        "methodSpecificPostprocessing": 0.0003687180000124499,
+        "sharedCandidateScoring": 54.93088401700003,
+        "isolatedEndToEnd": null
+      }
+    },
+    "semantic": {
+      "displayName": "MiniLM",
+      "configuration": {
+        "method": "semantic",
+        "threshold": 0.6,
+        "alpha": 0,
+        "mergeGap": 120
+      },
+      "validation": {
+        "precision": 0.34448755730594627,
+        "recall": 0.38364973044193845,
+        "f1": 0.36301549371219405,
+        "granularity": 1.4054054054054055,
+        "plagdet": 0.2866786768971641,
+        "cases": 72,
+        "detections": 128,
+        "detectedCases": 37,
+        "missedCases": 35,
+        "falsePositiveDetections": 76
+      },
+      "heldOutTest": {
+        "precision": 0.35407373510026136,
+        "recall": 0.5272924613482521,
+        "f1": 0.42366138395617997,
+        "granularity": 1.6216216216216217,
+        "plagdet": 0.3046916440922639,
+        "cases": 57,
+        "detections": 151,
+        "detectedCases": 37,
+        "missedCases": 20,
+        "falsePositiveDetections": 91
+      },
+      "falsePositiveRate": {
+        "definition": "clean query documents with >=1 alert / all clean query documents",
+        "cleanQueries": 24,
+        "cleanQueriesWithAlerts": 9,
+        "rate": 0.375
+      },
+      "missedAnnotationIds": [
+        "suspicious-document00214.txt#2",
+        "suspicious-document01434.txt#4",
+        "suspicious-document01510.txt#2",
+        "suspicious-document01510.txt#4",
+        "suspicious-document01713.txt#4",
+        "suspicious-document02098.txt#2",
+        "suspicious-document03828.txt#2",
+        "suspicious-document03828.txt#3",
+        "suspicious-document03828.txt#4",
+        "suspicious-document05169.txt#2",
+        "suspicious-document05169.txt#3",
+        "suspicious-document07217.txt#2",
+        "suspicious-document07217.txt#3",
+        "suspicious-document07217.txt#4",
+        "suspicious-document07498.txt#5",
+        "suspicious-document08652.txt#2",
+        "suspicious-document08652.txt#4",
+        "suspicious-document10263.txt#3",
+        "suspicious-document10263.txt#4",
+        "suspicious-document10471.txt#2"
+      ],
+      "unmatchedDetectionCount": 91,
+      "runtimeSeconds": {
+        "methodSpecificPostprocessing": 0.0003860790000180714,
+        "sharedCandidateScoring": 54.93088401700003,
+        "isolatedEndToEnd": null
+      }
+    },
+    "hybrid": {
+      "displayName": "Hybrid",
+      "configuration": {
+        "method": "hybrid",
+        "threshold": 0.3,
+        "alpha": 1,
+        "mergeGap": 120
+      },
+      "validation": {
+        "precision": 0.7279930113529907,
+        "recall": 0.7541540072142081,
+        "f1": 0.7408426287785357,
+        "granularity": 1.271186440677966,
+        "plagdet": 0.6260045160082044,
+        "cases": 72,
+        "detections": 77,
+        "detectedCases": 59,
+        "missedCases": 13,
+        "falsePositiveDetections": 2
+      },
+      "heldOutTest": {
+        "precision": 0.7606831618159371,
+        "recall": 0.860139390998427,
+        "f1": 0.8073598808345993,
+        "granularity": 1.528301886792453,
+        "plagdet": 0.6033318961789037,
+        "cases": 57,
+        "detections": 87,
+        "detectedCases": 53,
+        "missedCases": 4,
+        "falsePositiveDetections": 6
+      },
+      "falsePositiveRate": {
+        "definition": "clean query documents with >=1 alert / all clean query documents",
+        "cleanQueries": 24,
+        "cleanQueriesWithAlerts": 3,
+        "rate": 0.125
+      },
+      "missedAnnotationIds": [
+        "suspicious-document01510.txt#4",
+        "suspicious-document03828.txt#3",
+        "suspicious-document07217.txt#2",
+        "suspicious-document10471.txt#2"
+      ],
+      "unmatchedDetectionCount": 6,
+      "runtimeSeconds": {
+        "methodSpecificPostprocessing": 0.0002475069999927655,
+        "sharedCandidateScoring": 54.93088401700003,
+        "isolatedEndToEnd": null
+      }
+    }
+  },
+  "runtime": {
+    "totalBenchmarkWallSeconds": 263.035764631,
+    "peakRssBytes": 1077628928,
+    "sharedTestCandidateScoringSeconds": 54.93088401700003,
+    "semanticEmbeddingComputeSeconds": {
+      "source": 45.848452852,
+      "query": 33.00711534399999
+    },
+    "limitation": "Candidate scoring is shared across methods and embeddings are computed once; isolated end-to-end per-method wall time was not measured. Per-method postprocessing and shared work are reported separately."
+  },
+  "passages": {
+    "validationSources": 2715,
+    "validationQueries": 3153,
+    "testSources": 4009,
+    "testQueries": 2884
+  },
+  "limitations": [
+    "Size-limited, quarantine-selected subset with reduced candidate collection",
+    "Only one held-out simulated case",
+    "Translations excluded",
+    "No confidence calibration or significance claim",
+    "Metrics implemented from official definitions/reference fixtures; Python reference not executed",
+    "The held-out set is a bounded, family-disjoint subset; this is not a full PAN-PC-11 run.",
+    "PAN-PC-11 consists of book texts, so these results do not establish performance on research papers.",
+    "Semantic similarity is only a candidate similarity signal; annotations provide the plagiarism ground truth.",
+    "Query-level false-positive rate is a document-level clean-query statistic, not a character-level specificity estimate."
+  ]
+}

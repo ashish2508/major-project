@@ -27,7 +27,7 @@ import {
   getDocumentRawBytes,
   getCorpusDir,
   loadCatalog,
-  saveCatalog,
+  updateCatalog,
   saveDocumentRecord,
   updateDocumentStatus,
   updateDocumentMetadata,
@@ -282,8 +282,9 @@ export async function resetCorpus(): Promise<{ removedDocuments: number }> {
 
   await rm(resolve(corpusDirectory, 'documents'), { recursive: true, force: true });
   await rm(resolve(corpusDirectory, 'indexes'), { recursive: true, force: true });
-  catalog.documents = {};
-  await saveCatalog(catalog);
+  await updateCatalog((current) => {
+    current.documents = {};
+  });
   await ensureCorpusDirectories();
 
   resetLexicalIndexCache();

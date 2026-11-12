@@ -1,8 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import {
-  stripReferences,
-  stripCanonicalReferences,
-} from '../../src/lib/detection/strip-references';
+import { stripReferences } from '../../src/lib/detection/strip-references';
 import { pageAtOffset, attachPassagePages } from '../../src/lib/corpus/service';
 import type { Passage } from '../../src/lib/detection/segmentation';
 

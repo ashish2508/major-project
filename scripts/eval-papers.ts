@@ -32,7 +32,8 @@ import type { Method } from '../src/lib/detection/detector';
 
 const ROOT = resolve(__dirname, '..');
 const FIXTURES = join(ROOT, 'tests/fixtures/papers');
-const REPORTS_DIR = join(ROOT, 'reports/improvements');
+const EXTERNAL = join(ROOT, 'data/external-evaluation');
+const REPORTS_DIR = join(ROOT, 'reports/improvements/round2');
 
 // ---------------------------------------------------------------------------
 // Types
@@ -49,6 +50,7 @@ interface Alert {
 interface PairMethodResult {
   method: Method;
   pairId: string;
+  label: PairDef['label'];
   queryFile: string;
   sourceFile: string;
   queryRole: 'QUERY';
@@ -66,6 +68,7 @@ interface PairMethodResult {
 interface PairMethodSkipped {
   method: Method;
   pairId: string;
+  label: PairDef['label'];
   queryFile: string;
   sourceFile: string;
   queryRole: 'QUERY';
@@ -80,8 +83,11 @@ type PairResult = PairMethodResult | PairMethodSkipped;
 // Load document helpers
 // ---------------------------------------------------------------------------
 
-async function loadPdf(filename: string, reference: string): Promise<ExtractedDocument> {
-  const path = join(FIXTURES, filename);
+async function loadPdf(
+  filename: string,
+  reference: string,
+  path = join(FIXTURES, filename),
+): Promise<ExtractedDocument> {
   const bytes = new Uint8Array(await readFile(path));
   const { getDocument } = await import('pdfjs-dist/legacy/build/pdf.mjs');
   const task = getDocument({ data: bytes, useSystemFonts: true, disableFontFace: true });
@@ -120,8 +126,11 @@ async function loadPdf(filename: string, reference: string): Promise<ExtractedDo
   return { reference, title: filename, text, format: 'pdf', pages, paragraphBreaks };
 }
 
-async function loadTxt(filename: string, reference: string): Promise<ExtractedDocument> {
-  const path = join(FIXTURES, filename);
+async function loadTxt(
+  filename: string,
+  reference: string,
+  path = join(FIXTURES, filename),
+): Promise<ExtractedDocument> {
   const text = await readFile(path, 'utf8');
   return {
     reference,
@@ -141,7 +150,7 @@ interface PairDef {
   id: string;
   queryFile: string;
   sourceFile: string;
-  type: 'positive' | 'control' | 'negative';
+  label: 'positive' | 'control' | 'negative';
   optional: boolean;
 }
 
@@ -150,50 +159,57 @@ const PAIRS: PairDef[] = [
     id: 'P1',
     queryFile: 'qiu-2020-e22022.pdf',
     sourceFile: 'liu-2020-e21808.pdf',
-    type: 'positive',
+    label: 'positive',
     optional: false,
   },
   {
     id: 'C1',
     queryFile: 'c1-exact-copy.txt',
     sourceFile: 'liu-2020-e21808.pdf',
-    type: 'control',
+    label: 'control',
     optional: false,
   },
   {
     id: 'C2',
     queryFile: 'c2-synonym-replace.txt',
     sourceFile: 'liu-2020-e21808.pdf',
-    type: 'control',
+    label: 'control',
     optional: false,
   },
   {
     id: 'C3',
     queryFile: 'c3-sentence-shuffle.txt',
     sourceFile: 'liu-2020-e21808.pdf',
-    type: 'control',
+    label: 'control',
     optional: false,
   },
   {
     id: 'C4-light',
     queryFile: 'c4-light-auto-paraphrase.txt',
     sourceFile: 'liu-2020-e21808.pdf',
-    type: 'control',
+    label: 'control',
+    optional: false,
+  },
+  {
+    id: 'N0',
+    queryFile: 'liu-2020-e21808.pdf',
+    sourceFile: 'canonical/QUIC_Dual_Connectivity_2021.txt',
+    label: 'negative',
     optional: false,
   },
   {
     id: 'N1',
-    queryFile: 'zhu-2020-e22356.pdf',
+    queryFile: 'medi-99-e22356.pdf',
     sourceFile: 'liu-2020-e21808.pdf',
-    type: 'negative',
-    optional: true,
+    label: 'negative',
+    optional: false,
   },
   {
     id: 'N2',
-    queryFile: 'tanreqing-2020-pmc7458256.pdf',
+    queryFile: 'medi-99-e22010.pdf',
     sourceFile: 'liu-2020-e21808.pdf',
-    type: 'negative',
-    optional: true,
+    label: 'negative',
+    optional: false,
   },
 ];
 
@@ -241,11 +257,6 @@ async function runPair(
     textMap.set(src.reference, src.text);
   }
 
-  // Build a map using the stripped body text for the filter
-  // (analyzeDocuments already stripped; the detection spans reference stripped offsets)
-  const strippedQueryText = result.query.text.slice(
-    0, // analyzeDocuments may have stripped references; we don't re-strip here
-  );
   const docsForFilter = new Map<string, string>(textMap);
 
   let informativeAlerts: number;
@@ -300,6 +311,7 @@ async function runPair(
   return {
     method,
     pairId: pair.id,
+    label: pair.label,
     queryFile: pair.queryFile,
     sourceFile: pair.sourceFile,
     queryRole: 'QUERY',
@@ -322,26 +334,17 @@ async function main(): Promise<void> {
   console.log('=== Phase 0 Evaluation Harness ===\n');
   await mkdir(REPORTS_DIR, { recursive: true });
 
-  // Load the shared source document (liu) once per format
-  console.log('Loading source document: liu-2020-e21808.pdf …');
-  let liuDoc: ExtractedDocument;
-  try {
-    liuDoc = await loadPdf('liu-2020-e21808.pdf', 'liu-2020-e21808');
-    console.log(`  Loaded: ${liuDoc.text.length} chars\n`);
-  } catch (e) {
-    console.error('FATAL: could not load liu-2020-e21808.pdf:', e);
-    process.exit(1);
-  }
-
-  // Cache loaded docs to avoid re-extracting PDFs
   const docCache = new Map<string, ExtractedDocument>();
-  docCache.set('liu-2020-e21808.pdf', liuDoc);
 
   const allResults: PairResult[] = [];
 
   for (const pair of PAIRS) {
-    const queryPath = join(FIXTURES, pair.queryFile);
-    const sourcePath = join(FIXTURES, pair.sourceFile);
+    const queryPath = ['N1', 'N2'].includes(pair.id)
+      ? join(EXTERNAL, pair.queryFile)
+      : join(FIXTURES, pair.queryFile);
+    const sourcePath = pair.sourceFile.startsWith('canonical/')
+      ? join(EXTERNAL, pair.sourceFile)
+      : join(FIXTURES, pair.sourceFile);
 
     if (!existsSync(queryPath)) {
       if (pair.optional) {
@@ -350,6 +353,7 @@ async function main(): Promise<void> {
           allResults.push({
             method,
             pairId: pair.id,
+            label: pair.label,
             queryFile: pair.queryFile,
             sourceFile: pair.sourceFile,
             queryRole: 'QUERY',
@@ -377,9 +381,9 @@ async function main(): Promise<void> {
     } else {
       try {
         if (pair.queryFile.endsWith('.pdf')) {
-          queryDoc = await loadPdf(pair.queryFile, pair.queryFile.replace('.pdf', ''));
+          queryDoc = await loadPdf(pair.queryFile, pair.queryFile.replace('.pdf', ''), queryPath);
         } else {
-          queryDoc = await loadTxt(pair.queryFile, pair.queryFile.replace('.txt', ''));
+          queryDoc = await loadTxt(pair.queryFile, pair.queryFile.replace('.txt', ''), queryPath);
         }
         docCache.set(pair.queryFile, queryDoc);
       } catch (e) {
@@ -388,6 +392,7 @@ async function main(): Promise<void> {
           allResults.push({
             method,
             pairId: pair.id,
+            label: pair.label,
             queryFile: pair.queryFile,
             sourceFile: pair.sourceFile,
             queryRole: 'QUERY',
@@ -400,7 +405,13 @@ async function main(): Promise<void> {
       }
     }
 
-    const sourceDoc = docCache.get('liu-2020-e21808.pdf')!;
+    let sourceDoc = docCache.get(pair.sourceFile);
+    if (!sourceDoc) {
+      sourceDoc = pair.sourceFile.endsWith('.pdf')
+        ? await loadPdf(pair.sourceFile, pair.sourceFile.replace('.pdf', ''), sourcePath)
+        : await loadTxt(pair.sourceFile.split('/').at(-1)!, pair.sourceFile, sourcePath);
+      docCache.set(pair.sourceFile, sourceDoc);
+    }
 
     for (const method of METHODS) {
       console.log(`Running ${method.padEnd(8)} on ${pair.id} (${pair.queryFile}) …`);
@@ -417,6 +428,7 @@ async function main(): Promise<void> {
         allResults.push({
           method,
           pairId: pair.id,
+          label: pair.label,
           queryFile: pair.queryFile,
           sourceFile: pair.sourceFile,
           queryRole: 'QUERY',
@@ -438,7 +450,7 @@ async function main(): Promise<void> {
   // ---------------------------------------------------------------------------
   // Write JSON output
   // ---------------------------------------------------------------------------
-  const jsonPath = join(REPORTS_DIR, 'phase-0-results.json');
+  const jsonPath = join(REPORTS_DIR, 'step1-results.json');
   await writeFile(jsonPath, JSON.stringify(allResults, null, 2), 'utf8');
   console.log(`\nWrote ${jsonPath}`);
 
@@ -456,7 +468,7 @@ async function main(): Promise<void> {
   mdLines.push('|------|-----------------|-------------------|------|');
   for (const p of PAIRS) {
     const type =
-      p.type === 'positive' ? 'Positive' : p.type === 'negative' ? 'Negative' : 'Control';
+      p.label === 'positive' ? 'Positive' : p.label === 'negative' ? 'Negative' : 'Control';
     const optional = p.optional ? ' *(optional)*' : '';
     mdLines.push(`| ${p.id} | ${p.queryFile} | ${p.sourceFile} | ${type}${optional} |`);
   }
@@ -565,7 +577,7 @@ async function main(): Promise<void> {
   mdLines.push('C4-medium and C4-heavy fixtures are hand-paraphrase placeholders.');
   mdLines.push('');
 
-  const mdPath = join(REPORTS_DIR, 'phase-0.md');
+  const mdPath = join(REPORTS_DIR, 'step1-results.md');
   await writeFile(mdPath, mdLines.join('\n'), 'utf8');
   console.log(`Wrote ${mdPath}`);
 

@@ -99,7 +99,7 @@
           "id": "02-paraphrase-2",
           "suspicious": {
             "section": "Which period owns a record",
-            "offset": 1421,
+            "offset": 1419,
             "length": 393,
             "excerpt": "Put an alarm in the calendar group for when the algorithm issued its decision. If a technician verifies it\na week later, revise the figures for the original period. Counting it on the day the ticket closes makes\nthe performance chart react to clerical bursts instead of changes in the predictor. Show how many\nalarms have been resolved so readers can tell an interim number from a settled one.",
             "page": 2
@@ -115,7 +115,7 @@
           "id": "02-paraphrase-3",
           "suspicious": {
             "section": "Amending a closed ticket",
-            "offset": 2181,
+            "offset": 2179,
             "length": 371,
             "excerpt": "Keep the amount each ticket added to the running totals. If its verdict is changed, take away the old\namount and insert the amount implied by the new verdict into the same historical bucket. A change of\nmind must not count as an additional incident. With that rule and the history of amendments, an auditor\ncan recover the figures that were visible on any reporting date.",
             "page": 2

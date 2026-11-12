@@ -12,7 +12,6 @@ import {
   retryDocumentIngestion,
 } from '../src/lib/corpus/service';
 import {
-  findDocumentBySha256,
   getCorpusDir,
   getCorpusStats,
   getDocumentMetadata,

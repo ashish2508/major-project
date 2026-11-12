@@ -9,6 +9,21 @@ export class RequestError extends Error {
     super(message);
   }
 }
+
+export function assertSameOrigin(request: Request): void {
+  const origin = request.headers.get('origin');
+  if (!origin) return;
+  const host = request.headers.get('host');
+  if (!host) throw new RequestError('Host header is required for browser requests', 400);
+  try {
+    if (new URL(origin).host.toLowerCase() !== host.toLowerCase())
+      throw new RequestError('Cross-origin requests are forbidden', 403);
+  } catch (error) {
+    if (error instanceof RequestError) throw error;
+    throw new RequestError('Invalid Origin header', 400);
+  }
+}
+
 /** Bound streamed bodies even if Content-Length is absent or dishonest. */
 export async function boundedFormData(request: Request): Promise<FormData> {
   const type = request.headers.get('content-type') ?? '';

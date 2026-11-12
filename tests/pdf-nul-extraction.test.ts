@@ -24,7 +24,7 @@ describe('PDF.js unmapped glyph handling', () => {
       const extracted = await extractFile(pdf, 'test-pdf');
       // If extraction succeeds, verify NUL is not in result
       expect(extracted.text).not.toContain('\0');
-    } catch (e) {
+    } catch {
       // A malformed PDF might throw - that's okay for this test
       // The important part is validateText rejection of NUL
     }

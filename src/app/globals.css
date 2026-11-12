@@ -1,12 +1,14 @@
 @import 'tailwindcss/preflight.css';
 
 :root {
-  --ink: #182c35;
-  --muted: #64747a;
-  --line: #dce3df;
-  --paper: #f4f5f0;
-  --teal: #146858;
-  --pale: #e7f0e9;
+  --ink: #284f48;
+  --muted: #64746c;
+  --line: #edc8b9;
+  --paper: #f7ede2;
+  --teal: #2a9d8f;
+  --pale: #edc8b9;
+  --terracotta: #e76f51;
+  --overprint: #284f48;
   --font-sans: Arial, Helvetica, sans-serif;
   --font-mono: ui-monospace, SFMono-Regular, monospace;
 }
@@ -56,7 +58,7 @@ a:focus-visible,
 input:focus-visible,
 textarea:focus-visible,
 pre:focus-visible {
-  outline: 3px solid #299e85;
+  outline: 3px solid var(--teal);
   outline-offset: 3px;
 }
 
@@ -84,15 +86,16 @@ pre:focus-visible {
 }
 
 .brand-mark {
-  background: var(--ink);
-  color: white;
+  background: transparent;
   display: grid;
   place-items: center;
-  width: 35px;
-  height: 35px;
-  border-radius: 8px;
-  font-family: Georgia, serif;
-  font-size: 26px;
+  width: 42px;
+  height: 42px;
+}
+
+.brand-mark svg {
+  width: 100%;
+  height: 100%;
 }
 
 .brand-tag {
@@ -119,7 +122,7 @@ pre:focus-visible {
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: #2b8b6a;
+  background: var(--terracotta);
 }
 
 main {
@@ -168,7 +171,7 @@ h1 > span {
 }
 
 .workspace {
-  background: white;
+  background: var(--paper);
   border: 1px solid var(--line);
   border-radius: 12px;
   padding: 30px;
@@ -412,7 +415,7 @@ textarea:disabled {
   gap: 23px;
   align-items: center;
   justify-content: center;
-  background: var(--teal);
+  background: var(--terracotta);
   color: white;
   padding: 13px 20px;
   border: 0;
@@ -423,7 +426,7 @@ textarea:disabled {
 }
 
 .primary-button:hover:not(:disabled) {
-  background: #0d5144;
+  background: var(--overprint);
 }
 
 .primary-button:disabled {
@@ -468,6 +471,471 @@ textarea:disabled {
 .context-panel dt {
   font-size: 11px;
   font-weight: 700;
+}
+
+/* UI polish — iteration 5: improve selection clarity and text-entry comfort. */
+.method-options {
+  gap: 12px;
+}
+
+.method-option {
+  min-height: 92px;
+  padding: 16px 17px;
+  border-color: #e8ded2;
+  border-radius: 11px;
+  background: #fcfaf6;
+  transition:
+    transform 150ms ease,
+    border-color 150ms ease,
+    box-shadow 150ms ease,
+    background 150ms ease;
+}
+
+.method-option:hover {
+  transform: translateY(-2px);
+  border-color: #c6aa98;
+  box-shadow: 0 8px 20px #284f4810;
+}
+
+.method-option.selected {
+  border-color: var(--teal);
+  background: #f5e4d9;
+  box-shadow:
+    inset 0 0 0 1px var(--teal),
+    0 5px 14px #284f480b;
+}
+
+.method-option strong {
+  color: var(--overprint);
+}
+
+.method-option input {
+  accent-color: var(--overprint);
+}
+
+.calibration-note {
+  width: fit-content;
+  max-width: 100%;
+  min-height: 0;
+  margin-top: 15px;
+  padding: 7px 11px;
+  border: 1px solid #e7ddd1;
+  border-radius: 7px;
+  background: #faf7f1;
+}
+
+textarea {
+  min-height: 230px;
+  border-color: #e5d8cb;
+  border-radius: 10px;
+  background: #fdfbf7;
+  transition:
+    border-color 150ms ease,
+    box-shadow 150ms ease,
+    background 150ms ease;
+}
+
+textarea:focus {
+  border-color: var(--teal);
+  outline: none;
+  background: white;
+  box-shadow: 0 0 0 3px #2a9d8f1c;
+}
+
+/* UI polish — iteration 6: adapt the paired review guidance and upload actions. */
+.file-label {
+  min-height: 42px;
+  align-items: center;
+  margin-top: 12px;
+  padding: 9px 12px;
+  border: 1px dashed #c7b9a8;
+  border-radius: 8px;
+  background: #fbf7f0;
+  transition:
+    border-color 140ms ease,
+    background 140ms ease;
+}
+
+.file-label:hover {
+  border-color: var(--teal);
+  background: #f0f6f0;
+}
+
+.primary-button {
+  min-width: 210px;
+  min-height: 52px;
+  border-radius: 9px;
+  box-shadow: 0 5px 14px #e76f5129;
+  transition:
+    transform 140ms ease,
+    background 140ms ease,
+    box-shadow 140ms ease;
+}
+
+.primary-button:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 18px #284f4820;
+}
+
+.corpus-active-card {
+  border-color: #b6d0c5;
+  border-radius: 12px;
+  background: #f3f8f2;
+}
+
+@media (max-width: 1050px) {
+  .review-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .context-panel {
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    gap: 0 24px;
+    padding: 22px;
+    border: 1px solid #e6d7c9;
+    border-radius: 16px;
+    background: #fffdf9;
+  }
+
+  .context-panel > .eyebrow,
+  .context-panel > h2,
+  .context-panel > p:not(.small-copy) {
+    grid-column: 1;
+  }
+
+  .context-panel > .context-divider {
+    display: none;
+  }
+
+  .context-panel > h3 {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .context-panel > dl {
+    grid-column: 2;
+    grid-row: 2 / span 3;
+    margin-top: 0;
+  }
+
+  .context-panel > .small-copy {
+    grid-column: 1 / -1;
+    margin-bottom: 0;
+    padding-top: 12px;
+    border-top: 1px solid #eaded3;
+  }
+}
+
+/* UI polish — iteration 7: give evidence and corpus states the same finish. */
+.results-section {
+  margin-top: 42px;
+  padding-top: 28px;
+  border-top-color: #e3cdbf;
+}
+
+.result-banner {
+  padding: clamp(20px, 3vw, 30px);
+  border-radius: 14px;
+  box-shadow: 0 8px 24px #284f480a;
+}
+
+.result-positive {
+  border-color: #e6ad9b;
+  border-left-color: var(--terracotta);
+  background: #fff6ef;
+}
+
+.review-lead {
+  border-color: #e8d6a5;
+  border-radius: 14px;
+  background: #fffaf0;
+  box-shadow: 0 5px 18px #8060180d;
+}
+
+.match-list {
+  gap: 12px;
+}
+
+.match-card {
+  border-radius: 11px;
+  transition:
+    transform 140ms ease,
+    border-color 140ms ease,
+    box-shadow 140ms ease;
+}
+
+.match-card:hover {
+  transform: translateY(-1px);
+  border-color: #c2a999;
+  box-shadow: 0 7px 18px #284f4810;
+}
+
+.match-card.active {
+  border-color: var(--terracotta);
+  background: #fff3ec;
+  box-shadow:
+    inset 0 0 0 1px var(--terracotta),
+    0 5px 16px #e76f5117;
+}
+
+.comparison-grid {
+  gap: 16px;
+}
+
+.text-panel {
+  border-color: #e5d8cb;
+  border-radius: 13px;
+  box-shadow: 0 6px 20px #284f4809;
+}
+
+.text-panel-header {
+  min-height: 82px;
+  background: #fbf7f0;
+}
+
+.source-panel .text-panel-header {
+  background: #eef5ef;
+}
+
+.text-panel pre {
+  font-size: 13px;
+  line-height: 1.85;
+}
+
+.corpus-manager-panel {
+  padding: clamp(20px, 3vw, 34px);
+  gap: 26px;
+  border-color: #e6d7c9;
+  border-radius: 18px;
+  box-shadow: 0 14px 40px #284f480b;
+}
+
+.corpus-stat-card {
+  min-height: 98px;
+  justify-content: center;
+  border-radius: 11px;
+  background: #fcfaf6;
+}
+
+.corpus-stat-value {
+  color: var(--overprint);
+}
+
+.corpus-upload-box {
+  border-color: #c6d7cd;
+  border-radius: 14px;
+  background: #fbfcf8;
+}
+
+.corpus-upload-btn,
+.secondary-button,
+.corpus-btn-sm,
+.corpus-reset-button {
+  transition:
+    transform 140ms ease,
+    background 140ms ease,
+    border-color 140ms ease,
+    box-shadow 140ms ease;
+}
+
+.corpus-upload-btn:hover:not(:disabled),
+.secondary-button:hover,
+.corpus-btn-sm:hover:not(:disabled),
+.corpus-reset-button:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+@media (max-width: 760px) {
+  main {
+    padding-inline: 18px;
+  }
+
+  .topbar {
+    padding-inline: 18px;
+  }
+
+  .intro {
+    padding-block: 40px 30px;
+  }
+
+  .review-layout,
+  .document-grid,
+  .comparison-grid,
+  .match-list {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .workspace {
+    padding: 20px 17px;
+  }
+
+  .method-options {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .method-option {
+    min-height: 72px;
+  }
+
+  .context-panel {
+    display: block;
+    padding: 20px;
+  }
+
+  .context-panel > dl {
+    margin-top: 16px;
+  }
+
+  .primary-button {
+    width: 100%;
+  }
+
+  .nav-tabs {
+    width: 100%;
+  }
+
+  .nav-tab {
+    flex: 1;
+    justify-content: center;
+    padding-inline: 10px;
+  }
+
+  .corpus-manager-panel {
+    padding: 18px 15px;
+  }
+
+  .corpus-stats-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .corpus-stat-card {
+    min-height: 86px;
+    padding: 12px;
+  }
+
+  .corpus-stat-value {
+    font-size: 20px;
+  }
+
+  .text-panel pre {
+    max-height: 340px;
+  }
+}
+
+/* Final pass: keep disabled actions legible and keyboard focus unmistakable. */
+.primary-button:disabled {
+  background: #e7c2b1;
+  color: #51463e;
+  box-shadow: none;
+  opacity: 1;
+}
+
+.corpus-upload-btn:disabled,
+.corpus-reset-button:disabled,
+.corpus-btn-sm:disabled {
+  opacity: 0.72;
+}
+
+.file-input:focus-visible,
+.corpus-file-input:focus-visible + .secondary-button,
+.nav-tab:focus-visible,
+.method-option:focus-within,
+.corpus-target-card:focus-within {
+  outline: 3px solid var(--teal);
+  outline-offset: 3px;
+}
+
+.file-chip {
+  border: 1px solid #e4cdbf;
+  border-radius: 8px;
+  background: #faf1e8;
+}
+
+@media (max-width: 430px) {
+  .brand {
+    font-size: 15px;
+  }
+
+  .brand-mark {
+    width: 36px;
+    height: 36px;
+  }
+
+  .local-badge {
+    gap: 6px;
+    padding: 7px 9px;
+    font-size: 9px;
+  }
+
+  h1 {
+    font-size: 38px;
+  }
+
+  .corpus-stats-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* Result status: subtle colour cues make review state scannable without implying guilt. */
+.result-banner.result-alert {
+  border-color: #e6b7a7;
+  border-left-color: var(--terracotta);
+  background: #fff6f1;
+  box-shadow: 0 10px 28px #ad4b3210;
+}
+
+.result-banner.result-alert .eyebrow {
+  color: #b64c35;
+}
+
+.result-banner.result-alert h2 {
+  color: #713b31;
+}
+
+.result-banner.result-clear {
+  border-color: #c9d9ca;
+  border-left-color: #6d9b70;
+  background: #f2f7f0;
+  box-shadow: 0 8px 24px #284f4808;
+}
+
+.result-banner.result-clear .eyebrow,
+.result-banner.result-clear h2 {
+  color: #355f43;
+}
+
+.result-banner.result-review {
+  border-color: #d1d4d0;
+  border-left-color: #89918b;
+  background: #f3f4f1;
+  box-shadow: 0 8px 24px #284f4807;
+}
+
+.result-banner.result-review .eyebrow,
+.result-banner.result-review h2 {
+  color: #58615b;
+}
+
+.results-section > .method-options {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: stretch;
+}
+
+.results-section > .method-options > .secondary-button {
+  min-width: 0;
+  min-height: 48px;
+  justify-content: flex-start;
+  white-space: normal;
+  text-align: left;
+  line-height: 1.45;
+}
+
+@media (max-width: 760px) {
+  .results-section > .method-options {
+    grid-template-columns: minmax(0, 1fr);
+  }
 }
 
 .context-panel dd {
@@ -1629,4 +2097,139 @@ footer {
     scroll-behavior: auto !important;
     animation: none !important;
   }
+}
+
+/* UI polish — iteration 1: establish a calmer page width and reading rhythm. */
+.app-shell {
+  max-width: 1500px;
+}
+
+main {
+  width: min(100%, 1420px);
+  margin-inline: auto;
+  padding-inline: clamp(24px, 5.2vw, 76px);
+}
+
+.topbar {
+  padding-inline: clamp(24px, 5.2vw, 76px);
+}
+
+.intro {
+  max-width: 820px;
+  padding-block: clamp(48px, 6vw, 76px) 44px;
+}
+
+h1 {
+  font-size: clamp(42px, 4.8vw, 60px);
+  line-height: 1.08;
+}
+
+/* UI polish — iteration 2: make the brand/status bar feel like one system. */
+.topbar {
+  min-height: 78px;
+  padding-block: 14px;
+  background: #f7ede2;
+  border-bottom-color: #e6cabc;
+}
+
+.brand {
+  gap: 11px;
+  color: var(--overprint);
+}
+
+.brand-mark {
+  width: 44px;
+  height: 44px;
+}
+
+.brand-tag {
+  border-left-color: #d9b9a9;
+}
+
+.local-badge {
+  padding: 8px 12px;
+  border: 1px solid #dfc9b8;
+  border-radius: 999px;
+  background: #fbf7f0;
+  color: var(--overprint);
+}
+
+.local-badge > span {
+  box-shadow: 0 0 0 3px #e76f5125;
+}
+
+/* UI polish — iteration 3: turn workspace navigation into a clear switcher. */
+.nav-tabs {
+  width: fit-content;
+  max-width: 100%;
+  gap: 4px;
+  padding: 5px;
+  margin-bottom: 22px;
+  border: 1px solid #e6cabc;
+  border-radius: 12px;
+  background: #f1e3d6;
+}
+
+.nav-tab {
+  min-height: 42px;
+  margin: 0;
+  padding: 9px 16px;
+  border: 0;
+  border-radius: 8px;
+  color: #5f6e63;
+}
+
+.nav-tab:hover {
+  background: #f8f0e7;
+}
+
+.nav-tab.active {
+  background: #fffdf9;
+  color: var(--overprint);
+  box-shadow: 0 1px 3px #284f4818;
+}
+
+.nav-tab-badge {
+  background: #e7f0e9;
+  color: var(--overprint);
+}
+
+/* UI polish — iteration 4: strengthen the workspace card and its section hierarchy. */
+.review-layout {
+  grid-template-columns: minmax(0, 1fr) 286px;
+  gap: clamp(20px, 3vw, 36px);
+}
+
+.workspace {
+  padding: clamp(22px, 3vw, 38px);
+  border-color: #e6d7c9;
+  border-radius: 18px;
+  background: #fffdf9;
+  box-shadow:
+    0 18px 50px #284f480d,
+    0 2px 8px #284f4808;
+}
+
+.section-heading {
+  gap: 14px;
+  margin-bottom: 22px;
+}
+
+.section-heading h2 {
+  font-size: 17px;
+  letter-spacing: -0.2px;
+}
+
+.section-heading p {
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+.step {
+  width: 34px;
+  height: 34px;
+  border-color: #edc8b9;
+  background: #fff3ec;
+  color: #a64a36;
+  font-weight: 700;
 }

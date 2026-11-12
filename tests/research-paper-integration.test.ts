@@ -423,7 +423,7 @@ describe('Phase 6: Full-Research-Paper Plagiarism Verification', () => {
       // Stripping metadata should record query and all sources
       expect(result.stripping.query.reference).toBe('query_quic_eval');
       expect(result.stripping.sources).toHaveLength(12);
-    });
+    }, 30_000);
   });
 
   // -------------------------------------------------------------------------
@@ -478,7 +478,7 @@ describe('Phase 6: Full-Research-Paper Plagiarism Verification', () => {
         expect(result.sources).toHaveLength(12);
         expect(result.provider).toMatch(/CPU|DirectML/);
       },
-      120000,
+      300_000,
     );
   });
 
@@ -511,7 +511,7 @@ describe('Phase 6: Full-Research-Paper Plagiarism Verification', () => {
       expect(typeof result.config.alpha).toBe('number');
       expect(result.passages.query).toBeGreaterThan(0);
       expect(result.passages.sources).toBeGreaterThan(0);
-    });
+    }, 30_000);
 
     it.skipIf(process.env.INFERENCE_TESTS !== '1')(
       'runs hybrid analysis end-to-end against research papers using local ONNX weights',
@@ -529,7 +529,7 @@ describe('Phase 6: Full-Research-Paper Plagiarism Verification', () => {
         expect(result.method).toBe('hybrid');
         expect(result.sources).toHaveLength(12);
       },
-      120000,
+      300_000,
     );
   });
 

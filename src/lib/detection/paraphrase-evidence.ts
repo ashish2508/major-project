@@ -31,7 +31,7 @@
  * unrelated passage that happens to share a number cannot create a false alert.
  */
 
-import { lexicalTokens, type SparseVector } from './tfidf';
+import { lexicalTokens } from './tfidf';
 
 // ---------------------------------------------------------------------------
 // Constants

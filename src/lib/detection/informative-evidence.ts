@@ -47,11 +47,9 @@ export function filterInformativeEvidence(
 
     // Count meaningful letter-containing tokens
     let meaningfulTokens = 0;
-    let allLetterTokens = 0;
 
     for (const token of tokens) {
       if (/\p{L}/u.test(token)) {
-        allLetterTokens++;
         // Single-letter words (section markers like "V.", "X.") don't count as meaningful
         if (token.length > 1) {
           meaningfulTokens++;

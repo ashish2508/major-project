@@ -1,19 +1,13 @@
 import { analyzeDocuments } from '@/lib/application/analysis';
-import { boundedFormData, parseAnalysisRequest, RequestError } from '@/lib/application/request';
+import {
+  assertSameOrigin,
+  boundedFormData,
+  parseAnalysisRequest,
+  RequestError,
+} from '@/lib/application/request';
 export async function POST(request: Request) {
   try {
-    const origin = request.headers.get('origin');
-    const host = request.headers.get('host');
-    if (origin && host) {
-      try {
-        const originUrl = new URL(origin);
-        if (originUrl.host !== host)
-          throw new RequestError('Cross-origin requests are forbidden', 403);
-      } catch (e) {
-        if (e instanceof RequestError) throw e;
-        throw new RequestError('Invalid Origin header', 400);
-      }
-    }
+    assertSameOrigin(request);
     const type = request.headers.get('content-type') ?? '';
     if (!type.toLowerCase().startsWith('multipart/form-data;'))
       throw new RequestError('Use multipart form data', 415);

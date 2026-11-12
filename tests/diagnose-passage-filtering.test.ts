@@ -4,13 +4,12 @@
  */
 import { readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
-import { describe, expect, it } from 'vitest';
+import { describe, it } from 'vitest';
 import { stripCanonicalReferences } from '../src/lib/detection/strip-references';
 import { extractFile } from '../src/lib/documents/extract';
 import { segmentParagraphs, segment } from '../src/lib/detection/segmentation';
 import { tokenCounter } from '../src/lib/embeddings/model';
 import { retrieveCandidates } from '../src/lib/detection/detector';
-import { Tfidf } from '../src/lib/detection/tfidf';
 
 async function loadPdfAsFile(path: string): Promise<File> {
   const bytes = await readFile(path);

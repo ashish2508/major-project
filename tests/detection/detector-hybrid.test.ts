@@ -1,10 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import {
-  retrieveCandidates,
-  scoreKey,
-  ALPHAS,
-  type Candidate,
-} from '../../src/lib/detection/detector';
+import { retrieveCandidates, scoreKey, ALPHAS } from '../../src/lib/detection/detector';
 import { segment } from '../../src/lib/detection/segmentation';
 import { Tfidf } from '../../src/lib/detection/tfidf';
 
@@ -427,7 +422,7 @@ describe('Hybrid retrieval: candidate merging and scoring', () => {
       { alpha: 0.25, expectedFormula: (lex: number, sem: number) => 0.25 * lex + 0.75 * sem },
       { alpha: 0.5, expectedFormula: (lex: number, sem: number) => 0.5 * lex + 0.5 * sem },
       { alpha: 0.75, expectedFormula: (lex: number, sem: number) => 0.75 * lex + 0.25 * sem },
-      { alpha: 1, expectedFormula: (lex: number, sem: number) => lex },
+      { alpha: 1, expectedFormula: (lex: number) => lex },
     ];
 
     for (const tc of testCases) {
