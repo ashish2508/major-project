@@ -1,16 +1,26 @@
 'use client';
-
 import type { FormEvent } from 'react';
+import dynamic from 'next/dynamic';
 import Header from '@/components/Header';
 import AnalysisForm from '@/components/AnalysisForm';
-import CorpusManager from '@/components/CorpusManager';
-import ResultsView from '@/components/ResultsView';
 import ContextPanel from '@/components/ContextPanel';
 import Footer from '@/components/Footer';
+import { CorpusStatsSkeleton, ResultsSkeleton, DocumentListSkeleton } from '@/components/Skeletons';
 import { useUIState } from '@/hooks/useUIState';
 import { useAnalysisState } from '@/hooks/useAnalysisState';
 import { useCorpusState } from '@/hooks/useCorpusState';
 import { useFormState } from '@/hooks/useFormState';
+
+// Dynamic imports for heavy components - lazy loaded on tab click
+const CorpusManager = dynamic(() => import('@/components/CorpusManager'), {
+  loading: () => <DocumentListSkeleton />,
+  ssr: false,
+});
+
+const ResultsView = dynamic(() => import('@/components/ResultsView'), {
+  loading: () => <ResultsSkeleton />,
+  ssr: false,
+});
 
 export default function Home() {
   const { activeTab, setActiveTab, pdfLinks, setPdfLinks, analysisTarget, setAnalysisTarget } =
