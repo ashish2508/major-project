@@ -139,6 +139,21 @@ export async function ingestDocumentFile(
       throw new Error('Document produced no extractable passages after segmentation');
     }
 
+    // Adjust page ranges to account for reference stripping.
+    // After stripping at referenceOffset, all text is truncated to [0, referenceOffset).
+    // Page ranges should be clamped to this truncated coordinate system.
+    const adjustedPages = extracted.pages
+      ?.map((range) => {
+        const { page, start, end } = range;
+        // Clamp range to [0, referenceOffset)
+        return {
+          page,
+          start: Math.min(start, stripResult.referenceOffset ?? Infinity),
+          end: Math.min(end, stripResult.referenceOffset ?? Infinity),
+        };
+      })
+      .filter(({ start, end }) => start < end); // Remove empty ranges
+
     const corpusPassages: CorpusPassage[] = rawPassages.map((p, idx) => ({
       id: `${docId}#p${idx}`,
       documentId: docId,
@@ -147,13 +162,13 @@ export async function ingestDocumentFile(
       offset: p.offset,
       length: p.length,
       text: p.text,
-      page: pageAtOffset(extracted.pages, p.offset),
+      page: pageAtOffset(adjustedPages, p.offset),
     }));
 
     initialMetadata.characterCount = stripResult.body.length;
     initialMetadata.passageCount = corpusPassages.length;
     initialMetadata.pageCount = extracted.pages?.length;
-    initialMetadata.pageRanges = extracted.pages;
+    initialMetadata.pageRanges = adjustedPages;
     initialMetadata.stripping = {
       confident: stripResult.confident,
       detectedHeading: stripResult.detectedHeading,

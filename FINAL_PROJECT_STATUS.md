@@ -16,15 +16,15 @@ The plagiarism detection system has passed comprehensive real-world acceptance t
 
 ### Test Suite 1: System Verification (7/7 ✓)
 
-| Test | Status | Duration | Notes |
-|------|--------|----------|-------|
-| PDF Ingestion | ✓ Pass | 52ms | PDF.js extraction layer validated |
-| Corpus Persistence | ✓ Pass | 115ms | 12 canonical documents available; persistence functional |
-| Detection Methods | ✓ Pass | 300ms | TF-IDF (1.0), Hybrid (1.0) verified; MiniLM reference handling noted |
-| Typecheck | ✓ Pass | 1,684ms | TypeScript compilation clean |
-| ESLint | ✓ Pass | 8,142ms | Lint warnings present; no errors blocking build |
-| Production Build | ✓ Pass | 28,625ms | Next.js 16 build successful; all routes compiled |
-| Integration Tests | ✓ Pass | 71,445ms | 39 tests passed; no failures |
+| Test               | Status | Duration | Notes                                                                |
+| ------------------ | ------ | -------- | -------------------------------------------------------------------- |
+| PDF Ingestion      | ✓ Pass | 52ms     | PDF.js extraction layer validated                                    |
+| Corpus Persistence | ✓ Pass | 115ms    | 12 canonical documents available; persistence functional             |
+| Detection Methods  | ✓ Pass | 300ms    | TF-IDF (1.0), Hybrid (1.0) verified; MiniLM reference handling noted |
+| Typecheck          | ✓ Pass | 1,684ms  | TypeScript compilation clean                                         |
+| ESLint             | ✓ Pass | 8,142ms  | Lint warnings present; no errors blocking build                      |
+| Production Build   | ✓ Pass | 28,625ms | Next.js 16 build successful; all routes compiled                     |
+| Integration Tests  | ✓ Pass | 71,445ms | 39 tests passed; no failures                                         |
 
 **Total Execution Time: ~111 seconds**
 
@@ -32,28 +32,30 @@ The plagiarism detection system has passed comprehensive real-world acceptance t
 
 ### Test Suite 2: Real-World Workflow (6/6 ✓)
 
-| Test | Status | Details |
-|------|--------|---------|
-| **PDF Extraction** | ✓ Pass | Document extraction framework operational; page tracking structure validated |
-| **Corpus Persistence** | ✓ Pass | Canonical corpus loaded (12 documents); cache management functional |
-| **TF-IDF Detection** | ✓ Pass | Exact text match scored 1.0000; source identification working |
-| **Hybrid Detection** | ✓ Pass | Combined lexical+semantic scoring functional; components properly weighted |
+| Test                      | Status | Details                                                                                     |
+| ------------------------- | ------ | ------------------------------------------------------------------------------------------- |
+| **PDF Extraction**        | ✓ Pass | Document extraction framework operational; page tracking structure validated                |
+| **Corpus Persistence**    | ✓ Pass | Canonical corpus loaded (12 documents); cache management functional                         |
+| **TF-IDF Detection**      | ✓ Pass | Exact text match scored 1.0000; source identification working                               |
+| **Hybrid Detection**      | ✓ Pass | Combined lexical+semantic scoring functional; components properly weighted                  |
 | **Evidence Highlighting** | ✓ Pass | Character offsets preserved (offset: 0, length: 83); evidence locatable for UI highlighting |
-| **System Integration** | ✓ Pass | 29,293 TF-IDF terms calibrated; frozen parameters loaded; all three methods available |
+| **System Integration**    | ✓ Pass | 29,293 TF-IDF terms calibrated; frozen parameters loaded; all three methods available       |
 
 ---
 
 ## Validation Against Requirements
 
 ### 1. PDF Ingestion ✓
+
 - **Status**: Complete and verified
-- **Details**: 
+- **Details**:
   - PDF extraction API functional via PDF.js
   - Document paths and MIME types preserved
   - Character span offsets maintained for evidence highlighting
   - Page information structure ready for implementation
 
 ### 2. Corpus Persistence ✓
+
 - **Status**: Complete and verified
 - **Details**:
   - Canonical corpus loads successfully with 12 documents
@@ -62,6 +64,7 @@ The plagiarism detection system has passed comprehensive real-world acceptance t
   - New document uploads do not interfere with existing corpus
 
 ### 3. Detection Methods ✓
+
 - **Status**: Complete and verified
 - **Details**:
   - **TF-IDF**: Exact matches scored 1.0 (maximum confidence)
@@ -71,6 +74,7 @@ The plagiarism detection system has passed comprehensive real-world acceptance t
   - **Evidence Offsets**: Character ranges preserved for highlighting
 
 ### 4. UI Workflow ✓
+
 - **Status**: Complete and functional
 - **Details**:
   - Next.js application builds successfully
@@ -80,6 +84,7 @@ The plagiarism detection system has passed comprehensive real-world acceptance t
   - Results structure supports highlighting and evidence display
 
 ### 5. Quality Verification ✓
+
 - **Status**: Complete
 - **Details**:
   - **TypeScript**: 0 compilation errors
@@ -94,28 +99,29 @@ The plagiarism detection system has passed comprehensive real-world acceptance t
 
 ### Detection Accuracy (on Test Data)
 
-| Method | Exact Match | All Methods |
-|--------|------------|------------|
-| TF-IDF | 1.0000 | Yes ✓ |
+| Method | Exact Match     | All Methods |
+| ------ | --------------- | ----------- |
+| TF-IDF | 1.0000          | Yes ✓       |
 | MiniLM | Model-dependent | Operational |
-| Hybrid | 1.0000 | Yes ✓ |
+| Hybrid | 1.0000          | Yes ✓       |
 
 ### System Performance
 
-| Component | Status |
-|-----------|--------|
-| PDF Extraction | < 100ms (with valid PDF) |
-| TF-IDF Analysis | 52-300ms (per document) |
-| Corpus Load | 115ms (12 documents) |
-| Typecheck | 1.7 seconds |
-| Full Build | 28.6 seconds |
-| Integration Tests | 71.4 seconds |
+| Component         | Status                   |
+| ----------------- | ------------------------ |
+| PDF Extraction    | < 100ms (with valid PDF) |
+| TF-IDF Analysis   | 52-300ms (per document)  |
+| Corpus Load       | 115ms (12 documents)     |
+| Typecheck         | 1.7 seconds              |
+| Full Build        | 28.6 seconds             |
+| Integration Tests | 71.4 seconds             |
 
 ---
 
 ## Architecture Validation
 
 ### Data Flow ✓
+
 ```
 Upload PDF/TXT
     ↓
@@ -133,6 +139,7 @@ Return for UI Highlighting
 ```
 
 ### Component Integration ✓
+
 - **PDF Layer**: Functional extraction with character span preservation
 - **Analysis Layer**: All three methods operational and composable
 - **Corpus Layer**: 12 canonical documents loaded and searchable
@@ -144,15 +151,18 @@ Return for UI Highlighting
 ## Known Limitations & Notes
 
 ### Model Behavior
+
 - **MiniLM Semantic Model**: Requires properly-formatted document references. Test data with minimal references requires reference handling validation before semantic detection on ad-hoc uploads.
 - **Calibration**: Frozen parameters based on PAN-PC-11 book text. Results on Computer Science papers may differ from benchmark metrics.
 - **GPU Acceleration**: System verified with DirectML on Windows (when available); CPU fallback functional.
 
 ### PDF Support
+
 - Full PDF support requires complete PDF structure. Minimal PDFs used in testing are instructional; real research papers (with proper structure) will extract completely.
 - Page number mapping ready but requires complete PDF extraction validation with real-world documents.
 
 ### Corpus
+
 - Canonical corpus holds 12 documents; designed for demonstration
 - Production use should validate corpus loading performance at scale
 - Manual corpus upload works independently of canonical corpus
@@ -162,6 +172,7 @@ Return for UI Highlighting
 ## Code Quality
 
 ### Type Safety
+
 ```
 ✓ TypeScript compilation: 0 errors
 ✓ Type coverage: Comprehensive (DetectionConfig, AnalysisResult, etc.)
@@ -169,6 +180,7 @@ Return for UI Highlighting
 ```
 
 ### Testing
+
 ```
 ✓ Unit tests: 39 passing
 ✓ Integration tests: 39 passing
@@ -177,6 +189,7 @@ Return for UI Highlighting
 ```
 
 ### Code Standards
+
 ```
 ✓ Linting: ESLint clean (no errors)
 ✓ Formatting: Prettier applied
@@ -215,6 +228,7 @@ Return for UI Highlighting
 ## Deployment Instructions
 
 ### Development
+
 ```bash
 bun install --frozen-lockfile
 bun run setup:model
@@ -222,12 +236,14 @@ bun run dev
 ```
 
 ### Production
+
 ```bash
 bun run build
 bun run start --hostname 0.0.0.0
 ```
 
 ### Testing
+
 ```bash
 bun run acceptance-test          # Full system verification
 bun run acceptance-test:real-world  # Workflow validation
@@ -240,11 +256,13 @@ bun run format:check && bun run typecheck && bun run lint
 ## Conclusion
 
 The plagiarism detection system is **acceptance-test complete** and ready for:
+
 - **Demonstration**: The application successfully processes documents and identifies passages
 - **Research**: Measured results are reproducible and calibrated
 - **Deployment**: Production build passes all verification checks
 
 All five acceptance criteria have been met:
+
 1. ✓ PDF ingestion with complete extraction
 2. ✓ Corpus persistence and restart resilience
 3. ✓ Detection (TF-IDF, MiniLM, Hybrid) with verified evidence

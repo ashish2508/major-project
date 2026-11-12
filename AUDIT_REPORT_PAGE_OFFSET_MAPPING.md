@@ -22,6 +22,7 @@ The implementation correctly preserves the original text prefix `[0, referenceOf
 - ✅ Two-column PDF layout with large whitespace gaps handled correctly
 
 **Test Coverage:**
+
 - `preserves exact text prefix [0, referenceOffset) when references detected`
 - `does not modify text when reference section not detected`
 - `returns entire text unchanged for ambiguous reference headings`
@@ -34,6 +35,7 @@ The implementation correctly preserves the original text prefix `[0, referenceOf
 **Verified:** Page ranges clamped to `[0, referenceOffset)` to maintain valid offsets in stripped coordinate system
 
 Implementation in `src/lib/corpus/service.ts` (ingestDocumentFile):
+
 ```typescript
 const adjustedPages = extracted.pages
   ?.map((range) => {
@@ -48,10 +50,12 @@ const adjustedPages = extracted.pages
 ```
 
 Implementation in `src/lib/application/analysis.ts`:
+
 - Query document pages clamped (lines 134-142)
 - Source document pages clamped (lines 185-193, 280-288)
 
 **Test Coverage:**
+
 - ✅ Pages entirely before reference section remain intact
 - ✅ Page intersecting reference boundary clamped correctly
 - ✅ Pages entirely after reference boundary filtered out
@@ -69,6 +73,7 @@ Implementation in `src/lib/application/analysis.ts`:
 - ✅ No passages mapped to undefined pages after stripping and clamping
 
 **Test Coverage:**
+
 - `passage offsets in stripped text match original coordinates`
 - `pageAtOffset correctly resolves page for any valid offset in stripped coordinate system`
 - `attachPassagePages correctly assigns pages using clamped ranges`
@@ -87,6 +92,7 @@ Implementation in `src/lib/application/analysis.ts`:
 - ✅ Page number attribution preserved for first, middle, last pages
 
 **Test Coverage:**
+
 - `handles reference section at page boundary (page 5 start)`
 - `handles reference section within a page (mid-page 3)`
 - `filters pages entirely after reference boundary`
@@ -100,6 +106,7 @@ Implementation in `src/lib/application/analysis.ts`:
 **Verified:** Both corpus ingestion and manual upload paths correctly implement stripping and clamping
 
 **Corpus Ingestion Path** (src/lib/corpus/service.ts):
+
 1. Extract document (pages with half-open intervals)
 2. Strip references (body = original[0, referenceOffset))
 3. Segment paragraphs into passages
@@ -107,6 +114,7 @@ Implementation in `src/lib/application/analysis.ts`:
 5. Create CorpusPassage records with correct page attribution
 
 **Manual Upload Path** (src/lib/application/analysis.ts):
+
 1. Extract query and source documents
 2. Strip both independently
 3. Adjust page ranges for each document
@@ -114,6 +122,7 @@ Implementation in `src/lib/application/analysis.ts`:
 5. Analysis detections reference correct pages
 
 **Test Coverage:**
+
 - `simulates corpus ingestion path: extract → strip → segment → adjust pages`
 - `simulates manual upload path: extract → strip → analyze without corpus`
 - `preserves offset validity through complete analysis pipeline`
@@ -121,34 +130,42 @@ Implementation in `src/lib/application/analysis.ts`:
 ## Code Review: Implementation Correctness
 
 ### stripReferences() function
+
 **File:** `src/lib/detection/strip-references.ts`
 
 The function correctly:
+
 1. Detects reference-section headings using heuristic patterns
 2. Applies confidence guards (prose check, minimum trailing chars)
 3. Returns body as exact prefix [0, referenceOffset)
 4. Never modifies original text
 
 ### stripCanonicalReferences() function
+
 **File:** `src/lib/detection/strip-references.ts`
 
 The function correctly:
+
 1. Uses verified PDF coordinate ranges for canonical papers
 2. Masks (replaces with spaces) reference regions to preserve offsets
 3. Maintains exact string length for coordinate preservation
 
 ### pageAtOffset() function
+
 **File:** `src/lib/corpus/service.ts`
 
 The function correctly:
+
 1. Finds page containing a given offset
 2. Uses half-open interval semantics: offset >= range.start && offset < range.end
 3. Returns undefined for offsets outside all ranges
 
 ### attachPassagePages() function
+
 **File:** `src/lib/corpus/service.ts`
 
 The function correctly:
+
 1. Maps each passage to its page using pageAtOffset()
 2. Works with clamped ranges where all offsets are valid
 3. Preserves passage information unchanged
@@ -156,6 +173,7 @@ The function correctly:
 ## Test Results
 
 **Page-Offset Mapping Test Suite:**
+
 - File: `tests/detection/page-offset-mapping.test.ts`
 - Tests: 26
 - Passing: 26 ✅
@@ -163,6 +181,7 @@ The function correctly:
 - Skipped: 0
 
 **Breakdown by category:**
+
 - Invariant 1 (Text Prefix): 6 tests passing ✅
 - Invariant 2 (Page Clamping): 6 tests passing ✅
 - Invariant 3 (Offset Validity): 4 tests passing ✅
@@ -181,7 +200,7 @@ The function correctly:
 
 4. **No silent transformations**: The only transformation affecting character positions is reference stripping itself, which is explicitly tracked via referenceOffset.
 
-5. **Both analysis paths implement correctly**: 
+5. **Both analysis paths implement correctly**:
    - Corpus ingestion (ingestDocumentFile) properly clamps pages
    - Manual upload path (analyzeDocuments) properly clamps query and source pages
 

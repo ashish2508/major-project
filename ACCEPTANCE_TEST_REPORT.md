@@ -23,6 +23,7 @@ The plagiarism detection system has undergone comprehensive real-world acceptanc
 ## Test Execution Summary
 
 ### Suite 1: System Verification
+
 **Command**: `bun run acceptance-test`  
 **Duration**: ~111 seconds  
 **Result**: 7/7 tests passed ✓
@@ -57,6 +58,7 @@ The plagiarism detection system has undergone comprehensive real-world acceptanc
 ```
 
 ### Suite 2: Real-World Workflow
+
 **Command**: `bun run acceptance-test:real-world`  
 **Duration**: ~30 seconds  
 **Result**: 6/6 tests passed ✓
@@ -94,9 +96,11 @@ The plagiarism detection system has undergone comprehensive real-world acceptanc
 ## Acceptance Criteria Verification
 
 ### Criterion 1: PDF Ingestion ✓
+
 **Requirement**: Upload actual research papers, verify extracted content, identify complete extraction
 
 **Verification**:
+
 - PDF extraction layer tested and operational
 - Character span information preserved for evidence highlighting
 - Document paths and metadata preserved
@@ -107,9 +111,11 @@ The plagiarism detection system has undergone comprehensive real-world acceptanc
 ---
 
 ### Criterion 2: Corpus Persistence ✓
+
 **Requirement**: Ingest multiple PDFs, restart application, verify availability
 
 **Verification**:
+
 - Canonical corpus (12 documents) loads successfully
 - Cache persists across simulated restarts
 - New uploads do not interfere with existing corpus
@@ -120,15 +126,18 @@ The plagiarism detection system has undergone comprehensive real-world acceptanc
 ---
 
 ### Criterion 3: Detection Methods ✓
+
 **Requirement**: Run TF-IDF, MiniLM, and Hybrid; verify source identification and evidence offsets
 
 **Verification**:
+
 - **TF-IDF**: Exact matches scored 1.0000; all sources identified correctly
 - **Hybrid**: Combined scoring functional; evidence offsets preserved
 - **MiniLM**: Model loading validated; semantic scoring operational
 - Evidence character spans correctly identified for highlighting
 
 **Detected Passage Example**:
+
 ```
 Query passage: offset 0, length 83 characters
 Source passage: offset 0, length 106 characters
@@ -141,9 +150,11 @@ Source reference: test-source.txt
 ---
 
 ### Criterion 4: UI Workflow ✓
+
 **Requirement**: Perform end-to-end workflow through frontend
 
 **Verification**:
+
 - Application builds successfully for production
 - All detection methods callable via API routes
 - Result structure supports evidence highlighting
@@ -151,6 +162,7 @@ Source reference: test-source.txt
 - TypeScript type safety maintained throughout
 
 **Routes Verified**:
+
 - `GET /` – Homepage loads
 - `POST /api/analyze` – Analysis request handling
 - `GET /api/status` – Status endpoint functional
@@ -161,15 +173,18 @@ Source reference: test-source.txt
 ---
 
 ### Criterion 5: Verification ✓
+
 **Requirement**: Run integration tests, verify typecheck, lint, and production build
 
 **Verification**:
+
 - **TypeScript**: 0 compilation errors
 - **ESLint**: 0 errors (warnings noted but non-blocking)
 - **Production Build**: Successful (10 seconds)
 - **Integration Tests**: 39 tests passed, 0 failures
 
 **Build Output**:
+
 ```
 ✓ Compiled successfully in 10.0s
 ✓ Finished TypeScript
@@ -183,49 +198,53 @@ Source reference: test-source.txt
 
 ## Test Coverage
 
-| Category | Tests | Status |
-|----------|-------|--------|
-| PDF Handling | 2 | ✓ Pass |
-| Corpus Management | 3 | ✓ Pass |
-| Detection Methods | 4 | ✓ Pass |
-| Evidence Preservation | 2 | ✓ Pass |
-| System Integration | 3 | ✓ Pass |
-| Code Quality | 3 | ✓ Pass |
-| **TOTAL** | **17** | **✓ All Pass** |
+| Category              | Tests  | Status         |
+| --------------------- | ------ | -------------- |
+| PDF Handling          | 2      | ✓ Pass         |
+| Corpus Management     | 3      | ✓ Pass         |
+| Detection Methods     | 4      | ✓ Pass         |
+| Evidence Preservation | 2      | ✓ Pass         |
+| System Integration    | 3      | ✓ Pass         |
+| Code Quality          | 3      | ✓ Pass         |
+| **TOTAL**             | **17** | **✓ All Pass** |
 
 ---
 
 ## Performance Metrics
 
 ### Response Times (Measured)
-| Operation | Duration |
-|-----------|----------|
-| PDF extraction | < 100ms (with valid PDF) |
-| TF-IDF detection | 52ms |
-| Hybrid detection | ~300ms |
-| Corpus load (12 docs) | 115ms |
-| Typecheck | 1.7 seconds |
+
+| Operation             | Duration                 |
+| --------------------- | ------------------------ |
+| PDF extraction        | < 100ms (with valid PDF) |
+| TF-IDF detection      | 52ms                     |
+| Hybrid detection      | ~300ms                   |
+| Corpus load (12 docs) | 115ms                    |
+| Typecheck             | 1.7 seconds              |
 
 ### Build Metrics
-| Step | Duration |
-|------|----------|
-| Next.js compilation | 10.0s |
-| TypeScript type check | 2.5s |
-| Static page generation | 2.2s |
-| Full production build | 28.6s |
+
+| Step                   | Duration |
+| ---------------------- | -------- |
+| Next.js compilation    | 10.0s    |
+| TypeScript type check  | 2.5s     |
+| Static page generation | 2.2s     |
+| Full production build  | 28.6s    |
 
 ### Test Execution
-| Suite | Duration | Tests |
-|-------|----------|-------|
-| System verification | 111s | 7/7 ✓ |
-| Real-world workflow | ~30s | 6/6 ✓ |
-| Unit & integration | 71.4s | 39/39 ✓ |
+
+| Suite               | Duration | Tests   |
+| ------------------- | -------- | ------- |
+| System verification | 111s     | 7/7 ✓   |
+| Real-world workflow | ~30s     | 6/6 ✓   |
+| Unit & integration  | 71.4s    | 39/39 ✓ |
 
 ---
 
 ## Known Limitations & Notes
 
 ### Model and Calibration
+
 1. **Frozen Parameters**: Based on PAN-PC-11 (book text)
    - Results on Computer Science papers may differ
    - Calibration suitable for demonstration
@@ -242,11 +261,13 @@ Source reference: test-source.txt
    - ONNX Runtime manages acceleration automatically
 
 ### PDF Support
+
 - Complete PDF structure required for page mapping
 - Minimal test PDFs are instructional; real papers extract completely
 - Page number preservation structure ready for UI integration
 
 ### Corpus
+
 - 12 canonical documents for demonstration
 - Designed for quick testing; production scale untested
 - Manual corpus upload works independently
@@ -256,6 +277,7 @@ Source reference: test-source.txt
 ## System Architecture Validation
 
 ### Data Pipeline ✓
+
 ```
 User Upload (PDF/TXT)
     ↓
@@ -276,6 +298,7 @@ Browser UI Display
 ```
 
 ### Component Integration ✓
+
 - ✓ Document extraction layer functional
 - ✓ Analysis orchestration working
 - ✓ Corpus management operational
@@ -287,20 +310,20 @@ Browser UI Display
 
 ## Compliance Checklist
 
-| Requirement | Verified | Status |
-|------------|----------|--------|
-| TF-IDF detection implemented | Yes | ✓ |
-| MiniLM integration functional | Yes | ✓ |
-| Hybrid method working | Yes | ✓ |
-| Evidence offsets preserved | Yes | ✓ |
-| Source identification correct | Yes | ✓ |
-| PDF extraction working | Yes | ✓ |
-| Corpus persistence functional | Yes | ✓ |
-| Application builds to production | Yes | ✓ |
-| TypeScript strict mode passing | Yes | ✓ |
-| ESLint no blocking errors | Yes | ✓ |
-| Integration tests pass | Yes | ✓ |
-| Performance acceptable | Yes | ✓ |
+| Requirement                      | Verified | Status |
+| -------------------------------- | -------- | ------ |
+| TF-IDF detection implemented     | Yes      | ✓      |
+| MiniLM integration functional    | Yes      | ✓      |
+| Hybrid method working            | Yes      | ✓      |
+| Evidence offsets preserved       | Yes      | ✓      |
+| Source identification correct    | Yes      | ✓      |
+| PDF extraction working           | Yes      | ✓      |
+| Corpus persistence functional    | Yes      | ✓      |
+| Application builds to production | Yes      | ✓      |
+| TypeScript strict mode passing   | Yes      | ✓      |
+| ESLint no blocking errors        | Yes      | ✓      |
+| Integration tests pass           | Yes      | ✓      |
+| Performance acceptable           | Yes      | ✓      |
 
 **Total: 12/12 requirements verified ✓**
 
@@ -309,11 +332,13 @@ Browser UI Display
 ## Recommendation
 
 **The plagiarism detection system is ready for:**
+
 1. ✓ **Academic demonstration** – All core functionality operational
 2. ✓ **Research paper submission** – Methodology documented, results reproducible
 3. ✓ **Public deployment** – Production build verified, quality gates passed
 
 **Next steps for production:**
+
 1. Test with real Computer Science research papers
 2. Validate semantic thresholds on actual CS papers
 3. Scale corpus to 1000+ documents and verify performance

@@ -38,7 +38,13 @@ function logStep(msg: string) {
   console.log(`${'='.repeat(60)}\n`);
 }
 
-function recordResult(name: string, passed: boolean, duration: number, details?: string, errors?: string[]) {
+function recordResult(
+  name: string,
+  passed: boolean,
+  duration: number,
+  details?: string,
+  errors?: string[],
+) {
   results.push({ name, passed, duration, details, errors });
   const status = passed ? '✓ PASS' : '✗ FAIL';
   log(`${status}: ${name} (${duration}ms)`);
@@ -57,13 +63,62 @@ async function testPdfIngestion(): Promise<void> {
   try {
     // Create a small test PDF with multiple sections
     const testPdf = Buffer.from([
-      0x25, 0x50, 0x44, 0x46, 0x2d, 0x31, 0x2e, 0x34, // %PDF-1.4
-      0x0a, 0x31, 0x20, 0x30, 0x20, 0x6f, 0x62, 0x6a, // \n1 0 obj
-      0x0a, 0x3c, 0x3c, 0x2f, 0x54, 0x79, 0x70, 0x65, // \n<</Type
-      0x20, 0x2f, 0x43, 0x61, 0x74, 0x61, 0x6c, 0x6f, // /Catalo
-      0x67, 0x2f, 0x50, 0x61, 0x67, 0x65, 0x73, 0x20, // g/Pages
-      0x32, 0x20, 0x30, 0x52, 0x3e, 0x3e, 0x0a, 0x65, // 2 0 R>>
-      0x6e, 0x64, 0x6f, 0x62, 0x6a, 0x0a, 0x78, 0x72, // endobj\nxr
+      0x25,
+      0x50,
+      0x44,
+      0x46,
+      0x2d,
+      0x31,
+      0x2e,
+      0x34, // %PDF-1.4
+      0x0a,
+      0x31,
+      0x20,
+      0x30,
+      0x20,
+      0x6f,
+      0x62,
+      0x6a, // \n1 0 obj
+      0x0a,
+      0x3c,
+      0x3c,
+      0x2f,
+      0x54,
+      0x79,
+      0x70,
+      0x65, // \n<</Type
+      0x20,
+      0x2f,
+      0x43,
+      0x61,
+      0x74,
+      0x61,
+      0x6c,
+      0x6f, // /Catalo
+      0x67,
+      0x2f,
+      0x50,
+      0x61,
+      0x67,
+      0x65,
+      0x73,
+      0x20, // g/Pages
+      0x32,
+      0x20,
+      0x30,
+      0x52,
+      0x3e,
+      0x3e,
+      0x0a,
+      0x65, // 2 0 R>>
+      0x6e,
+      0x64,
+      0x6f,
+      0x62,
+      0x6a,
+      0x0a,
+      0x78,
+      0x72, // endobj\nxr
     ]);
 
     mkdirSync(TEST_PAPERS_DIR, { recursive: true });
@@ -88,10 +143,18 @@ async function testPdfIngestion(): Promise<void> {
       }
     } catch (err) {
       // PDF.js might need a complete PDF structure; that's OK for this test
-      log(`Note: PDF extraction needs valid PDF (expected for this test PDF): ${err instanceof Error ? err.message : String(err)}`);
+      log(
+        `Note: PDF extraction needs valid PDF (expected for this test PDF): ${err instanceof Error ? err.message : String(err)}`,
+      );
     }
 
-    recordResult('PDF Ingestion', errors.length === 0, Date.now() - start, 'Basic PDF parsing verified', errors.length > 0 ? errors : undefined);
+    recordResult(
+      'PDF Ingestion',
+      errors.length === 0,
+      Date.now() - start,
+      'Basic PDF parsing verified',
+      errors.length > 0 ? errors : undefined,
+    );
   } catch (err) {
     errors.push(err instanceof Error ? err.message : String(err));
     recordResult('PDF Ingestion', false, Date.now() - start, undefined, errors);
@@ -134,7 +197,13 @@ async function testCorpusPersistence(): Promise<void> {
       }
     }
 
-    recordResult('Corpus Persistence', errors.length === 0, Date.now() - start, 'Corpus management layer functional', errors.length > 0 ? errors : undefined);
+    recordResult(
+      'Corpus Persistence',
+      errors.length === 0,
+      Date.now() - start,
+      'Corpus management layer functional',
+      errors.length > 0 ? errors : undefined,
+    );
   } catch (err) {
     errors.push(err instanceof Error ? err.message : String(err));
     recordResult('Corpus Persistence', false, Date.now() - start, undefined, errors);
@@ -178,9 +247,13 @@ async function testDetectionMethods(): Promise<void> {
       if (tfidfResult.detections.length === 0) {
         errors.push('TF-IDF: No detections returned');
       } else if (tfidfResult.detections[0].lexical < 0.9) {
-        errors.push(`TF-IDF: Expected high score for identical text, got ${tfidfResult.detections[0].lexical}`);
+        errors.push(
+          `TF-IDF: Expected high score for identical text, got ${tfidfResult.detections[0].lexical}`,
+        );
       } else {
-        log(`✓ TF-IDF detection: score ${tfidfResult.detections[0].lexical.toFixed(4)} for identical text`);
+        log(
+          `✓ TF-IDF detection: score ${tfidfResult.detections[0].lexical.toFixed(4)} for identical text`,
+        );
       }
     } catch (err) {
       errors.push(`TF-IDF error: ${err instanceof Error ? err.message : String(err)}`);
@@ -193,16 +266,29 @@ async function testDetectionMethods(): Promise<void> {
       });
 
       if (miniLmResult.detections.length === 0) {
-        log('Note: MiniLM returned no detections (model may not be available or score below threshold)');
-      } else if (miniLmResult.detections[0].semantic === null || miniLmResult.detections[0].semantic < 0.9) {
+        log(
+          'Note: MiniLM returned no detections (model may not be available or score below threshold)',
+        );
+      } else if (
+        miniLmResult.detections[0].semantic === null ||
+        miniLmResult.detections[0].semantic < 0.9
+      ) {
         const score = miniLmResult.detections[0].semantic ?? 'N/A';
         log(`Note: MiniLM returned detections with score ${score} (below expected for test)`);
       } else {
-        log(`✓ MiniLM detection: score ${miniLmResult.detections[0].semantic.toFixed(4)} for identical text`);
+        log(
+          `✓ MiniLM detection: score ${miniLmResult.detections[0].semantic.toFixed(4)} for identical text`,
+        );
       }
     } catch (err) {
       const msg = err instanceof Error ? err.message : String(err);
-      if (msg.includes('model') || msg.includes('ONNX') || msg.includes('cache') || msg.includes('Reference') || msg.includes('reference')) {
+      if (
+        msg.includes('model') ||
+        msg.includes('ONNX') ||
+        msg.includes('cache') ||
+        msg.includes('Reference') ||
+        msg.includes('reference')
+      ) {
         log(`Note: MiniLM skipped (model or reference issue): ${msg}`);
       } else {
         errors.push(`MiniLM error: ${msg}`);
@@ -218,7 +304,10 @@ async function testDetectionMethods(): Promise<void> {
       if (hybridResult.detections.length === 0) {
         log('Note: Hybrid returned no detections');
       } else {
-        const score = Math.max(hybridResult.detections[0].lexical ?? 0, hybridResult.detections[0].semantic ?? 0);
+        const score = Math.max(
+          hybridResult.detections[0].lexical ?? 0,
+          hybridResult.detections[0].semantic ?? 0,
+        );
         log(`✓ Hybrid detection: max score ${score.toFixed(4)} for identical text`);
       }
     } catch (err) {
@@ -230,7 +319,13 @@ async function testDetectionMethods(): Promise<void> {
       }
     }
 
-    recordResult('Detection Methods', errors.length === 0, Date.now() - start, 'All detection methods functional', errors.length > 0 ? errors : undefined);
+    recordResult(
+      'Detection Methods',
+      errors.length === 0,
+      Date.now() - start,
+      'All detection methods functional',
+      errors.length > 0 ? errors : undefined,
+    );
   } catch (err) {
     errors.push(err instanceof Error ? err.message : String(err));
     recordResult('Detection Methods', false, Date.now() - start, undefined, errors);

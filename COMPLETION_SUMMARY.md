@@ -13,6 +13,7 @@
 **Question**: Why are QUIC papers showing 37-66% missing bytes?
 
 **Investigation Method**:
+
 - Extracted QUIC_Delay_Control_2025.pdf and QUIC_Dual_Connectivity_2021.pdf with PDF.js
 - Compared against canonical text sources byte-for-byte
 - Analyzed after whitespace normalization
@@ -20,6 +21,7 @@
 **Finding**: Discrepancy is **layout reconstruction padding**, not missing content
 
 **Evidence**:
+
 - QUIC_Delay: 29,286 / 46,391 bytes extracted (63.1% of padded version)
 - QUIC_Dual: 70,269 / 205,798 bytes extracted (34.1% of padded version)
 - After whitespace removal: >95% content matches
@@ -27,6 +29,7 @@
 - Canonical sources were created with layout-reconstruction tool that adds leading spaces
 
 **Conclusion**: ✅ **PDF.js extraction is complete and appropriate**
+
 - No alternative extraction method needed
 - All content required for plagiarism detection is preserved
 - Character offsets remain accurate
@@ -36,6 +39,7 @@
 ### ✅ Check 2: Persistent Corpus Workflow
 
 **Test Scenario**:
+
 1. Ingest 3 research papers into persistent corpus
 2. Create a different query paper
 3. Analyze query against corpus (useCorpus: true, no manual sources)
@@ -46,7 +50,7 @@
 ```
 Ingestion:
   ✅ BERTAC_2021.txt                    564 passages
-  ✅ Compact_Transformers_2023.txt      567 passages  
+  ✅ Compact_Transformers_2023.txt      567 passages
   ✅ NoREC_Database_Optimization_Bugs   1,188 passages
   ────────────────────────────────────────────────────
      Total indexed:                     2,319 passages
@@ -72,6 +76,7 @@ Verification:
 **Command**: `bun test --run`
 
 **Results**:
+
 ```
 127 pass    ← All functional tests passing
 6 skip      ← Semantic integration tests (require INFERENCE_TESTS=1)
@@ -82,6 +87,7 @@ Execution time: ~38 seconds
 ```
 
 **Additional Verification**:
+
 - ✅ `bun run format:check` - All files properly formatted
 - ✅ `bun run typecheck` - No TypeScript errors
 - ✅ `bun run build` - Production Webpack build succeeds
@@ -92,6 +98,7 @@ Execution time: ~38 seconds
 ## Implementation Status
 
 ### Core Features
+
 - ✅ PDF extraction with layout detection
 - ✅ TXT extraction with UTF-8 BOM handling
 - ✅ TF-IDF lexical detection
@@ -104,6 +111,7 @@ Execution time: ~38 seconds
 - ✅ Production build (Next.js + Webpack)
 
 ### API Endpoints
+
 - ✅ `POST /api/analyze` - Document analysis
 - ✅ `GET /api/corpus` - List corpus documents
 - ✅ `POST /api/corpus` - Ingest new documents
@@ -119,6 +127,7 @@ Execution time: ~38 seconds
 **Answer**: 127 active tests + 6 skipped semantic tests = 133 total
 
 **Why 6 tests are skipped**:
+
 - Require `INFERENCE_TESTS=1` environment variable
 - Need local ONNX model inference
 - Tested separately when needed
@@ -138,6 +147,7 @@ bun test --run
 ```
 
 **Output Summary**:
+
 ```
 127 pass
 6 skip
@@ -197,9 +207,11 @@ bun run start --hostname 127.0.0.1
 ## Documentation
 
 Complete acceptance check details:
+
 - `/reports/implementation/acceptance-checks-final.md`
 
 Final implementation report:
+
 - `/FINAL_IMPLEMENTATION_REPORT.md`
 
 ---
@@ -209,6 +221,7 @@ Final implementation report:
 ✅ **All acceptance criteria met**
 
 The plagiarism detection system is:
+
 - Feature-complete
 - Fully tested (127 tests passing)
 - Extraction verified (PDF.js is complete)

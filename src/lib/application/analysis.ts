@@ -130,6 +130,19 @@ export async function analyzeDocuments(
   // --- Reference stripping ---
   const { strippedDoc: strippedQuery, stripResult: queryStripResult } = stripDocument(query);
 
+  // Adjust query page ranges to account for offset shift from reference stripping
+  const adjustedQueryPages = strippedQuery.pages
+    ?.map((range) => {
+      const { page, start, end } = range;
+      // After stripping at referenceOffset, clamp all offsets to [0, referenceOffset)
+      return {
+        page,
+        start: Math.min(start, queryStripResult.referenceOffset ?? Infinity),
+        end: Math.min(end, queryStripResult.referenceOffset ?? Infinity),
+      };
+    })
+    .filter(({ start, end }) => start < end); // Remove empty ranges
+
   // --- Segmentation of Query ---
   const queries = attachPassagePages(
     split(
@@ -138,7 +151,7 @@ export async function analyzeDocuments(
       { countTokens },
       strippedQuery.paragraphBreaks,
     ),
-    strippedQuery.pages,
+    adjustedQueryPages,
   );
 
   const mergeGap = config.mergeGap;
@@ -167,7 +180,21 @@ export async function analyzeDocuments(
       const strippedSources: ExtractedDocument[] = effectiveSources.map((src) => {
         const { strippedDoc, stripResult } = stripDocument(src);
         sourceStripResults.push({ reference: src.reference, stripResult });
-        return strippedDoc;
+
+        // Adjust source page ranges to account for offset shift from reference stripping
+        const adjustedPages = strippedDoc.pages
+          ?.map((range) => {
+            const { page, start, end } = range;
+            // After stripping at referenceOffset, clamp all offsets
+            return {
+              page,
+              start: Math.min(start, stripResult.referenceOffset ?? Infinity),
+              end: Math.min(end, stripResult.referenceOffset ?? Infinity),
+            };
+          })
+          .filter(({ start, end }) => start < end); // Remove empty ranges
+
+        return { ...strippedDoc, pages: adjustedPages };
       });
 
       sourcePassages = strippedSources.flatMap((source) =>
@@ -198,7 +225,13 @@ export async function analyzeDocuments(
       mergeGap,
       alignSemantically,
     );
-    const detections = mergedDetections;
+
+    // Apply evidence filtering to lexical detections to remove uninformative fragments
+    const allDocsForFilter = new Map(
+      [strippedQuery, ...effectiveSources].map(({ reference, text }) => [reference, text]),
+    );
+    const detections = filterInformativeEvidence(mergedDetections, allDocsForFilter, 12);
+
     const semanticReviewThreshold = configs.semantic.threshold;
 
     return buildResult({
@@ -242,7 +275,21 @@ export async function analyzeDocuments(
       const strippedSources: ExtractedDocument[] = effectiveSources.map((src) => {
         const { strippedDoc, stripResult } = stripDocument(src);
         sourceStripResults.push({ reference: src.reference, stripResult });
-        return strippedDoc;
+
+        // Adjust source page ranges to account for offset shift from reference stripping
+        const adjustedPages = strippedDoc.pages
+          ?.map((range) => {
+            const { page, start, end } = range;
+            // After stripping at referenceOffset, clamp all offsets
+            return {
+              page,
+              start: Math.min(start, stripResult.referenceOffset ?? Infinity),
+              end: Math.min(end, stripResult.referenceOffset ?? Infinity),
+            };
+          })
+          .filter(({ start, end }) => start < end); // Remove empty ranges
+
+        return { ...strippedDoc, pages: adjustedPages };
       });
 
       sourcePassages = strippedSources.flatMap((source) =>

@@ -13,7 +13,7 @@ describe('filterInformativeEvidence - Production Plagiarism Detection Pipeline',
    *
    * Scenario: A 3-word technical phrase appears verbatim in both documents.
    * Current Behavior: FILTERED OUT (detection removed)
-   * 
+   *
    * Issue: The phrase contains substantive, meaningful words (query, optimization, framework),
    * but only 3 distinct words total. The filter requires 12 distinct words minimum.
    * This means any plagiarized technical phrase shorter than ~12 words is discarded,
@@ -341,8 +341,10 @@ describe('filterInformativeEvidence - Production Plagiarism Detection Pipeline',
    * detections, preserving some and filtering others.
    */
   it('correctly filters mixed detections in batch', () => {
-    const susp_a = 'according to the literature our approach for solving this problem is novel and efficient';
-    const src_a = 'according to the literature their earlier method demonstrated similar behavior and results';
+    const susp_a =
+      'according to the literature our approach for solving this problem is novel and efficient';
+    const src_a =
+      'according to the literature their earlier method demonstrated similar behavior and results';
     const susp_b = 'et al.';
     const src_b = 'et al.';
 

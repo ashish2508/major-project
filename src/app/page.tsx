@@ -3,6 +3,7 @@
 import type { AnalysisResult } from '@/lib/application/analysis';
 import type { CorpusDocumentMetadata, CorpusStats } from '@/lib/corpus/types';
 import type { DetectionConfig, Method } from '@/lib/detection/detector';
+import ResetCorpusButton from '@/components/ResetCorpusButton';
 import Link from 'next/link';
 import { useEffect, useRef, useState, type FormEvent } from 'react';
 
@@ -360,7 +361,7 @@ export default function Home() {
               refreshCorpus();
             }}
           >
-            My Research Paper Corpus
+            My Corpus
             <span className="nav-tab-badge">{corpusStats?.readyDocuments ?? 0}</span>
           </button>
         </nav>
@@ -377,20 +378,11 @@ export default function Home() {
                   and semantic embeddings.
                 </p>
               </div>
-              <button
-                type="button"
-                className="corpus-reset-button"
-                onClick={handleCorpusReset}
-                disabled={busy || ingestBusy || resetBusy}
-              >
-                {resetBusy ? (
-                  <>
-                    Clearing corpus <span className="spinner" aria-hidden="true" />
-                  </>
-                ) : (
-                  'Reset corpus'
-                )}
-              </button>
+              <ResetCorpusButton
+                disabled={busy || ingestBusy}
+                busy={resetBusy}
+                onReset={handleCorpusReset}
+              />
             </div>
 
             <div className="corpus-stats-grid">
@@ -619,6 +611,7 @@ export default function Home() {
                     <h2>Target & Documents</h2>
                     <p>Search against your persistent corpus or provide specific sources.</p>
                   </div>
+                  <ResetCorpusButton disabled={busy} busy={resetBusy} onReset={handleCorpusReset} />
                 </div>
 
                 {/* Target Selection: Corpus vs. Manual Sources */}

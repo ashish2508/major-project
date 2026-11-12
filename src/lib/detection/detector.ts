@@ -42,7 +42,17 @@ export const MERGE_GAP = 120;
 export function scoreKey(method: Method, alpha = 0.5): string {
   return method === 'hybrid' ? `hybrid:${alpha}` : method;
 }
-/** Each method retrieves over the entire supplied candidate collection. No annotation-known pairs or lexical prefilter. */
+/**
+ * Retrieve candidates for plagiarism detection across multiple scoring methods.
+ *
+ * For hybrid detection, returns a merged candidate set that includes:
+ * - Top lexical candidates per query (up to 50)
+ * - Top semantic candidates per query (up to 50)
+ * - The union of source IDs from both
+ * All candidates are scored with all available methods (lexical, semantic, hybrid alphas).
+ *
+ * For lexical-only, returns one best match per query (legacy behavior for performance).
+ */
 export function retrieveCandidates(
   queries: Passage[],
   sources: Passage[],
@@ -63,11 +73,14 @@ export function retrieveCandidates(
     (queryEmbeddings.length !== queries.length || sourceEmbeddings!.length !== sources.length)
   )
     throw new Error('Embedding/passages mismatch');
-  const keys = queryEmbeddings
+
+  const isHybridMethod = queryEmbeddings; // If embeddings provided, we're doing semantic/hybrid
+  const keys = isHybridMethod
     ? ['lexical', 'semantic', ...alphas.map((a) => scoreKey('hybrid', a))]
     : ['lexical'];
   const output = Object.fromEntries(keys.map((k) => [k, [] as Candidate[]]));
   if (semanticAlternatives && queryEmbeddings) output.semanticAlternatives = [];
+
   const embeddingNorms = (vectors: number[][]) =>
     vectors.map((vector) => {
       if (vector.length !== 384) throw new Error('Expected a normalized 384-dimensional embedding');
@@ -78,6 +91,7 @@ export function retrieveCandidates(
     });
   const queryNorms = queryEmbeddings && embeddingNorms(queryEmbeddings);
   const sourceNorms = sourceEmbeddings && embeddingNorms(sourceEmbeddings);
+
   const postings = new Map<string, { index: number; weight: number }[]>();
   for (const [index, source] of sources.entries()) {
     const vector = indexedSourceVectors?.get(source.id) ?? tfidf.transform(source.text);
@@ -87,60 +101,113 @@ export function retrieveCandidates(
       else postings.set(term, [{ index, weight }]);
     }
   }
+
   const lexicalScores = new Float64Array(sources.length);
   const semanticScores = new Float64Array(sources.length);
+
   for (let qi = 0; qi < queries.length; qi++) {
-    const query = queries[qi],
-      qv = tfidf.transform(query.text),
-      bestScores = keys.map(() => -Infinity),
-      bestIndices = keys.map(() => 0);
+    const query = queries[qi];
+    const qv = tfidf.transform(query.text);
+
+    // Compute all scores for this query against all sources
     lexicalScores.fill(0);
     for (const [term, weight] of qv) {
       const posting = postings.get(term);
       if (!posting) continue;
       for (const entry of posting) lexicalScores[entry.index] += weight * entry.weight;
     }
-    for (let si = 0; si < sources.length; si++) {
-      const lexical = Math.min(1, lexicalScores[si]);
-      let semantic = 0;
-      if (queryEmbeddings) {
-        const a = queryEmbeddings[qi],
-          b = sourceEmbeddings![si];
+
+    semanticScores.fill(0);
+    if (queryEmbeddings) {
+      const a = queryEmbeddings[qi];
+      for (let si = 0; si < sources.length; si++) {
+        const b = sourceEmbeddings![si];
+        let semantic = 0;
         for (let k = 0; k < 384; k++) semantic += a[k] * b[k];
-        semantic = Math.min(1, Math.max(-1, semantic / (queryNorms![qi] * sourceNorms![si])));
-      }
-      lexicalScores[si] = lexical;
-      semanticScores[si] = semantic;
-      for (let index = 0; index < keys.length; index++) {
-        const alpha = alphas[index - 2];
-        const score =
-          index === 0 ? lexical : index === 1 ? semantic : alpha * lexical + (1 - alpha) * semantic;
-        if (
-          score > bestScores[index] ||
-          (index === 1 &&
-            score === bestScores[index] &&
-            lexical > lexicalScores[bestIndices[index]])
-        ) {
-          bestScores[index] = score;
-          bestIndices[index] = si;
-        }
+        semanticScores[si] = Math.min(
+          1,
+          Math.max(-1, semantic / (queryNorms![qi] * sourceNorms![si])),
+        );
       }
     }
-    for (const [index, key] of keys.entries()) {
-      const sourceIndex = bestIndices[index];
-      const source = sources[sourceIndex];
-      output[key].push({
+
+    // Normalize lexical scores to [0, 1]
+    for (let si = 0; si < sources.length; si++) {
+      lexicalScores[si] = Math.min(1, lexicalScores[si]);
+    }
+
+    // For lexical-only retrieval, return only the single best candidate
+    if (!isHybridMethod) {
+      let bestIndex = 0;
+      let bestScore = lexicalScores[0];
+      for (let si = 1; si < sources.length; si++) {
+        if (lexicalScores[si] > bestScore) {
+          bestScore = lexicalScores[si];
+          bestIndex = si;
+        }
+      }
+      const source = sources[bestIndex];
+      output.lexical.push({
         suspiciousReference: query.documentReference,
         sourceReference: source.documentReference,
         suspiciousSpan: { offset: query.offset, length: query.length },
         sourceSpan: { offset: source.offset, length: source.length },
         suspiciousPage: query.page,
         sourcePage: source.page,
-        lexical: lexicalScores[sourceIndex],
-        semantic: semanticScores[sourceIndex],
-        score: bestScores[index],
+        lexical: lexicalScores[bestIndex],
+        semantic: semanticScores[bestIndex],
+        score: lexicalScores[bestIndex],
       });
+      continue;
     }
+
+    // For hybrid/semantic retrieval: merge top lexical and semantic candidates
+    const topK = 50;
+
+    // Get indices sorted by lexical score (descending)
+    const lexicalRanked = sources
+      .map((_, si) => si)
+      .sort((a, b) => lexicalScores[b] - lexicalScores[a])
+      .slice(0, topK);
+
+    // Get indices sorted by semantic score (descending)
+    const semanticRanked = sources
+      .map((_, si) => si)
+      .sort((a, b) => semanticScores[b] - semanticScores[a])
+      .slice(0, topK);
+
+    // Merge source indices to get union
+    const candidateIndices = Array.from(new Set([...lexicalRanked, ...semanticRanked]));
+
+    // Score all candidates with all methods and store them
+    for (const si of candidateIndices) {
+      const source = sources[si];
+
+      // Calculate hybrid scores for all alphas
+      for (let index = 0; index < keys.length; index++) {
+        const alpha = alphas[index - 2];
+        const score =
+          index === 0
+            ? lexicalScores[si]
+            : index === 1
+              ? semanticScores[si]
+              : alpha * lexicalScores[si] + (1 - alpha) * semanticScores[si];
+
+        output[keys[index]].push({
+          suspiciousReference: query.documentReference,
+          sourceReference: source.documentReference,
+          suspiciousSpan: { offset: query.offset, length: query.length },
+          sourceSpan: { offset: source.offset, length: source.length },
+          suspiciousPage: query.page,
+          sourcePage: source.page,
+          lexical: lexicalScores[si],
+          semantic: semanticScores[si],
+          score,
+        });
+      }
+    }
+
+    // Generate semantic alternatives from top semantic candidates
     if (output.semanticAlternatives) {
       const ranked = sources
         .map((_, index) => index)
@@ -163,6 +230,7 @@ export function retrieveCandidates(
       }
     }
   }
+
   return output;
 }
 const spanGap = (a: { offset: number; length: number }, b: { offset: number; length: number }) =>

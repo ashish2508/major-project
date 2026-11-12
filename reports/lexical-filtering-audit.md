@@ -8,45 +8,53 @@ Comprehensive regression tests have been created to verify the lexical evidence 
 
 Nine production-scenario tests have been added to `tests/detection/informative-evidence.test.ts`:
 
-| Test # | Scenario | Expected | Actual | Status |
-| ------ | -------- | -------- | ------ | ------ |
-| 1 | "query optimization framework" (3 words, meaningful) | PRESERVE | **FILTERED** | ❌ DEFECT |
-| 2 | "et al." (2 words, citation boilerplate) | FILTER | FILTERED | ✓ PASS |
-| 3 | "134. 135. 136." (section numbers only) | FILTER | FILTERED | ✓ PASS |
-| 4 | 12+ word substantive passage | PRESERVE | PRESERVED | ✓ PASS |
-| 5 | 50+ word substantive passage | PRESERVE | PRESERVED | ✓ PASS |
-| 6 | "[42]" (reference marker only) | FILTER | FILTERED | ✓ PASS |
-| 7 | "4.2" (decimal section number) | FILTER | FILTERED | ✓ PASS |
-| 8 | 3-word meaningful phrase below threshold | FILTER | FILTERED | ✓ PASS (expected behavior) |
-| 9 | Mixed batch with various phrases | VARIED | EXPECTED | ✓ PASS |
+| Test # | Scenario                                             | Expected | Actual       | Status                     |
+| ------ | ---------------------------------------------------- | -------- | ------------ | -------------------------- |
+| 1      | "query optimization framework" (3 words, meaningful) | PRESERVE | **FILTERED** | ❌ DEFECT                  |
+| 2      | "et al." (2 words, citation boilerplate)             | FILTER   | FILTERED     | ✓ PASS                     |
+| 3      | "134. 135. 136." (section numbers only)              | FILTER   | FILTERED     | ✓ PASS                     |
+| 4      | 12+ word substantive passage                         | PRESERVE | PRESERVED    | ✓ PASS                     |
+| 5      | 50+ word substantive passage                         | PRESERVE | PRESERVED    | ✓ PASS                     |
+| 6      | "[42]" (reference marker only)                       | FILTER   | FILTERED     | ✓ PASS                     |
+| 7      | "4.2" (decimal section number)                       | FILTER   | FILTERED     | ✓ PASS                     |
+| 8      | 3-word meaningful phrase below threshold             | FILTER   | FILTERED     | ✓ PASS (expected behavior) |
+| 9      | Mixed batch with various phrases                     | VARIED   | EXPECTED     | ✓ PASS                     |
 
 ## Defect Finding #1: Inadequate Min-Words Threshold
 
 ### Issue
+
 The `filterInformativeEvidence()` function enforces a 12-distinct-word minimum on both suspicious and source passages. This eliminates meaningful short plagiarism evidence.
 
 ### Evidence
+
 - **Test case**: "query optimization framework" (3 distinct words, all meaningful)
 - **Current behavior**: Filtered out (detection removed)
 - **Expected behavior**: Preserved (detection retained)
 
 ### Impact
+
 Any plagiarized technical phrase shorter than ~12 words is discarded, even when:
+
 - The phrase is clearly meaningful (contains substantive vocabulary)
 - It is NOT boilerplate (e.g., not just numbers, single letters, or citations)
 - It represents genuine textual similarity
 
 Example real-world scenarios that would be filtered:
+
 - "replicate lag optimization" (3 words, technical)
 - "distributed cache coherence" (3 words, technical)
 - "Byzantine fault tolerance" (3 words, standard terminology)
 - "query parser optimization" (3 words, technical)
 
 ### Root Cause
+
 The implementation prioritizes recall precision by eliminating short passages that might be coincidental matches. However, in academic research papers where technical terminology is repeated across related works, such short phrases often represent meaningful plagiarism evidence.
 
 ### Boilerplate Filter Behavior (Working Correctly)
+
 The secondary `isMeaninglessBoilerplate()` check properly identifies and filters:
+
 - Numeric-only sequences: "134. 135. 136." ✓
 - Citation markers: "[42]", "et al." ✓
 - Decimal section numbers: "4.2" ✓
@@ -65,6 +73,7 @@ Distinct words: 3 (query, optimization, framework)
 ```
 
 **Current filtering logic**:
+
 1. `countWords()` returns 3 distinct letter-containing tokens
 2. `minimumWords = 12` threshold check: `3 < 12` → **FILTER OUT**
 3. Boilerplate check never executes (word count check fails first)
@@ -129,6 +138,7 @@ return !isMeaninglessBoilerplate(suspiciousText) && !isMeaninglessBoilerplate(so
 ### `isMeaninglessBoilerplate()` Logic (Sound)
 
 The boilerplate check correctly identifies:
+
 1. All tokens are numeric or punctuation: `meaningfulTokens === 0` → true
 2. Very short (≤2 tokens) with few meaningful tokens: `tokens.length <= 2 && meaningfulTokens <= 1` → true
 
@@ -141,20 +151,24 @@ This logic properly distinguishes boilerplate from meaningful content.
 Consider reducing the minimum word threshold or implementing tiered thresholds:
 
 **Option A: Lower threshold**
+
 - Reduce from 12 to 4-5 distinct words (captures meaningful short phrases)
 - Accept slightly higher false-positive rate in exchange for better recall
 
 **Option B: Separate thresholds**
+
 - Minimum 4-5 words for technical vocabulary (high lexical distinctness)
 - Minimum 8-10 words for common academic language
 
 **Option C: Hybrid approach**
+
 - If `isMeaninglessBoilerplate() == false`, require fewer minimum words (e.g., 4)
 - Only short passages already flagged as boilerplate remain filtered
 
 ### Priority 2: Validate Against PAN-PC-11
 
 Run the full PAN-PC-11 evaluation with the recalibrated threshold to measure:
+
 - Impact on precision (fewer false positives expected)
 - Impact on recall (more true positives expected)
 - Overall F1-score improvement
@@ -166,11 +180,13 @@ The `isMeaninglessBoilerplate()` check is working correctly and should be retain
 ## Test File Location
 
 All regression tests are located at:
+
 ```
 tests/detection/informative-evidence.test.ts
 ```
 
 Run tests with:
+
 ```bash
 bun test tests/detection/informative-evidence.test.ts
 ```
@@ -201,6 +217,6 @@ All tests pass (9/9 ✓).
 
 ---
 
-*Audit completed: 2025-01-14*
-*Test framework: Vitest*
-*Coverage: 9 regression tests covering realistic plagiarism scenarios*
+_Audit completed: 2025-01-14_
+_Test framework: Vitest_
+_Coverage: 9 regression tests covering realistic plagiarism scenarios_
