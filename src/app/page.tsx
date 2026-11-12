@@ -5,7 +5,7 @@ import Header from '@/components/Header';
 import AnalysisForm from '@/components/AnalysisForm';
 import ContextPanel from '@/components/ContextPanel';
 import Footer from '@/components/Footer';
-import { CorpusStatsSkeleton, ResultsSkeleton, DocumentListSkeleton } from '@/components/Skeletons';
+import { ResultsSkeleton, DocumentListSkeleton } from '@/components/Skeletons';
 import { useUIState } from '@/hooks/useUIState';
 import { useAnalysisState } from '@/hooks/useAnalysisState';
 import { useCorpusState } from '@/hooks/useCorpusState';
@@ -39,19 +39,8 @@ export default function Home() {
     active,
     setActive,
   } = useAnalysisState();
-  const {
-    corpusDocs,
-    corpusStats,
-    corpusLoading,
-    ingestBusy,
-    resetBusy,
-    ingestMessage,
-    ingestError,
-    refreshCorpus,
-    setIngestBusy,
-    setIngestMessage,
-    setIngestError,
-  } = useCorpusState();
+  const { corpusDocs, corpusStats, corpusLoading, ingestBusy, resetBusy, ingestMessage, ingestError, refreshCorpus, setIngestBusy, setIngestMessage, setIngestError, setResetBusy } =
+    useCorpusState();
   const { method } = useFormState();
 
   async function submit(event: FormEvent<HTMLFormElement>) {
@@ -186,8 +175,6 @@ export default function Home() {
     );
     if (!confirmed) return;
 
-    // Get the function to set resetBusy from corpus state
-    const { setResetBusy } = useCorpusState();
     setResetBusy(true);
     setIngestError(null);
     try {
