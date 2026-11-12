@@ -941,6 +941,9 @@ export default function Home() {
                   {METHODS.find((m) => m.id === analysis.method)?.name} ·{' '}
                   {analysis.detections.length} similarity alerts ·{' '}
                   {analysis.semanticReviewLeads.length} review recommendations
+                  {analysis.coverage
+                    ? ` · ${(analysis.coverage.ratio * 100).toFixed(1)}% coverage`
+                    : ''}
                 </button>
               ))}
             </div>
@@ -963,7 +966,7 @@ export default function Home() {
                 </p>
                 <dl className="result-metrics">
                   <div>
-                    <dt>Query paper</dt>
+                    <dt>Document under review (query)</dt>
                     <dd>{result.query.title}</dd>
                   </div>
                   <div>
@@ -989,6 +992,18 @@ export default function Home() {
                     <dt>Candidate passages</dt>
                     <dd>{result.detections.length}</dd>
                   </div>
+                  {result.coverage && (
+                    <div>
+                      <dt>Query coverage</dt>
+                      <dd>
+                        {(result.coverage.ratio * 100).toFixed(1)}%
+                        <small style={{ marginLeft: '4px', color: 'var(--muted)' }}>
+                          ({result.coverage.coveredChars.toLocaleString()} /{' '}
+                          {result.coverage.eligibleChars.toLocaleString()} eligible chars)
+                        </small>
+                      </dd>
+                    </div>
+                  )}
                   {result.detections.length > 0 && (
                     <div>
                       <dt>Highest similarity</dt>
@@ -1067,6 +1082,36 @@ export default function Home() {
               Similarity scores are uncalibrated evidence for human review, not probabilities or
               proof of plagiarism or misconduct.
             </p>
+            <p className="evidence-warning" style={{ fontStyle: 'italic' }}>
+              ⚠ Matching is symmetric. Direction of copying cannot be determined from similarity
+              alone. Use publication dates and provenance to establish direction.
+            </p>
+            {result.sharedIdentifiers && result.sharedIdentifiers.length > 0 && (
+              <div
+                className="stripping-summary-banner"
+                style={{ background: '#fff8e6', borderColor: '#d4a800' }}
+              >
+                <span className="stripping-summary-badge">Shared Identifiers</span>
+                <div className="stripping-summary-details">
+                  <p style={{ margin: 0, fontSize: '0.9em' }}>
+                    The following identifiers appear in both documents. Shared registration numbers,
+                    DOIs, or trial IDs are strong but non-conclusive evidence of a common origin.
+                  </p>
+                  <ul style={{ margin: '6px 0 0', paddingLeft: '18px', fontSize: '0.9em' }}>
+                    {result.sharedIdentifiers.flatMap((s) =>
+                      s.matches.map((m) => (
+                        <li key={`${m.type}-${m.value}-${s.sourceReference}`}>
+                          <strong>{m.type}</strong>: <code>{m.value}</code> (found in{' '}
+                          {result.sources.find((src) => src.reference === s.sourceReference)
+                            ?.title ?? s.sourceReference}
+                          )
+                        </li>
+                      )),
+                    )}
+                  </ul>
+                </div>
+              </div>
+            )}
             {result.semanticReviewLeads.map((lead, index) => (
               <article
                 className="review-lead"
@@ -1264,7 +1309,7 @@ export default function Home() {
                 <div className="excerpt-comparison-grid">
                   <div className="excerpt-block">
                     <div className="excerpt-block-header">
-                      <span>Suspicious passage excerpt ({result.query.title})</span>
+                      <span>Document under review (query): {result.query.title}</span>
                       <span className="excerpt-block-meta">
                         Chars {chosen.suspiciousSpan.offset}–
                         {chosen.suspiciousSpan.offset + chosen.suspiciousSpan.length}
@@ -1287,7 +1332,8 @@ export default function Home() {
                   <div className="excerpt-block">
                     <div className="excerpt-block-header">
                       <span>
-                        Matching source passage ({selectedSource?.title ?? chosen.sourceReference})
+                        Possible source (original):{' '}
+                        {selectedSource?.title ?? chosen.sourceReference}
                       </span>
                       <span className="excerpt-block-meta">
                         Chars {chosen.sourceSpan.offset}–
@@ -1308,7 +1354,7 @@ export default function Home() {
             <div className="comparison-grid" id="evidence-comparison">
               <article className="text-panel">
                 <div className="text-panel-header">
-                  <span>DOCUMENT TO REVIEW</span>
+                  <span>DOCUMENT UNDER REVIEW (QUERY)</span>
                   <h3>{result.query.title}</h3>
                   {chosen && (
                     <p className="panel-span-meta">
@@ -1340,7 +1386,7 @@ export default function Home() {
               {selectedSource && (
                 <article className="text-panel source-panel">
                   <div className="text-panel-header">
-                    <span>POSSIBLE SOURCE</span>
+                    <span>POSSIBLE SOURCE (ORIGINAL)</span>
                     <h3>{selectedSource.title}</h3>
                     {chosen && (
                       <p className="panel-span-meta">

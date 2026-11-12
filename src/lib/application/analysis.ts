@@ -31,6 +31,76 @@ import {
 import { attachPassagePages, getAllReadyPassages } from '../corpus/service';
 import { ensureLexicalIndex, getIndexedPassageVectors } from '../corpus/lexical-index';
 import { getCorpusPassagesAndVectors } from '../corpus/semantic-index';
+import {
+  extractIdentifiers,
+  intersectIdentifiers,
+  type IdentifierMatch,
+} from '../detection/identifiers';
+
+// ---------------------------------------------------------------------------
+// Coverage computation helpers
+// ---------------------------------------------------------------------------
+
+/**
+ * Compute query character coverage for a list of detections.
+ *
+ * "Eligible chars" = total query chars minus chars masked by boilerplate.
+ * Boilerplate chars are those replaced with spaces by maskBoilerplate().
+ * We detect them by checking which character positions are still ' ' in the
+ * masked query text at positions that were NOT already spaces in the input.
+ *
+ * Conservative approximation: eligible chars = total chars in masked text
+ * that are NOT whitespace runs introduced by masking.  Because masking
+ * replaces chars with spaces in-place and the original PDF text has
+ * substantial non-space content, we approximate eligible chars as total
+ * query chars minus the number of characters in boilerplate-suppressed
+ * regions (from suppressedItems).
+ *
+ * @param queryText    The masked query text (post-boilerplate, post-reference-strip).
+ * @param detections   Detection list (suspiciousSpan references this text).
+ * @param suppressedItems  Items masked by boilerplate (each has startOffset/endOffset).
+ * @returns Coverage object with covered/eligible/total char counts and ratio.
+ */
+export function computeCoverage(
+  queryText: string,
+  detections: Array<{ suspiciousSpan: { offset: number; length: number } }>,
+  suppressedItems: Array<{ startOffset: number; endOffset: number }>,
+): {
+  coveredChars: number;
+  eligibleChars: number;
+  totalChars: number;
+  ratio: number;
+} {
+  const totalChars = queryText.length;
+
+  // Compute eligible chars: total minus suppressed (boilerplate) ranges.
+  // Ranges may overlap; use a bit array to avoid double-counting.
+  const suppressed = new Uint8Array(totalChars);
+  for (const item of suppressedItems) {
+    const start = Math.max(0, item.startOffset);
+    const end = Math.min(totalChars, item.endOffset);
+    if (start < end) suppressed.fill(1, start, end);
+  }
+  const eligibleChars = suppressed.reduce((sum, v) => sum + (1 - v), 0);
+
+  // Compute covered chars (union of detection spans, excluding suppressed).
+  const covered = new Uint8Array(totalChars);
+  for (const d of detections) {
+    const start = Math.max(0, d.suspiciousSpan.offset);
+    const end = Math.min(totalChars, d.suspiciousSpan.offset + d.suspiciousSpan.length);
+    if (start < end) covered.fill(1, start, end);
+  }
+
+  // Count covered chars that are also eligible (not suppressed).
+  let coveredChars = 0;
+  for (let i = 0; i < totalChars; i++) {
+    if (covered[i] && !suppressed[i]) coveredChars++;
+  }
+
+  const ratio = eligibleChars > 0 ? coveredChars / eligibleChars : 0;
+
+  return { coveredChars, eligibleChars, totalChars, ratio };
+}
 
 const configSchema = z.object({
   method: z.enum(['lexical', 'semantic', 'hybrid']),
@@ -379,6 +449,7 @@ export async function analyzeDocuments(
       query_ref: query.reference,
       researchMode: !useCorpus,
       suppressedItems: allSuppressedItems,
+      strippedQueryText: strippedQuery.text,
     });
   } else {
     await verifyModel();
@@ -530,6 +601,7 @@ export async function analyzeDocuments(
       query_ref: query.reference,
       researchMode: !useCorpus,
       suppressedItems: allSuppressedItems,
+      strippedQueryText: strippedQuery.text,
     });
   }
 }
@@ -556,6 +628,7 @@ function buildResult({
   query_ref,
   researchMode,
   suppressedItems,
+  strippedQueryText,
 }: {
   query: ExtractedDocument;
   sources: ExtractedDocument[];
@@ -574,20 +647,61 @@ function buildResult({
   query_ref: string;
   researchMode: boolean;
   suppressedItems: SuppressedItem[];
+  /** Masked query text (post-boilerplate, post-reference-strip) used for coverage computation. */
+  strippedQueryText: string;
 }) {
+  const mappedDetections = detections.map((d) => ({
+    ...d,
+    semantic: method === 'lexical' ? null : d.semantic,
+  }));
+
+  // --- Coverage ---
+  const coverage = computeCoverage(strippedQueryText, mappedDetections, suppressedItems);
+
+  // --- Shared identifiers ---
+  // Extract from the masked query and each source, excluding the reference sections.
+  // Pass the reference section text so identifiers that appear ONLY in references
+  // (e.g. cited DOIs) are not counted as shared evidence.
+  const queryRefSection =
+    queryStripResult.referenceOffset !== null && queryStripResult.confident
+      ? query.text.slice(queryStripResult.referenceOffset)
+      : undefined;
+  const queryIds = extractIdentifiers(strippedQueryText, queryRefSection);
+  const sharedIdentifiersBySource: Array<{
+    sourceReference: string;
+    matches: IdentifierMatch[];
+  }> = [];
+  for (const src of sources) {
+    const srcStripResult = sourceStripResults.find((s) => s.reference === src.reference);
+    const srcRefSection =
+      srcStripResult?.stripResult.referenceOffset !== null && srcStripResult?.stripResult.confident
+        ? src.text.slice(srcStripResult.stripResult.referenceOffset!)
+        : undefined;
+    const srcIds = extractIdentifiers(src.text, srcRefSection);
+    const shared = intersectIdentifiers(queryIds, srcIds);
+    if (shared.length > 0) {
+      sharedIdentifiersBySource.push({ sourceReference: src.reference, matches: shared });
+    }
+  }
+
   return {
+    /** Role label: this is the document being examined for possible copying. */
+    queryRole: 'Document under review (query)' as const,
+    /** Role label: these are the possible originals. */
+    sourceRole: 'Possible source (original)' as const,
     query,
     sources,
     method,
     config: { ...config, mergeGap },
-    detections: detections.map((d) => ({
-      ...d,
-      semantic: method === 'lexical' ? null : d.semantic,
-    })),
+    detections: mappedDetections,
     semanticReviewLeads,
     semanticReviewLead: semanticReviewLeads[0] ?? null,
     semanticReviewThreshold,
     passages: { query: queryPassageCount, sources: sourcePassageCount },
+    /** Query character coverage after boilerplate masking. */
+    coverage,
+    /** Shared identifiers (trial IDs, DOIs, etc.) found in both query and source(s). */
+    sharedIdentifiers: sharedIdentifiersBySource,
     elapsedSeconds,
     provider,
     model: method === 'lexical' ? null : MODEL_CONFIG.model,
@@ -600,6 +714,21 @@ function buildResult({
         detectedHeading: queryStripResult.detectedHeading,
         offsetStripped: queryStripResult.referenceOffset,
         charsRemoved: query.text.length - queryStripResult.body.length,
+        /**
+         * Offset note: character offsets in detections reference the MASKED text
+         * (post-reference-strip, post-boilerplate-mask). For non-QUIC papers whose
+         * references are truncated (not masked in-place), the offset of the
+         * reference section and beyond in the original file will differ from the
+         * offset in the masked text by (original_length - body_length) characters.
+         * The UI highlights against the masked text, so highlights are always
+         * internally consistent. For PDFs use page numbers for external navigation.
+         */
+        offsetNote:
+          queryStripResult.maskedCharacters !== undefined
+            ? 'offsets in masked text (invariant — in-place masking)'
+            : queryStripResult.referenceOffset !== null && queryStripResult.confident
+              ? 'offsets in stripped body; source-file offsets beyond the reference section differ'
+              : 'offsets in original text (no stripping applied)',
       },
       sources: sourceStripResults.map(({ reference, stripResult }) => {
         const originalSource = sources.find((s) => s.reference === reference);
@@ -610,11 +739,19 @@ function buildResult({
           detectedHeading: stripResult.detectedHeading,
           offsetStripped: stripResult.referenceOffset,
           charsRemoved: originalLen - stripResult.body.length,
+          offsetNote:
+            stripResult.maskedCharacters !== undefined
+              ? 'offsets in masked text (invariant — in-place masking)'
+              : stripResult.referenceOffset !== null && stripResult.confident
+                ? 'offsets in stripped body; source-file offsets beyond the reference section differ'
+                : 'offsets in original text (no stripping applied)',
         };
       }),
     },
     warning:
       'Similarity scores are uncalibrated evidence for human review, not probabilities or proof of plagiarism or misconduct. Only searched sources were evaluated. PAN-PC-11 calibration is book-based and does not establish CS-paper performance.',
+    symmetryNote:
+      'Matching is symmetric; direction of copying cannot be determined from similarity alone. Use publication dates and provenance to establish direction.',
   };
 }
 

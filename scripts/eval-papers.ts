@@ -250,7 +250,14 @@ async function runPair(
 
   let informativeAlerts: number;
   try {
-    const informative = filterInformativeEvidence(detections, docsForFilter, 12);
+    // detections have semantic: number | null in lexical mode; cast to satisfy
+    // filterInformativeEvidence which expects Detection[] with semantic: number.
+    // The semantic field is not used by filterInformativeEvidence, so this is safe.
+    const informative = filterInformativeEvidence(
+      detections as import('../src/lib/detection/detector').Detection[],
+      docsForFilter,
+      12,
+    );
     informativeAlerts = informative.length;
   } catch {
     // If the filter can't run (e.g. span mismatch), fall back to totalAlerts
