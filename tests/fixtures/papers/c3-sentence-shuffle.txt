@@ -1,0 +1,350 @@
+// C3 control: sentence-order shuffled within each paragraph.
+// Paragraph boundaries = double-newlines. Shuffle seed = 42.
+
+Data sharing not applicable to this article as no datasets were generated or analyzed during the current study.
+a  Department of Immunology and Microbiology, School of Life Science, Beijing University of Chinese Medicine,  b  Department of Emergency, Beijing Shunyi Hospital of
+Traditional Chinese Medicine,  c  Experimental Research Center, China Academy of Chinese Medical Sciences, Beijing, China. 
+∗ 
+Correspondence: Yu Hao, Department of Immunology and Microbiology, School of Life Science, Beijing University of Chinese Medicine. After that, data synthesis and subgroup analysis will be conducted with the Review Manager V.5.3.3
+software. Results:   This review will provide a high-quality synthesis to assess the effectiveness and safety of TRQ injection for viral pneumonia
+patients. This study was supported by the National Natural Science Foundation of China (No. 81573723) and the Kaibao Pharm. Effects and safety of tanreqing injection on viral pneumonia: A protocol for
+systematic review and meta-analysis. Published by Wolters Kluwer Health, Inc. Medicine 2020;99:35(e21808). Company, Shanghai, and Ministry of Finance of
+China No. y2017001, GH2018001. The total effective rate of clinical
+ef fi cacy will be used as primary outcome. Study
+inclusion, data extraction, and quality assessment will be performed independently by 2 reviewers, and any disagreement will be
+resolved by a third reviewer. Received: 16 July 2020 / Accepted: 20 July 2020
+http://dx.doi.org/10.1097/MD.0000000000021808 
+Study Protocol Systematic Review   Medicine ® 
+OPEN 
+1  Tanreqing (TRQ)
+injection has been widely used to treat viral pneumonia in China. This is an open access article distributed under the Creative Commons Attribution License 4.0 (CCBY), which permits unrestricted use, distribution, and reproduction in
+any medium, provided the original work is properly cited. Time to relieve symptoms, incidence of adverse reactions, and the laboratory parameters
+will be used as secondary outcomes. Thus, this protocol describes a plan of performing a
+systematic review and meta-analysis to evaluate the ef fi cacy and safety of TRQ injection on patients with viral pneumonia. No. 16, Nanxiao Road, Dongzhimen, Dongcheng District, Beijing 100700, China
+(e-mail: prof.wangyi@foxmail.com). Keywords:   effect, safety, tanreqing injection, viral pneumonia 
+1. Prospero registration number:   PROSPERO CRD42020164164 
+Abbreviations:   RCTs   =   randomized controlled trials, TCM   =   traditional Chinese medicine, TRQ   =   tanreqing. Methods:   Only randomized controlled trials will be enrolled in our study, and we will search eligible studies in the following electronic
+databases:   PubMed,   Embase,   Cochrane   Central   Register   of   Controlled   Trials,   Clinical   Trials,   China   National   Knowledge
+Infrastructure, the Wanfang database, the Chinese Scienti fi c Journal Database, and the Sinomed. Introduction 
+Pneumonia is a common disease that remains the leading killer of
+elderly people in developed countries and young children in
+developing countries, resulting in heavy burden in the world. [1,2]
+In the recent prospective pneumonia etiology studies, respiratory
+viruses were more commonly detected than bacteria in both
+adults   and   children,   accounting   for   greater   than   25%   of
+detections in adults and greater than 70% in children. [3]  The 
+HL and X-FD contributed equally and are co- fi rst authors. Conclusion:   Our study will provide comprehensive evidence to decide whether TRQ injection is effective and safe for viral
+pneumonia patients. The northeast corner of the
+intersection of Sunshine South Street and Baiyang East Road, Fangshan District, Beijing 102488, China (e-mail: YuHaoPro@163.com); Yi Wang, Experimental Research
+Center, China Academy of Chinese Medical Sciences. Any side effects and adverse events will be recorded and assessed as safety outcomes. How to cite this article: Liu H, Ding XF, Guo R, Zhao MF, Deng D, Hao Y, Wang Y. Copyright   ©   2020 the Author(s). However, the ef fi ciency and safety of TRQ injection for viral
+pneumonia have not been scienti fi cally and methodically evaluated up to now. The authors have no con fl icts of interest to disclose. Effects and safety of tanreqing injection on viral
+pneumonia 
+A protocol for systematic review and meta-analysis 
+Hui Liu, PhD a , Xue-Fei Ding, MM b , Rui Guo, PhD a , Meng-Fan Zhao, MM a , Di Deng, MM a , Yu Hao, PhD a, ∗ ,
+Yi Wang, PhD c, ∗ 
+Abstract
+Background:   Viral pneumonia is a common respiratory disease that leads to high mortality around the world.
+
+Types of Interventions. Meanwhile, case reports, retrospective studies, and nonclinical
+studies will be excluded. 
+3.1.2. Therefore, the
+aim of this systematic review is to assess the ef fi cacy and safety of
+TRQ injection on Viral Pneumonia. 
+2. Patients in both treatment and
+control group undergo basic symptomatic treatment such as
+pyretolysis, alleviating cough, dissolving sputum, and antiasth-
+ma. The primary outcome will be the
+total effective rate of clinical ef fi cacy (number of people curative
+and effective/total number of people treated). 
+3.1.4.2. most commonly detected respiratory viruses are human rhino-
+viruses, in fl uenza viruses, parain fl uenza viruses, adenoviruses,
+human metapneumovirus, coronaviruses, and respiratory syncy-
+tial virus. [4]
+The primary symptoms of viral pneumonia are fever, cough
+with or without phlegm, shortage of breath, and pharyngalgia. Traditional Chinese Medicine (TCM) has been shown its
+unique advantages in treating respiratory diseases for thousands
+of years, which is characterized by multi-link, multi-target, and
+minimal side-effects. [6 – 10]  Tanreqing (TRQ) injection is one of the
+important TCM injection, which includes extracts from   Flos
+Lonicerae   (Lonicera   japonica   Thunb ),   Radix   Scutellariae
+(Scutellaria baicalensis Georgi), Fructus Forsythiae (Forsythia
+suspensa Thunb), Fel ursi, (Fel Ursi) and Cornu saigae tataricae
+(Naemorhedus   goral   Hard-wicke ), [11]   has   marked   effects   of
+clearing heat, reducing in fl ammation, detoxi fi cation and allevi-
+ating cough. [12]  Except for those functions in TCM theory,
+modern pharmacologic studies con fi rmed that
+TRQ injection can protect against various viruses, such as
+adenovirus, syncytial virus, in fl uenza virus, and coxsackie virus,
+and can also relieve airway in fl ammation and excessive mucus
+caused by virus. [13]  Thus, TRQ injection is widely used to treat
+the upper respiratory tract infections, acute pneumonia, acute
+bronchitis, and many clinical trials reported that TRQ injection
+could signi fi cantly alleviate symptoms and improve signs. [14,15]
+So far, there have been several systematic reviews and meta-
+analysis about TRQ for community acquired pneumonia, chronic
+obstructive pulmonary diseases, and tuberculosis, [14,16,17]  but
+none was speci fi cally for viral pneumonia. Primary outcomes. Types of participants. All reported side effects and adverse events will be included as
+safety outcomes. Secondary outcomes. Under normal conditions, patients in control
+group will be treated with western medicine (antibiotics or
+antiviral drugs). 
+3.1.4. Additionally, patients with atopy will be excluded. In the treatment   group,   the intervention   will   be TRQ
+injection or TRQ injection plus western medicine (antibiotics or
+antiviral drugs). The speci fi c
+criteria are as follows: 
+3.1.2.1. We will include studies on patients
+of any age, race, gender, severity, and duration of disease, who
+are diagnosed with viral pneumonia. If
+uncontrolled well, respiratory distress syndrome, and shock may
+be caused secondarily to these symptoms and even cause deaths. However, the pathogenesis of viral pneumonia has not been clear
+enough, which vastly limits the clinical treatment at present. The
+current treatment for viral pneumonia is mainly supportive, and
+the neuraminidase inhibitors oseltamivir and peramivir are the
+Food and Drug Administration-approved antiviral drugs for the
+viral pneumonia treatment in adults. [5]  However, ef fi cacy of
+antiviral drugs is usually reduced by the high degree of variability
+of respiratory virus and the emergence of drug-resistant strains as
+well as drug adverse reactions. All the RCTs of TRQ injection for the
+treatment   of   viral   pneumonia   patients   will   be   included. An electronic search strategy will be
+carried out in the following databases including the PubMed,
+Embase, Cochrane Central Register of Controlled Trials, Clinical
+Trials, China National Knowledge Infrastructure, the Wanfang
+database,   the   Chinese   Scienti fi c   Journal   Database,   and   the
+Sinomed. Types of outcome measures 
+3.1.4.1. Objectives 
+The objective of this study is to analyze various randomized
+controlled trials (RCTs) and provide evidence for the effective-
+ness and safety of TRQ injection on viral pneumonia. 
+3. Methods 
+The methodology of this systematic review will be guided by the
+Preferred Reporting Items for Systematic Reviews and Meta-
+Analyses statement. [18] 
+3.1. The   search   duration   will   be   from   inception   to 
+Liu et al. Electronic searches. Participants with critical
+organ dysfunction or severe mental disorders will be excluded. The common side effects of TRQ injection, such
+as anaphylaxis, drug eruption, nausea and vomiting, arrhythmia,
+haematuria, and so on. will also be recorded and evaluated
+respectively. 
+3.2. Medicine (2020) 99:35   Medicine 
+2  Search methods
+3.2.1. The additional outcomes will be
+as follows:
+(1) Chest radiograph normalization rate;
+(2) Time to relieve symptoms like fever, cough, crackles, and
+absorption of shadows on X-ray.
+(3) Laboratory parameters and etiological examination, such as
+peripheral blood white blood cells and neutrophil count, the
+levels of C Reactive Protein (CRP) and procalcitonin, the
+levels of viral antigens and viral antibodies in respiratory or
+serum samples, and so on. Types of studies. Besides, according to
+clinical reports, TRQ has some side effects in clinical applications,
+so that whether it is safe enough is still controversial. Inclusion criteria
+3.1.1. Exclusion criteria. 
+(1) Critical organ dysfunction, such as severe cardiopulmonary
+dysfunction, hepatic or kidney failure, or serious uncon-
+trolled infection.
+(2) Severe   mental   disorders   or   any   other   diseases   in fl uence
+compliance.
+(3) Allergic condition. 
+3.1.3. Inclusion criteria. 
+(1)   Diagnosed with viral pneumonia. 
+(2)   The age, race, gender, severity, and duration of disease are not
+limited.
+(3) Informed consents were got from patients themselves or their
+families. 
+3.1.2.2.
+
+Dichotomous data and continuous data
+will be included in the outcomes of the studies. For continuous data, standardized mean difference or
+mean difference with 95% con fi dence intervals will be used to
+summarize the results. 
+3.3.5. Data synthesis. Grading   the   quality   of   evidence. Assessment of the risk of bias. Data collection and analysis
+3.3.1. We will assess heteroge-
+neity between the included studies by Chi-squared test ( x 2  test)
+and   I 2  test according to the guidelines in Cochrane Handbook. The   Grading   of
+Recommendations Assessment, Development, and Evaluation 
+Liu et al. Sensitivity analysis. We will contact the authors when relevant data is missing. 
+3.3.3. Measurements. Assessment of heterogeneity. We will contact either the   fi rst
+authors or the corresponding authors of the included studies if
+there are issues to be clari fi ed. 
+3.3.2. Management of missing data. December 31th of 2019. If a suf fi cient number of random
+trials and the evident heterogeneity are identi fi ed, we will perform
+subgroup analyses according to the following items:
+(1) Viral pneumonia in different ages, such as children, adults,
+and the elderly;
+(2) The   ef fi cacy   of   TRQ   alone   versus   western   medicine   or
+combined with western medicine vs western medicine;
+(3) Severity of viral pneumonia, such as the mild, moderate, and
+severe condition. 
+3.3.10. The risk of bias of each
+included article will be evaluated by 2 independent reviewers
+according to the Cochrane Handbook of Systematic Reviews of
+Interventions. [19]
+We will assess the risk of bias from the following domains:
+(1) selection bias, including generation of random sequence and
+allocation concealment.
+(2) performance bias, including blinding of participants and
+personnel.
+(3) detection bias, including blinding of outcome assessment and
+the blinding of the data assessor.
+(4) attrition bias, which refers to incomplete outcome data.
+(5) reporting bias, including selective reporting, whether or not
+all data are reported.
+(6) other bias, such as con fl icts of interest. If any data information is
+insuf fi cient of included studies, we will contact either the   fi rst or
+corresponding author via telephone or email to request the
+missing data. While, If   I 2   ≥   50% or   P   <   .1, indicating the heterogeneity among
+studies are statistically signi fi cant, and a random-effect model
+will be employed. 
+3.3.7. Disagreements will be solved by a third investigator
+through discussion. Data extraction and management. All required data will
+be extracted by 2 investigators independently, and a standard
+extraction form will be established via Excel to extract substantial
+contents. If there are no less than
+10 RCTs included in the meta-analysis, we will examine the
+potential report biases by generating funnel plots. If 
+I 2   <   50% or   P   >   .1, which indicates that there is no statistical
+heterogeneity, and then a   fi xed effects model will be adopted. Assessment of reporting biases. The   fi nal results
+will depend on the missing data, risk of bias, sample size, and
+quality of methods of each study. 
+3.3.11. Selection of studies. Medicine (2020) 99:35   www.md-journal.com 
+3  Sensitivity analysis will be per-
+formed   to   evaluate   the   robustness   and   stability   of   pooled
+outcomes after removing the low-quality studies. Two investigators will indepen-
+dently screen the titles and abstracts of all included studies
+according to the established inclusion and exclusion criteria. Data in detail will be extracted from each
+study as follows: title, the author, the year of publication, journal,
+country, participants, study design, sample size, randomization,
+characteristics   of   the   interventions,   allocation   concealment,
+incomplete data, blinding, outcomes, selective reporting, adverse
+events, and follow-up, sources of funds and con fl icts of interest. Search strategy. We will carry out the   fi xed effect
+model to meta-analysis if there is no obvious heterogeneity
+among the trials, and a random effect model will be adopted if
+there is signi fi cant statistical heterogeneity. 
+3.3.9. We will analyze the available data to accomplish
+our analysis and explain the potential impact of missing data if
+we still cannot get the accurate data. 
+3.3.6. We will classify risk of bias into 3 levels:   “ high risk, ” “ low
+risk, ”   and   “ unclear risk, ”   and the disagreement will be resolved
+through discussion or consult the third reviewer. 
+3.3.4. Meta-analysis will be carried out using
+Review   Manager   (V.5.3)   statistical   software   provided   by
+Cochrane Collaboration. Otherwise,
+Quantitative analysis will be performed by Egger test. [20] 
+3.3.8. In addition, we will search the reference
+lists of the included studies, ongoing trials and unpublished
+conference   proceedings,   which   will   be   identi fi ed   using   the
+Current   Controlled   Trials   (http://www.controlled-trials.com)
+and   WHO   International   Clinical   Trials   Registry   Platform
+(http://www.who.int/trialsearch) for any unpublished or relevant
+ongoing trials. 
+3.2.2. Any disagreements on study selection will be resolved by
+consensus or a third reviewer. Subgroup analysis. The following terms will be used for the
+search:
+(1) RCT
+(2) Controlled clinical trial
+(3) Randomized
+(4) Randomly
+(5) Placebo
+(6) Trial
+(7) 1 or 2 – 6
+(8) Viral Pneumonia
+(9) Viral Pneumonias
+(10) Pneumonias, Viral
+(11) Pneumonia, Viral
+(12) Or/8-11
+(13) TRQ
+(14) TRQ injection
+(15) TRQ
+(16) TRQ injection
+(17) Or/13-16
+(18) 7 and 12 and 17 
+3.3. For dichotomous
+data, we will express the results as risk ratio with 95% con fi dence
+intervals. Then, they will read the full text of potentially eligible studies to
+con fi rm the   fi nal included studies.
+
+Writing   –   original draft:   Hui Liu, Xue-Fei Ding. Accessed January 3, 2019.
+[20] Egger M, Davey SG, Schneider M, et al. Cochrane   Handbook for Systematic   Reviews of
+Interventions Version 5.1.0 [updated March 2011]; 2011. TRQ injection for acute bronchitis
+disease: a systematic review and meta-analysis of randomized controlled
+trials. References 
+[1] Liu L, Oza S, Hogan D, et al. Present situation and prospect of combination
+traditional Chinese medicine with Western medicine for multidrug-
+resistant tuberculosis. BMJ
+2009;339:b2535.
+[19] Higgins JPT GSe. Zhongguo Zhong Yao Za Zhi
+2019;44:2179 – 84.
+[17] Xiong L, Chen L, Wang C, et al. Community-acquired pneumonia
+requiring hospitalization among U.S. adults. Medicine (2020) 99:35   Medicine 
+4  Network meta-analysis of 3 kinds of
+Chinese medicine injections in treatment of acute exacerbations of
+chronic obstructive pulmonary disease. GRADE guidelines: 3. Available at:
+http://handbook-5-1.cochrane.org. Rating the quality of evidence. The results of this review will be published in related
+conferences or peer-reviewed journals. 
+4. Viral pneumonia: etiologies and
+treatment. Thus, in this study, we will
+integrate and analyze the most comprehensive clinical studies to
+investigate the ef fi cacy and safety of TRQ injection on viral
+pneumonia. Preferred reporting items for
+systematic reviews and meta-analyses: the PRISMA statement. Chin   J   Prescription   Drug   2016;14:
+17 – 8.
+[10] Zhang X, Gu J, Cao L, et al. Research progress of traditional Chinese medicine in treatment
+of   drug-resistant   tuberculosis. Ef fi cacy and safety of alizarin combined with
+standard anti-tuberculosis therapy in treatment of multidrug-resistant
+pulmonary tuberculosis. The clinical ef fi cacy of TRQ injection in
+the treatment of children with acute lower respiratory tract infection. Bias in meta-analysis detected by
+a simple, graphical test. Ethics and dissemination. For example,
+we will only search English and Chinese databases. Supervision:   Yu Hao, Yi Wang. Although many clinical studies
+con fi rmed that TRQ injection has a signi fi cant effect on viral
+pneumonia, there is no comprehensive systematic review offering
+enough evidence for such treatment. Author contributions 
+Conceptualization:   Hui Liu, Xuefei Ding. Since our study will not
+include animals or individuals, it is not necessary for ethical
+approval. Epidemiology of viral pneumonia. Discussion 
+As a traditional Chinese herbal medicine injection, TRQ injection
+has been approved by the China Food and Drug Administration
+and widely used for respiratory infections to alleviate symptoms
+and improve signs in clinics. Project administration:   Hui Liu, Xue-Fei Ding, Meng-Fan Zhao. Writing   –   review & editing:   Yu Hao, Yi Wang. Network pharmacology study on the
+mechanism of traditional Chinese medicine for upper respiratory tract
+infection. We
+hope that this   fi nding may provide evidence and instructions for
+the application of TRQ injection treatment for viral pneumonia. Screening and identi fi cation of multiple
+components in TRQ injection using RP- HPLC combined with DAD and
+ESI-TOF/MS. Clinical ef fi cacy and safety of TRQ
+injection for pulmonary infection in patients with tuberculosis: a meta-
+analysis. Chin J Clin Infect Dis 2016;9:265 – 9.
+[8] Hou Y, Nie Y, Cheng B, et al. Viral pneumonia. Of course, there are some limitations in this review. Acta Pharm Sin B 2016;6:212 – 21.
+[9] Tang X. Intervention effect and dose
+dependent   response   of   TRQ   injection   on   airway   in fl ammation   in
+lipopolysaccharide-induced rats. N Engl J Med 2015;
+373:415 – 27.
+[4] Jain S. Additionally,
+different age of the patients and different severity of disease may
+run the risk of heterogeneity, subgroup analyses will be needed
+for evaluation accuracy. Global, regional, and national causes of
+child   mortality   in   2000-13,   with   projections   to   inform   post-2015
+priorities: an updated systematic analysis. Methodology:   Hui Liu, Xuefei Ding, Rui Guo, Di Deng. BMJ 1997;315:629 – 34.
+[21] Balshem H, Helfand M, Schunemann HJ, et al. Chin J Nat Med 2014;12:535 – 41.
+[12] Chunmei Y, Aihua Z, Li Z, et al. J Tradit Chin Med 2013;33:505 – 12.
+[14] Wang P, Liao X, Xie YM, et al. Anti-bio fi lm activity of TRQ: a traditional
+Chinese   medicine   used   for   the   treatment   of   acute   pneumonia. J Altern Complement Med 2018;24:1051 – 62.
+[18] Moher D, Liberati A, Tetzlaff J, et al. J
+Ethnopharmacol 2011;134:165 – 70.
+[16] Zhu XY, Xie HF, Han H, et al. Lancet 2015;385:430 – 40.
+[2] Ruuskanen O, Lahti E, Jennings LC, et al. J Clin Epidemiol 2011;64:401 – 6. Complement Ther Med 2016;25:143 – 58.
+[15] Wang L, Wang T, Hu JJ, et al. Lancet
+2011;377:1264 – 75.
+[3] Jain S, Self WH, Wunderink R, et al. Liu et al. J Investig Med 2018;66:957 – 65.
+[6] Li D, Du D, Xiao C. Clin Chest Med 2017;38:1 – 9.
+[5] Dandachi D, Rodriguez-Barradas MC. Chin J Prim Med Pharm 2014;21:1583 – 4.
+[7] Ding T, Mao Y, Xu J, et al. J
+Pediatr Pharm 2013;19:25 – 7.
+[13] Dong SJ, Zhong YQ, Yang K, et al. Qingfei Xiaoyan Wan, a traditional
+Chinese   medicine   formula,   ameliorates   Pseudomonas   aeruginosa-
+induced acute lung in fl ammation by regulation of PI3K/AKT and Ras/
+MAPK pathways. guidelines will be used to evaluate the quality of evidence. [21]
+Levels of evidence quality will be classi fi ed into 4 levels: high,
+moderate, low, or very low. 
+3.3.12. Mol Biosyst 2014;10:2517 – 25.
+[11] Liu SY, Xue DS, Pan JC, et al. At the same time, the study has been registered on
+PROSPERO, making it more transparent and trustworthy.

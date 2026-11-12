@@ -1,0 +1,1212 @@
+[
+  {
+    "method": "lexical",
+    "pairId": "P1",
+    "queryFile": "qiu-2020-e22022.pdf",
+    "sourceFile": "liu-2020-e21808.pdf",
+    "queryRole": "QUERY",
+    "sourceRole": "SOURCE",
+    "totalAlerts": 8,
+    "informativeAlerts": 8,
+    "queryCharCoverage": 0.14,
+    "coveredQueryChars": 2305,
+    "totalQueryChars": 16466,
+    "top10Alerts": [
+      {
+        "queryOffset": 3920,
+        "sourceOffset": 3028,
+        "score": 1,
+        "querySnippet": "Data sharing not applicable to this article as no datasets were generated or analyzed during the current study. a Depart…",
+        "sourceSnippet": "Data sharing not applicable to this article as no datasets were generated or analyzed during the current study. a Depart…"
+      },
+      {
+        "queryOffset": 4552,
+        "sourceOffset": 3915,
+        "score": 1,
+        "querySnippet": "Copyright © 2020 the Author(s). Published by Wolters Kluwer Health, Inc. This is an open access article distributed unde…",
+        "sourceSnippet": "Copyright © 2020 the Author(s). Published by Wolters Kluwer Health, Inc. This is an open access article distributed unde…"
+      },
+      {
+        "queryOffset": 6076,
+        "sourceOffset": 7519,
+        "score": 1,
+        "querySnippet": "3. Methods The protocol of our MAs followed the guideline of the Preferred Reporting Items for Systematic Review and Met…",
+        "sourceSnippet": "3. Methods The methodology of this systematic review will be guided by the Preferred Reporting Items for Systematic Revi…"
+      },
+      {
+        "queryOffset": 1542,
+        "sourceOffset": 1861,
+        "score": 1,
+        "querySnippet": "This evidence may also provide helpful evidence of whether Tanreqing Injection therapy was ef fi cient and safe in patie…",
+        "sourceSnippet": "Conclusion: Our study will provide comprehensive evidence to decide whether TRQ injection is effective and safe for vira…"
+      },
+      {
+        "queryOffset": 11961,
+        "sourceOffset": 7202,
+        "score": 0.7834,
+        "querySnippet": "It is not clear how Tanreqing Injection affects the treatment of viral pneumonia. This systematic review and meta-analys…",
+        "sourceSnippet": "Therefore, the aim of this systematic review is to assess the ef fi cacy and safety of TRQ injection on Viral Pneumonia."
+      },
+      {
+        "queryOffset": 334,
+        "sourceOffset": 445,
+        "score": 0.6737,
+        "querySnippet": "The objective of this study was to assess the ef fi cacy and safety of Tanreqing Injection therapy in patients with vira…",
+        "sourceSnippet": "However, the ef fi ciency and safety of TRQ injection for viral pneumonia have not been scienti fi cally and methodicall…"
+      },
+      {
+        "queryOffset": 1338,
+        "sourceOffset": 16788,
+        "score": 0.6115,
+        "querySnippet": "Results: The results will be published in a peer-reviewed journal. Conclusion: The results of this review will be widely…",
+        "sourceSnippet": "The results of this review will be published in related conferences or peer-reviewed journals."
+      },
+      {
+        "queryOffset": 3643,
+        "sourceOffset": 3430,
+        "score": 0.6105,
+        "querySnippet": "This protocol is funded by Department of General Internal Medicine, The Third Af fi liated Hospital of Beijing Universit…",
+        "sourceSnippet": "∗ Correspondence: Yu Hao, Department of Immunology and Microbiology, School of Life Science, Beijing University of Chine…"
+      }
+    ],
+    "skipped": false
+  },
+  {
+    "method": "semantic",
+    "pairId": "P1",
+    "queryFile": "qiu-2020-e22022.pdf",
+    "sourceFile": "liu-2020-e21808.pdf",
+    "queryRole": "QUERY",
+    "sourceRole": "SOURCE",
+    "totalAlerts": 97,
+    "informativeAlerts": 97,
+    "queryCharCoverage": 0.4326,
+    "coveredQueryChars": 7124,
+    "totalQueryChars": 16466,
+    "top10Alerts": [
+      {
+        "queryOffset": 4552,
+        "sourceOffset": 3915,
+        "score": 1,
+        "querySnippet": "Copyright © 2020 the Author(s). Published by Wolters Kluwer Health, Inc. This is an open access article distributed unde…",
+        "sourceSnippet": "Copyright © 2020 the Author(s). Published by Wolters Kluwer Health, Inc. This is an open access article distributed unde…"
+      },
+      {
+        "queryOffset": 4588,
+        "sourceOffset": 3915,
+        "score": 1,
+        "querySnippet": "Published by Wolters Kluwer Health, Inc. This is an open access article distributed under the Creative Commons Attributi…",
+        "sourceSnippet": "Copyright © 2020 the Author(s). Published by Wolters Kluwer Health, Inc. This is an open access article distributed unde…"
+      },
+      {
+        "queryOffset": 6079,
+        "sourceOffset": 7519,
+        "score": 1,
+        "querySnippet": "Methods The protocol of our MAs followed the guideline of the Preferred Reporting Items for Systematic Review and Meta-A…",
+        "sourceSnippet": "3. Methods The methodology of this systematic review will be guided by the Preferred Reporting Items for Systematic Revi…"
+      },
+      {
+        "queryOffset": 3786,
+        "sourceOffset": 2971,
+        "score": 1,
+        "querySnippet": "The author(s) declared no potential con fl icts of interest with respect to the research, authorship, or publication of …",
+        "sourceSnippet": "The authors have no con fl icts of interest to disclose. Data sharing not applicable to this article as no datasets were…"
+      },
+      {
+        "queryOffset": 4915,
+        "sourceOffset": 4218,
+        "score": 0.9995,
+        "querySnippet": "Effects and safety of Tanreqing injection on viral pneumonia: A protocol for systematic review and meta-analysis. Medici…",
+        "sourceSnippet": "How to cite this article: Liu H, Ding XF, Guo R, Zhao MF, Deng D, Hao Y, Wang Y. Effects and safety of tanreqing injecti…"
+      },
+      {
+        "queryOffset": 1542,
+        "sourceOffset": 1861,
+        "score": 0.965,
+        "querySnippet": "This evidence may also provide helpful evidence of whether Tanreqing Injection therapy was ef fi cient and safe in patie…",
+        "sourceSnippet": "Conclusion: Our study will provide comprehensive evidence to decide whether TRQ injection is effective and safe for vira…"
+      },
+      {
+        "queryOffset": 51,
+        "sourceOffset": 51,
+        "score": 0.956,
+        "querySnippet": "pneumonia A protocol for systematic review and meta-analysis Yue Qiu a , Xue Pan b , Lin Su, MD c , Hui Lui a , Ya-Dong …",
+        "sourceSnippet": "pneumonia A protocol for systematic review and meta-analysis Hui Liu, PhD a , Xue-Fei Ding, MM b , Rui Guo, PhD a , Meng…"
+      },
+      {
+        "queryOffset": 11247,
+        "sourceOffset": 14586,
+        "score": 0.9492,
+        "querySnippet": "The statistical signi fi cance will be assessed for P < .05, and moderate to high levels of heterogeneity will be consid…",
+        "sourceSnippet": "If I 2 < 50% or P > .1, which indicates that there is no statistical heterogeneity, and then a fi xed effects model will…"
+      },
+      {
+        "queryOffset": 3255,
+        "sourceOffset": 4218,
+        "score": 0.9352,
+        "querySnippet": "[10] Three systematic reviews of Tanreqing Injection in the treatment of viral pneumonia were published in 2012, 2014 an…",
+        "sourceSnippet": "How to cite this article: Liu H, Ding XF, Guo R, Zhao MF, Deng D, Hao Y, Wang Y. Effects and safety of tanreqing injecti…"
+      },
+      {
+        "queryOffset": 12185,
+        "sourceOffset": 4218,
+        "score": 0.9339,
+        "querySnippet": "The results of this review will be widely disseminated through peer-reviewed publications and conference presentations. …",
+        "sourceSnippet": "How to cite this article: Liu H, Ding XF, Guo R, Zhao MF, Deng D, Hao Y, Wang Y. Effects and safety of tanreqing injecti…"
+      }
+    ],
+    "skipped": false
+  },
+  {
+    "method": "hybrid",
+    "pairId": "P1",
+    "queryFile": "qiu-2020-e22022.pdf",
+    "sourceFile": "liu-2020-e21808.pdf",
+    "queryRole": "QUERY",
+    "sourceRole": "SOURCE",
+    "totalAlerts": 36,
+    "informativeAlerts": 36,
+    "queryCharCoverage": 0.2365,
+    "coveredQueryChars": 3894,
+    "totalQueryChars": 16466,
+    "top10Alerts": [
+      {
+        "queryOffset": 4588,
+        "sourceOffset": 3915,
+        "score": 1,
+        "querySnippet": "Published by Wolters Kluwer Health, Inc. This is an open access article distributed under the Creative Commons Attributi…",
+        "sourceSnippet": "Copyright © 2020 the Author(s). Published by Wolters Kluwer Health, Inc. This is an open access article distributed unde…"
+      },
+      {
+        "queryOffset": 3786,
+        "sourceOffset": 2971,
+        "score": 1,
+        "querySnippet": "The author(s) declared no potential con fl icts of interest with respect to the research, authorship, or publication of …",
+        "sourceSnippet": "The authors have no con fl icts of interest to disclose. Data sharing not applicable to this article as no datasets were…"
+      },
+      {
+        "queryOffset": 4588,
+        "sourceOffset": 3992,
+        "score": 1,
+        "querySnippet": "Published by Wolters Kluwer Health, Inc. This is an open access article distributed under the Creative Commons Attributi…",
+        "sourceSnippet": "This is an open access article distributed under the Creative Commons Attribution License 4.0 (CCBY), which permits unre…"
+      },
+      {
+        "queryOffset": 4629,
+        "sourceOffset": 3951,
+        "score": 1,
+        "querySnippet": "This is an open access article distributed under the Creative Commons Attribution License 4.0 (CCBY), which permits unre…",
+        "sourceSnippet": "Published by Wolters Kluwer Health, Inc. This is an open access article distributed under the Creative Commons Attributi…"
+      },
+      {
+        "queryOffset": 11247,
+        "sourceOffset": 14586,
+        "score": 0.9537,
+        "querySnippet": "The statistical signi fi cance will be assessed for P < .05, and moderate to high levels of heterogeneity will be consid…",
+        "sourceSnippet": "If I 2 < 50% or P > .1, which indicates that there is no statistical heterogeneity, and then a fi xed effects model will…"
+      },
+      {
+        "queryOffset": 11961,
+        "sourceOffset": 4218,
+        "score": 0.8488,
+        "querySnippet": "It is not clear how Tanreqing Injection affects the treatment of viral pneumonia. This systematic review and meta-analys…",
+        "sourceSnippet": "How to cite this article: Liu H, Ding XF, Guo R, Zhao MF, Deng D, Hao Y, Wang Y. Effects and safety of tanreqing injecti…"
+      },
+      {
+        "queryOffset": 51,
+        "sourceOffset": 51,
+        "score": 0.8437,
+        "querySnippet": "pneumonia A protocol for systematic review and meta-analysis Yue Qiu a , Xue Pan b , Lin Su, MD c , Hui Lui a , Ya-Dong …",
+        "sourceSnippet": "pneumonia A protocol for systematic review and meta-analysis Hui Liu, PhD a , Xue-Fei Ding, MM b , Rui Guo, PhD a , Meng…"
+      },
+      {
+        "queryOffset": 12043,
+        "sourceOffset": 4218,
+        "score": 0.8299,
+        "querySnippet": "This systematic review and meta-analysis will evaluate the ef fi cacy and safety of Tanreqing Injection for the treatmen…",
+        "sourceSnippet": "How to cite this article: Liu H, Ding XF, Guo R, Zhao MF, Deng D, Hao Y, Wang Y. Effects and safety of tanreqing injecti…"
+      },
+      {
+        "queryOffset": 6079,
+        "sourceOffset": 7519,
+        "score": 0.8057,
+        "querySnippet": "Methods The protocol of our MAs followed the guideline of the Preferred Reporting Items for Systematic Review and Meta-A…",
+        "sourceSnippet": "3. Methods The methodology of this systematic review will be guided by the Preferred Reporting Items for Systematic Revi…"
+      },
+      {
+        "queryOffset": 2995,
+        "sourceOffset": 4299,
+        "score": 0.7964,
+        "querySnippet": "[8,9] In the diagnosis and treatment of new type of coronavirus pneumonia in China, it has been recommended to use Tanre…",
+        "sourceSnippet": "Effects and safety of tanreqing injection on viral pneumonia: A protocol for systematic review and meta-analysis. Medici…"
+      }
+    ],
+    "skipped": false
+  },
+  {
+    "method": "lexical",
+    "pairId": "C1",
+    "queryFile": "c1-exact-copy.txt",
+    "sourceFile": "liu-2020-e21808.pdf",
+    "queryRole": "QUERY",
+    "sourceRole": "SOURCE",
+    "totalAlerts": 4,
+    "informativeAlerts": 4,
+    "queryCharCoverage": 0.8183,
+    "coveredQueryChars": 18078,
+    "totalQueryChars": 22092,
+    "top10Alerts": [
+      {
+        "queryOffset": 51,
+        "sourceOffset": 51,
+        "score": 1,
+        "querySnippet": "pneumonia A protocol for systematic review and meta-analysis Hui Liu, PhD a , Xue-Fei Ding, MM b , Rui Guo, PhD a , Meng…",
+        "sourceSnippet": "pneumonia A protocol for systematic review and meta-analysis Hui Liu, PhD a , Xue-Fei Ding, MM b , Rui Guo, PhD a , Meng…"
+      },
+      {
+        "queryOffset": 4654,
+        "sourceOffset": 4654,
+        "score": 1,
+        "querySnippet": "viruses, in fl uenza viruses, parain fl uenza viruses, adenoviruses, human metapneumovirus, coronaviruses, and respirato…",
+        "sourceSnippet": "viruses, in fl uenza viruses, parain fl uenza viruses, adenoviruses, human metapneumovirus, coronaviruses, and respirato…"
+      },
+      {
+        "queryOffset": 15522,
+        "sourceOffset": 15766,
+        "score": 1,
+        "querySnippet": "Subgroup analysis. If a suf fi cient number of random trials and the evident heterogeneity are identi fi ed, we will per…",
+        "sourceSnippet": "and the elderly; (2) The ef fi cacy of TRQ alone versus western medicine or combined with western medicine vs western me…"
+      },
+      {
+        "queryOffset": 16311,
+        "sourceOffset": 16430,
+        "score": 1,
+        "querySnippet": "Grading the quality of evidence. The Grading of Recommendations Assessment, Development, and Evaluation Liu et al. Medic…",
+        "sourceSnippet": "Liu et al. Medicine (2020) 99:35 www.md-journal.com 3 guidelines will be used to evaluate the quality of evidence. [21] …"
+      }
+    ],
+    "skipped": false
+  },
+  {
+    "method": "semantic",
+    "pairId": "C1",
+    "queryFile": "c1-exact-copy.txt",
+    "sourceFile": "liu-2020-e21808.pdf",
+    "queryRole": "QUERY",
+    "sourceRole": "SOURCE",
+    "totalAlerts": 273,
+    "informativeAlerts": 273,
+    "queryCharCoverage": 0.8183,
+    "coveredQueryChars": 18078,
+    "totalQueryChars": 22092,
+    "top10Alerts": [
+      {
+        "queryOffset": 2453,
+        "sourceOffset": 2525,
+        "score": 1,
+        "querySnippet": "[1,2] In the recent prospective pneumonia etiology studies, respiratory viruses were more commonly detected than bacteri…",
+        "sourceSnippet": "viruses were more commonly detected than bacteria in both adults and children, accounting for greater than 25% of detect…"
+      },
+      {
+        "queryOffset": 2780,
+        "sourceOffset": 2780,
+        "score": 1,
+        "querySnippet": "This study was supported by the National Natural Science Foundation of China (No. 81573723) and the Kaibao Pharm. Compan…",
+        "sourceSnippet": "This study was supported by the National Natural Science Foundation of China (No. 81573723) and the Kaibao Pharm. Compan…"
+      },
+      {
+        "queryOffset": 3804,
+        "sourceOffset": 3808,
+        "score": 1,
+        "querySnippet": "No. 16, Nanxiao Road, Dongzhimen, Dongcheng District, Beijing 100700, China (e-mail: prof.wangyi@foxmail.com). Copyright…",
+        "sourceSnippet": "16, Nanxiao Road, Dongzhimen, Dongcheng District, Beijing 100700, China (e-mail: prof.wangyi@foxmail.com). Copyright © 2…"
+      },
+      {
+        "queryOffset": 3808,
+        "sourceOffset": 3804,
+        "score": 1,
+        "querySnippet": "16, Nanxiao Road, Dongzhimen, Dongcheng District, Beijing 100700, China (e-mail: prof.wangyi@foxmail.com). Copyright © 2…",
+        "sourceSnippet": "No. 16, Nanxiao Road, Dongzhimen, Dongcheng District, Beijing 100700, China (e-mail: prof.wangyi@foxmail.com). Copyright…"
+      },
+      {
+        "queryOffset": 4796,
+        "sourceOffset": 4919,
+        "score": 1,
+        "querySnippet": "[4] The primary symptoms of viral pneumonia are fever, cough with or without phlegm, shortage of breath, and pharyngalgi…",
+        "sourceSnippet": "If uncontrolled well, respiratory distress syndrome, and shock may be caused secondarily to these symptoms and even caus…"
+      },
+      {
+        "queryOffset": 5810,
+        "sourceOffset": 5603,
+        "score": 1,
+        "querySnippet": "[6 – 10] Tanreqing (TRQ) injection is one of the important TCM injection, which includes extracts from Flos Lonicerae (L…",
+        "sourceSnippet": "Traditional Chinese Medicine (TCM) has been shown its unique advantages in treating respiratory diseases for thousands o…"
+      },
+      {
+        "queryOffset": 6271,
+        "sourceOffset": 6140,
+        "score": 1,
+        "querySnippet": "[12] Except for those functions in TCM theory, modern pharmacologic studies con fi rmed that TRQ injection can protect a…",
+        "sourceSnippet": "Hard-wicke ), [11] has marked effects of clearing heat, reducing in fl ammation, detoxi fi cation and allevi- ating coug…"
+      },
+      {
+        "queryOffset": 8099,
+        "sourceOffset": 8189,
+        "score": 1,
+        "querySnippet": "Participants with critical organ dysfunction or severe mental disorders will be excluded. Additionally, patients with at…",
+        "sourceSnippet": "Additionally, patients with atopy will be excluded. The speci fi c criteria are as follows: 3.1.2.1. Inclusion criteria.…"
+      },
+      {
+        "queryOffset": 8189,
+        "sourceOffset": 8099,
+        "score": 1,
+        "querySnippet": "Additionally, patients with atopy will be excluded. The speci fi c criteria are as follows: 3.1.2.1. Inclusion criteria.…",
+        "sourceSnippet": "Participants with critical organ dysfunction or severe mental disorders will be excluded. Additionally, patients with at…"
+      },
+      {
+        "queryOffset": 8431,
+        "sourceOffset": 8351,
+        "score": 1,
+        "querySnippet": "(3) Informed consents were got from patients themselves or their families. 3.1.2.2. Exclusion criteria. (1) Critical org…",
+        "sourceSnippet": "(2) The age, race, gender, severity, and duration of disease are not limited. (3) Informed consents were got from patien…"
+      }
+    ],
+    "skipped": false
+  },
+  {
+    "method": "hybrid",
+    "pairId": "C1",
+    "queryFile": "c1-exact-copy.txt",
+    "sourceFile": "liu-2020-e21808.pdf",
+    "queryRole": "QUERY",
+    "sourceRole": "SOURCE",
+    "totalAlerts": 162,
+    "informativeAlerts": 162,
+    "queryCharCoverage": 0.8124,
+    "coveredQueryChars": 17948,
+    "totalQueryChars": 22092,
+    "top10Alerts": [
+      {
+        "queryOffset": 2453,
+        "sourceOffset": 2525,
+        "score": 1,
+        "querySnippet": "[1,2] In the recent prospective pneumonia etiology studies, respiratory viruses were more commonly detected than bacteri…",
+        "sourceSnippet": "viruses were more commonly detected than bacteria in both adults and children, accounting for greater than 25% of detect…"
+      },
+      {
+        "queryOffset": 3804,
+        "sourceOffset": 3808,
+        "score": 1,
+        "querySnippet": "No. 16, Nanxiao Road, Dongzhimen, Dongcheng District, Beijing 100700, China (e-mail: prof.wangyi@foxmail.com). Copyright…",
+        "sourceSnippet": "16, Nanxiao Road, Dongzhimen, Dongcheng District, Beijing 100700, China (e-mail: prof.wangyi@foxmail.com). Copyright © 2…"
+      },
+      {
+        "queryOffset": 3808,
+        "sourceOffset": 3804,
+        "score": 1,
+        "querySnippet": "16, Nanxiao Road, Dongzhimen, Dongcheng District, Beijing 100700, China (e-mail: prof.wangyi@foxmail.com). Copyright © 2…",
+        "sourceSnippet": "No. 16, Nanxiao Road, Dongzhimen, Dongcheng District, Beijing 100700, China (e-mail: prof.wangyi@foxmail.com). Copyright…"
+      },
+      {
+        "queryOffset": 3951,
+        "sourceOffset": 3992,
+        "score": 1,
+        "querySnippet": "Published by Wolters Kluwer Health, Inc. This is an open access article distributed under the Creative Commons Attributi…",
+        "sourceSnippet": "This is an open access article distributed under the Creative Commons Attribution License 4.0 (CCBY), which permits unre…"
+      },
+      {
+        "queryOffset": 4796,
+        "sourceOffset": 4919,
+        "score": 1,
+        "querySnippet": "[4] The primary symptoms of viral pneumonia are fever, cough with or without phlegm, shortage of breath, and pharyngalgi…",
+        "sourceSnippet": "If uncontrolled well, respiratory distress syndrome, and shock may be caused secondarily to these symptoms and even caus…"
+      },
+      {
+        "queryOffset": 5810,
+        "sourceOffset": 5603,
+        "score": 1,
+        "querySnippet": "[6 – 10] Tanreqing (TRQ) injection is one of the important TCM injection, which includes extracts from Flos Lonicerae (L…",
+        "sourceSnippet": "Traditional Chinese Medicine (TCM) has been shown its unique advantages in treating respiratory diseases for thousands o…"
+      },
+      {
+        "queryOffset": 6271,
+        "sourceOffset": 6140,
+        "score": 1,
+        "querySnippet": "[12] Except for those functions in TCM theory, modern pharmacologic studies con fi rmed that TRQ injection can protect a…",
+        "sourceSnippet": "Hard-wicke ), [11] has marked effects of clearing heat, reducing in fl ammation, detoxi fi cation and allevi- ating coug…"
+      },
+      {
+        "queryOffset": 8099,
+        "sourceOffset": 8189,
+        "score": 1,
+        "querySnippet": "Participants with critical organ dysfunction or severe mental disorders will be excluded. Additionally, patients with at…",
+        "sourceSnippet": "Additionally, patients with atopy will be excluded. The speci fi c criteria are as follows: 3.1.2.1. Inclusion criteria.…"
+      },
+      {
+        "queryOffset": 8677,
+        "sourceOffset": 8600,
+        "score": 1,
+        "querySnippet": "(2) Severe mental disorders or any other diseases in fl uence compliance. (3) Allergic condition.",
+        "sourceSnippet": "dysfunction, hepatic or kidney failure, or serious uncon- trolled infection. (2) Severe mental disorders or any other di…"
+      },
+      {
+        "queryOffset": 8983,
+        "sourceOffset": 9127,
+        "score": 1,
+        "querySnippet": "In the treatment group, the intervention will be TRQ injection or TRQ injection plus western medicine (antibiotics or an…",
+        "sourceSnippet": "Under normal conditions, patients in control group will be treated with western medicine (antibiotics or antiviral drugs…"
+      }
+    ],
+    "skipped": false
+  },
+  {
+    "method": "lexical",
+    "pairId": "C2",
+    "queryFile": "c2-synonym-replace.txt",
+    "sourceFile": "liu-2020-e21808.pdf",
+    "queryRole": "QUERY",
+    "sourceRole": "SOURCE",
+    "totalAlerts": 4,
+    "informativeAlerts": 4,
+    "queryCharCoverage": 0.797,
+    "coveredQueryChars": 18407,
+    "totalQueryChars": 23095,
+    "top10Alerts": [
+      {
+        "queryOffset": 710,
+        "sourceOffset": 254,
+        "score": 1,
+        "querySnippet": "pneumonia A protocol for systematic assessment and meta-analysis Hui Liu, PhD a , Xue-Fei Ding, MM b , Rui Guo, PhD a , …",
+        "sourceSnippet": "Background: Viral pneumonia is a common respiratory disease that leads to high mortality around the world. Tanreqing (TR…"
+      },
+      {
+        "queryOffset": 5434,
+        "sourceOffset": 4654,
+        "score": 1,
+        "querySnippet": "viruses, in fl uenza viruses, parain fl uenza viruses, adenoviruses, human metapneumovirus, coronaviruses, and respirato…",
+        "sourceSnippet": "viruses, in fl uenza viruses, parain fl uenza viruses, adenoviruses, human metapneumovirus, coronaviruses, and respirato…"
+      },
+      {
+        "queryOffset": 17282,
+        "sourceOffset": 16430,
+        "score": 1,
+        "querySnippet": "Grading the quality of evidence. The Grading of Recommendations Assessment, Development, and Evaluation Liu et al. Medic…",
+        "sourceSnippet": "Liu et al. Medicine (2020) 99:35 www.md-journal.com 3 guidelines will be used to evaluate the quality of evidence. [21] …"
+      },
+      {
+        "queryOffset": 16460,
+        "sourceOffset": 15766,
+        "score": 0.8787,
+        "querySnippet": "Subgroup examination. If a suf fi cient number of random trials and the evident heterogeneity are identi fi ed, we will …",
+        "sourceSnippet": "and the elderly; (2) The ef fi cacy of TRQ alone versus western medicine or combined with western medicine vs western me…"
+      }
+    ],
+    "skipped": false
+  },
+  {
+    "method": "semantic",
+    "pairId": "C2",
+    "queryFile": "c2-synonym-replace.txt",
+    "sourceFile": "liu-2020-e21808.pdf",
+    "queryRole": "QUERY",
+    "sourceRole": "SOURCE",
+    "totalAlerts": 262,
+    "informativeAlerts": 262,
+    "queryCharCoverage": 0.8039,
+    "coveredQueryChars": 18565,
+    "totalQueryChars": 23095,
+    "top10Alerts": [
+      {
+        "queryOffset": 3175,
+        "sourceOffset": 2525,
+        "score": 1,
+        "querySnippet": "[1,2] In the recent prospective pneumonia etiology studies, respiratory viruses were more commonly detected than bacteri…",
+        "sourceSnippet": "viruses were more commonly detected than bacteria in both adults and children, accounting for greater than 25% of detect…"
+      },
+      {
+        "queryOffset": 3522,
+        "sourceOffset": 2780,
+        "score": 1,
+        "querySnippet": "This investigation was supported by the National Natural Science Foundation of China (No. 81573723) and the Kaibao Pharm…",
+        "sourceSnippet": "This study was supported by the National Natural Science Foundation of China (No. 81573723) and the Kaibao Pharm. Compan…"
+      },
+      {
+        "queryOffset": 4569,
+        "sourceOffset": 3808,
+        "score": 1,
+        "querySnippet": "No. 16, Nanxiao Road, Dongzhimen, Dongcheng District, Beijing 100700, China (e-mail: prof.wangyi@foxmail.com). Copyright…",
+        "sourceSnippet": "16, Nanxiao Road, Dongzhimen, Dongcheng District, Beijing 100700, China (e-mail: prof.wangyi@foxmail.com). Copyright © 2…"
+      },
+      {
+        "queryOffset": 4573,
+        "sourceOffset": 3804,
+        "score": 1,
+        "querySnippet": "16, Nanxiao Road, Dongzhimen, Dongcheng District, Beijing 100700, China (e-mail: prof.wangyi@foxmail.com). Copyright © 2…",
+        "sourceSnippet": "No. 16, Nanxiao Road, Dongzhimen, Dongcheng District, Beijing 100700, China (e-mail: prof.wangyi@foxmail.com). Copyright…"
+      },
+      {
+        "queryOffset": 6585,
+        "sourceOffset": 5603,
+        "score": 1,
+        "querySnippet": "[6 – 10] Tanreqing (TRQ) injection is one of the important TCM injection, which includes extracts from Flos Lonicerae (L…",
+        "sourceSnippet": "Traditional Chinese Medicine (TCM) has been shown its unique advantages in treating respiratory diseases for thousands o…"
+      },
+      {
+        "queryOffset": 7046,
+        "sourceOffset": 6140,
+        "score": 1,
+        "querySnippet": "[12] Except for those functions in TCM theory, modern pharmacologic studies con fi rmed that TRQ injection can protect a…",
+        "sourceSnippet": "Hard-wicke ), [11] has marked effects of clearing heat, reducing in fl ammation, detoxi fi cation and allevi- ating coug…"
+      },
+      {
+        "queryOffset": 8889,
+        "sourceOffset": 8189,
+        "score": 1,
+        "querySnippet": "Participants with critical organ dysfunction or severe mental disorders will be excluded. Additionally, subjects with at…",
+        "sourceSnippet": "Additionally, patients with atopy will be excluded. The speci fi c criteria are as follows: 3.1.2.1. Inclusion criteria.…"
+      },
+      {
+        "queryOffset": 9465,
+        "sourceOffset": 8600,
+        "score": 1,
+        "querySnippet": "(2) Severe mental disorders or any other diseases in fl uence compliance. (3) Allergic condition.",
+        "sourceSnippet": "dysfunction, hepatic or kidney failure, or serious uncon- trolled infection. (2) Severe mental disorders or any other di…"
+      },
+      {
+        "queryOffset": 10733,
+        "sourceOffset": 10029,
+        "score": 1,
+        "querySnippet": "All documented side effects and adverse events will be included as safety endpoints. The common side effects of TRQ inje…",
+        "sourceSnippet": "The common side effects of TRQ injection, such as anaphylaxis, drug eruption, nausea and vomiting, arrhythmia, haematuri…"
+      },
+      {
+        "queryOffset": 12335,
+        "sourceOffset": 11696,
+        "score": 1,
+        "querySnippet": "Two investigators will indepen- dently screen the titles and abstracts of all included studies according to the establis…",
+        "sourceSnippet": "Then, they will read the full text of potentially eligible studies to con fi rm the fi nal included studies. Any disagre…"
+      }
+    ],
+    "skipped": false
+  },
+  {
+    "method": "hybrid",
+    "pairId": "C2",
+    "queryFile": "c2-synonym-replace.txt",
+    "sourceFile": "liu-2020-e21808.pdf",
+    "queryRole": "QUERY",
+    "sourceRole": "SOURCE",
+    "totalAlerts": 142,
+    "informativeAlerts": 142,
+    "queryCharCoverage": 0.7914,
+    "coveredQueryChars": 18277,
+    "totalQueryChars": 23095,
+    "top10Alerts": [
+      {
+        "queryOffset": 3175,
+        "sourceOffset": 2525,
+        "score": 1,
+        "querySnippet": "[1,2] In the recent prospective pneumonia etiology studies, respiratory viruses were more commonly detected than bacteri…",
+        "sourceSnippet": "viruses were more commonly detected than bacteria in both adults and children, accounting for greater than 25% of detect…"
+      },
+      {
+        "queryOffset": 3700,
+        "sourceOffset": 2971,
+        "score": 1,
+        "querySnippet": "y2017001, GH2018001. The authors have no con fl icts of interest to disclose. Information sharing not applicable to this…",
+        "sourceSnippet": "The authors have no con fl icts of interest to disclose. Data sharing not applicable to this article as no datasets were…"
+      },
+      {
+        "queryOffset": 4569,
+        "sourceOffset": 3808,
+        "score": 1,
+        "querySnippet": "No. 16, Nanxiao Road, Dongzhimen, Dongcheng District, Beijing 100700, China (e-mail: prof.wangyi@foxmail.com). Copyright…",
+        "sourceSnippet": "16, Nanxiao Road, Dongzhimen, Dongcheng District, Beijing 100700, China (e-mail: prof.wangyi@foxmail.com). Copyright © 2…"
+      },
+      {
+        "queryOffset": 4573,
+        "sourceOffset": 3804,
+        "score": 1,
+        "querySnippet": "16, Nanxiao Road, Dongzhimen, Dongcheng District, Beijing 100700, China (e-mail: prof.wangyi@foxmail.com). Copyright © 2…",
+        "sourceSnippet": "No. 16, Nanxiao Road, Dongzhimen, Dongcheng District, Beijing 100700, China (e-mail: prof.wangyi@foxmail.com). Copyright…"
+      },
+      {
+        "queryOffset": 4716,
+        "sourceOffset": 3992,
+        "score": 1,
+        "querySnippet": "Published by Wolters Kluwer Health, Inc. This is an open access article distributed under the Creative Commons Attributi…",
+        "sourceSnippet": "This is an open access article distributed under the Creative Commons Attribution License 4.0 (CCBY), which permits unre…"
+      },
+      {
+        "queryOffset": 6585,
+        "sourceOffset": 5603,
+        "score": 1,
+        "querySnippet": "[6 – 10] Tanreqing (TRQ) injection is one of the important TCM injection, which includes extracts from Flos Lonicerae (L…",
+        "sourceSnippet": "Traditional Chinese Medicine (TCM) has been shown its unique advantages in treating respiratory diseases for thousands o…"
+      },
+      {
+        "queryOffset": 7046,
+        "sourceOffset": 6140,
+        "score": 1,
+        "querySnippet": "[12] Except for those functions in TCM theory, modern pharmacologic studies con fi rmed that TRQ injection can protect a…",
+        "sourceSnippet": "Hard-wicke ), [11] has marked effects of clearing heat, reducing in fl ammation, detoxi fi cation and allevi- ating coug…"
+      },
+      {
+        "queryOffset": 8889,
+        "sourceOffset": 8099,
+        "score": 1,
+        "querySnippet": "Participants with critical organ dysfunction or severe mental disorders will be excluded. Additionally, subjects with at…",
+        "sourceSnippet": "Participants with critical organ dysfunction or severe mental disorders will be excluded. Additionally, patients with at…"
+      },
+      {
+        "queryOffset": 9465,
+        "sourceOffset": 8600,
+        "score": 1,
+        "querySnippet": "(2) Severe mental disorders or any other diseases in fl uence compliance. (3) Allergic condition.",
+        "sourceSnippet": "dysfunction, hepatic or kidney failure, or serious uncon- trolled infection. (2) Severe mental disorders or any other di…"
+      },
+      {
+        "queryOffset": 9769,
+        "sourceOffset": 8854,
+        "score": 1,
+        "querySnippet": "In the therapy group, the intervention will be TRQ injection or TRQ injection plus western medicine (antibiotics or anti…",
+        "sourceSnippet": "control group undergo basic symptomatic treatment such as pyretolysis, alleviating cough, dissolving sputum, and antiast…"
+      }
+    ],
+    "skipped": false
+  },
+  {
+    "method": "lexical",
+    "pairId": "C3",
+    "queryFile": "c3-sentence-shuffle.txt",
+    "sourceFile": "liu-2020-e21808.pdf",
+    "queryRole": "QUERY",
+    "sourceRole": "SOURCE",
+    "totalAlerts": 67,
+    "informativeAlerts": 67,
+    "queryCharCoverage": 0.8361,
+    "coveredQueryChars": 18527,
+    "totalQueryChars": 22158,
+    "top10Alerts": [
+      {
+        "queryOffset": 125,
+        "sourceOffset": 3028,
+        "score": 1,
+        "querySnippet": "Data sharing not applicable to this article as no datasets were generated or analyzed during the current study. a Depart…",
+        "sourceSnippet": "Data sharing not applicable to this article as no datasets were generated or analyzed during the current study. a Depart…"
+      },
+      {
+        "queryOffset": 527,
+        "sourceOffset": 1603,
+        "score": 1,
+        "querySnippet": "∗ Correspondence: Yu Hao, Department of Immunology and Microbiology, School of Life Science, Beijing University of Chine…",
+        "sourceSnippet": "After that, data synthesis and subgroup analysis will be conducted with the Review Manager V.5.3.3 software. Results: Th…"
+      },
+      {
+        "queryOffset": 917,
+        "sourceOffset": 2780,
+        "score": 1,
+        "querySnippet": "This study was supported by the National Natural Science Foundation of China (No. 81573723) and the Kaibao Pharm.",
+        "sourceSnippet": "This study was supported by the National Natural Science Foundation of China (No. 81573723) and the Kaibao Pharm."
+      },
+      {
+        "queryOffset": 999,
+        "sourceOffset": 4299,
+        "score": 1,
+        "querySnippet": "81573723) and the Kaibao Pharm. Effects and safety of tanreqing injection on viral pneumonia: A protocol for systematic …",
+        "sourceSnippet": "Effects and safety of tanreqing injection on viral pneumonia: A protocol for systematic review and meta-analysis. Medici…"
+      },
+      {
+        "queryOffset": 1271,
+        "sourceOffset": 1148,
+        "score": 1,
+        "querySnippet": "y2017001, GH2018001. The total effective rate of clinical ef fi cacy will be used as primary outcome.",
+        "sourceSnippet": "The total effective rate of clinical ef fi cacy will be used as primary outcome."
+      },
+      {
+        "queryOffset": 1292,
+        "sourceOffset": 1439,
+        "score": 1,
+        "querySnippet": "The total effective rate of clinical ef fi cacy will be used as primary outcome. Study inclusion, data extraction, and q…",
+        "sourceSnippet": "Study inclusion, data extraction, and quality assessment will be performed independently by 2 reviewers, and any disagre…"
+      },
+      {
+        "queryOffset": 1537,
+        "sourceOffset": 3992,
+        "score": 1,
+        "querySnippet": "Received: 16 July 2020 / Accepted: 20 July 2020 http://dx.doi.org/10.1097/MD.0000000000021808 Study Protocol Systematic …",
+        "sourceSnippet": "This is an open access article distributed under the Creative Commons Attribution License 4.0 (CCBY), which permits unre…"
+      },
+      {
+        "queryOffset": 1996,
+        "sourceOffset": 1229,
+        "score": 1,
+        "querySnippet": "Time to relieve symptoms, incidence of adverse reactions, and the laboratory parameters will be used as secondary outcom…",
+        "sourceSnippet": "Time to relieve symptoms, incidence of adverse reactions, and the laboratory parameters will be used as secondary outcom…"
+      },
+      {
+        "queryOffset": 2298,
+        "sourceOffset": 3804,
+        "score": 1,
+        "querySnippet": "No. 16, Nanxiao Road, Dongzhimen, Dongcheng District, Beijing 100700, China (e-mail: prof.wangyi@foxmail.com). Keywords:…",
+        "sourceSnippet": "No. 16, Nanxiao Road, Dongzhimen, Dongcheng District, Beijing 100700, China (e-mail: prof.wangyi@foxmail.com)."
+      },
+      {
+        "queryOffset": 2478,
+        "sourceOffset": 767,
+        "score": 1,
+        "querySnippet": "Prospero registration number: PROSPERO CRD42020164164 Abbreviations: RCTs = randomized controlled trials, TCM = traditio…",
+        "sourceSnippet": "Methods: Only randomized controlled trials will be enrolled in our study, and we will search eligible studies in the fol…"
+      }
+    ],
+    "skipped": false
+  },
+  {
+    "method": "semantic",
+    "pairId": "C3",
+    "queryFile": "c3-sentence-shuffle.txt",
+    "sourceFile": "liu-2020-e21808.pdf",
+    "queryRole": "QUERY",
+    "sourceRole": "SOURCE",
+    "totalAlerts": 367,
+    "informativeAlerts": 367,
+    "queryCharCoverage": 0.8662,
+    "coveredQueryChars": 19193,
+    "totalQueryChars": 22158,
+    "top10Alerts": [
+      {
+        "queryOffset": 2298,
+        "sourceOffset": 3804,
+        "score": 1,
+        "querySnippet": "No. 16, Nanxiao Road, Dongzhimen, Dongcheng District, Beijing 100700, China (e-mail: prof.wangyi@foxmail.com).",
+        "sourceSnippet": "No. 16, Nanxiao Road, Dongzhimen, Dongcheng District, Beijing 100700, China (e-mail: prof.wangyi@foxmail.com)."
+      },
+      {
+        "queryOffset": 2298,
+        "sourceOffset": 3808,
+        "score": 1,
+        "querySnippet": "No. 16, Nanxiao Road, Dongzhimen, Dongcheng District, Beijing 100700, China (e-mail: prof.wangyi@foxmail.com).",
+        "sourceSnippet": "16, Nanxiao Road, Dongzhimen, Dongcheng District, Beijing 100700, China (e-mail: prof.wangyi@foxmail.com)."
+      },
+      {
+        "queryOffset": 3707,
+        "sourceOffset": 3564,
+        "score": 1,
+        "querySnippet": "The northeast corner of the intersection of Sunshine South Street and Baiyang East Road, Fangshan District, Beijing 1024…",
+        "sourceSnippet": "The northeast corner of the intersection of Sunshine South Street and Baiyang East Road, Fangshan District, Beijing 1024…"
+      },
+      {
+        "queryOffset": 4033,
+        "sourceOffset": 4218,
+        "score": 1,
+        "querySnippet": "How to cite this article: Liu H, Ding XF, Guo R, Zhao MF, Deng D, Hao Y, Wang Y. Copyright © 2020 the Author(s).",
+        "sourceSnippet": "How to cite this article: Liu H, Ding XF, Guo R, Zhao MF, Deng D, Hao Y, Wang Y."
+      },
+      {
+        "queryOffset": 4961,
+        "sourceOffset": 9314,
+        "score": 1,
+        "querySnippet": "Patients in both treatment and control group undergo basic symptomatic treatment such as pyretolysis, alleviating cough,…",
+        "sourceSnippet": "The primary outcome will be the total effective rate of clinical ef fi cacy (number of people curative and effective/tot…"
+      },
+      {
+        "queryOffset": 5811,
+        "sourceOffset": 5603,
+        "score": 1,
+        "querySnippet": "[6 – 10] Tanreqing (TRQ) injection is one of the important TCM injection, which includes extracts from Flos Lonicerae (L…",
+        "sourceSnippet": "Traditional Chinese Medicine (TCM) has been shown its unique advantages in treating respiratory diseases for thousands o…"
+      },
+      {
+        "queryOffset": 6272,
+        "sourceOffset": 6140,
+        "score": 1,
+        "querySnippet": "[12] Except for those functions in TCM theory, modern pharmacologic studies con fi rmed that TRQ injection can protect a…",
+        "sourceSnippet": "Hard-wicke ), [11] has marked effects of clearing heat, reducing in fl ammation, detoxi fi cation and allevi- ating coug…"
+      },
+      {
+        "queryOffset": 7176,
+        "sourceOffset": 9127,
+        "score": 1,
+        "querySnippet": "Secondary outcomes. Under normal conditions, patients in control group will be treated with western medicine (antibiotic…",
+        "sourceSnippet": "Under normal conditions, patients in control group will be treated with western medicine (antibiotics or antiviral drugs…"
+      },
+      {
+        "queryOffset": 7573,
+        "sourceOffset": 4919,
+        "score": 1,
+        "querySnippet": "We will include studies on patients of any age, race, gender, severity, and duration of disease, who are diagnosed with …",
+        "sourceSnippet": "If uncontrolled well, respiratory distress syndrome, and shock may be caused secondarily to these symptoms and even caus…"
+      },
+      {
+        "queryOffset": 10282,
+        "sourceOffset": 8507,
+        "score": 1,
+        "querySnippet": "Exclusion criteria. (1) Critical organ dysfunction, such as severe cardiopulmonary dysfunction, hepatic or kidney failur…",
+        "sourceSnippet": "3.1.2.2. Exclusion criteria. (1) Critical organ dysfunction, such as severe cardiopulmonary dysfunction, hepatic or kidn…"
+      }
+    ],
+    "skipped": false
+  },
+  {
+    "method": "hybrid",
+    "pairId": "C3",
+    "queryFile": "c3-sentence-shuffle.txt",
+    "sourceFile": "liu-2020-e21808.pdf",
+    "queryRole": "QUERY",
+    "sourceRole": "SOURCE",
+    "totalAlerts": 202,
+    "informativeAlerts": 202,
+    "queryCharCoverage": 0.8296,
+    "coveredQueryChars": 18383,
+    "totalQueryChars": 22158,
+    "top10Alerts": [
+      {
+        "queryOffset": 2298,
+        "sourceOffset": 3804,
+        "score": 1,
+        "querySnippet": "No. 16, Nanxiao Road, Dongzhimen, Dongcheng District, Beijing 100700, China (e-mail: prof.wangyi@foxmail.com).",
+        "sourceSnippet": "No. 16, Nanxiao Road, Dongzhimen, Dongcheng District, Beijing 100700, China (e-mail: prof.wangyi@foxmail.com)."
+      },
+      {
+        "queryOffset": 2298,
+        "sourceOffset": 3808,
+        "score": 1,
+        "querySnippet": "No. 16, Nanxiao Road, Dongzhimen, Dongcheng District, Beijing 100700, China (e-mail: prof.wangyi@foxmail.com).",
+        "sourceSnippet": "16, Nanxiao Road, Dongzhimen, Dongcheng District, Beijing 100700, China (e-mail: prof.wangyi@foxmail.com)."
+      },
+      {
+        "queryOffset": 3707,
+        "sourceOffset": 3564,
+        "score": 1,
+        "querySnippet": "The northeast corner of the intersection of Sunshine South Street and Baiyang East Road, Fangshan District, Beijing 1024…",
+        "sourceSnippet": "The northeast corner of the intersection of Sunshine South Street and Baiyang East Road, Fangshan District, Beijing 1024…"
+      },
+      {
+        "queryOffset": 4033,
+        "sourceOffset": 4218,
+        "score": 1,
+        "querySnippet": "How to cite this article: Liu H, Ding XF, Guo R, Zhao MF, Deng D, Hao Y, Wang Y. Copyright © 2020 the Author(s).",
+        "sourceSnippet": "How to cite this article: Liu H, Ding XF, Guo R, Zhao MF, Deng D, Hao Y, Wang Y."
+      },
+      {
+        "queryOffset": 4961,
+        "sourceOffset": 9314,
+        "score": 1,
+        "querySnippet": "Patients in both treatment and control group undergo basic symptomatic treatment such as pyretolysis, alleviating cough,…",
+        "sourceSnippet": "The primary outcome will be the total effective rate of clinical ef fi cacy (number of people curative and effective/tot…"
+      },
+      {
+        "queryOffset": 5811,
+        "sourceOffset": 5603,
+        "score": 1,
+        "querySnippet": "[6 – 10] Tanreqing (TRQ) injection is one of the important TCM injection, which includes extracts from Flos Lonicerae (L…",
+        "sourceSnippet": "Traditional Chinese Medicine (TCM) has been shown its unique advantages in treating respiratory diseases for thousands o…"
+      },
+      {
+        "queryOffset": 6272,
+        "sourceOffset": 6140,
+        "score": 1,
+        "querySnippet": "[12] Except for those functions in TCM theory, modern pharmacologic studies con fi rmed that TRQ injection can protect a…",
+        "sourceSnippet": "Hard-wicke ), [11] has marked effects of clearing heat, reducing in fl ammation, detoxi fi cation and allevi- ating coug…"
+      },
+      {
+        "queryOffset": 7176,
+        "sourceOffset": 9127,
+        "score": 1,
+        "querySnippet": "Secondary outcomes. Under normal conditions, patients in control group will be treated with western medicine (antibiotic…",
+        "sourceSnippet": "Under normal conditions, patients in control group will be treated with western medicine (antibiotics or antiviral drugs…"
+      },
+      {
+        "queryOffset": 7573,
+        "sourceOffset": 4919,
+        "score": 1,
+        "querySnippet": "We will include studies on patients of any age, race, gender, severity, and duration of disease, who are diagnosed with …",
+        "sourceSnippet": "If uncontrolled well, respiratory distress syndrome, and shock may be caused secondarily to these symptoms and even caus…"
+      },
+      {
+        "queryOffset": 10282,
+        "sourceOffset": 8507,
+        "score": 1,
+        "querySnippet": "Exclusion criteria. (1) Critical organ dysfunction, such as severe cardiopulmonary dysfunction, hepatic or kidney failur…",
+        "sourceSnippet": "3.1.2.2. Exclusion criteria. (1) Critical organ dysfunction, such as severe cardiopulmonary dysfunction, hepatic or kidn…"
+      }
+    ],
+    "skipped": false
+  },
+  {
+    "method": "lexical",
+    "pairId": "C4-light",
+    "queryFile": "c4-light-auto-paraphrase.txt",
+    "sourceFile": "liu-2020-e21808.pdf",
+    "queryRole": "QUERY",
+    "sourceRole": "SOURCE",
+    "totalAlerts": 4,
+    "informativeAlerts": 4,
+    "queryCharCoverage": 0.7972,
+    "coveredQueryChars": 18190,
+    "totalQueryChars": 22816,
+    "top10Alerts": [
+      {
+        "queryOffset": 653,
+        "sourceOffset": 51,
+        "score": 1,
+        "querySnippet": "pneumonia A protocol for systematic review and meta-analysis Hui Liu, PhD a , Xue-Fei Ding, MM b , Rui Guo, PhD a , Meng…",
+        "sourceSnippet": "pneumonia A protocol for systematic review and meta-analysis Hui Liu, PhD a , Xue-Fei Ding, MM b , Rui Guo, PhD a , Meng…"
+      },
+      {
+        "queryOffset": 5291,
+        "sourceOffset": 4654,
+        "score": 1,
+        "querySnippet": "viruses, in fl uenza viruses, parain fl uenza viruses, adenoviruses, human metapneumovirus, coronaviruses, and respirato…",
+        "sourceSnippet": "viruses, in fl uenza viruses, parain fl uenza viruses, adenoviruses, human metapneumovirus, coronaviruses, and respirato…"
+      },
+      {
+        "queryOffset": 17030,
+        "sourceOffset": 16430,
+        "score": 1,
+        "querySnippet": "Grading the quality of evidence. The Grading of Recommendations Assessment, Development, and Evaluation Liu et al. Medic…",
+        "sourceSnippet": "Liu et al. Medicine (2020) 99:35 www.md-journal.com 3 guidelines will be used to evaluate the quality of evidence. [21] …"
+      },
+      {
+        "queryOffset": 16222,
+        "sourceOffset": 15766,
+        "score": 0.9268,
+        "querySnippet": "Subgroup analysis. If a suf fi cient number of random trials and the evident heterogeneity are identi fi ed, we will per…",
+        "sourceSnippet": "and the elderly; (2) The ef fi cacy of TRQ alone versus western medicine or combined with western medicine vs western me…"
+      }
+    ],
+    "skipped": false
+  },
+  {
+    "method": "semantic",
+    "pairId": "C4-light",
+    "queryFile": "c4-light-auto-paraphrase.txt",
+    "sourceFile": "liu-2020-e21808.pdf",
+    "queryRole": "QUERY",
+    "sourceRole": "SOURCE",
+    "totalAlerts": 267,
+    "informativeAlerts": 267,
+    "queryCharCoverage": 0.7972,
+    "coveredQueryChars": 18190,
+    "totalQueryChars": 22816,
+    "top10Alerts": [
+      {
+        "queryOffset": 3070,
+        "sourceOffset": 2525,
+        "score": 1,
+        "querySnippet": "[1,2] In the recent prospective pneumonia etiology studies, respiratory viruses were more commonly detected than bacteri…",
+        "sourceSnippet": "viruses were more commonly detected than bacteria in both adults and children, accounting for greater than 25% of detect…"
+      },
+      {
+        "queryOffset": 3407,
+        "sourceOffset": 2780,
+        "score": 1,
+        "querySnippet": "This study was supported by the National Natural Science Foundation of China (No. 81573723) and the Kaibao Pharm. Compan…",
+        "sourceSnippet": "This study was supported by the National Natural Science Foundation of China (No. 81573723) and the Kaibao Pharm. Compan…"
+      },
+      {
+        "queryOffset": 4438,
+        "sourceOffset": 3808,
+        "score": 1,
+        "querySnippet": "No. 16, Nanxiao Road, Dongzhimen, Dongcheng District, Beijing 100700, China (e-mail: prof.wangyi@foxmail.com). Copyright…",
+        "sourceSnippet": "16, Nanxiao Road, Dongzhimen, Dongcheng District, Beijing 100700, China (e-mail: prof.wangyi@foxmail.com). Copyright © 2…"
+      },
+      {
+        "queryOffset": 4442,
+        "sourceOffset": 3804,
+        "score": 1,
+        "querySnippet": "16, Nanxiao Road, Dongzhimen, Dongcheng District, Beijing 100700, China (e-mail: prof.wangyi@foxmail.com). Copyright © 2…",
+        "sourceSnippet": "No. 16, Nanxiao Road, Dongzhimen, Dongcheng District, Beijing 100700, China (e-mail: prof.wangyi@foxmail.com). Copyright…"
+      },
+      {
+        "queryOffset": 6444,
+        "sourceOffset": 5603,
+        "score": 1,
+        "querySnippet": "[6 – 10] Tanreqing (TRQ) injection is one of the important TCM injection, which includes extracts from Flos Lonicerae (L…",
+        "sourceSnippet": "Traditional Chinese Medicine (TCM) has been shown its unique advantages in treating respiratory diseases for thousands o…"
+      },
+      {
+        "queryOffset": 6905,
+        "sourceOffset": 6140,
+        "score": 1,
+        "querySnippet": "[12] Except for those functions in TCM theory, modern pharmacologic studies con fi rmed that TRQ injection can protect a…",
+        "sourceSnippet": "Hard-wicke ), [11] has marked effects of clearing heat, reducing in fl ammation, detoxi fi cation and allevi- ating coug…"
+      },
+      {
+        "queryOffset": 8731,
+        "sourceOffset": 8189,
+        "score": 1,
+        "querySnippet": "Participants with critical organ dysfunction or severe mental disorders will be excluded. Additionally, patients with at…",
+        "sourceSnippet": "Additionally, patients with atopy will be excluded. The speci fi c criteria are as follows: 3.1.2.1. Inclusion criteria.…"
+      },
+      {
+        "queryOffset": 8983,
+        "sourceOffset": 8431,
+        "score": 1,
+        "querySnippet": "(2) The age, race, gender, severity, and duration of disease are not limited. (3) Informed consents were got from subjec…",
+        "sourceSnippet": "(3) Informed consents were got from patients themselves or their families. 3.1.2.2. Exclusion criteria. (1) Critical org…"
+      },
+      {
+        "queryOffset": 9309,
+        "sourceOffset": 8600,
+        "score": 1,
+        "querySnippet": "(2) Severe mental disorders or any other diseases in fl uence compliance. (3) Allergic condition.",
+        "sourceSnippet": "dysfunction, hepatic or kidney failure, or serious uncon- trolled infection. (2) Severe mental disorders or any other di…"
+      },
+      {
+        "queryOffset": 9613,
+        "sourceOffset": 8983,
+        "score": 1,
+        "querySnippet": "In the treatment group, the intervention will be TRQ injection or TRQ injection plus western medicine (antibiotics or an…",
+        "sourceSnippet": "In the treatment group, the intervention will be TRQ injection or TRQ injection plus western medicine (antibiotics or an…"
+      }
+    ],
+    "skipped": false
+  },
+  {
+    "method": "hybrid",
+    "pairId": "C4-light",
+    "queryFile": "c4-light-auto-paraphrase.txt",
+    "sourceFile": "liu-2020-e21808.pdf",
+    "queryRole": "QUERY",
+    "sourceRole": "SOURCE",
+    "totalAlerts": 156,
+    "informativeAlerts": 156,
+    "queryCharCoverage": 0.7914,
+    "coveredQueryChars": 18057,
+    "totalQueryChars": 22816,
+    "top10Alerts": [
+      {
+        "queryOffset": 3407,
+        "sourceOffset": 2780,
+        "score": 1,
+        "querySnippet": "This study was supported by the National Natural Science Foundation of China (No. 81573723) and the Kaibao Pharm. Compan…",
+        "sourceSnippet": "This study was supported by the National Natural Science Foundation of China (No. 81573723) and the Kaibao Pharm. Compan…"
+      },
+      {
+        "queryOffset": 4438,
+        "sourceOffset": 3808,
+        "score": 1,
+        "querySnippet": "No. 16, Nanxiao Road, Dongzhimen, Dongcheng District, Beijing 100700, China (e-mail: prof.wangyi@foxmail.com). Copyright…",
+        "sourceSnippet": "16, Nanxiao Road, Dongzhimen, Dongcheng District, Beijing 100700, China (e-mail: prof.wangyi@foxmail.com). Copyright © 2…"
+      },
+      {
+        "queryOffset": 4442,
+        "sourceOffset": 3804,
+        "score": 1,
+        "querySnippet": "16, Nanxiao Road, Dongzhimen, Dongcheng District, Beijing 100700, China (e-mail: prof.wangyi@foxmail.com). Copyright © 2…",
+        "sourceSnippet": "No. 16, Nanxiao Road, Dongzhimen, Dongcheng District, Beijing 100700, China (e-mail: prof.wangyi@foxmail.com). Copyright…"
+      },
+      {
+        "queryOffset": 4585,
+        "sourceOffset": 3992,
+        "score": 1,
+        "querySnippet": "Published by Wolters Kluwer Health, Inc. This is an open access article distributed under the Creative Commons Attributi…",
+        "sourceSnippet": "This is an open access article distributed under the Creative Commons Attribution License 4.0 (CCBY), which permits unre…"
+      },
+      {
+        "queryOffset": 6444,
+        "sourceOffset": 5603,
+        "score": 1,
+        "querySnippet": "[6 – 10] Tanreqing (TRQ) injection is one of the important TCM injection, which includes extracts from Flos Lonicerae (L…",
+        "sourceSnippet": "Traditional Chinese Medicine (TCM) has been shown its unique advantages in treating respiratory diseases for thousands o…"
+      },
+      {
+        "queryOffset": 6905,
+        "sourceOffset": 6140,
+        "score": 1,
+        "querySnippet": "[12] Except for those functions in TCM theory, modern pharmacologic studies con fi rmed that TRQ injection can protect a…",
+        "sourceSnippet": "Hard-wicke ), [11] has marked effects of clearing heat, reducing in fl ammation, detoxi fi cation and allevi- ating coug…"
+      },
+      {
+        "queryOffset": 8731,
+        "sourceOffset": 8189,
+        "score": 1,
+        "querySnippet": "Participants with critical organ dysfunction or severe mental disorders will be excluded. Additionally, patients with at…",
+        "sourceSnippet": "Additionally, patients with atopy will be excluded. The speci fi c criteria are as follows: 3.1.2.1. Inclusion criteria.…"
+      },
+      {
+        "queryOffset": 8821,
+        "sourceOffset": 8099,
+        "score": 1,
+        "querySnippet": "Additionally, patients with atopy will be excluded. The speci fi c criteria are as follows: 3.1.2.1. Inclusion criteria.…",
+        "sourceSnippet": "Participants with critical organ dysfunction or severe mental disorders will be excluded. Additionally, patients with at…"
+      },
+      {
+        "queryOffset": 9309,
+        "sourceOffset": 8600,
+        "score": 1,
+        "querySnippet": "(2) Severe mental disorders or any other diseases in fl uence compliance. (3) Allergic condition.",
+        "sourceSnippet": "dysfunction, hepatic or kidney failure, or serious uncon- trolled infection. (2) Severe mental disorders or any other di…"
+      },
+      {
+        "queryOffset": 9613,
+        "sourceOffset": 9127,
+        "score": 1,
+        "querySnippet": "In the treatment group, the intervention will be TRQ injection or TRQ injection plus western medicine (antibiotics or an…",
+        "sourceSnippet": "Under normal conditions, patients in control group will be treated with western medicine (antibiotics or antiviral drugs…"
+      }
+    ],
+    "skipped": false
+  },
+  {
+    "method": "lexical",
+    "pairId": "N1",
+    "queryFile": "zhu-2020-e22356.pdf",
+    "sourceFile": "liu-2020-e21808.pdf",
+    "queryRole": "QUERY",
+    "sourceRole": "SOURCE",
+    "skipped": true,
+    "skipReason": "zhu-2020-e22356.pdf not found"
+  },
+  {
+    "method": "semantic",
+    "pairId": "N1",
+    "queryFile": "zhu-2020-e22356.pdf",
+    "sourceFile": "liu-2020-e21808.pdf",
+    "queryRole": "QUERY",
+    "sourceRole": "SOURCE",
+    "skipped": true,
+    "skipReason": "zhu-2020-e22356.pdf not found"
+  },
+  {
+    "method": "hybrid",
+    "pairId": "N1",
+    "queryFile": "zhu-2020-e22356.pdf",
+    "sourceFile": "liu-2020-e21808.pdf",
+    "queryRole": "QUERY",
+    "sourceRole": "SOURCE",
+    "skipped": true,
+    "skipReason": "zhu-2020-e22356.pdf not found"
+  },
+  {
+    "method": "lexical",
+    "pairId": "N2",
+    "queryFile": "tanreqing-2020-pmc7458256.pdf",
+    "sourceFile": "liu-2020-e21808.pdf",
+    "queryRole": "QUERY",
+    "sourceRole": "SOURCE",
+    "skipped": true,
+    "skipReason": "tanreqing-2020-pmc7458256.pdf not found"
+  },
+  {
+    "method": "semantic",
+    "pairId": "N2",
+    "queryFile": "tanreqing-2020-pmc7458256.pdf",
+    "sourceFile": "liu-2020-e21808.pdf",
+    "queryRole": "QUERY",
+    "sourceRole": "SOURCE",
+    "skipped": true,
+    "skipReason": "tanreqing-2020-pmc7458256.pdf not found"
+  },
+  {
+    "method": "hybrid",
+    "pairId": "N2",
+    "queryFile": "tanreqing-2020-pmc7458256.pdf",
+    "sourceFile": "liu-2020-e21808.pdf",
+    "queryRole": "QUERY",
+    "sourceRole": "SOURCE",
+    "skipped": true,
+    "skipReason": "tanreqing-2020-pmc7458256.pdf not found"
+  }
+]

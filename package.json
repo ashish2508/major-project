@@ -23,7 +23,8 @@
     "validate:research-papers": "bun scripts/research-paper-validation.ts",
     "reproduce": "bun run validate:dataset && bun run prepare:splits && bun scripts/provider.ts && bun run benchmark && bun run report:research",
     "acceptance-test": "bun scripts/acceptance-test.ts",
-    "acceptance-test:real-world": "bun scripts/real-world-acceptance.ts"
+    "acceptance-test:real-world": "bun scripts/real-world-acceptance.ts",
+    "eval:papers": "bun run scripts/eval-papers.ts"
   },
   "dependencies": {
     "@huggingface/transformers": "^4.3.2",
