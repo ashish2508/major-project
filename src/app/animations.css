@@ -1,0 +1,163 @@
+/* Animation and Interaction Optimization */
+
+/* Ensure 60fps animations with will-change and transform */
+@keyframes evidence-enter {
+  from {
+    opacity: 0;
+    transform: translateY(7px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes evidence-emphasis {
+  from {
+    background: #f9a28e;
+  }
+  to {
+    background: #ffcabd;
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Apply will-change sparingly to animated elements */
+.result-banner {
+  animation: evidence-enter 250ms ease-out both;
+  will-change: opacity, transform;
+}
+
+.review-lead {
+  animation: evidence-enter 300ms 80ms ease-out both;
+  will-change: opacity, transform;
+}
+
+.match-list {
+  animation: evidence-enter 300ms 100ms ease-out both;
+}
+
+.text-panel mark {
+  animation: evidence-emphasis 650ms ease-out both;
+  will-change: background;
+}
+
+/* Smooth transitions without forced layout recalculations */
+.method-option {
+  transition: transform 150ms ease, border-color 150ms ease, box-shadow 150ms ease, background 150ms ease;
+}
+
+.method-option:hover {
+  transform: translateY(-2px);
+}
+
+.match-card {
+  transition: transform 140ms ease, border-color 140ms ease, box-shadow 140ms ease;
+}
+
+.match-card:hover {
+  transform: translateY(-1px);
+}
+
+.match-card.active {
+  transform: none;
+}
+
+.primary-button {
+  transition: transform 140ms ease, background 140ms ease, box-shadow 140ms ease;
+  transform: translateZ(0);
+}
+
+.primary-button:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+.secondary-button {
+  transition: transform 140ms ease, background 140ms ease, border-color 140ms ease, box-shadow 140ms ease;
+}
+
+.secondary-button:hover {
+  transform: translateY(-1px);
+}
+
+.corpus-upload-btn {
+  transition: transform 140ms ease, background 140ms ease, border-color 140ms ease, box-shadow 140ms ease;
+}
+
+.corpus-upload-btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+.corpus-btn-sm {
+  transition: transform 140ms ease, background 140ms ease, border-color 140ms ease, box-shadow 140ms ease;
+}
+
+.corpus-btn-sm:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+.corpus-reset-button {
+  transition: background 140ms ease, border-color 140ms ease;
+}
+
+.corpus-reset-button:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+/* Prevent layout shift on scroll */
+.text-panel pre {
+  scroll-behavior: smooth;
+}
+
+/* Reduce motion respect */
+@media (prefers-reduced-motion: reduce) {
+  .animated-score {
+    display: none;
+  }
+
+  .static-score {
+    position: static;
+    clip-path: none;
+  }
+
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* Prevent stale closures in animations */
+.nav-tab,
+.corpus-target-card,
+.file-label {
+  transition: all 0.15s ease-in-out;
+}
+
+.nav-tab:hover {
+  color: var(--ink);
+}
+
+.file-label:hover {
+  border-color: var(--teal);
+  background: #f0f6f0;
+}
+
+.corpus-upload-box:hover {
+  border-color: var(--teal);
+  background: #f8fbf9;
+}
+
+/* No forced synchronous layouts - use CSS transforms only */
+.spinner {
+  animation: spin 1s linear infinite;
+  will-change: transform;
+  transform: translateZ(0);
+}

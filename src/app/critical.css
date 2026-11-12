@@ -1,4 +1,5 @@
 @import 'tailwindcss/preflight.css';
+@import './animations.css';
 
 :root {
   --ink: #284f48;
