@@ -1,7 +1,0 @@
-$ next build
-▲ Next.js 16.4.5 (Turbopack)
-✓ Running next.config.ts took 71ms
-- Cache Components enabled
-- Partial Prefetching enabled
-
-  Creating an optimized production build ...

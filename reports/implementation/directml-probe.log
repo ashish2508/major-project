@@ -1,4 +1,0 @@
-{"pid":2844,"ort":{"common":"1.30.0","node":"1.30.0"},"backends":[{"name":"cpu","bundled":true},{"name":"dml","bundled":true},{"name":"webgpu","bundled":true}],"runtime":"v24.18.0"}
-{"device":"dml","loadMs":511.34709999999995,"count":51,"medianMs":88.32409999999982,"providers":["DmlExecutionProvider","CPUExecutionProvider"],"dimensions":[16,384]}
-{"device":"cpu","loadMs":125.53529999999955,"count":3,"medianMs":185.46380000000045,"providers":["CPUExecutionProvider"],"dimensions":[16,384]}
-{"maxAbs":1.1548399925231934e-7}

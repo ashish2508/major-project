@@ -1,6 +1,10 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+# Generated research benchmark caches
+/reports/implementation/**/cache/inventory.json
+/reports/implementation/**/cache/embeddings-*.f32
+/reports/implementation/**/cache/embeddings-*.json
 
-# dependencies
+
+
 /node_modules
 /.pnp
 .pnp.*
