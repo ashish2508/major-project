@@ -4,6 +4,7 @@ import type { FormEvent } from 'react';
 import { useState } from 'react';
 import type { CorpusStats } from '@/lib/corpus/types';
 import type { Method, DetectionConfig } from '@/lib/detection/detector';
+import researchPaperParameters from '../../research-paper-parameters.json';
 import ResetCorpusButton from './ResetCorpusButton';
 
 const METHODS: { id: Method; name: string; description: string }[] = [
@@ -41,10 +42,14 @@ export default function AnalysisForm({
   const [method, setMethod] = useState<Method>('hybrid');
   const [compareTarget, setCompareTarget] = useState<'corpus' | 'manual'>('corpus');
 
-  const config = status?.configs?.[method];
+  const config =
+    compareTarget === 'corpus'
+      ? status?.configs?.[method]
+      : researchPaperParameters.methods[method];
 
   return (
     <form onSubmit={onSubmit} className="workspace" aria-label="Document comparison">
+      <input type="hidden" name="useCorpus" value={compareTarget === 'corpus' ? 'true' : 'false'} />
       <fieldset disabled={busy || resetBusy} className="form-fieldset">
         <div className="section-heading">
           <span className="step">01</span>
@@ -68,27 +73,23 @@ export default function AnalysisForm({
             </label>
           ))}
         </div>
-        <p className="calibration-note">
-          {config ? (
-            <>
-              Validation-selected threshold: <b>{config.threshold.toFixed(2)}</b>
-              {method === 'hybrid' && (
-                <>
-                  {' '}
-                  · lexical weight α = <b>{config.alpha.toFixed(2)}</b>
-                  {(config.alpha === 1 || config.alpha === 0) && (
-                    <>
-                      . This selection reduces to the {config.alpha === 1 ? 'lexical' : 'semantic'}{' '}
-                      baseline.
-                    </>
-                  )}
-                </>
-              )}
-            </>
-          ) : (
-            'Checking local calibration artifacts…'
-          )}
-        </p>
+        {config && (
+          <p className="calibration-note">
+            Validation-selected threshold: <b>{config.threshold.toFixed(2)}</b>
+            {method === 'hybrid' && (
+              <>
+                {' '}
+                · lexical weight α = <b>{config.alpha.toFixed(2)}</b>
+                {(config.alpha === 1 || config.alpha === 0) && (
+                  <>
+                    . This selection reduces to the {config.alpha === 1 ? 'lexical' : 'semantic'}{' '}
+                    baseline.
+                  </>
+                )}
+              </>
+            )}
+          </p>
+        )}
 
         <div className="section-heading document-heading">
           <span className="step">02</span>

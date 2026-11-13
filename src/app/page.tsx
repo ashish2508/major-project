@@ -23,8 +23,15 @@ const ResultsView = dynamic(() => import('@/components/ResultsView'), {
 });
 
 export default function Home() {
-  const { activeTab, setActiveTab, pdfLinks, setPdfLinks, analysisTarget, setAnalysisTarget } =
-    useUIState();
+  const {
+    activeTab,
+    setActiveTab,
+    pdfLinks,
+    setPdfLinks,
+    analysisTarget,
+    setAnalysisTarget,
+    status,
+  } = useUIState();
   const {
     busy,
     setBusy,
@@ -39,8 +46,20 @@ export default function Home() {
     active,
     setActive,
   } = useAnalysisState();
-  const { corpusDocs, corpusStats, corpusLoading, ingestBusy, resetBusy, ingestMessage, ingestError, refreshCorpus, setIngestBusy, setIngestMessage, setIngestError, setResetBusy } =
-    useCorpusState();
+  const {
+    corpusDocs,
+    corpusStats,
+    corpusLoading,
+    ingestBusy,
+    resetBusy,
+    ingestMessage,
+    ingestError,
+    refreshCorpus,
+    setIngestBusy,
+    setIngestMessage,
+    setIngestError,
+    setResetBusy,
+  } = useCorpusState();
   const { method } = useFormState();
 
   async function submit(event: FormEvent<HTMLFormElement>) {
@@ -250,7 +269,7 @@ export default function Home() {
               busy={busy}
               resetBusy={resetBusy}
               error={error}
-              status={null}
+              status={status}
               onCorpusReset={handleCorpusReset}
               onTabChange={setActiveTab}
             />
@@ -258,11 +277,7 @@ export default function Home() {
           </div>
         )}
 
-        {busy && (
-          <p role="status">
-            Analysing with {runningMethod} · Test elapsed time display
-          </p>
-        )}
+        {busy && <p role="status">Analysing with {runningMethod}</p>}
 
         {result && activeTab === 'analyze' && (
           <ResultsView

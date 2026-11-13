@@ -110,6 +110,9 @@ export default function ResultsView({
   const selectedSource = chosen
     ? result?.sources.find((s) => s.reference === chosen.sourceReference)
     : result?.sources[0];
+  const analysisDuration = analyses.length
+    ? Math.max(...analyses.map((analysis) => analysis.elapsedSeconds))
+    : result.elapsedSeconds;
 
   function download() {
     const url = URL.createObjectURL(
@@ -130,12 +133,7 @@ export default function ResultsView({
       aria-live="polite"
     >
       <h2>Analysis summary</h2>
-      <p>
-        {analysisTarget} · {result.passages.query} query passages · {result.passages.sources} source
-        passages searched · {new Set(result.sources.map((s) => s.reference)).size} unique source
-        documents · {analyses.reduce((sum, r) => sum + r.elapsedSeconds, 0).toFixed(2)} seconds
-        total
-      </p>
+      <p>Analysis took {analysisDuration.toFixed(2)} seconds.</p>
       <div className="method-options" aria-label="Results by detection method">
         {analyses.map((analysis) => (
           <button
