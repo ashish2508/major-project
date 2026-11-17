@@ -10,6 +10,7 @@ import { useUIState } from '@/hooks/useUIState';
 import { useAnalysisState } from '@/hooks/useAnalysisState';
 import { useCorpusState } from '@/hooks/useCorpusState';
 import { useFormState } from '@/hooks/useFormState';
+import type { Method } from '@/lib/detection/detector';
 
 // Dynamic imports for heavy components - lazy loaded on tab click
 const CorpusManager = dynamic(() => import('@/components/CorpusManager'), {
@@ -60,7 +61,14 @@ export default function Home() {
     setIngestError,
     setResetBusy,
   } = useCorpusState();
-  const { method } = useFormState();
+  const { method, setMethod } = useFormState();
+
+  function selectResultMethod(nextMethod: Method) {
+    const selected = analyses.find((analysis) => analysis.method === nextMethod);
+    if (!selected) return;
+    setMethod(nextMethod);
+    setResult(selected);
+  }
 
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -285,7 +293,7 @@ export default function Home() {
             analyses={analyses}
             analysisTarget={analysisTarget}
             pdfLinks={pdfLinks}
-            onMethodChange={() => {}}
+            onMethodChange={selectResultMethod}
             onActiveChange={setActive}
             active={active}
           />

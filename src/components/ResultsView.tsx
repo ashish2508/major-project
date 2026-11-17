@@ -142,8 +142,12 @@ export default function ResultsView({
             className="secondary-button"
             aria-pressed={analysis.method === result.method}
             onClick={() => {
-              onMethodChange(analysis.method as Method);
-              onActiveChange(analysis.detections.length ? 0 : -1);
+              onMethodChange(analysis.method);
+              onActiveChange(
+                analysis.detections.length === 0 && analysis.semanticReviewLeads.length > 0
+                  ? -1
+                  : 0,
+              );
             }}
           >
             {METHODS.find((m) => m.id === analysis.method)?.name} · {analysis.detections.length}{' '}

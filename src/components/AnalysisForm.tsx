@@ -2,6 +2,7 @@
 
 import type { FormEvent } from 'react';
 import { useState } from 'react';
+import { useFormState } from '@/hooks/useFormState';
 import type { CorpusStats } from '@/lib/corpus/types';
 import type { Method, DetectionConfig } from '@/lib/detection/detector';
 import researchPaperParameters from '../../research-paper-parameters.json';
@@ -39,7 +40,7 @@ export default function AnalysisForm({
   onCorpusReset,
   onTabChange,
 }: AnalysisFormProps) {
-  const [method, setMethod] = useState<Method>('hybrid');
+  const { method, setMethod } = useFormState();
   const [compareTarget, setCompareTarget] = useState<'corpus' | 'manual'>('corpus');
 
   const config =
