@@ -82,7 +82,9 @@ export async function parseAnalysisRequest(form: FormData) {
   const sourceFiles = form
     .getAll('sourceFiles')
     .filter((f): f is File => typeof f !== 'string' && f.size > 0);
-  if (queryFiles.length > 1 || Number(Boolean(queryText.trim())) + queryFiles.length !== 1)
+  if (!queryText.trim() && !queryFiles.length)
+    throw new RequestError('Paste text or upload a document to review');
+  if (queryFiles.length > 1 || (queryText.trim() && queryFiles.length))
     throw new RequestError('Provide either pasted query text or one query file');
   if (!useCorpus && !sourceFiles.length && !sourceText.trim())
     throw new RequestError('Provide at least one possible source, or search against your corpus');

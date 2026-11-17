@@ -77,8 +77,18 @@ export default function Home() {
     setResult(null);
     setAnalyses([]);
     try {
-      // Get form data from the event target
-      const formData = new FormData(event.currentTarget);
+      const form = event.currentTarget;
+      const formData = new FormData(form);
+      const useCorpus = formData.get('useCorpus') === 'true';
+      const hasText = (name: string) => Boolean(formData.get(name)?.toString().trim());
+      const hasFile = (name: string) =>
+        formData.getAll(name).some((entry) => entry instanceof File && entry.size > 0);
+      if (!hasText('queryText') && !hasFile('queryFile'))
+        throw new Error('Paste text or upload a document to review');
+      if (hasText('queryText') && hasFile('queryFile'))
+        throw new Error('Provide either pasted query text or one query file');
+      if (!useCorpus && !hasText('sourceText') && !hasFile('sourceFiles'))
+        throw new Error('Provide at least one possible source, or search against your corpus');
 
       // Parallelize all 3 detection method fetches instead of sequential for...of loop
       const methodIds = ['lexical', 'semantic', 'hybrid'] as const;
@@ -87,7 +97,7 @@ export default function Home() {
           methodId === 'lexical' ? 'TF-IDF' : methodId === 'semantic' ? 'MiniLM' : 'Hybrid',
         );
         // Create fresh FormData for each request
-        const data = new FormData(event.currentTarget);
+        const data = new FormData(form);
         data.set('method', methodId);
         const response = await fetch('/api/analyze', { method: 'POST', body: data });
         const body = await response.json();
@@ -98,7 +108,6 @@ export default function Home() {
       const completed = await Promise.all(promises);
 
       const links: Record<string, string> = {};
-      const useCorpus = formData.get('useCorpus') === 'true';
       if (completed[0].query.format === 'pdf') {
         const queryFile = formData.get('queryFile') as File | null;
         if (queryFile) links.query = URL.createObjectURL(queryFile);

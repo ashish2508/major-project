@@ -183,6 +183,8 @@ export function maskBoilerplate(text: string, options?: { pages?: PageInfo[] }):
   const backHeadingMatches: Array<{ start: number; end: number; name: string }> = [];
   let bm: RegExpExecArray | null;
   while ((bm = BACK_MATTER_RE.exec(text)) !== null) {
+    // Preliminary pages can contain these headings before the abstract.
+    if (abstractMatch && bm.index < abstractMatch.index) continue;
     // Find the start of the line containing this heading
     const [lineStart] = expandToLines(text, bm.index, bm.index + bm[0].length);
     backHeadingMatches.push({

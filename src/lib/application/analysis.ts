@@ -2,6 +2,7 @@ import { readFile, readdir } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
 import { resolve, join } from 'node:path';
 import { z } from 'zod';
+import { RequestError } from './request';
 import calibration from '../../../reports/implementation/alignment-fusion/frozen-parameters.json';
 import {
   detect,
@@ -333,7 +334,11 @@ export async function analyzeDocuments(
   );
 
   const mergeGap = config.mergeGap;
-  if (!queries.length) throw new Error('Documents need extractable words');
+  if (!queries.length)
+    throw new RequestError(
+      'The document under review has no text passages left after preprocessing',
+      422,
+    );
 
   let rows;
   let provider = 'TF-IDF on CPU';
@@ -373,14 +378,17 @@ export async function analyzeDocuments(
           source.pages,
         ),
       );
+      if (!sourcePassages.length)
+        throw new RequestError(
+          'The supplied sources have no text passages left after preprocessing',
+          422,
+        );
 
       // Research-paper mode: fit IDF on the actual documents being analysed so
       // domain-specific terms are not out-of-vocabulary.
       const allPassageTexts = [...queries.map((p) => p.text), ...sourcePassages.map((p) => p.text)];
       tfidf = await fitResearchTfidf(allPassageTexts, effectiveSources.length);
     }
-
-    if (!sourcePassages.length) throw new Error('Documents need extractable words');
 
     const lexicalVectors = useCorpus ? await getIndexedPassageVectors(sourcePassages) : undefined;
     rows = retrieveCandidates(
@@ -527,14 +535,17 @@ export async function analyzeDocuments(
           source.pages,
         ),
       );
+      if (!sourcePassages.length)
+        throw new RequestError(
+          'The supplied sources have no text passages left after preprocessing',
+          422,
+        );
       sourceVectors = [];
 
       // Research-paper mode: fit IDF on the actual documents being analysed.
       const allPassageTexts = [...queries.map((p) => p.text), ...sourcePassages.map((p) => p.text)];
       tfidf = await fitResearchTfidf(allPassageTexts, effectiveSources.length);
     }
-
-    if (!sourcePassages.length) throw new Error('Documents need extractable words');
 
     // Embed only query passages (much smaller set)
     const queryTexts = [...new Set(queries.map((p) => p.text))];
